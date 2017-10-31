@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="100" id="KGk-i7-Jjw" customClass="AnserImageCell" customModule="CorrectsPapers" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="339" height="100"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="339" height="99.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IDI-pY-OvN">
+                        <rect key="frame" x="0.0" y="0.0" width="339" height="99.5"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="【第一课】" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="O5U-A3-GRq">
+                                <rect key="frame" x="21" y="8" width="87" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="87" id="cBI-On-WTq"/>
+                                    <constraint firstAttribute="height" constant="21" id="ccR-4x-Cpc"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <color key="textColor" red="0.99955505132675171" green="0.0046750735491514206" blue="0.0062916516326367855" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qsC-pp-TSd">
+                                <rect key="frame" x="21" y="34" width="318" height="56"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="56" id="S7z-3q-XeD"/>
+                                    <constraint firstAttribute="width" constant="318" id="eHY-kQ-0nJ"/>
+                                </constraints>
+                                <mutableString key="text">一、原始人类和文化遗址1、A：北京人（距今约70万到20万年前）和山顶洞人（距今约18000年前）；B：半坡遗址；C：河姆渡遗址；D：元谋人（距今约170万年前）　　2、特点：范围广，数量多。大多集中在长江黄河流域（大江大河流域）　　三、“神州轩辕自古传”　　1、黄帝；炎黄联盟；华夏族2.炎黄联盟打败东方蚩尤部落的涿鹿之战。　　3.神话虽然是对历史事实的加工和想象，但在一定程度上反映了远古社会的情况，保留了一些历史事实，所以神话是我们了解历史事实的宝贵材料。　　【第2课】　　二、先民的居所　　1．干栏式；长江；半地穴式；黄河　　2.（1）这两种房屋中干栏式建在地面之上，而半地穴式房屋建在地面之下。　　（2）因为当地的自然环境不同。南方湿润多雨，土壤潮湿，适合建造干栏式房屋，而北方地区土质疏松，气候干旱，适合建造半地穴式房屋。　　三、治水英雄　　1．开挖沟渠、疏通河道，使洪水沿着沟渠河道顺畅地流入大海。　　2.大禹治水成功后，保障了人民的安全，有利于农业的发展。　　【第3课】　　一、牧野战歌　　1.夏——启；商——汤；周——姬发/周武王2.盘庚迁殷　　3.公元前1064年；是商周两个朝代更替的决定性战役　　三、繁复的宗法关系网　　1.因为乙不是嫡长子，有违宗法制2.丙3.丁为大宗；戊为小宗　　【第4课】　　一、“今天有雨吗？”　　1.商代；甲骨文2.占卜；卜辞3.占卜之风；　　二、铸鼎祭母　　1.BEADC2.司母戊方鼎3.尊、编钟、盘等　　【第6课】　　三、水旱从人，不知饥馑　　1.秦国；李冰父子；都江堰　　2.四川成都平原；都江堰不仅有效控制了水患，还灌溉农田，使成都平原成为“天府之国”。</mutableString>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <color key="textColor" red="0.59601163859999995" green="0.59611696000000003" blue="0.59600502249999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="O5U-A3-GRq" firstAttribute="top" secondItem="IDI-pY-OvN" secondAttribute="top" constant="8" id="KO5-Sr-ImN"/>
+                            <constraint firstItem="qsC-pp-TSd" firstAttribute="top" secondItem="O5U-A3-GRq" secondAttribute="bottom" constant="5" id="R9V-aR-QXp"/>
+                            <constraint firstAttribute="bottom" secondItem="qsC-pp-TSd" secondAttribute="bottom" constant="9.5" id="W2p-ae-Bfh"/>
+                            <constraint firstItem="O5U-A3-GRq" firstAttribute="leading" secondItem="IDI-pY-OvN" secondAttribute="leading" constant="21" id="ahS-gF-aVw"/>
+                            <constraint firstItem="qsC-pp-TSd" firstAttribute="leading" secondItem="O5U-A3-GRq" secondAttribute="leading" id="f79-Kx-oxq"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="IDI-pY-OvN" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="RQB-mq-WYo"/>
+                    <constraint firstAttribute="trailing" secondItem="IDI-pY-OvN" secondAttribute="trailing" id="iHQ-MF-ktd"/>
+                    <constraint firstItem="IDI-pY-OvN" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="mTK-TG-G8h"/>
+                    <constraint firstAttribute="bottom" secondItem="IDI-pY-OvN" secondAttribute="bottom" id="rtB-b5-jGh"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="showAnserView" destination="IDI-pY-OvN" id="NhM-4J-xRI"/>
+            </connections>
+            <point key="canvasLocation" x="-51.5" y="102"/>
+        </tableViewCell>
+    </objects>
+</document>

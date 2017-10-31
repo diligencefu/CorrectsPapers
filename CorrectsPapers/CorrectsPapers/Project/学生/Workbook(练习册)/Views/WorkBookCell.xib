@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="120" id="KGk-i7-Jjw" customClass="WorkBookCell" customModule="CorrectsPapers" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="360" height="120"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="360" height="119.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="workBook" translatesAutoresizingMaskIntoConstraints="NO" id="dlC-pQ-mpc">
+                        <rect key="frame" x="13" y="9" width="80" height="100"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="100" id="V99-68-tbr"/>
+                            <constraint firstAttribute="width" constant="80" id="z5E-7F-VlJ"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="练习册名称练习册名称练习册名 称练习册名称练习册名称练习..." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xZ0-pS-MAB">
+                        <rect key="frame" x="101" y="9" width="236" height="37.5"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="37" id="9eJ-SL-gZk"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bi7-We-b6A">
+                        <rect key="frame" x="101" y="49" width="30" height="18"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="18" id="BiP-0F-5bY"/>
+                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="22" id="aXk-VE-1Qn"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                        <state key="normal" title="语文">
+                            <color key="titleColor" red="0.096586210698761416" green="0.097319232182102131" blue="0.099518296632124303" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        </state>
+                    </button>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kwF-4Q-azp">
+                        <rect key="frame" x="139" y="49" width="67" height="18"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="31" id="Tcn-qL-a9G"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                        <state key="normal" title="六年级下册">
+                            <color key="titleColor" red="0.096586210699999994" green="0.097319232180000007" blue="0.099518296630000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        </state>
+                    </button>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="aI3-H4-1Zy">
+                        <rect key="frame" x="233" y="82" width="124" height="27"/>
+                    </imageView>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yUM-87-unk">
+                        <rect key="frame" x="233" y="82" width="124" height="27"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="124" id="Qgk-44-5wf"/>
+                            <constraint firstAttribute="height" constant="27" id="pkY-6F-Rdk"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                        <state key="normal" title="添加至我的练习册">
+                            <color key="titleColor" red="0.95675891639999999" green="0.95692259069999996" blue="0.95674854519999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        </state>
+                    </button>
+                </subviews>
+                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                <constraints>
+                    <constraint firstItem="bi7-We-b6A" firstAttribute="top" secondItem="xZ0-pS-MAB" secondAttribute="bottom" constant="2.5" id="1wm-fO-3sd"/>
+                    <constraint firstItem="kwF-4Q-azp" firstAttribute="centerY" secondItem="bi7-We-b6A" secondAttribute="centerY" id="Ewq-ly-ql8"/>
+                    <constraint firstItem="xZ0-pS-MAB" firstAttribute="leading" secondItem="dlC-pQ-mpc" secondAttribute="trailing" constant="8" id="FgV-ur-rc7"/>
+                    <constraint firstItem="yUM-87-unk" firstAttribute="centerX" secondItem="aI3-H4-1Zy" secondAttribute="centerX" id="Hwy-YQ-GBC"/>
+                    <constraint firstItem="aI3-H4-1Zy" firstAttribute="height" secondItem="yUM-87-unk" secondAttribute="height" id="O6B-9S-ABK"/>
+                    <constraint firstItem="yUM-87-unk" firstAttribute="trailing" secondItem="H2p-sc-9uM" secondAttribute="trailingMargin" constant="5" id="QlP-bF-gEi"/>
+                    <constraint firstItem="dlC-pQ-mpc" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="5" id="Sw0-MA-pZx"/>
+                    <constraint firstItem="bi7-We-b6A" firstAttribute="leading" secondItem="xZ0-pS-MAB" secondAttribute="leading" id="VeY-Ld-z1w"/>
+                    <constraint firstItem="xZ0-pS-MAB" firstAttribute="top" secondItem="dlC-pQ-mpc" secondAttribute="top" id="aCj-wG-2nb"/>
+                    <constraint firstItem="dlC-pQ-mpc" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="amD-ze-fsI"/>
+                    <constraint firstItem="yUM-87-unk" firstAttribute="centerY" secondItem="aI3-H4-1Zy" secondAttribute="centerY" id="dIF-0a-Zuz"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="dlC-pQ-mpc" secondAttribute="bottom" constant="2.5" id="h4Y-wM-iPX"/>
+                    <constraint firstItem="yUM-87-unk" firstAttribute="bottom" secondItem="dlC-pQ-mpc" secondAttribute="bottom" id="i1G-Zg-Kev"/>
+                    <constraint firstItem="kwF-4Q-azp" firstAttribute="height" secondItem="bi7-We-b6A" secondAttribute="height" id="ovm-qL-JaG"/>
+                    <constraint firstItem="kwF-4Q-azp" firstAttribute="leading" secondItem="bi7-We-b6A" secondAttribute="trailing" constant="8" id="wlj-W7-i6H"/>
+                    <constraint firstItem="aI3-H4-1Zy" firstAttribute="width" secondItem="yUM-87-unk" secondAttribute="width" id="wnm-Fo-MUD"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="xZ0-pS-MAB" secondAttribute="trailing" constant="15" id="xF6-Uz-krj"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="addBook" destination="yUM-87-unk" id="4cW-IG-6kg"/>
+                <outlet property="bookImage" destination="dlC-pQ-mpc" id="9bh-h3-QYj"/>
+                <outlet property="bookTitle" destination="xZ0-pS-MAB" id="1IF-RI-D3p"/>
+                <outlet property="btnBGImage" destination="aI3-H4-1Zy" id="h5H-aX-YTc"/>
+                <outlet property="classMark" destination="kwF-4Q-azp" id="ger-lr-80C"/>
+                <outlet property="proName" destination="bi7-We-b6A" id="8Iq-Tm-sLw"/>
+            </connections>
+            <point key="canvasLocation" x="-9" y="119"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="workBook" width="160" height="200"/>
+    </resources>
+</document>

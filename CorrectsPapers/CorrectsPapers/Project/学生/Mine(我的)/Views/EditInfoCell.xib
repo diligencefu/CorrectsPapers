@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="KGk-i7-Jjw" customClass="EditInfoCell" customModule="CorrectsPapers" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="360" height="44"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="360" height="43.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="我的名称" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GvV-mf-ZPY">
+                        <rect key="frame" x="22" y="11" width="65.5" height="21"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="21" id="GGB-yt-Tzo"/>
+                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="20" id="ihz-NE-fvX"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                        <color key="textColor" red="0.36858397722244263" green="0.36865249276161194" blue="0.36857965588569641" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="我的名称" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="laB-nM-LAU">
+                        <rect key="frame" x="102.5" y="11" width="65.5" height="21"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="21" id="Fe5-1S-68f"/>
+                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="20" id="OR0-Uq-X86"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                        <color key="textColor" red="0.36858397720000002" green="0.36865249280000001" blue="0.36857965590000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="填写联系方式" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="yLc-Mc-3BL">
+                        <rect key="frame" x="102.5" y="6" width="237.5" height="30"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="30" id="x7Z-sw-lty"/>
+                        </constraints>
+                        <nil key="textColor"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <textInputTraits key="textInputTraits"/>
+                    </textField>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="武汉" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XQ1-WA-Svv">
+                        <rect key="frame" x="313" y="11" width="29" height="21"/>
+                        <constraints>
+                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="20" id="SZu-SY-Neh"/>
+                            <constraint firstAttribute="height" constant="21" id="m15-Q5-XuZ"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <color key="textColor" red="0.0042279195040464401" green="0.64546185731887817" blue="0.94060486555099487" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="trailing" secondItem="yLc-Mc-3BL" secondAttribute="trailing" constant="20" id="1Kd-1B-6XC"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="XQ1-WA-Svv" secondAttribute="trailing" constant="10" id="Cqe-FD-Ygd"/>
+                    <constraint firstItem="GvV-mf-ZPY" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="14" id="Tbo-O3-T3E"/>
+                    <constraint firstItem="XQ1-WA-Svv" firstAttribute="centerY" secondItem="GvV-mf-ZPY" secondAttribute="centerY" id="anA-Pt-li2"/>
+                    <constraint firstItem="GvV-mf-ZPY" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="cS5-14-65b"/>
+                    <constraint firstItem="laB-nM-LAU" firstAttribute="leading" secondItem="GvV-mf-ZPY" secondAttribute="trailing" constant="15" id="dg3-Pk-GI9"/>
+                    <constraint firstItem="yLc-Mc-3BL" firstAttribute="centerY" secondItem="GvV-mf-ZPY" secondAttribute="centerY" id="e0Z-Vm-Q80"/>
+                    <constraint firstItem="laB-nM-LAU" firstAttribute="centerY" secondItem="GvV-mf-ZPY" secondAttribute="centerY" id="mj9-cl-2Pg"/>
+                    <constraint firstItem="yLc-Mc-3BL" firstAttribute="leading" secondItem="GvV-mf-ZPY" secondAttribute="trailing" constant="15" id="swz-Ce-BxS"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="subTitle" destination="laB-nM-LAU" id="a51-mw-rgu"/>
+                <outlet property="subTitle2" destination="XQ1-WA-Svv" id="4Pp-fT-Qwe"/>
+                <outlet property="textfield" destination="yLc-Mc-3BL" id="Ebn-ko-p2i"/>
+                <outlet property="theTitle" destination="GvV-mf-ZPY" id="Qma-Yw-3bg"/>
+            </connections>
+            <point key="canvasLocation" x="76" y="54"/>
+        </tableViewCell>
+    </objects>
+</document>

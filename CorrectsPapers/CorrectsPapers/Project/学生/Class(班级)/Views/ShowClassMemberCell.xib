@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="81" id="KGk-i7-Jjw" customClass="ShowClassMemberCell" customModule="CorrectsPapers" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="360" height="64"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="360" height="64"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="headimage" translatesAutoresizingMaskIntoConstraints="NO" id="iYv-Z3-c56">
+                        <rect key="frame" x="8" y="8" width="48" height="48"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="48" id="15w-ew-GOq"/>
+                            <constraint firstAttribute="height" constant="48" id="VVm-0H-hXV"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="付大爷" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1lo-rB-6gZ">
+                        <rect key="frame" x="64" y="12" width="52" height="21.5"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="21" id="5k7-hu-5aj"/>
+                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="20" id="Scs-4u-m68"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <color key="textColor" red="0.23918548226356506" green="0.23923307657241821" blue="0.23918247222900391" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="工号 001" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jCp-rk-uOw">
+                        <rect key="frame" x="64" y="35.5" width="57" height="21"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="21" id="aYw-Sz-yFS"/>
+                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="10" id="ixY-2x-KJ9"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <color key="textColor" red="0.60777515172958374" green="0.60788232088088989" blue="0.60776835680007935" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="jCp-rk-uOw" firstAttribute="leading" secondItem="1lo-rB-6gZ" secondAttribute="leading" id="MkZ-wi-JqW"/>
+                    <constraint firstAttribute="bottom" secondItem="iYv-Z3-c56" secondAttribute="bottom" constant="7.5" id="Ret-UN-40J"/>
+                    <constraint firstItem="1lo-rB-6gZ" firstAttribute="leading" secondItem="iYv-Z3-c56" secondAttribute="trailing" constant="8" id="Ynk-pQ-8zC"/>
+                    <constraint firstItem="1lo-rB-6gZ" firstAttribute="top" secondItem="iYv-Z3-c56" secondAttribute="top" constant="4" id="a0s-jv-WBC"/>
+                    <constraint firstItem="iYv-Z3-c56" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="8" id="iBb-O0-1eb"/>
+                    <constraint firstItem="jCp-rk-uOw" firstAttribute="top" secondItem="1lo-rB-6gZ" secondAttribute="bottom" constant="2" id="tzn-lP-3lg"/>
+                    <constraint firstItem="iYv-Z3-c56" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="y8w-Qt-Zo8"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="userIcon" destination="iYv-Z3-c56" id="0tz-4m-yQP"/>
+                <outlet property="userName" destination="1lo-rB-6gZ" id="DQ9-oh-maK"/>
+                <outlet property="userNumber" destination="jCp-rk-uOw" id="OkG-RP-jA7"/>
+            </connections>
+            <point key="canvasLocation" x="14" y="21"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="headimage" width="200" height="200"/>
+    </resources>
+</document>

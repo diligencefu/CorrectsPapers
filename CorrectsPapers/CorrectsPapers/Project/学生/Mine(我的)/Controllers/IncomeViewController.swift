@@ -16,6 +16,15 @@ class IncomeViewController: BaseViewController {
         // Do any additional setup after loading the view.
     }
 
+    override func requestData() {
+
+        netWorkForMyCoin { (str) in
+            
+        }
+        
+    }
+    
+    
     override func configSubViews() {
         
         self.navigationItem.title = "我的学币"

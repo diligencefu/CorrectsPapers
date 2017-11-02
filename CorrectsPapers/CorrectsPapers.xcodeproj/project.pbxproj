@@ -48,10 +48,15 @@
 		182EB5C41F9ECD6D00B74F84 /* TUpLoadVideoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 182EB5C21F9ECD6D00B74F84 /* TUpLoadVideoCell.xib */; };
 		182EB5C61F9ED38A00B74F84 /* TTipView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 182EB5C51F9ED38A00B74F84 /* TTipView.xib */; };
 		182EB5C81F9ED6E200B74F84 /* TTipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182EB5C71F9ED6E200B74F84 /* TTipView.swift */; };
+		183C57781FA9AAE00038CA8B /* MyBookDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 183C57771FA9AAE00038CA8B /* MyBookDetailViewController.swift */; };
 		183FEAAD1FA870E40015CE9B /* TeacherInfoCell1.xib in Resources */ = {isa = PBXBuildFile; fileRef = 182181651FA829CD00C2BE89 /* TeacherInfoCell1.xib */; };
 		183FEAAE1FA871060015CE9B /* TeacherInfoCell2.xib in Resources */ = {isa = PBXBuildFile; fileRef = 182181601FA829CC00C2BE89 /* TeacherInfoCell2.xib */; };
 		183FEAAF1FA871060015CE9B /* TeacherInfoCell3.xib in Resources */ = {isa = PBXBuildFile; fileRef = 182181661FA829CD00C2BE89 /* TeacherInfoCell3.xib */; };
 		183FEAB01FA871060015CE9B /* TeacherInfoCell4.xib in Resources */ = {isa = PBXBuildFile; fileRef = 182181631FA829CC00C2BE89 /* TeacherInfoCell4.xib */; };
+		18449C7D1FA9556500120FDA /* WorkBookModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18449C7C1FA9556500120FDA /* WorkBookModel.swift */; };
+		18449C7F1FA955CD00120FDA /* BaseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18449C7E1FA955CD00120FDA /* BaseModel.swift */; };
+		18449C811FA9591F00120FDA /* BookDetailModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18449C801FA9591F00120FDA /* BookDetailModel.swift */; };
+		18449C831FA95AB400120FDA /* PersonalModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18449C821FA95AB400120FDA /* PersonalModel.swift */; };
 		184AE4FC1F905BB8007FE81A /* ConsumptionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184AE4FB1F905BB8007FE81A /* ConsumptionModel.swift */; };
 		184AE5081F90C07B007FE81A /* SearchBooksViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184AE5071F90C07B007FE81A /* SearchBooksViewController.swift */; };
 		184AE50A1F90C156007FE81A /* MyBookViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184AE5091F90C156007FE81A /* MyBookViewController.swift */; };
@@ -294,6 +299,11 @@
 		182EB5C21F9ECD6D00B74F84 /* TUpLoadVideoCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TUpLoadVideoCell.xib; sourceTree = "<group>"; };
 		182EB5C51F9ED38A00B74F84 /* TTipView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TTipView.xib; sourceTree = "<group>"; };
 		182EB5C71F9ED6E200B74F84 /* TTipView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TTipView.swift; sourceTree = "<group>"; };
+		183C57771FA9AAE00038CA8B /* MyBookDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyBookDetailViewController.swift; sourceTree = "<group>"; };
+		18449C7C1FA9556500120FDA /* WorkBookModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkBookModel.swift; sourceTree = "<group>"; };
+		18449C7E1FA955CD00120FDA /* BaseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseModel.swift; sourceTree = "<group>"; };
+		18449C801FA9591F00120FDA /* BookDetailModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookDetailModel.swift; sourceTree = "<group>"; };
+		18449C821FA95AB400120FDA /* PersonalModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalModel.swift; sourceTree = "<group>"; };
 		184621571F8CAA1D00095097 /* CorrectsPapers-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CorrectsPapers-Bridging-Header.h"; sourceTree = "<group>"; };
 		184AE4FB1F905BB8007FE81A /* ConsumptionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConsumptionModel.swift; sourceTree = "<group>"; };
 		184AE5071F90C07B007FE81A /* SearchBooksViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBooksViewController.swift; sourceTree = "<group>"; };
@@ -514,6 +524,7 @@
 				182181451FA827DD00C2BE89 /* TheGlobalVariable.swift */,
 				182181461FA827DD00C2BE89 /* TheUrls.swift */,
 				182181471FA827DD00C2BE89 /* XCNavigationController.swift */,
+				18449C7E1FA955CD00120FDA /* BaseModel.swift */,
 			);
 			path = "全局和基类";
 			sourceTree = "<group>";
@@ -832,6 +843,7 @@
 				184AE5071F90C07B007FE81A /* SearchBooksViewController.swift */,
 				186F391A1F919EF3009B8927 /* CreateBookViewController.swift */,
 				184D94191F97019E00C79DBC /* BookDetailViewController.swift */,
+				183C57771FA9AAE00038CA8B /* MyBookDetailViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -854,6 +866,8 @@
 		18520DE41F8C6808004EAF99 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				18449C7C1FA9556500120FDA /* WorkBookModel.swift */,
+				18449C801FA9591F00120FDA /* BookDetailModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -908,6 +922,7 @@
 		18520DE71F8C682B004EAF99 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				18449C821FA95AB400120FDA /* PersonalModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1586,6 +1601,7 @@
 				184D94611F97250200C79DBC /* EraserBrush.swift in Sources */,
 				184D94621F97250200C79DBC /* GaussianBlurBrush.swift in Sources */,
 				184D94631F97250200C79DBC /* InputBrush.swift in Sources */,
+				18449C7F1FA955CD00120FDA /* BaseModel.swift in Sources */,
 				184D94641F97250200C79DBC /* LineBrush.swift in Sources */,
 				184D94651F97250200C79DBC /* PencilBrush.swift in Sources */,
 				184D94661F97250200C79DBC /* RectangleBrush.swift in Sources */,
@@ -1634,6 +1650,7 @@
 				18749A0D1F99837800DEB777 /* TOtherWorkViewController.swift in Sources */,
 				184D94871F97250200C79DBC /* ImagePickerChooseImageCell.swift in Sources */,
 				184D94881F97250200C79DBC /* ImagePickerChooseImageCell.xib in Sources */,
+				18449C831FA95AB400120FDA /* PersonalModel.swift in Sources */,
 				184D94891F97250200C79DBC /* PencilChooseView.swift in Sources */,
 				184D948A1F97250200C79DBC /* PhotoView.swift in Sources */,
 				184B7EF91F8EFD32004E8B7A /* DetailModel.swift in Sources */,
@@ -1691,6 +1708,7 @@
 				18FDA6AB1F99950D003D61D8 /* TMyCorrectViewController.swift in Sources */,
 				187C22BF1F9872FA00B05594 /* ClassDetailViewController.swift in Sources */,
 				180D2B951F8E229200D9BCD4 /* VideoModel.swift in Sources */,
+				18449C7D1FA9556500120FDA /* WorkBookModel.swift in Sources */,
 				182EB5C81F9ED6E200B74F84 /* TTipView.swift in Sources */,
 				18749A0F1F99838400DEB777 /* TClassViewController.swift in Sources */,
 				184AE4FC1F905BB8007FE81A /* ConsumptionModel.swift in Sources */,
@@ -1699,6 +1717,8 @@
 				184D941A1F97019E00C79DBC /* BookDetailViewController.swift in Sources */,
 				184E6DF01F96195D00C2C3DB /* IncomeHeadView.swift in Sources */,
 				184E6DF71F961BC100C2C3DB /* IncomeCell.swift in Sources */,
+				183C57781FA9AAE00038CA8B /* MyBookDetailViewController.swift in Sources */,
+				18449C811FA9591F00120FDA /* BookDetailModel.swift in Sources */,
 				186F392D1F91FA8D009B8927 /* ComplaintCell.swift in Sources */,
 				1867C4121F9DC6BB00831A23 /* TBookHeadView.swift in Sources */,
 			);
@@ -1863,7 +1883,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.RongXing.CorrectsPapers.;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "/Users/rongxingwangluo/Desktop/CorrectsPapers/CorrectsPapers/CorrectsPapers-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "/Users/rongxingwangluo/Desktop/思而慧/CorrectsPapers/CorrectsPapers/CorrectsPapers-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -1881,7 +1901,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.RongXing.CorrectsPapers.;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "/Users/rongxingwangluo/Desktop/CorrectsPapers/CorrectsPapers/CorrectsPapers-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "/Users/rongxingwangluo/Desktop/思而慧/CorrectsPapers/CorrectsPapers/CorrectsPapers-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

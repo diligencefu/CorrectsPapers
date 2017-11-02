@@ -53,14 +53,21 @@ class CreateBookCell: UITableViewCell {
         tagsView.isHidden = true
     }    
     
+    
     func showForMessages(count:String,titleStr:String) {
+        
+        if count == "" || count == "0" {
+            tipMark.isHidden = true
+        }else{
+            tipMark.isHidden = false
+        }
+        
         tipMark.snp.updateConstraints({ (ls) in
             ls.width.equalTo(getLabWidthForTip(labelStr: count, font: UIFont.systemFont(ofSize: 14), height: 18))
         })
         bookTitle.text = titleStr
         tipMark.text = count
         
-        tipMark.isHidden = false
         bookSubTitle.isHidden = true
         tagsView.isHidden = false
         titleTextField.isHidden = true

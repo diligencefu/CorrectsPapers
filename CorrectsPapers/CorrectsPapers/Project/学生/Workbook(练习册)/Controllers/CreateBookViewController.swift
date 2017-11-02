@@ -36,7 +36,24 @@ class CreateBookViewController: BaseViewController ,UIPickerViewDelegate,UIPicke
     }
     
     @objc func pushSearchClass(sender:UIBarButtonItem) {
-        createSeccsessful()
+        
+        
+        let params = [
+            "SESSIONID":SESSIONID,
+            "mobileCode":mobileCode,
+            "work_book_name":"2",
+            "subject_id":mainTableArr[0],
+            "classes_id":mainTableArr[1],
+            "edition_id":mainTableArr[2],
+            "cover_photo":"2",
+            "edition_photo":"2",
+        ]
+        
+        netWorkForBulidWrokBook(params: params) { (result) in
+            if result {
+                self.createSeccsessful()
+            }
+        }
     }
 
         
@@ -283,7 +300,7 @@ class CreateBookViewController: BaseViewController ,UIPickerViewDelegate,UIPicke
             self.BGView.alpha = 0
         }
     }
-    
+    //MARK:      确定事件
     @objc func containAction(sender:UIButton) {
         UIView.animate(withDuration: 0.5) {
             self.datePickerView.transform = .identity

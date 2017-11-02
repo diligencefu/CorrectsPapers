@@ -12,17 +12,45 @@ class EditInfoViewController: BaseViewController {
 
     var dataArr = [Array<String>]()
     var infoArr = [Array<String>]()
+    var model = PersonalModel()
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(title: "保存", style: .plain, target: self, action: #selector(pushToSetting(sender:)))
         self.navigationItem.rightBarButtonItem?.tintColor = UIColor.white
+        
+        if model.user_name != nil {
+            
+            infoArr = [[""],[model.user_name,model.user_phone],[model.user_area,model.user_fit_class],[model.user_num]]
+        }
     }
     
     @objc func pushToSetting(sender:UIBarButtonItem) {
-        let setVC = SettingViewController()
-        self.navigationController?.pushViewController(setVC, animated: true)
+        
+        self.navigationItem.rightBarButtonItem?.isEnabled = false
+        
+        let cell = mainTableView.cellForRow(at: IndexPath.init(row: 0, section: 1)) as! EditInfoCell
+
+        
+        let params =
+            [
+                "SESSIONID":SESSIONID,
+                "mobileCode":mobileCode,
+                "imagePaths":"2",
+                "phone":cell.textfield.text!,
+                "area":infoArr[2][0],
+                "fit_class":infoArr[2][1],
+                ]
+        
+        netWorkForEditoData(params: params) { (dataArr) in
+            self.navigationItem.rightBarButtonItem?.isEnabled = true
+        }
+        
+    }
+    
+    
+    override func requestData() {
         
     }
     
@@ -65,12 +93,13 @@ class EditInfoViewController: BaseViewController {
         
         if indexPath.section == 0 {
             let cell : EditHeadCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable, for: indexPath) as! EditHeadCell
+            
             return cell
         }else{
             let cell : EditInfoCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable1, for: indexPath) as! EditInfoCell
 
             if indexPath.section == 1 && indexPath.row == 1 {
-                cell.EditInfoCellForFill(title: dataArr[indexPath.section][indexPath.row])
+                cell.EditInfoCellForFill(title: dataArr[indexPath.section][indexPath.row], content: infoArr[indexPath.section][indexPath.row])
          
             }else if indexPath.section == 2 {
                 cell.EditInfoCellForNormal(title: dataArr[indexPath.section][indexPath.row], subStr: infoArr[indexPath.section][indexPath.row], is1: false)

@@ -32,6 +32,19 @@ class ComplaintViewController: BaseViewController ,UITextFieldDelegate,UITextVie
 
     @objc func pushSearchClass(sender:UIBarButtonItem) {
     
+        let params =
+            [
+                "teacher_id":"2",
+                "SESSIONID":SESSIONID,
+                "mobileCode":mobileCode
+        ]
+        
+        netWorkForBulidComplaint(params: params) { (result) in
+            
+            if result {
+                self.navigationController?.popViewController(animated: true)
+            }
+        }
     }
     
     override func configSubViews() {

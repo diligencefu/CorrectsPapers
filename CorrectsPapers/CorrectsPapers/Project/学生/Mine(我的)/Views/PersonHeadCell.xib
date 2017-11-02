@@ -39,8 +39,8 @@
                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="八年级 武汉" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u7b-Is-SYV">
-                        <rect key="frame" x="89" y="551" width="76" height="19"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="八年级" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u7b-Is-SYV">
+                        <rect key="frame" x="89" y="551" width="43" height="19"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="19" id="NoH-90-lfo"/>
                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="30" id="zdb-qd-axl"/>
@@ -65,6 +65,16 @@
                             <constraint firstAttribute="width" constant="8" id="Mwj-i8-xkf"/>
                         </constraints>
                     </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="武汉" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CAe-Pj-1jN">
+                        <rect key="frame" x="137" y="551" width="30" height="19"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="19" id="lvp-ZU-hrv"/>
+                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="30" id="mV3-dv-qsY"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                 </subviews>
                 <constraints>
                     <constraint firstAttribute="trailing" secondItem="tDv-Dp-QGI" secondAttribute="trailing" id="3YT-V6-Lz1"/>
@@ -75,10 +85,12 @@
                     <constraint firstItem="4HU-V5-skB" firstAttribute="centerY" secondItem="l4y-ec-sZ3" secondAttribute="centerY" id="E0r-jo-FOM"/>
                     <constraint firstItem="u7b-Is-SYV" firstAttribute="top" secondItem="pn4-XI-FsN" secondAttribute="bottom" constant="2" id="RD3-gA-7vW"/>
                     <constraint firstItem="tDv-Dp-QGI" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="RDH-Ej-VAI"/>
+                    <constraint firstItem="CAe-Pj-1jN" firstAttribute="leading" secondItem="u7b-Is-SYV" secondAttribute="trailing" constant="5" id="TfT-s6-cOK"/>
                     <constraint firstItem="u7b-Is-SYV" firstAttribute="leading" secondItem="pn4-XI-FsN" secondAttribute="leading" id="UkL-y6-7WO"/>
                     <constraint firstItem="l4y-ec-sZ3" firstAttribute="trailing" secondItem="H2p-sc-9uM" secondAttribute="trailingMargin" id="XOw-27-roN"/>
                     <constraint firstAttribute="bottom" secondItem="tDv-Dp-QGI" secondAttribute="bottom" id="YJX-Hj-HUA"/>
                     <constraint firstItem="tDv-Dp-QGI" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="btO-eN-qfX"/>
+                    <constraint firstItem="CAe-Pj-1jN" firstAttribute="centerY" secondItem="u7b-Is-SYV" secondAttribute="centerY" id="csn-kA-0tT"/>
                     <constraint firstItem="1Va-wj-CEu" firstAttribute="height" secondItem="u7b-Is-SYV" secondAttribute="height" id="eWq-Ao-jdY"/>
                     <constraint firstItem="pn4-XI-FsN" firstAttribute="top" secondItem="4HU-V5-skB" secondAttribute="top" id="kFp-ak-QaH"/>
                     <constraint firstAttribute="bottomMargin" secondItem="4HU-V5-skB" secondAttribute="bottom" constant="12.5" id="o7v-3U-bfe"/>
@@ -88,8 +100,12 @@
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
+                <outlet property="area" destination="CAe-Pj-1jN" id="p8P-Ua-Dk1"/>
                 <outlet property="backImage" destination="tDv-Dp-QGI" id="kXD-W7-N8f"/>
+                <outlet property="grade" destination="u7b-Is-SYV" id="qfF-Wc-IL6"/>
                 <outlet property="headIcon" destination="4HU-V5-skB" id="xs0-HG-igQ"/>
+                <outlet property="userName" destination="pn4-XI-FsN" id="qM7-hJ-49q"/>
+                <outlet property="user_id" destination="1Va-wj-CEu" id="xfL-EX-Djq"/>
             </connections>
             <point key="canvasLocation" x="27.5" y="-5.5"/>
         </tableViewCell>

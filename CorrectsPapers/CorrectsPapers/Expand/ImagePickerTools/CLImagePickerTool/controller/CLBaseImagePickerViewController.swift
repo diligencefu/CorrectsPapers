@@ -38,7 +38,8 @@ class CLBaseImagePickerViewController: UIViewController {
         let btn = UIButton()
         btn.frame = CGRect(x: 0, y: 20, width: 50, height: 44);
         btn.imageEdgeInsets = UIEdgeInsets(top: 0, left: -12, bottom: 0, right: 0)
-        btn.setImage(UIImage(named: "btn_back2", in: BundleUtil.getCurrentBundle(), compatibleWith: nil), for:UIControlState())
+        btn.setTitle("相册", for:UIControlState())
+        btn.setTitleColor(UIColor.black, for: .normal)
         btn.addTarget(self, action: #selector(CLBaseImagePickerViewController.backBtnclick), for: .touchUpInside)
         return btn
     }()

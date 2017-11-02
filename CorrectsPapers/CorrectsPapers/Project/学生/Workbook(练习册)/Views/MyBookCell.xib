@@ -81,9 +81,7 @@
                         <rect key="frame" x="155" y="90" width="53.5" height="18"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="18" id="3Bk-d3-z3G"/>
-                            <constraint firstAttribute="width" constant="53.5" id="DVI-pD-HA4"/>
                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="20" id="kl2-4B-qqd"/>
-                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="18" id="p6h-WA-gTZ"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                         <color key="textColor" red="1" green="0.60275733470000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -126,9 +124,9 @@
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
-                <outlet property="bookDescription" destination="oKV-EJ-vbw" id="2g3-K5-iiK"/>
                 <outlet property="bookImage" destination="WQO-L4-fbz" id="cYS-5h-rkP"/>
                 <outlet property="bookState" destination="EBe-T8-Y3I" id="zRE-FA-0BA"/>
+                <outlet property="bookTitle" destination="oKV-EJ-vbw" id="WdF-gz-PMt"/>
                 <outlet property="classMark" destination="weB-tR-bMb" id="LoW-pD-sKN"/>
                 <outlet property="correctTeacher" destination="Qat-EW-eJQ" id="GSq-FP-hKq"/>
                 <outlet property="objName" destination="e8c-Ty-ehW" id="2RE-vc-4Iq"/>

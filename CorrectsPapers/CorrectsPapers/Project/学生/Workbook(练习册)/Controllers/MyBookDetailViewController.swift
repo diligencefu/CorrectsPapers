@@ -1,29 +1,30 @@
 //
-//  BookDetailViewController.swift
+//  MyBookDetailViewController.swift
 //  CorrectsPapers
 //
-//  Created by RongXing on 2017/10/18.
+//  Created by RongXing on 2017/11/1.
 //  Copyright © 2017年 Fu Yaohui. All rights reserved.
 //
 
 import UIKit
 
-class BookDetailViewController: BaseViewController {
+class MyBookDetailViewController: BaseViewController {
     var typeArr = NSMutableArray()
     var headView = UIView()
     var underLine = UIView()
     
     var currentIndex = 1
     
+    var workState = 0
+    
     var images = NSMutableArray()
     
     var showDateView = UIView()
-
+    
     var dateBtn = UIButton()
     
     var book_id = ""
-    
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         addTimeSelector()
@@ -38,22 +39,23 @@ class BookDetailViewController: BaseViewController {
                 "mobileCode":mobileCode
         ]
         netWorkForGetWorkBookByTime(params: params) { (dataArr) in
+            
             print(dataArr)
         }
     }
     
     override func configSubViews() {
         
-        
         self.navigationItem.title = "非练习册"
         
-        typeArr = ["知识点讲解","参考答案","成绩统计"]
+        typeArr = ["我的作业","知识点讲解","参考答案","成绩统计"]
         let kHeight = CGFloat(44)
         
         var contentWidth = CGFloat()
         var totalWidth = CGFloat()
         
         headView = UIView.init(frame: CGRect(x: 0, y: 0, width: kSCREEN_WIDTH, height: 43))
+        
         
         //MARK: 因为按钮字数不一样，长短有别，所以我先看看一共有多长再平分space
         for index in 0...typeArr.count-1{
@@ -79,26 +81,26 @@ class BookDetailViewController: BaseViewController {
             headView.addSubview(markBtn)
         }
         
-//        dateBtn = UIButton.init(frame: CGRect(x: 0, y: 44 , width: kSCREEN_WIDTH, height: 40))
-//        dateBtn.backgroundColor = UIColor.white
-//        dateBtn.setTitle("2017/10/15", for: .normal)
-//        dateBtn.titleLabel?.font = kFont30
-//        dateBtn.setTitleColor(kGaryColor(num: 164), for: .normal)
-//        dateBtn.setImage(#imageLiteral(resourceName: "xiala_icon_default"), for: .normal)
-//        dateBtn.titleEdgeInsets = UIEdgeInsetsMake(0, -35, 0, 0)
-//        dateBtn.imageEdgeInsets = UIEdgeInsetsMake(0, 145, 0, 0)
-//
-//        dateBtn.addTarget(self, action: #selector(chooseDateAction(sender:)), for: .touchUpInside)
-//        headView.addSubview(dateBtn)
+        //        dateBtn = UIButton.init(frame: CGRect(x: 0, y: 44 , width: kSCREEN_WIDTH, height: 40))
+        //        dateBtn.backgroundColor = UIColor.white
+        //        dateBtn.setTitle("2017/10/15", for: .normal)
+        //        dateBtn.titleLabel?.font = kFont30
+        //        dateBtn.setTitleColor(kGaryColor(num: 164), for: .normal)
+        //        dateBtn.setImage(#imageLiteral(resourceName: "xiala_icon_default"), for: .normal)
+        //        dateBtn.titleEdgeInsets = UIEdgeInsetsMake(0, -35, 0, 0)
+        //        dateBtn.imageEdgeInsets = UIEdgeInsetsMake(0, 145, 0, 0)
+        //
+        //        dateBtn.addTarget(self, action: #selector(chooseDateAction(sender:)), for: .touchUpInside)
+        //        headView.addSubview(dateBtn)
         
         let line = UIView.init(frame: CGRect(x: 0, y: 41 , width: kSCREEN_WIDTH, height: 1))
         line.backgroundColor = kGaryColor(num: 223)
         headView.addSubview(line)
         
-//        let line2 = UIView.init(frame: CGRect(x: 0, y: 81 , width: kSCREEN_WIDTH, height: 1))
-//        line2.backgroundColor = kGaryColor(num: 223)
-//        headView.addSubview(line2)
-//
+        //        let line2 = UIView.init(frame: CGRect(x: 0, y: 81 , width: kSCREEN_WIDTH, height: 1))
+        //        line2.backgroundColor = kGaryColor(num: 223)
+        //        headView.addSubview(line2)
+        //
         
         let view = headView.viewWithTag(131) as! UIButton
         view.setTitleColor(kMainColor(), for: .normal)
@@ -117,7 +119,7 @@ class BookDetailViewController: BaseViewController {
         mainTableView.delegate = self;
         mainTableView.estimatedRowHeight = 342
         mainTableView.tableFooterView = UIView.init()
-
+        
         //        mainTableView.register(AnserImageCell.self, forCellReuseIdentifier: identyfierTable)
         mainTableView.register(UINib(nibName: "AnserImageCell", bundle: nil), forCellReuseIdentifier: identyfierTable)
         mainTableView.register(UINib(nibName: "UpLoadWorkCell", bundle: nil), forCellReuseIdentifier: identyfierTable1)
@@ -131,12 +133,12 @@ class BookDetailViewController: BaseViewController {
     
     
     
-
-
+    
+    
     
     
     @objc func chooseDateAction(sender:UIButton) {
-//        print(NSDate())
+        //        print(NSDate())
         showDatePickerView()
     }
     
@@ -173,15 +175,19 @@ class BookDetailViewController: BaseViewController {
     //MARK:  ******代理 ：UITableViewDataSource,UITableViewDelegate
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
+        if currentIndex == 4 {
+            return 20
+        }
+        
+        
         if currentIndex == 1 {
-            return 2
+            
+            if workState == 3 || workState == 4 {
+                return 2
+            }
         }
         
-        if currentIndex == 3 {
-            return 10
-        }
-        
-        return 5
+        return 1
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -190,12 +196,100 @@ class BookDetailViewController: BaseViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        if currentIndex == 1 {
+        
+        if currentIndex == 1 && workState == 0 && indexPath.row == 0{
+            let cell : UpLoadWorkCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable1, for: indexPath) as! UpLoadWorkCell
+            
+            cell.upLoadImagesForWorkBook(images: images as! Array<UIImage>)
+            
+            
+            cell.chooseImagesAction = {
+                print($0)
+                
+                self.setupPhoto1(count: 2)
+            }
+            
+            return cell
+            
+        }
+        
+        
+        if currentIndex == 1 && workState == 1 && indexPath.row == 0{
+            let cell : CheckWorkCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable2, for: indexPath) as! CheckWorkCell
+            
+            cell.checkWorkCellSetValues1()
+            return cell
+            
+        }
+        
+        if currentIndex == 1 && workState == 2 {
+            
+            if indexPath.row == 0 {
+                let cell : CheckWorkCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable2, for: indexPath) as! CheckWorkCell
+                cell.checkWorkCellSetValues2()
+                return cell
+                
+            }
+            
+        }
+        
+        if currentIndex == 1 && workState == 3 {
+            
+            if  indexPath.row == 0 {
+                let cell : CheckWorkCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable2, for: indexPath) as! CheckWorkCell
+                cell.checkWorkCellSetValues3()
+                return cell
+                
+            }
+            
+            let cell : UpLoadWorkCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable1, for: indexPath) as! UpLoadWorkCell
+            cell.upLoadImagesForResubmit(images: images as! Array<UIImage>)
+            
+            cell.chooseImagesAction = {
+                print($0)
+                
+                //                let imagePickTool = CLImagePickersTool()
+                //
+                //                imagePickTool.cameraOut = true
+                //
+                //                imagePickTool.setupImagePickerWith(MaxImagesCount: 2, superVC: self) { (asset,cutImage) in
+                //                    print("返回的asset数组是\(asset)")
+                //                    self.images.addObjects(from: asset)
+                //                    self.mainTableView.reloadData()
+                //                }
+                
+                self.setupPhoto1(count: 2)
+            }
+            
+            return cell
+            
+        }
+        
+        
+        if currentIndex == 1 && workState == 4 {
+            
+            if  indexPath.row == 0 {
+                let cell : CheckWorkCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable2, for: indexPath) as! CheckWorkCell
+                
+                cell.checkWorkCellSetValues3()
+                return cell
+                
+            }
+            
+            let cell : CheckWorkCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable2, for: indexPath) as! CheckWorkCell
+            
+            cell.checkWorkCellSetValues4()
+            return cell
+            
+        }
+        
+        
+        if currentIndex == 2 {
             
             let cell : AnserVideoCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable3, for: indexPath) as! AnserVideoCell
             return cell
             
-        }else if currentIndex == 2 {
+        }else if currentIndex == 3 {
             
             let cell : AnserImageCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable, for: indexPath) as! AnserImageCell
             return cell
@@ -224,7 +318,7 @@ class BookDetailViewController: BaseViewController {
                                       completionHandler: {
                                         (success) in
             })
-
+            
         }
         
         
@@ -233,47 +327,47 @@ class BookDetailViewController: BaseViewController {
     
     
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        
+        return UIView()
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        
+        if section == 0 && currentIndex == 1{
+            dateBtn = UIButton.init(frame: CGRect(x: 0, y: 44 , width: kSCREEN_WIDTH, height: 40))
+            dateBtn.backgroundColor = UIColor.white
+            dateBtn.setTitle("2017/10/15", for: .normal)
+            dateBtn.titleLabel?.font = kFont30
+            dateBtn.setTitleColor(kGaryColor(num: 164), for: .normal)
+            dateBtn.setImage(#imageLiteral(resourceName: "xiala_icon_default"), for: .normal)
+            dateBtn.titleEdgeInsets = UIEdgeInsetsMake(0, -35, 0, 0)
+            dateBtn.imageEdgeInsets = UIEdgeInsetsMake(0, 145, 0, 0)
             
-            return UIView()
-        }
-    
-        func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+            dateBtn.addTarget(self, action: #selector(chooseDateAction(sender:)), for: .touchUpInside)
             
-            if section == 0 && currentIndex == 1{
-                dateBtn = UIButton.init(frame: CGRect(x: 0, y: 44 , width: kSCREEN_WIDTH, height: 40))
-                dateBtn.backgroundColor = UIColor.white
-                dateBtn.setTitle("2017/10/15", for: .normal)
-                dateBtn.titleLabel?.font = kFont30
-                dateBtn.setTitleColor(kGaryColor(num: 164), for: .normal)
-                dateBtn.setImage(#imageLiteral(resourceName: "xiala_icon_default"), for: .normal)
-                dateBtn.titleEdgeInsets = UIEdgeInsetsMake(0, -35, 0, 0)
-                dateBtn.imageEdgeInsets = UIEdgeInsetsMake(0, 145, 0, 0)
-                
-                dateBtn.addTarget(self, action: #selector(chooseDateAction(sender:)), for: .touchUpInside)
-                
-                let line2 = UIView.init(frame: CGRect(x: 0, y: 43 , width: kSCREEN_WIDTH, height: 1))
-                line2.backgroundColor = kGaryColor(num: 223)
-                dateBtn.addSubview(line2)
-
-                return dateBtn
-            }
+            let line2 = UIView.init(frame: CGRect(x: 0, y: 43 , width: kSCREEN_WIDTH, height: 1))
+            line2.backgroundColor = kGaryColor(num: 223)
+            dateBtn.addSubview(line2)
             
-            return UIView()
-    
+            return dateBtn
         }
+        
+        return UIView()
+        
+    }
     
-        override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-            return 0
-        }
+    override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return 0
+    }
     
-        override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-
-            if section == 0 && currentIndex == 1 {
-                return 44
-            }
-
-            return 0
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        
+        if section == 0 && currentIndex == 1 {
+            return 44
         }
+        
+        return 0
+    }
     
     
     // 异步原图
@@ -299,7 +393,7 @@ class BookDetailViewController: BaseViewController {
                 self?.images.add(image)
                 self?.dealImage(imageArr: imageArr, index: index)
                 self?.mainTableView.reloadData()
-
+                
                 }, failedClouse: { () in
                     index = index - 1
                     self.dealImage(imageArr: imageArr, index: index)
@@ -315,12 +409,12 @@ class BookDetailViewController: BaseViewController {
         }
         // 图片显示出来以后可能还要上传到云端的服务器获取图片的url，这里不再细说了。
     }
-
+    
     var BGView = UIView()
     
     var datePickerView = UIView()
     var datePicker = UIDatePicker()
-
+    
     func addTimeSelector() {
         
         //        弹出视图弹出来之后的背景蒙层
@@ -399,7 +493,7 @@ class BookDetailViewController: BaseViewController {
         theView.backgroundColor = kMainColor()
         datePickerView.addSubview(theView)
         self.view.addSubview(datePickerView)
-
+        
     }
     
     
@@ -423,7 +517,7 @@ class BookDetailViewController: BaseViewController {
         formatter.dateFormat = "yyyy/MM/dd HH:mm:ss"
         print(formatter.string(from: datePicker.date))
     }
-
+    
     
     //MARK:      取消事件
     @objc func cancelAction(sender:UIButton) {
@@ -432,8 +526,8 @@ class BookDetailViewController: BaseViewController {
             self.BGView.alpha = 0
         }
     }
-
-   @objc func containAction(sender:UIButton) {
+    
+    @objc func containAction(sender:UIButton) {
         UIView.animate(withDuration: 0.5) {
             self.datePickerView.transform = .identity
             self.BGView.alpha = 0
@@ -458,11 +552,12 @@ class BookDetailViewController: BaseViewController {
         }
         
     }
-
+    
     
     
     
     override func viewWillDisappear(_ animated: Bool) {
-         PopViewUtil.share.stopLoading()
+        PopViewUtil.share.stopLoading()
     }
 }
+

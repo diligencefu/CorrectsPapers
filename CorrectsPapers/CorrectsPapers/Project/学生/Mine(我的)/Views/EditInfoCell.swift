@@ -23,10 +23,17 @@ class EditInfoCell: UITableViewCell {
         super.awakeFromNib()
     }
 
-    func EditInfoCellForFill(title:String) {
+    func EditInfoCellForFill(title:String,content:String) {
         theTitle.text = title
         subTitle.isHidden = true
         subTitle2.isHidden = true
+        
+        if content != nil {
+            textfield.text = content
+        }else{
+            textfield.placeholder = "请输入手机号"
+        }
+        
     }
     
     func EditInfoCellForNormal(title:String,subStr:String,is1:Bool) {

@@ -26,7 +26,6 @@ class ChooseImageCell: UITableViewCell {
         singleTap1.numberOfTapsRequired = 1
         upLoadImage1.addGestureRecognizer(singleTap1)
         
-        
         let singleTap2 = UITapGestureRecognizer.init(target: self, action: #selector(viewTheBigImage(ges:)))
         singleTap2.numberOfTapsRequired = 1
         upLoadImage2.addGestureRecognizer(singleTap2)

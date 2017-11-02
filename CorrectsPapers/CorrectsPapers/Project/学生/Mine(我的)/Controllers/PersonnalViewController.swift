@@ -8,22 +8,47 @@
 
 import UIKit
 import SwiftyUserDefaults
+import MJRefresh
 
 class PersonnalViewController: BaseViewController {
     
     var dataArr = [Array<String>]()
     var infoArr = [Array<String>]()
     
+    var model = PersonalModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        mainTableView.mj_header = MJRefreshNormalHeader.init(refreshingBlock: {
+            self.refreshHeaderAction()
+        })
+
     }
     
-    override func addHeaderRefresh() {
+    override func requestData() {
         
+        netWorkForMyData { (dataArr) in
+            
+            if dataArr.count > 0{
+                self.model = dataArr[0] as! PersonalModel
+                self.infoArr = [[""],[self.model.coin_count!+"学币",self.model.friendCount+"人",""],[self.model.num,""],["",""]]
+            }
+            self.mainTableView.reloadData()
+        }
     }
     
+    override func refreshHeaderAction() {
+        netWorkForMyData { (dataArr) in
+            
+            if dataArr.count > 0{
+                self.model = dataArr[0] as! PersonalModel
+                self.infoArr = [[""],[self.model.coin_count!+"学币",self.model.friendCount+"人",""],[self.model.num,""],["",""]]
+            }
+            self.mainTableView.mj_header.endRefreshing()
+            self.mainTableView.reloadData()
+        }
+    }
     
     override func leftBarButton() {
         self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(image: #imageLiteral(resourceName: "set_icon_default"), style: .plain, target: self, action: #selector(pushToSetting(sender:)))
@@ -44,7 +69,7 @@ class PersonnalViewController: BaseViewController {
         self.navigationController?.navigationBar.shadowImage = UIImage()
         self.navigationController?.navigationBar.isTranslucent = true
         
-        dataArr = [[""],["我的学币","我的学分","我的好友","邀请好友"],["消息中心","我想成为老师"],["意见和建议"]]
+        dataArr = [[""],["我的学币","我的好友","邀请好友"],["消息中心","我想成为老师"],["意见和建议"]]
         infoArr = [[""],["10000学币","15624学分","100人",""],["",""],["",""]]
         
         mainTableView = UITableView.init(frame: CGRect(x: 0,
@@ -76,29 +101,28 @@ class PersonnalViewController: BaseViewController {
         
         if indexPath.section == 0 {
             let cell : PersonHeadCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable1, for: indexPath) as! PersonHeadCell
-            
+            cell.setValues(model: model)
             return cell
         }
         
         let cell : CreateBookCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable, for: indexPath) as! CreateBookCell
         cell.selectionStyle = .default
         var isShow = false
-        
-        if indexPath.section == 1 && indexPath.row == 1 {
-            cell.accessoryType = .none
-        }
-        
+                
         if indexPath.section == 0 {
             isShow = true
         }
         
-        
-        if indexPath.section == 2 && indexPath.row == 0 && Defaults[userIdentity] == kStudent{
-            cell.showForMessages(count:"99+",titleStr:"消息中心")
-        }else if indexPath.section == 3 && indexPath.row == 0 && Defaults[userIdentity] == kTeacher{
-            cell.showForMessages(count:"99+",titleStr:"消息中心")
-            
+        if indexPath.section == 2 && indexPath.row == 0 {
+            if model.num == nil {
+                
+                cell.showForMessages(count:"",titleStr:"消息中心")
+            }else{
+                
+                cell.showForMessages(count:model.num,titleStr:"消息中心")
+            }
         }else{
+            
             cell.showForCreateBook(isShow: isShow, title:  dataArr[indexPath.section][indexPath.row], subTitle: infoArr[indexPath.section][indexPath.row])
         }
         
@@ -142,6 +166,7 @@ class PersonnalViewController: BaseViewController {
         
         if indexPath.section == 0 {
             let editVC = EditInfoViewController()
+            editVC.model = model
             self.navigationController?.pushViewController(editVC, animated: true)
             
         }
@@ -156,15 +181,12 @@ class PersonnalViewController: BaseViewController {
                 self.navigationController?.pushViewController(incomeVC, animated: true)
                 break
             case 1:
-                
+                let friendsVC = MyFriendViewController()
+                self.navigationController?.pushViewController(friendsVC, animated: true)
+
                 
                 break
             case 2:
-                
-                let friendsVC = MyFriendViewController()
-                self.navigationController?.pushViewController(friendsVC, animated: true)
-                break
-            case 3:
                 
                 break
             default:

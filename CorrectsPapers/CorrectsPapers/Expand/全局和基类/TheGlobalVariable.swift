@@ -13,6 +13,16 @@ let username = DefaultsKey<String?>("userName")
 let userToken = DefaultsKey<String?>("userToken")
 let userIdentity = DefaultsKey<String?>("userIdentity")
 
+let userGrade = DefaultsKey<String?>("userGrade")
+let userArea = DefaultsKey<String?>("userArea")
+let userId = DefaultsKey<String?>("userId")
+let userIcon = DefaultsKey<String?>("userIcon")
+let userAccount = DefaultsKey<String?>("userAccount")
+let userFriendCount = DefaultsKey<String?>("userFriendCount")
+let messageNum = DefaultsKey<String?>("messageNum")
+
+
+
 let kTeacher = "kTeacherIdentify"
 let kStudent = "kStudentIdentify"
 

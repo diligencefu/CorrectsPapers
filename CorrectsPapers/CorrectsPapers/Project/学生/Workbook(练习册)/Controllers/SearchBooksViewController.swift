@@ -54,7 +54,7 @@ class SearchBooksViewController: BaseViewController ,UITextFieldDelegate{
     }
     
     @objc func searchBegin() {
-        setToast(str: "开始搜索")
+
         let params =
             [
                 "workBookName":searchTextfield.text!,

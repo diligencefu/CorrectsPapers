@@ -12,7 +12,7 @@ let SESSIONID = "562564455ffg5451vvc5565874512112"
 let mobileCode = "com"
 
 
-let kBaseUrl = "http://192.168.1.122:8080/duties/m/rongxing/"
+let kBaseUrl = "http://192.168.1.191:8080/duties/m/rongxing/"
 
 //MARK:注册验证码
 let kGet_Sms = kBaseUrl + "user/getSms"
@@ -89,7 +89,24 @@ let kEdit_Data = kBaseUrl2 +  "workBook/editoData"
 let kMy_Coin = kBaseUrl2 +  "workBook/myCoin"
 
 
+//MARK:接口说明 ：    查询所有用户
+let kGet_AllPeope = kBaseUrl2 +  "workBook/getAllPeope"
 
+
+//MARK:接口说明 ：    申请成为好友
+let kApply_Friend = kBaseUrl2 +  "workBook/applyFriend"
+
+
+//MARK:接口说明 ：    查看好友申请表
+let kApply_List = kBaseUrl2 +  "workBook/applyList"
+
+
+//MARK:接口说明 ：    对请求进行操作
+let kDo_Allow = kBaseUrl2 +  "workBook/doAllow"
+
+
+//MARK:接口说明 ：    获取用户练习册里面的所有联系日期
+let kGet_WorkBookTime = kBaseUrl2 +  "workBook/getWorkBookTime"
 
 
 class TheUrls: NSObject {

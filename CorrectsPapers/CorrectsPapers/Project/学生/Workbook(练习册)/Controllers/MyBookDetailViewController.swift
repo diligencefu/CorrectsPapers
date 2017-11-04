@@ -34,7 +34,7 @@ class MyBookDetailViewController: BaseViewController {
         
         let params =
             [
-                "workBookId":book_id,
+                "userWorkBookId":book_id,
                 "SESSIONID":SESSIONID,
                 "mobileCode":mobileCode
         ]
@@ -55,7 +55,6 @@ class MyBookDetailViewController: BaseViewController {
         var totalWidth = CGFloat()
         
         headView = UIView.init(frame: CGRect(x: 0, y: 0, width: kSCREEN_WIDTH, height: 43))
-        
         
         //MARK: 因为按钮字数不一样，长短有别，所以我先看看一共有多长再平分space
         for index in 0...typeArr.count-1{
@@ -81,26 +80,9 @@ class MyBookDetailViewController: BaseViewController {
             headView.addSubview(markBtn)
         }
         
-        //        dateBtn = UIButton.init(frame: CGRect(x: 0, y: 44 , width: kSCREEN_WIDTH, height: 40))
-        //        dateBtn.backgroundColor = UIColor.white
-        //        dateBtn.setTitle("2017/10/15", for: .normal)
-        //        dateBtn.titleLabel?.font = kFont30
-        //        dateBtn.setTitleColor(kGaryColor(num: 164), for: .normal)
-        //        dateBtn.setImage(#imageLiteral(resourceName: "xiala_icon_default"), for: .normal)
-        //        dateBtn.titleEdgeInsets = UIEdgeInsetsMake(0, -35, 0, 0)
-        //        dateBtn.imageEdgeInsets = UIEdgeInsetsMake(0, 145, 0, 0)
-        //
-        //        dateBtn.addTarget(self, action: #selector(chooseDateAction(sender:)), for: .touchUpInside)
-        //        headView.addSubview(dateBtn)
-        
         let line = UIView.init(frame: CGRect(x: 0, y: 41 , width: kSCREEN_WIDTH, height: 1))
         line.backgroundColor = kGaryColor(num: 223)
         headView.addSubview(line)
-        
-        //        let line2 = UIView.init(frame: CGRect(x: 0, y: 81 , width: kSCREEN_WIDTH, height: 1))
-        //        line2.backgroundColor = kGaryColor(num: 223)
-        //        headView.addSubview(line2)
-        //
         
         let view = headView.viewWithTag(131) as! UIButton
         view.setTitleColor(kMainColor(), for: .normal)
@@ -127,14 +109,8 @@ class MyBookDetailViewController: BaseViewController {
         mainTableView.register(UINib(nibName: "AnserVideoCell", bundle: nil), forCellReuseIdentifier: identyfierTable3)
         mainTableView.register(UINib(nibName: "showGradeCell", bundle: nil), forCellReuseIdentifier: identyfierTable4)
         
-        //        mainTableView.tableHeaderView = headView
         self.view.addSubview(mainTableView)
     }
-    
-    
-    
-    
-    
     
     
     @objc func chooseDateAction(sender:UIButton) {
@@ -204,9 +180,30 @@ class MyBookDetailViewController: BaseViewController {
             
             
             cell.chooseImagesAction = {
-                print($0)
-                
-                self.setupPhoto1(count: 2)
+
+                if $0 == "uploadAction" {
+                    let params =
+                        [
+                            "workBookId":self.book_id,
+                            "SESSIONID":SESSIONID,
+                            "mobileCode":mobileCode
+                    ]
+                    
+                    var nameArr = [String]()
+                    
+                    for index in 0..<self.images.count {
+                        nameArr.append("image\(index)")
+                    }
+                    
+                    netWorkForUploadWorkBook(params: params, data: self.images as! [UIImage], name: nameArr, success: { (datas) in
+                        print(datas)
+                    }, failture: { (error) in
+                        print(error)
+                    })
+                    
+                }else{
+                    self.setupPhoto1(count: 2)
+                }
             }
             
             return cell
@@ -314,15 +311,15 @@ class MyBookDetailViewController: BaseViewController {
             
             let url = NSURL.init(string: "http://m.youku.com/video/id_XMzA4MDYxNzQ2OA==.html?spm=a2hww.20022069.m_215416.5~5%212~5~5%212~A&source=http%3A%2F%2Fyouku.com%2Fu%2F13656654646%3Fscreen%3Dphone")
             
-            UIApplication.shared.open(url! as URL, options: [:],
-                                      completionHandler: {
-                                        (success) in
-            })
-            
+            if #available(iOS 10.0, *) {
+                UIApplication.shared.open(url! as URL, options: [:],
+                                          completionHandler: {
+                                            (success) in
+                })
+            } else {
+                // Fallback on earlier versions
+            }
         }
-        
-        
-        
     }
     
     

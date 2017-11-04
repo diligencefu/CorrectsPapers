@@ -14,6 +14,14 @@ class ApplyListViewController: BaseViewController {
         super.viewDidLoad()
 
     }
+    
+    override func requestData() {
+        netWorkForApplyList { (datas) -> ()? in
+            print(datas)
+        }
+    }
+    
+    
     override func configSubViews() {
         
         self.navigationItem.title = "好友申请列表"
@@ -47,6 +55,27 @@ class ApplyListViewController: BaseViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: identyfierTable, for: indexPath) as! ApplyCell
+        
+        cell.checkApplyBlock = {
+            var params = ["":""]
+            
+            if $0 {
+                params = [
+                    "SESSIONID":SESSIONID,
+                    "mobileCode":mobileCode,
+                    "type":"1",
+                    ]
+            }else{
+                params = [
+                    "SESSIONID":SESSIONID,
+                    "mobileCode":mobileCode,
+                    "type":"2",
+                ]
+            }
+            netWorkForDoAllow(params: params, callBack: { (success) in
+                
+            })
+        }
         
         return cell
         

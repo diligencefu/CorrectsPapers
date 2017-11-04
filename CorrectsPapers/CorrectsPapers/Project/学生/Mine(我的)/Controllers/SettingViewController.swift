@@ -17,15 +17,19 @@ class SettingViewController: BaseViewController {
         super.viewDidLoad()
 
     }
-
-
+    
+    
+    override func addHeaderRefresh() {
+        
+    }
+    
+    
     override func configSubViews() {
         
         self.navigationItem.title = "设置"
         
         let version = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString")
 
-        
         dataArr = ["","170.3MB","V "+(version as! String)]
         
         mainTableView = UITableView.init(frame: CGRect(x: 0,
@@ -60,11 +64,14 @@ class SettingViewController: BaseViewController {
     @objc func logoutAction() {
         Defaults[username] = nil
         Defaults[userToken] = nil
-        
+        Defaults[username] = nil
+        Defaults[userArea] = nil
+        Defaults[userId] = nil
+        Defaults[userGrade] = nil
+        Defaults[userAccount] = nil
+       
         self.tabBarController?.present(XCNavigationController.init(rootViewController: LoginViewController()), animated: true, completion: nil)
     }
-    
-    
     
     
     //    ******************代理 ： UITableViewDataSource,UITableViewDelegate  ************
@@ -90,27 +97,6 @@ class SettingViewController: BaseViewController {
         
     }
     
-//    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-//
-//        let view = UIView.init(frame: CGRect(x: 0, y: 0, width: kSCREEN_WIDTH, height: 19 * kSCREEN_SCALE))
-//        view.backgroundColor = UIColor.blue
-//        return view
-//    }
-//
-//    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-//
-//        let view = UIView.init(frame: CGRect(x: 0, y: 0, width: kSCREEN_WIDTH, height: 19 * kSCREEN_SCALE))
-//        view.backgroundColor = kSetRGBColor(r: 239, g: 239, b: 244)
-//        return view
-//    }
-//
-//    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-//        return 19 * kSCREEN_SCALE
-//    }
-//
-//    override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-//        return 0.01 * kSCREEN_SCALE
-//    }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
@@ -123,4 +109,3 @@ class SettingViewController: BaseViewController {
     }
     
 }
-

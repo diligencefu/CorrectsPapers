@@ -19,6 +19,8 @@ class ApplyCell: UITableViewCell {
     @IBOutlet weak var refuse: UIButton!
     @IBOutlet weak var agree: UIButton!
     
+    var checkApplyBlock:((Bool)->())?  //声明闭包
+
     override func awakeFromNib() {
         super.awakeFromNib()
 
@@ -36,11 +38,15 @@ class ApplyCell: UITableViewCell {
     
     
     @IBAction func certainAction(_ sender: UIButton) {
-        
+        if checkApplyBlock != nil {
+            checkApplyBlock!(true)
+        }
     }
     
     @IBAction func refuseAction(_ sender: UIButton) {
-        
+        if checkApplyBlock != nil {
+            checkApplyBlock!(false)
+        }
     }
     
 

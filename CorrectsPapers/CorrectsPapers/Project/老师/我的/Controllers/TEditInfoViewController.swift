@@ -208,9 +208,7 @@ class TEditInfoViewController: BaseViewController {
     }
     
     
-    var titleLabel = UILabel()
     var BGView = UIView()
-    
     var projectTagsView = ShowTagsView()
     var gradeTagsView = ShowTagsView()
     var timeView = ShowTagsView()
@@ -347,6 +345,7 @@ class TEditInfoViewController: BaseViewController {
         }
         
     }
+    
     
     func showEduView() -> Void {
         let y = CGFloat(330)

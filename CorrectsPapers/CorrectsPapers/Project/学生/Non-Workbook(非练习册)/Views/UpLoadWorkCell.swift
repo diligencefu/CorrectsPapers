@@ -137,7 +137,7 @@ class UpLoadWorkCell: UITableViewCell {
         setToast(str: "上传作业")
         
         if chooseImagesAction != nil {
-//            chooseImagesAction!(String((ges.view?.tag)!-230))
+            chooseImagesAction!("uploadAction")
         }
 
     }

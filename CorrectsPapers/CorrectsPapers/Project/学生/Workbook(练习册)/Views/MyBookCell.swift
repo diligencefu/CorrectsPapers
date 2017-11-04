@@ -31,7 +31,7 @@ class MyBookCell: UITableViewCell {
     
     func MyBookCellSetValue(model:WorkBookModel) {
         
-        let colors = [kSetRGBColor(r: 255, g: 92, b: 95),kSetRGBColor(r: 255, g: 157, b: 47),kSetRGBColor(r: 133, g: 212, b: 78)]
+        let colors = [kGaryColor(num: 149),kSetRGBColor(r: 255, g: 157, b: 47),kSetRGBColor(r: 255, g: 157, b: 47),kSetRGBColor(r: 255, g: 92, b: 95),kSetRGBColor(r: 255, g: 78, b: 78),kSetRGBColor(r: 113, g: 207, b: 46)]
         
         classMark.layer.borderColor = kGaryColor(num: 176).cgColor
         classMark.setTitleColor(kGaryColor(num: 176), for: .normal)
@@ -50,7 +50,7 @@ class MyBookCell: UITableViewCell {
         bookTitle.text = model.work_book_name
         
         
-        if (model.correct_teacher != nil) {
+        if (model.correct_teacher != "") {
             
             correctTeacher.text = model.correct_teacher
         }else{
@@ -66,20 +66,22 @@ class MyBookCell: UITableViewCell {
         }
         
         var state = ""
-        
-        if model.correct_state == 1 {
-            state = "退回-照片模糊"
+        if model.correct_state == 0 {
+            state = "未分配老师"
+            correctTeacher.text = "暂无"
+        }else if model.correct_state == 1 {
+            state = "未批改"
         }else if model.correct_state == 2 {
             state = "正在批改"
         }else if model.correct_state == 3 {
-            state = "已批改"
+            state = "退回-照片模糊改"
         }else if model.correct_state == 4 {
-            state = "退回-照片模糊"
+            state = "已批改"
         }
         
-        bookState.text = state
         
-        bookState.textColor = colors[model.correct_state!-1]
+        bookState.text = state
+        bookState.textColor = colors[model.correct_state!]
         
         if model.subject_name == "数学" {
             objName.layer.borderColor = kSetRGBColor(r: 102, g: 200, b: 205).cgColor
@@ -96,6 +98,12 @@ class MyBookCell: UITableViewCell {
         }else if model.subject_name == "物理" {
             objName.layer.borderColor = kSetRGBColor(r: 87, g: 138, b: 242).cgColor
             objName.setTitleColor(kSetRGBColor(r: 87, g: 138, b: 242), for: .normal)
+        }else if model.subject_name == "生物" {
+            objName.layer.borderColor = kSetRGBColor(r: 130, g: 20, b: 242).cgColor
+            objName.setTitleColor(kSetRGBColor(r: 130, g: 20, b: 242), for: .normal)
+        }else if model.subject_name == "化学" {
+            objName.layer.borderColor = kSetRGBColor(r: 246, g: 100, b: 168).cgColor
+            objName.setTitleColor(kSetRGBColor(r: 246, g: 100, b: 168), for: .normal)
         }
         
     }

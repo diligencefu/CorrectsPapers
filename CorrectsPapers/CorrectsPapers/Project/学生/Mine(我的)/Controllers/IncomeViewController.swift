@@ -18,10 +18,18 @@ class IncomeViewController: BaseViewController {
 
     override func requestData() {
 
-        netWorkForMyCoin { (str) in
-            
+        netWorkForMyCoin { (datas) in
+            self.mainTableArr.addObjects(from: datas)
         }
-        
+    }
+    
+    
+    override func refreshHeaderAction() {
+        netWorkForMyCoin { (datas) in
+            self.mainTableArr.removeAllObjects()
+            self.mainTableArr.addObjects(from: datas)
+            self.mainTableView.reloadData()
+        }
     }
     
     
@@ -45,13 +53,12 @@ class IncomeViewController: BaseViewController {
         mainTableView.tableHeaderView = headView
         self.view.addSubview(mainTableView)
         mainTableView.backgroundColor = kSetRGBColor(r: 239, g: 239, b: 244)
-        mainTableArr = ["关于我们","清除缓存","检查更新"]
         
     }
     
     //    ******************代理 ： UITableViewDataSource,UITableViewDelegate  ************
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return  10
+        return  mainTableArr.count
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -60,8 +67,9 @@ class IncomeViewController: BaseViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
+        let model = mainTableArr[indexPath.row] as! AccountModel
         let cell = tableView.dequeueReusableCell(withIdentifier: identyfierTable, for: indexPath) as! IncomeCell
-        
+        cell.setValuesForIncomeCell(model: model)
         return cell
         
     }

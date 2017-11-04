@@ -291,10 +291,14 @@ class TDetailBookViewController: BaseViewController {
             }else{
                 let url = NSURL.init(string: videoArr[indexPath.row]["url"]!)
                 
-                UIApplication.shared.open(url! as URL, options: [:],
-                                          completionHandler: {
-                                            (success) in
-                })
+                if #available(iOS 10.0, *) {
+                    UIApplication.shared.open(url! as URL, options: [:],
+                                              completionHandler: {
+                                                (success) in
+                    })
+                } else {
+                    // Fallback on earlier versions
+                }
                 
             }
         }

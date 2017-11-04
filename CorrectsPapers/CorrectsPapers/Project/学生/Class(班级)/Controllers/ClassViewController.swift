@@ -33,9 +33,21 @@ class ClassViewController: BaseViewController {
         mainTableView.register(UINib(nibName: "ClassCell", bundle: nil), forCellReuseIdentifier: identyfierTable)
         self.view.addSubview(mainTableView)
         
-
+        addFooterRefresh()
     }
     
+    override func refreshHeaderAction() {
+          mainTableArr =  ["最近天气真的好热呀，出门就像","Swift 中随机数的使用总结在我们开发的过程中，时不时地需要产生一些随机数。这里我们总结一下Swift中常用的一些随机数生成函数。这里我们将在Playground中来做些示例演示。","在我们开发的过程中，时不时地需要产生一些随机数。这里我们总结一下Swift中常用的一些随机数生成函数。这里我们将在Playground中来做些示例演示。整型随机数","在大部分应用中，上","这个函数使用ARC4加密的随机数来填充该函数第二个参数指定的长度的缓存区域。因此，如果我们传入的是sizeof(UInt64)，该函数便会生成一个随机数来填充8个字节的区域，并返回给r。那么64位的随机数生成方法便可以如下实现："]
+        mainTableView.mj_header.endRefreshing()
+        mainTableView.reloadData()
+    }
+    
+    
+    override func refreshFooterAction() {
+        mainTableArr.addObjects(from:  ["最近天气真的好热呀，出门就像","Swift 中随机数的使用总结在我们开发的过程中，时不时地需要产生一些随机数。这里我们总结一下Swift中常用的一些随机数生成函数。这里我们将在Playground中来做些示例演示。","在我们开发的过程中，时不时地需要产生一些随机数。这里我们总结一下Swift中常用的一些随机数生成函数。这里我们将在Playground中来做些示例演示。整型随机数"])
+        mainTableView.mj_footer.endRefreshing()
+        mainTableView.reloadData()
+    }
     
     
     func rightBarButton() {
@@ -52,7 +64,6 @@ class ClassViewController: BaseViewController {
         
         self.navigationController?.pushViewController(searchVC, animated: true)
     }
-    
     
     
     //    当数据为空的时候，显示提示
@@ -127,7 +138,6 @@ class ClassViewController: BaseViewController {
         
         self.navigationController?.pushViewController(detailVC, animated: true)
 
-        
     }
     
     

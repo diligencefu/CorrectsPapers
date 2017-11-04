@@ -10,6 +10,9 @@ import UIKit
 
 class AddFriendViewController: BaseViewController {
     
+    var searchView = UITextField()
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -19,27 +22,27 @@ class AddFriendViewController: BaseViewController {
         
         self.navigationItem.title = "添加好友"
         
-        
-        let searchView = UITextField.init(frame: CGRect(x: 0, y: 10, width: kSCREEN_WIDTH, height: 38))
+        searchView = UITextField.init(frame: CGRect(x: 0, y: 20*kSCREEN_SCALE, width: kSCREEN_WIDTH, height: 88*kSCREEN_SCALE))
         searchView.backgroundColor = kGaryColor(num: 255)
         searchView.placeholder = " 学生姓名/学生学号/老师姓名/老师工号"
         searchView.font = kFont30
         
-        let searchBtn = UIButton.init(frame: CGRect(x: 20, y: 59, width: kSCREEN_WIDTH - 40, height: 35))
+        let searchBtn = UIButton.init(frame: CGRect(x: 20, y: 156*kSCREEN_SCALE, width: kSCREEN_WIDTH - 40, height: 72*kSCREEN_SCALE))
         searchBtn.backgroundColor = UIColor.gray
         searchBtn.setTitle("查找", for: .normal)
         searchBtn.setTitleColor(UIColor.white, for: .normal)
-        searchBtn.layer.cornerRadius = 4
+        searchBtn.layer.cornerRadius = 10*kSCREEN_SCALE
         searchBtn.clipsToBounds = true
+        searchBtn.titleLabel?.font = kFont34
         searchBtn.setBackgroundImage(getNavigationIMG(27, fromColor: kSetRGBColor(r: 0, g: 200, b: 255), toColor: kSetRGBColor(r: 0, g: 162, b: 255)), for: .normal)
         searchBtn.addTarget(self, action: #selector(searchFriendAction(sender:)), for: .touchUpInside)
         
-        let headView = UIView.init(frame: CGRect(x: 0, y: 0, width: kSCREEN_WIDTH, height: 120))
+        let headView = UIView.init(frame: CGRect(x: 0, y: 0, width: kSCREEN_WIDTH, height: 276*kSCREEN_SCALE))
         headView.backgroundColor = kGaryColor(num: 244)
         headView.addSubview(searchBtn)
         headView.addSubview(searchView)
         
-        
+
         mainTableView = UITableView.init(frame: CGRect(x: 0,
                                                        y: 0,
                                                        width: kSCREEN_WIDTH,
@@ -52,12 +55,47 @@ class AddFriendViewController: BaseViewController {
         self.view.addSubview(mainTableView)
         mainTableView.tableHeaderView = headView
         mainTableView.backgroundColor = kSetRGBColor(r: 239, g: 239, b: 244)
-        
     }
     
     @objc func searchFriendAction(sender:UIButton) {
         
-        mainTableArr = ["关于我们","清除缓存","清除缓存","清除缓存","清除缓存","清除缓存","清除缓存","检查更新"]
+//        mainTableArr = ["关于我们","清除缓存","清除缓存","清除缓存","清除缓存","清除缓存","清除缓存","检查更新"]
+        
+        
+        if searchView.text != "" {
+            
+            var params = ["":""]
+            
+            let decimal = NSDecimalNumber(string: searchView.text)
+            print(decimal.intValue)
+            if decimal.floatValue == 9 {
+                params =
+                    [
+                        "name":searchView.text!,
+                        "SESSIONID":SESSIONID,
+                        "mobileCode":mobileCode
+                    ]
+            }else{
+                params =
+                    [
+                        "num":searchView.text!,
+                        "SESSIONID":SESSIONID,
+                        "mobileCode":mobileCode
+                ]
+            }
+            
+            netWorkForGetSpecifiedUser(params: params, callBack: { (datas) in
+                
+            })
+            
+        }else{
+            
+            netWorkForGetAllPeope(callBack: { (datas) in
+                
+            })
+            
+        }
+                
         mainTableView.reloadData()
     }
     
@@ -89,9 +127,6 @@ class AddFriendViewController: BaseViewController {
     }
     
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        
-        
-        
         
         let view = UIView.init(frame: CGRect(x: 0, y: 0, width: kSCREEN_WIDTH, height: 19 * kSCREEN_SCALE))
         view.backgroundColor = UIColor.blue
@@ -139,23 +174,15 @@ class AddFriendViewController: BaseViewController {
     //    网络请求
     
     func addFriendsAction() {
-        
+    
         let params = [
-            "SESSIONID":"1",
-            "mobileCode":"on",
-            "userType":"1",
-            "userName":"哈哈",
-            "userClass":"52",
-            "userArea":"2",
-            "user":"002",
-            "searchResults":"？？？？",
+            "SESSIONID":SESSIONID,
+            "mobileCode":mobileCode,
+            "userbyId":"1",
             ]
-        
-        netWorkForInsertFriends(params: params) { (str) in
+        netWorkForApplyFriend(params: params) { (flag) in
             
         }
-        
     }
-    
 }
 

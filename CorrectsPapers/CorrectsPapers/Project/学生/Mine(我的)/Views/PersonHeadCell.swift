@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import IQKeyboardManagerSwift
 
 class PersonHeadCell: UITableViewCell {
 
@@ -34,6 +35,7 @@ class PersonHeadCell: UITableViewCell {
         
     }
 
+   
     
     func setValues(model:PersonalModel) {
         
@@ -45,6 +47,9 @@ class PersonHeadCell: UITableViewCell {
         area.text = model.user_area
         user_id.text = model.user_num
     }
+    
+    
+  
     
     
     override func setSelected(_ selected: Bool, animated: Bool) {

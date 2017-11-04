@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -15,12 +16,12 @@
         <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" rowHeight="315" id="KGk-i7-Jjw" customClass="UpLoadWorkCell" customModule="CorrectsPapers" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="360" height="314"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
                 <rect key="frame" x="0.0" y="0.0" width="360" height="313.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="等待上传作业..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0zd-Lf-Pb1">
-                        <rect key="frame" x="8" y="8" width="118" height="21"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="等待上传作业..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0zd-Lf-Pb1">
+                        <rect key="frame" x="16" y="8" width="118" height="21"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="21" id="L5K-9i-JXV"/>
                             <constraint firstAttribute="width" constant="118" id="Q5S-wf-9t7"/>
@@ -29,8 +30,8 @@
                         <color key="textColor" red="0.69011962413787842" green="0.69024020433425903" blue="0.69011199474334717" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入作业描述（16字以内）" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="YWT-qm-akp">
-                        <rect key="frame" x="23" y="48" width="314" height="25"/>
+                    <textField opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入作业描述（16字以内）" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="YWT-qm-akp">
+                        <rect key="frame" x="31" y="48" width="298" height="25"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="25" id="VNo-ey-frc"/>
                         </constraints>
@@ -38,8 +39,8 @@
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <textInputTraits key="textInputTraits"/>
                     </textField>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="（请确认拍照清晰，模糊将会退回）" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="w14-gT-2le">
-                        <rect key="frame" x="8" y="289" width="344" height="21"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="（请确认拍照清晰，模糊将会退回）" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="w14-gT-2le">
+                        <rect key="frame" x="16" y="289" width="328" height="21"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="21" id="Tsz-t7-hTw"/>
                         </constraints>
@@ -47,8 +48,8 @@
                         <color key="textColor" red="1" green="0.60275733470916748" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7f9-I1-Guo">
-                        <rect key="frame" x="270" y="7" width="73" height="23"/>
+                    <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7f9-I1-Guo">
+                        <rect key="frame" x="262" y="7" width="73" height="23"/>
                         <color key="backgroundColor" red="0.80775457620620728" green="0.80789417028427124" blue="0.80774575471878052" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="73" id="0s9-KE-Dae"/>
@@ -62,8 +63,8 @@
                             <action selector="uploadAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="8Jo-Jf-GXB"/>
                         </connections>
                     </button>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="截止倒计时 " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fah-ui-Ne6">
-                        <rect key="frame" x="13" y="32" width="334" height="16"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="截止倒计时 " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fah-ui-Ne6">
+                        <rect key="frame" x="21" y="32" width="318" height="16"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="16" id="5Hj-Z6-17f"/>
                         </constraints>
@@ -71,17 +72,17 @@
                         <color key="textColor" red="1" green="0.60275733470000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <imageView tag="232" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Upload-photos_btn_default" translatesAutoresizingMaskIntoConstraints="NO" id="rXp-eQ-Ldb">
+                    <imageView tag="232" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" image="Upload-photos_btn_default" translatesAutoresizingMaskIntoConstraints="NO" id="rXp-eQ-Ldb">
                         <rect key="frame" x="184" y="81" width="160" height="200"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="200" id="7dv-O6-iud"/>
                             <constraint firstAttribute="width" constant="160" id="ruY-vg-1Hu"/>
                         </constraints>
                     </imageView>
-                    <imageView tag="231" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Upload-photos_btn_default" translatesAutoresizingMaskIntoConstraints="NO" id="GfO-Ec-qbK">
+                    <imageView tag="231" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" image="Upload-photos_btn_default" translatesAutoresizingMaskIntoConstraints="NO" id="GfO-Ec-qbK">
                         <rect key="frame" x="16" y="81" width="160" height="200"/>
                     </imageView>
-                    <imageView tag="230" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Upload-photos_btn_default" translatesAutoresizingMaskIntoConstraints="NO" id="nU0-zW-fxL">
+                    <imageView tag="230" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" image="Upload-photos_btn_default" translatesAutoresizingMaskIntoConstraints="NO" id="nU0-zW-fxL">
                         <rect key="frame" x="100" y="81" width="160" height="200"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="200" id="Cn2-bM-P5T"/>

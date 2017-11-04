@@ -56,8 +56,20 @@ public func netWorkForRegistAccount(params:[String:Any],callBack:((String)->())?
                         switch response.result {
                         case .success:
                             
+                            if let j = response.result.value {
+                                //SwiftyJSON解析数据
+                                let JSOnDictory = JSON(j)
+                                let code =  JSOnDictory["code"].intValue
+                                
+                                if code == 0{
+                                    callBack!("failure")
+                                }else{
+                                    callBack!("haha")
+                                }
+                                
+                            }
+                            
                             setToast(str: "完成")
-                            callBack!("haha")
                             break
                         case .failure(let error):
                             print(error)
@@ -135,7 +147,6 @@ public func netWorkForInsertFriends(params:[String:Any],callBack:((String)->())?
                             setToast(str: "完成")
                             
                             
-                            
                             break
                         case .failure(let error):
                             print(error)
@@ -143,7 +154,6 @@ public func netWorkForInsertFriends(params:[String:Any],callBack:((String)->())?
                             setToast(str: "添加好友失败")
                         }
     }
-    
 }
 
 
@@ -246,14 +256,11 @@ public func netWorkForMyWorkBook(callBack:((Array<Any>)->())?) ->  Void {
     let dic = ["SESSIONID":"562564455ffg5451vvc5565874512112","mobileCode":"com"]    
     
     Alamofire.request(kMy_WorkBook,
-                      method: .get, parameters: nil,
-                      encoding: URLEncoding.default, headers: dic).responseJSON(queue:DispatchQueue.main, options: .allowFragments) { (response) in
+                      method: .get, parameters: dic,
+                      encoding: URLEncoding.default, headers: nil).responseJSON(queue:DispatchQueue.main, options: .allowFragments) { (response) in
                         print(response.result)
                         switch response.result {
-                        case .success:
-                            
-                            setToast(str: "完成")
-                            
+                        case .success:                            
                             
                             if let j = response.result.value {
                                 //SwiftyJSON解析数据
@@ -307,26 +314,71 @@ public func netWorkForDeleteMyWorkBook(params:[String:Any],callBack:((String)->(
 
 
 //MARK:(学生端  上传图片到练习册)接口
-public func netWorkForUploadWorkBook(params:[String:Any],callBack:((String)->())?) ->  Void {
-    //    let dataArr = NSMutableArraRy()
-    
-    Alamofire.request(kUpload_WorkBook,
-                      method: .post, parameters: params,
-                      encoding: URLEncoding.default, headers: nil).responseJSON(queue:DispatchQueue.main, options: .allowFragments) { (response) in
-                        print(response.result)
-                        switch response.result {
-                        case .success:
-                            
-                            setToast(str: "完成")
-                            break
-                        case .failure(let error):
-                            print(error)
+//public func netWorkForUploadWorkBook(params:[String:Any],callBack:((String)->())?) ->  Void {
+//    //    let dataArr = NSMutableArraRy()
+//
+//    Alamofire.request(kUpload_WorkBook,
+//                      method: .post, parameters: params,
+//                      encoding: URLEncoding.default, headers: nil).responseJSON(queue:DispatchQueue.main, options: .allowFragments) { (response) in
+//                        print(response.result)
+//                        switch response.result {
+//                        case .success:
+//
+//                            setToast(str: "完成")
+//                            break
+//                        case .failure(let error):
+//                            print(error)
+//
+//                            setToast(str: "上传图片到练习册失败")
+//                        }
+//    }
+//
+//}
 
-                            setToast(str: "上传图片到练习册失败")
-                        }
-    }
+//MARK:(学生端  上传图片到练习册)接口
+func netWorkForUploadWorkBook(
+    params:[String:String]!,
+    data: [UIImage],
+    name: [String],
+    success : @escaping (_ response : [String : AnyObject])->(), failture : @escaping (_ error : Error)->()){
     
+    //    let headers = ["content-type":"multipart/form-data"]
+    
+    Alamofire.upload(
+        multipartFormData: { multipartFormData in
+            
+            multipartFormData.append((params["SESSIONID"]!.data(using: String.Encoding.utf8)!),
+                                     withName: "SESSIONID")
+            multipartFormData.append((params["mobileCode"]!.data(using: String.Encoding.utf8)!),
+                                     withName: "mobileCode")
+            multipartFormData.append((params["workBookId"]!.data(using: String.Encoding.utf8)!),
+                                     withName: "workBookId")
+            for i in 0..<data.count {
+                multipartFormData.append(UIImagePNGRepresentation(data[i])!, withName: "appPhoto", fileName: name[i], mimeType: "image/png")
+            }
+    },
+        to: kEdit_Data,
+        headers: nil,
+        encodingCompletion: { encodingResult in
+            switch encodingResult {
+            case .success(let upload, _, _):
+                upload.responseJSON { response in
+                    if let value = response.result.value as? [String: AnyObject]{
+                        success(value)
+                    }
+                    
+                    if response.result.value == nil {
+                        success(["000":"000" as AnyObject])
+                    }
+                    
+                }
+            case .failure(let encodingError):
+                failture(encodingError)
+            }
+    }
+    )
 }
+
 
 
 //MARK:(学生端  用户根据时间查询该练习册详情)接口
@@ -334,13 +386,12 @@ public func netWorkForGetWorkBookByTime(params:[String:Any],callBack:((Array<Any
     
     var dataArr = [BookDetailModel]()
     Alamofire.request(kGetWork_BookByTime,
-                      method: .post, parameters: params,
+                      method: .get, parameters: params,
                       encoding: URLEncoding.default, headers: nil).responseJSON(queue:DispatchQueue.main, options: .allowFragments) { (response) in
                         print(response.result)
                         switch response.result {
                         case .success:
                             
-                            setToast(str: "完成")
                             if let j = response.result.value {
                                 //SwiftyJSON解析数据
                                 let JSOnDictory = JSON(j)
@@ -356,7 +407,7 @@ public func netWorkForGetWorkBookByTime(params:[String:Any],callBack:((Array<Any
                                 
                                 callBack!(dataArr)
                             }
-
+                            setToast(str: "用户根据时间查询成功")
                             break
                         case .failure(let error):
                             print(error)
@@ -379,7 +430,6 @@ public func netWorkForBulidComplaint(params:[String:Any],callBack:((Bool)->())?)
                         switch response.result {
                         case .success:
                             
-                            setToast(str: "完成")
                             callBack!(true)
                             break
                         case .failure(let error):
@@ -460,32 +510,81 @@ public func netWorkForMyData(callBack:((Array<Any>)->())?) ->  Void {
 
 
 //MARK:(学生端  编辑资料)接口
-public func netWorkForEditoData(params:[String:Any],callBack:((String)->())?) ->  Void {
-    //    let dataArr = NSMutableArraRy()
-    
-    Alamofire.request(kEdit_Data,
-                      method: .get, parameters: params,
-                      encoding: URLEncoding.default, headers: nil).responseJSON(queue:DispatchQueue.main, options: .allowFragments) { (response) in
-                        print(response.result)
-                        switch response.result {
-                        case .success:
-                            
-                            setToast(str: "完成")
-                            callBack!("")
-                            break
-                        case .failure(let error):
-                            print(error)
+//public func netWorkForEditoData(params:[String:Any],callBack:((String)->())?) ->  Void {
+//    //    let dataArr = NSMutableArraRy()
+//
+//    Alamofire.request(kEdit_Data,
+//                      method: .get, parameters: params,
+//                      encoding: URLEncoding.default, headers: nil).responseJSON(queue:DispatchQueue.main, options: .allowFragments) { (response) in
+//                        print(response.result)
+//                        switch response.result {
+//                        case .success:
+//
+//                            setToast(str: "完成")
+//                            callBack!("")
+//                            break
+//                        case .failure(let error):
+//                            print(error)
+//
+//                            setToast(str: "编辑资料失败")
+//                        }
+//    }
+//
+//}
 
-                            setToast(str: "编辑资料失败")
-                        }
-    }
+//MARK:(学生端  编辑资料)接口
+func upLoadImageRequest(
+                        params:[String:String]!,
+                        data: [UIImage],
+                        name: [String],
+                        success : @escaping (_ response : [String : AnyObject])->(), failture : @escaping (_ error : Error)->()){
     
+//    let headers = ["content-type":"multipart/form-data"]
+    
+    Alamofire.upload(
+        multipartFormData: { multipartFormData in
+            
+            multipartFormData.append((params["SESSIONID"]!.data(using: String.Encoding.utf8)!),
+                                     withName: "SESSIONID")
+            multipartFormData.append((params["mobileCode"]!.data(using: String.Encoding.utf8)!),
+                                     withName: "mobileCode")
+            multipartFormData.append((params["phone"]!.data(using: String.Encoding.utf8)!),
+                                     withName: "phone")
+            multipartFormData.append((params["area"]!.data(using: String.Encoding.utf8)!),
+                                     withName: "area")
+            multipartFormData.append((params["fit_class"]!.data(using: String.Encoding.utf8)!),
+                                     withName: "fit_class")
+            for i in 0..<data.count {
+                multipartFormData.append(UIImagePNGRepresentation(data[i])!, withName: "appPhoto", fileName: name[i], mimeType: "image/png")
+            }
+    },
+        to: kEdit_Data,
+        headers: nil,
+        encodingCompletion: { encodingResult in
+            switch encodingResult {
+            case .success(let upload, _, _):
+                upload.responseJSON { response in
+                    if let value = response.result.value as? [String: AnyObject]{
+                        success(value)
+                    }
+                    
+                    if response.result.value == nil {
+                        success(["000":"000" as AnyObject])
+                    }
+                    
+                }
+            case .failure(let encodingError):
+                failture(encodingError)
+            }
+    }
+    )
 }
 
+
 //MARK:(学生端 查询我的学币使用)接口
-public func netWorkForMyCoin(callBack:((String)->())?) ->  Void {
-    //    let dataArr = NSMutableArraRy()
+public func netWorkForMyCoin(callBack:((Array<Any>)->())?) ->  Void {
     
+    var dataArr = [AccountModel]()
     let params = [
         "SESSIONID":SESSIONID,
         "mobileCode":mobileCode
@@ -499,6 +598,22 @@ public func netWorkForMyCoin(callBack:((String)->())?) ->  Void {
                         case .success:
                             
                             setToast(str: "完成")
+                            if let j = response.result.value {
+                                //SwiftyJSON解析数据
+                                let JSOnDictory = JSON(j)
+                                let datas =  JSOnDictory["data"].arrayValue
+                                
+                                for index in 0..<datas.count {
+                                    
+                                    let json = datas[index]
+                                    
+                                    let model  = AccountModel.setValueForAccountModel(json: json)
+                                    dataArr.append(model)
+                                }
+                                
+                                callBack!(dataArr)
+                            }
+                            
                             break
                         case .failure(let error):
                             print(error)
@@ -508,6 +623,186 @@ public func netWorkForMyCoin(callBack:((String)->())?) ->  Void {
     }
     
 }
+
+
+//MARK:(学生端  查询指定)接口
+public func netWorkForGetSpecifiedUser(params:[String:Any],callBack:((Array<Any>)->())?) ->  Void {
+    
+    var dataArr = [FriendsModel]()
+    Alamofire.request(kGet_AllPeope,
+                      method: .post, parameters: params,
+                      encoding: URLEncoding.default, headers: nil).responseJSON(queue:DispatchQueue.main, options: .allowFragments) { (response) in
+                        print(response.result)
+                        switch response.result {
+                        case .success:
+
+                            if let j = response.result.value {
+                                //SwiftyJSON解析数据
+                                let JSOnDictory = JSON(j)
+                                let datas =  JSOnDictory["data"].arrayValue
+                                
+                                for index in 0..<datas.count {
+                                    
+                                    let json = datas[index]
+                                    
+                                    let model  = FriendsModel.setValueForFriendsModel(json: json)
+                                    dataArr.append(model)
+                                }
+                                
+                                callBack!(dataArr)
+                            }
+                            break
+                        case .failure(let error):
+                            print(error)
+                            
+                            setToast(str: "查询指定用户失败")
+                            callBack!(dataArr)
+                        }
+    }
+    
+}
+
+//MARK:(学生端  查询所有用户)接口
+public func netWorkForGetAllPeope(callBack:((Array<Any>)->())?) ->  Void {
+    
+    var dataArr = [FriendsModel]()
+    Alamofire.request(kGet_AllPeope,
+                      method: .post, parameters: nil,
+                      encoding: URLEncoding.default, headers: nil).responseJSON(queue:DispatchQueue.main, options: .allowFragments) { (response) in
+                        print(response.result)
+                        switch response.result {
+                        case .success:
+               
+                            if let j = response.result.value {
+                                //SwiftyJSON解析数据
+                                let JSOnDictory = JSON(j)
+                                let datas =  JSOnDictory["data"].arrayValue
+                                
+                                for index in 0..<datas.count {
+                                    
+                                    let json = datas[index]
+                                    
+                                    let model  = FriendsModel.setValueForFriendsModel(json: json)
+                                    dataArr.append(model)
+                                }
+                                
+                                callBack!(dataArr)
+                            }
+                            break
+                        case .failure(let error):
+                            print(error)
+                            setToast(str: "查询所有用户失败")
+                            callBack!(dataArr)
+                        }
+    }
+}
+
+
+//MARK:(学生端 申请成为好友)接口
+public func netWorkForApplyFriend(params:[String:Any],callBack:((Bool)->())?) ->  Void {
+    //    let dataArr = NSMutableArraRy()
+    
+    Alamofire.request(kApply_Friend,
+                      method: .post, parameters: params,
+                      encoding: URLEncoding.default, headers: nil).responseJSON(queue:DispatchQueue.main, options: .allowFragments) { (response) in
+                        print(response.result)
+                        switch response.result {
+                        case .success:
+                            
+                            callBack!(true)
+                            break
+                        case .failure(let error):
+                            print(error)
+                            
+                            setToast(str: "申请成为好友失败")
+                            callBack!(false)
+                        }
+    }
+    
+}
+
+
+//MARK:(学生端 查看好友申请表)接口
+public func netWorkForApplyList(callBack:@escaping (Array<Any>)->()?) ->  Void {
+    
+    var dataArr = [ApplyModel]()
+    Alamofire.request(kApply_List,
+                      method: .post, parameters: nil,
+                      encoding: URLEncoding.default, headers: nil).responseJSON(queue:DispatchQueue.main, options: .allowFragments) { (response) in
+                        print(response.result)
+                        switch response.result {
+                        case .success:
+                            if let j = response.result.value {
+                                //SwiftyJSON解析数据
+                                let JSOnDictory = JSON(j)
+                                let datas =  JSOnDictory["data"].arrayValue
+                                
+                                for index in 0..<datas.count {
+                                    
+                                    let json = datas[index]
+                                    
+                                    let model  = ApplyModel.setValueForApplyModel(json: json)
+                                    dataArr.append(model)
+                                }
+                                
+                                callBack(dataArr)
+                            }
+                            break
+                        case .failure(let error):
+                            print(error)
+                            
+                            setToast(str: "查看好友申请表失败")
+                            callBack(dataArr)
+                        }
+    }
+}
+
+
+//MARK:(学生端 对请求进行操作)接口
+public func netWorkForDoAllow(params:[String:Any],callBack:((Bool)->())?) ->  Void {
+    //    let dataArr = NSMutableArraRy()
+    
+    Alamofire.request(kDo_Allow,
+                      method: .post, parameters: nil,
+                      encoding: URLEncoding.default, headers: nil).responseJSON(queue:DispatchQueue.main, options: .allowFragments) { (response) in
+                        print(response.result)
+                        switch response.result {
+                        case .success:
+                            
+                            callBack!(true)
+                            break
+                        case .failure(let error):
+                            print(error)
+                            
+                            setToast(str: "对请求进行操作失败")
+                            callBack!(false)
+                        }
+    }
+}
+
+
+////MARK:(学生端 对请求进行操作)接口
+//public func netWorkForGetWorkBookTime(callBack:@escaping (Bool)->()?) ->  Void {
+//    //    let dataArr = NSMutableArraRy()
+//
+//    Alamofire.request(kGetWork_BookByTime,
+//                      method: .post, parameters: nil,
+//                      encoding: URLEncoding.default, headers: nil).responseJSON(queue:DispatchQueue.main, options: .allowFragments) { (response) in
+//                        print(response.result)
+//                        switch response.result {
+//                        case .success:
+//
+//                            //                            setToast(str: "创建成功")
+//                            callBack(true)
+//                            break
+//                        case .failure(let error):
+//                            print(error)
+//
+//                            setToast(str: "对请求进行操作失败")
+//                            callBack(false)
+//                        }
+//    }
+//}
 
 
 public func requestData(params:Any,callBack:((String)->())?) ->  Void {
@@ -547,32 +842,32 @@ public func requestData(params:Any,callBack:((String)->())?) ->  Void {
 //MARK:图片上传
 public func requestData(params:[String:Any],data:[Data],name:[String],callBack:((String)->())?) ->  Void {
 
-//    Alamofire.upload(multipartFormData: { (multipartFormData) in
-//        //666多张图片上传
-//        let flag = params["flag"]
-//        let userId = params["userId"]
-//
-//        multipartFormData.append(((flag as AnyObject).data(using: String.Encoding.utf8.rawValue)!), withName: "flag")
-//        multipartFormData.append( ((userId as AnyObject).data(using: String.Encoding.utf8.rawValue)!), withName: "userId")
-//
-//        for i in 0..<data.count {
-//            multipartFormData.append(data[i], withName: "appPhoto", fileName: name[i], mimeType: "image/png")
-//        }
-//
-//    }, to: kRegistAccount) { (encodingResult) in
-//        switch encodingResult {
-//        case .success(let upload, _, _):
-//            upload.responseJSON { response in
-//                if let value = response.result.value as? [String: AnyObject]{
-//
-//                }
-//            }
-//        case .failure(let encodingError):
-//
-//            break
-//        }
-//
-//    }
+    Alamofire.upload(multipartFormData: { (multipartFormData) in
+        //666多张图片上传
+        let flag = params["flag"]
+        let userId = params["userId"]
+
+        multipartFormData.append(((flag as AnyObject).data(using: String.Encoding.utf8.rawValue)!), withName: "flag")
+        multipartFormData.append( ((userId as AnyObject).data(using: String.Encoding.utf8.rawValue)!), withName: "userId")
+
+        for i in 0..<data.count {
+            multipartFormData.append(data[i], withName: "appPhoto", fileName: name[i], mimeType: "image/png")
+        }
+
+    }, to: kGet_Sms) { (encodingResult) in
+        switch encodingResult {
+        case .success(let upload, _, _):
+            upload.responseJSON { response in
+                if let value = response.result.value as? [String: AnyObject]{
+                    print(value)
+                }
+            }
+        case .failure(let encodingError):
+            print(encodingError)
+            break
+        }
+
+    }
 }
 
 class NetWorkTools: NSObject {

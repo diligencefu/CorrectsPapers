@@ -23,10 +23,8 @@ class BookDetailViewController: BaseViewController {
     
     var book_id = ""
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        addTimeSelector()
     }
     
     override func requestData() {
@@ -44,10 +42,9 @@ class BookDetailViewController: BaseViewController {
     
     override func configSubViews() {
         
-        
         self.navigationItem.title = "非练习册"
         
-        typeArr = ["知识点讲解","参考答案","成绩统计"]
+        typeArr = ["知识点讲解","参考答案"]
         let kHeight = CGFloat(44)
         
         var contentWidth = CGFloat()
@@ -63,9 +60,9 @@ class BookDetailViewController: BaseViewController {
             
         }
         
-        let kSpace = CGFloat(kSCREEN_WIDTH - totalWidth)/6
+        let kSpace = CGFloat(kSCREEN_WIDTH - totalWidth)/3
         
-        for index in 0...typeArr.count-1{
+        for index in 0..<typeArr.count{
             
             let kWidth = getLabWidth(labelStr: typeArr[index] as! String, font: kFont32, height: kHeight) + 10
             let markBtn = UIButton.init(frame: CGRect(x: kSpace + (contentWidth + kSpace * CGFloat(index)) , y: 1, width: kWidth, height: kHeight))
@@ -79,30 +76,13 @@ class BookDetailViewController: BaseViewController {
             headView.addSubview(markBtn)
         }
         
-//        dateBtn = UIButton.init(frame: CGRect(x: 0, y: 44 , width: kSCREEN_WIDTH, height: 40))
-//        dateBtn.backgroundColor = UIColor.white
-//        dateBtn.setTitle("2017/10/15", for: .normal)
-//        dateBtn.titleLabel?.font = kFont30
-//        dateBtn.setTitleColor(kGaryColor(num: 164), for: .normal)
-//        dateBtn.setImage(#imageLiteral(resourceName: "xiala_icon_default"), for: .normal)
-//        dateBtn.titleEdgeInsets = UIEdgeInsetsMake(0, -35, 0, 0)
-//        dateBtn.imageEdgeInsets = UIEdgeInsetsMake(0, 145, 0, 0)
-//
-//        dateBtn.addTarget(self, action: #selector(chooseDateAction(sender:)), for: .touchUpInside)
-//        headView.addSubview(dateBtn)
-        
         let line = UIView.init(frame: CGRect(x: 0, y: 41 , width: kSCREEN_WIDTH, height: 1))
         line.backgroundColor = kGaryColor(num: 223)
         headView.addSubview(line)
         
-//        let line2 = UIView.init(frame: CGRect(x: 0, y: 81 , width: kSCREEN_WIDTH, height: 1))
-//        line2.backgroundColor = kGaryColor(num: 223)
-//        headView.addSubview(line2)
-//
-        
         let view = headView.viewWithTag(131) as! UIButton
         view.setTitleColor(kMainColor(), for: .normal)
-        underLine = UIView.init(frame: CGRect(x: 0, y: 40, width: getLabWidth(labelStr: "等我粉丝", font: kFont32, height: 1) - 5, height: 2))
+        underLine = UIView.init(frame: CGRect(x: 0, y: 40, width: getLabWidth(labelStr: "等时我粉丝", font: kFont32, height: 1) - 5, height: 2))
         underLine.backgroundColor = kMainColor()
         underLine.layer.cornerRadius = 1
         underLine.clipsToBounds = true
@@ -118,27 +98,15 @@ class BookDetailViewController: BaseViewController {
         mainTableView.estimatedRowHeight = 342
         mainTableView.tableFooterView = UIView.init()
 
-        //        mainTableView.register(AnserImageCell.self, forCellReuseIdentifier: identyfierTable)
         mainTableView.register(UINib(nibName: "AnserImageCell", bundle: nil), forCellReuseIdentifier: identyfierTable)
         mainTableView.register(UINib(nibName: "UpLoadWorkCell", bundle: nil), forCellReuseIdentifier: identyfierTable1)
         mainTableView.register(UINib(nibName: "CheckWorkCell", bundle: nil), forCellReuseIdentifier: identyfierTable2)
         mainTableView.register(UINib(nibName: "AnserVideoCell", bundle: nil), forCellReuseIdentifier: identyfierTable3)
         mainTableView.register(UINib(nibName: "showGradeCell", bundle: nil), forCellReuseIdentifier: identyfierTable4)
         
-        //        mainTableView.tableHeaderView = headView
         self.view.addSubview(mainTableView)
     }
     
-    
-    
-
-
-    
-    
-    @objc func chooseDateAction(sender:UIButton) {
-//        print(NSDate())
-        showDatePickerView()
-    }
     
     //MARK:   顶部选择栏选择事件
     @objc func goodAtProject(sender:UIButton) {
@@ -195,85 +163,35 @@ class BookDetailViewController: BaseViewController {
             let cell : AnserVideoCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable3, for: indexPath) as! AnserVideoCell
             return cell
             
-        }else if currentIndex == 2 {
+        }else{
             
             let cell : AnserImageCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable, for: indexPath) as! AnserImageCell
             return cell
             
         }
         
-        let cell : showGradeCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable4, for: indexPath) as! showGradeCell
-        
-        if indexPath.row == 0 {
-            cell.showGrade(isTitle: true)
-        }else{
-            cell.showGrade(isTitle: false)
-        }
-        
-        return cell
     }
+    
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         
-        if currentIndex == 2 {
+        if currentIndex == 1 {
             
             let url = NSURL.init(string: "http://m.youku.com/video/id_XMzA4MDYxNzQ2OA==.html?spm=a2hww.20022069.m_215416.5~5%212~5~5%212~A&source=http%3A%2F%2Fyouku.com%2Fu%2F13656654646%3Fscreen%3Dphone")
-            
-            UIApplication.shared.open(url! as URL, options: [:],
-                                      completionHandler: {
-                                        (success) in
-            })
+             
+            if #available(iOS 10.0, *) {
+                UIApplication.shared.open(url! as URL, options: [:],
+                                          completionHandler: {
+                                            (success) in
+                })
+            } else {
+                // Fallback on earlier versions
+            }
 
         }
-        
-        
         
     }
-    
-    
-    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-            
-            return UIView()
-        }
-    
-        func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-            
-            if section == 0 && currentIndex == 1{
-                dateBtn = UIButton.init(frame: CGRect(x: 0, y: 44 , width: kSCREEN_WIDTH, height: 40))
-                dateBtn.backgroundColor = UIColor.white
-                dateBtn.setTitle("2017/10/15", for: .normal)
-                dateBtn.titleLabel?.font = kFont30
-                dateBtn.setTitleColor(kGaryColor(num: 164), for: .normal)
-                dateBtn.setImage(#imageLiteral(resourceName: "xiala_icon_default"), for: .normal)
-                dateBtn.titleEdgeInsets = UIEdgeInsetsMake(0, -35, 0, 0)
-                dateBtn.imageEdgeInsets = UIEdgeInsetsMake(0, 145, 0, 0)
-                
-                dateBtn.addTarget(self, action: #selector(chooseDateAction(sender:)), for: .touchUpInside)
-                
-                let line2 = UIView.init(frame: CGRect(x: 0, y: 43 , width: kSCREEN_WIDTH, height: 1))
-                line2.backgroundColor = kGaryColor(num: 223)
-                dateBtn.addSubview(line2)
-
-                return dateBtn
-            }
-            
-            return UIView()
-    
-        }
-    
-        override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-            return 0
-        }
-    
-        override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-
-            if section == 0 && currentIndex == 1 {
-                return 44
-            }
-
-            return 0
-        }
     
     
     // 异步原图
@@ -316,151 +234,6 @@ class BookDetailViewController: BaseViewController {
         // 图片显示出来以后可能还要上传到云端的服务器获取图片的url，这里不再细说了。
     }
 
-    var BGView = UIView()
-    
-    var datePickerView = UIView()
-    var datePicker = UIDatePicker()
-
-    func addTimeSelector() {
-        
-        //        弹出视图弹出来之后的背景蒙层
-        BGView = UIView.init(frame: self.view.frame)
-        BGView.backgroundColor = kSetRGBAColor(r: 5, g: 5, b: 5, a: 0.5)
-        BGView.alpha = 0
-        //        BGView.isHidden = true
-        
-        let tapGes1 = UITapGestureRecognizer.init(target: self, action: #selector(showChooseCondi(tap:)))
-        tapGes1.numberOfTouchesRequired = 1
-        BGView.addGestureRecognizer(tapGes1)
-        
-        self.view.addSubview(BGView)
-        
-        
-        //MARK:   时间选择器背景
-        datePickerView = UIView.init(frame: CGRect(x: 0, y: kSCREEN_HEIGHT, width: kSCREEN_WIDTH, height: DateHeight))
-        datePickerView.backgroundColor = UIColor.white
-        datePickerView.layer.cornerRadius = 16 * kSCREEN_SCALE
-        
-        //MARK:  把datapicker的背景设为透明，这个selecView可以模拟选择栏
-        let selectView = UIView.init(frame: CGRect(x: 0, y: DateHeight/2-17, width: kSCREEN_WIDTH, height: 34))
-        selectView.backgroundColor = kSetRGBColor(r: 255, g: 138, b: 146)
-        //        selectView.center = datePickerView.center
-        datePickerView.addSubview(selectView)
-        
-        
-        //创建日期选择器
-        datePicker = UIDatePicker(frame: CGRect(x:0, y: 0, width:kSCREEN_WIDTH, height:DateHeight))
-        //将日期选择器区域设置为中文，则选择器日期显示为中文
-        datePicker.locale = Locale(identifier: "zh_CN")
-        
-        datePicker.addTarget(self, action: #selector(dateChanged),
-                             for: .valueChanged)
-        datePicker.backgroundColor = UIColor.clear
-        datePicker.datePickerMode = .date
-        datePicker.maximumDate = NSDate.init(timeIntervalSinceNow: 0) as Date
-        datePicker.minimumDate = NSDate.init(timeIntervalSinceNow: -1296000) as Date
-        datePickerView.addSubview(datePicker)
-        
-        //MARK:  顶部需要显示三个控件
-        let topView = UIView.init(frame: CGRect(x: 0, y: 0, width: kSCREEN_WIDTH, height: 100 * kSCREEN_SCALE))
-        topView.backgroundColor = kMainColor()
-        topView.layer.cornerRadius = 16 * kSCREEN_SCALE
-        
-        //MARK:  取消按钮
-        let cancel = UIButton.init(frame: CGRect(x: 15, y: 20 * kSCREEN_SCALE, width: 45, height: 60 * kSCREEN_SCALE))
-        cancel.titleLabel?.font = kFont32
-        cancel.setTitle("取消", for: .normal)
-        cancel.setTitleColor(UIColor.white, for: .normal)
-        cancel.addTarget(self, action: #selector(cancelAction(sender:)), for: .touchUpInside)
-        topView.addSubview(cancel)
-        
-        //MARK:   确定按钮
-        let contain = UIButton.init(frame: CGRect(x: kSCREEN_WIDTH - 60, y: 20 * kSCREEN_SCALE, width: 45, height: 60 * kSCREEN_SCALE))
-        contain.titleLabel?.font = kFont32
-        contain.setTitle("确定", for: .normal)
-        contain.setTitleColor(UIColor.white, for: .normal)
-        contain.addTarget(self, action: #selector(containAction(sender:)), for: .touchUpInside)
-        topView.addSubview(contain)
-        
-        //MARK:  题目
-        let titleLabel = UILabel.init(frame: CGRect(x: 0, y: 0, width: kSCREEN_WIDTH - 120, height: 60 * kSCREEN_SCALE))
-        titleLabel.text = "选择日期"
-        titleLabel.font = kFont36
-        titleLabel.textColor = UIColor.white
-        titleLabel.textAlignment = .center
-        titleLabel.center = topView.center
-        
-        topView.addSubview(titleLabel)
-        
-        datePickerView.addSubview(topView)
-        
-        //MARK:  因为需要设置圆角 还是只能上面有，所以我又给下面盖了一个。。。
-        let theView = UIView.init(frame: CGRect(x: 0, y: 80 * kSCREEN_SCALE, width: kSCREEN_WIDTH, height: 20 * kSCREEN_SCALE))
-        theView.backgroundColor = kMainColor()
-        datePickerView.addSubview(theView)
-        self.view.addSubview(datePickerView)
-
-    }
-    
-    
-    //MARK: 模拟蒙层的点击事件 隐藏
-    @objc func showChooseCondi(tap:UITapGestureRecognizer) -> Void {
-        if tap.view?.alpha == 1 {
-            
-            UIView.animate(withDuration: 0.5) {
-                tap.view?.alpha = 0
-                self.datePickerView.transform = .identity
-                
-            }
-        }
-    }
-    
-    //MARK://日期选择器响应方法
-    @objc func dateChanged(datePicker : UIDatePicker){
-        //更新提醒时间文本框
-        let formatter = DateFormatter()
-        //日期样式
-        formatter.dateFormat = "yyyy/MM/dd HH:mm:ss"
-        print(formatter.string(from: datePicker.date))
-    }
-
-    
-    //MARK:      取消事件
-    @objc func cancelAction(sender:UIButton) {
-        UIView.animate(withDuration: 0.5) {
-            self.datePickerView.transform = .identity
-            self.BGView.alpha = 0
-        }
-    }
-
-   @objc func containAction(sender:UIButton) {
-        UIView.animate(withDuration: 0.5) {
-            self.datePickerView.transform = .identity
-            self.BGView.alpha = 0
-            
-            let formatter = DateFormatter()
-            //日期样式
-            formatter.dateFormat = "yyyy/MM/dd"
-            print(formatter.string(from: self.datePicker.date))
-            self.dateBtn.setTitle(formatter.string(from: self.datePicker.date), for: .normal)
-        }
-    }
-    
-    //MARK:   弹出视图DatePicker的出现事件
-    func showDatePickerView() -> Void {
-        
-        let y = DateHeight - 80 * kSCREEN_SCALE
-        
-        
-        UIView.animate(withDuration: 0.5) {
-            self.datePickerView.transform = .init(translationX: 0, y: -y)
-            self.BGView.alpha = 1
-        }
-        
-    }
-
-    
-    
     
     override func viewWillDisappear(_ animated: Bool) {
          PopViewUtil.share.stopLoading()

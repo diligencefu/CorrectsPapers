@@ -33,6 +33,13 @@ class PersonnalViewController: BaseViewController {
             if dataArr.count > 0{
                 self.model = dataArr[0] as! PersonalModel
                 self.infoArr = [[""],[self.model.coin_count!+"学币",self.model.friendCount+"人",""],[self.model.num,""],["",""]]
+                
+                Defaults[username] = self.model.user_name
+                Defaults[userArea] = self.model.user_area
+                Defaults[userId] = self.model.user_num
+                Defaults[userGrade]! = self.model.user_fit_class
+                Defaults[userAccount] = self.model.coin_count
+                
             }
             self.mainTableView.reloadData()
         }
@@ -44,7 +51,15 @@ class PersonnalViewController: BaseViewController {
             if dataArr.count > 0{
                 self.model = dataArr[0] as! PersonalModel
                 self.infoArr = [[""],[self.model.coin_count!+"学币",self.model.friendCount+"人",""],[self.model.num,""],["",""]]
+                
+                Defaults[username] = self.model.user_name
+                Defaults[userArea] = self.model.user_area
+                Defaults[userId] = self.model.user_num
+                Defaults[userGrade]! = self.model.user_fit_class
+                Defaults[userAccount] = self.model.coin_count
+
             }
+            
             self.mainTableView.mj_header.endRefreshing()
             self.mainTableView.reloadData()
         }
@@ -70,7 +85,31 @@ class PersonnalViewController: BaseViewController {
         self.navigationController?.navigationBar.isTranslucent = true
         
         dataArr = [[""],["我的学币","我的好友","邀请好友"],["消息中心","我想成为老师"],["意见和建议"]]
-        infoArr = [[""],["10000学币","15624学分","100人",""],["",""],["",""]]
+              
+        model.user_name = Defaults[username]
+        model.user_area = Defaults[userArea]
+        model.user_num = Defaults[userId]
+        model.user_fit_class = Defaults[userGrade]!
+        
+        if Defaults[messageNum] != nil {
+            model.num = Defaults[messageNum]
+        }else{
+            model.num = "0"
+        }
+        if Defaults[userAccount] != nil{
+            model.coin_count = Defaults[userAccount]
+        }else{
+            model.coin_count = "0"
+        }
+        if Defaults[userFriendCount] != nil {
+            model.friendCount = Defaults[userFriendCount]
+        }else{
+            model.friendCount = "0"
+        }
+
+        self.infoArr = [[""],[self.model.coin_count!+"学币",self.model.friendCount+"人",""],[self.model.num,""],["",""]]
+        
+//        infoArr = [[""],["10000学币","15624学分","100人",""],["",""],["",""]]
         
         mainTableView = UITableView.init(frame: CGRect(x: 0,
                                                        y: -504,

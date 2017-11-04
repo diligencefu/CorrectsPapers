@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -19,23 +20,33 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2017/10/07  完成批改悬赏" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="n61-cr-6m6">
-                        <rect key="frame" x="8" y="12" width="194" height="21"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2017/10/07" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="n61-cr-6m6">
+                        <rect key="frame" x="16" y="12" width="90" height="21"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="21" id="9Ue-bT-bFb"/>
-                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="194" id="cjO-4n-xsy"/>
+                            <constraint firstAttribute="width" constant="90" id="cjO-4n-xsy"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
                         <color key="textColor" red="0.4581849093" green="0.4581849093" blue="0.4581849093" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="+ 200 元" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rmg-L5-otb">
-                        <rect key="frame" x="234" y="12" width="68" height="21"/>
+                        <rect key="frame" x="226" y="12" width="68" height="21"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="21" id="K5U-gb-IJO"/>
                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="42" id="KkX-Vg-Zfs"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="充值学币" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jWH-QE-fEs">
+                        <rect key="frame" x="111" y="12" width="65.5" height="21"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="21" id="gNJ-tG-uvc"/>
+                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="20" id="t77-Kb-tve"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
                         <color key="textColor" red="0.4581849093" green="0.4581849093" blue="0.4581849093" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
@@ -45,9 +56,17 @@
                     <constraint firstItem="n61-cr-6m6" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="Gco-8y-PVH"/>
                     <constraint firstItem="n61-cr-6m6" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="JZK-Hs-emb"/>
                     <constraint firstItem="Rmg-L5-otb" firstAttribute="trailing" secondItem="H2p-sc-9uM" secondAttribute="trailingMargin" constant="-10" id="cA1-Lw-YH0"/>
+                    <constraint firstItem="jWH-QE-fEs" firstAttribute="leading" secondItem="n61-cr-6m6" secondAttribute="trailing" constant="5" id="e9U-wH-YrQ"/>
+                    <constraint firstItem="jWH-QE-fEs" firstAttribute="centerY" secondItem="n61-cr-6m6" secondAttribute="centerY" id="zBl-Rs-Iae"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="use_date" destination="n61-cr-6m6" id="Wa5-d8-XGg"/>
+                <outlet property="use_num" destination="Rmg-L5-otb" id="nyA-mU-oyl"/>
+                <outlet property="use_type" destination="jWH-QE-fEs" id="E8Y-Ky-LQv"/>
+            </connections>
+            <point key="canvasLocation" x="-283" y="-104"/>
         </tableViewCell>
     </objects>
 </document>

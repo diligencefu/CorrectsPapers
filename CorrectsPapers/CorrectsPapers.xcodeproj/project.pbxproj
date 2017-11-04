@@ -48,6 +48,8 @@
 		182EB5C41F9ECD6D00B74F84 /* TUpLoadVideoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 182EB5C21F9ECD6D00B74F84 /* TUpLoadVideoCell.xib */; };
 		182EB5C61F9ED38A00B74F84 /* TTipView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 182EB5C51F9ED38A00B74F84 /* TTipView.xib */; };
 		182EB5C81F9ED6E200B74F84 /* TTipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182EB5C71F9ED6E200B74F84 /* TTipView.swift */; };
+		183BA95A1FAD5310001A3C1D /* FriendsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 183BA9591FAD5310001A3C1D /* FriendsModel.swift */; };
+		183BA95C1FAD54FA001A3C1D /* ApplyModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 183BA95B1FAD54F9001A3C1D /* ApplyModel.swift */; };
 		183C57781FA9AAE00038CA8B /* MyBookDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 183C57771FA9AAE00038CA8B /* MyBookDetailViewController.swift */; };
 		183FEAAD1FA870E40015CE9B /* TeacherInfoCell1.xib in Resources */ = {isa = PBXBuildFile; fileRef = 182181651FA829CD00C2BE89 /* TeacherInfoCell1.xib */; };
 		183FEAAE1FA871060015CE9B /* TeacherInfoCell2.xib in Resources */ = {isa = PBXBuildFile; fileRef = 182181601FA829CC00C2BE89 /* TeacherInfoCell2.xib */; };
@@ -237,6 +239,7 @@
 		1893785B1F943FA600393CB4 /* SearchClassViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1893785A1F943FA600393CB4 /* SearchClassViewController.swift */; };
 		1893785D1F944CCB00393CB4 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1893785C1F944CCB00393CB4 /* SettingViewController.swift */; };
 		1893785F1F944D6900393CB4 /* AboutUsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1893785E1F944D6900393CB4 /* AboutUsViewController.swift */; };
+		18C3D2A81FAC1AE3001C295C /* AccountModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C3D2A71FAC1AE3001C295C /* AccountModel.swift */; };
 		18D343331F9AF646007CE166 /* CreateClassCell2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D343311F9AF646007CE166 /* CreateClassCell2.swift */; };
 		18D343341F9AF646007CE166 /* CreateClassCell2.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18D343321F9AF646007CE166 /* CreateClassCell2.xib */; };
 		18D343371F9AFC9E007CE166 /* CreateHeadCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D343351F9AFC9E007CE166 /* CreateHeadCell.swift */; };
@@ -299,6 +302,8 @@
 		182EB5C21F9ECD6D00B74F84 /* TUpLoadVideoCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TUpLoadVideoCell.xib; sourceTree = "<group>"; };
 		182EB5C51F9ED38A00B74F84 /* TTipView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TTipView.xib; sourceTree = "<group>"; };
 		182EB5C71F9ED6E200B74F84 /* TTipView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TTipView.swift; sourceTree = "<group>"; };
+		183BA9591FAD5310001A3C1D /* FriendsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsModel.swift; sourceTree = "<group>"; };
+		183BA95B1FAD54F9001A3C1D /* ApplyModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplyModel.swift; sourceTree = "<group>"; };
 		183C57771FA9AAE00038CA8B /* MyBookDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyBookDetailViewController.swift; sourceTree = "<group>"; };
 		18449C7C1FA9556500120FDA /* WorkBookModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkBookModel.swift; sourceTree = "<group>"; };
 		18449C7E1FA955CD00120FDA /* BaseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseModel.swift; sourceTree = "<group>"; };
@@ -372,6 +377,7 @@
 		184E6DF51F961BC100C2C3DB /* IncomeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IncomeCell.swift; sourceTree = "<group>"; };
 		184E6DF61F961BC100C2C3DB /* IncomeCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = IncomeCell.xib; sourceTree = "<group>"; };
 		184E6DF91F961C5C00C2C3DB /* IncomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IncomeViewController.swift; sourceTree = "<group>"; };
+		18509A4D1FAAC023008ACD4F /* CorrectsPapers.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CorrectsPapers.entitlements; sourceTree = "<group>"; };
 		18520DB21F8C5BAE004EAF99 /* CorrectsPapers.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CorrectsPapers.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		18520DB51F8C5BAE004EAF99 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		18520DBA1F8C5BAE004EAF99 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -486,6 +492,7 @@
 		1893785A1F943FA600393CB4 /* SearchClassViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchClassViewController.swift; sourceTree = "<group>"; };
 		1893785C1F944CCB00393CB4 /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
 		1893785E1F944D6900393CB4 /* AboutUsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutUsViewController.swift; sourceTree = "<group>"; };
+		18C3D2A71FAC1AE3001C295C /* AccountModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountModel.swift; sourceTree = "<group>"; };
 		18D343311F9AF646007CE166 /* CreateClassCell2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateClassCell2.swift; sourceTree = "<group>"; };
 		18D343321F9AF646007CE166 /* CreateClassCell2.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CreateClassCell2.xib; sourceTree = "<group>"; };
 		18D343351F9AFC9E007CE166 /* CreateHeadCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateHeadCell.swift; sourceTree = "<group>"; };
@@ -721,6 +728,7 @@
 		18520DB41F8C5BAE004EAF99 /* CorrectsPapers */ = {
 			isa = PBXGroup;
 			children = (
+				18509A4D1FAAC023008ACD4F /* CorrectsPapers.entitlements */,
 				184621571F8CAA1D00095097 /* CorrectsPapers-Bridging-Header.h */,
 				18520DCA1F8C5C69004EAF99 /* Project */,
 				18520DC91F8C5C67004EAF99 /* Expand */,
@@ -923,6 +931,9 @@
 			isa = PBXGroup;
 			children = (
 				18449C821FA95AB400120FDA /* PersonalModel.swift */,
+				18C3D2A71FAC1AE3001C295C /* AccountModel.swift */,
+				183BA9591FAD5310001A3C1D /* FriendsModel.swift */,
+				183BA95B1FAD54F9001A3C1D /* ApplyModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1358,6 +1369,14 @@
 					18520DB11F8C5BAE004EAF99 = {
 						CreatedOnToolsVersion = 9.0;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 0;
+							};
+							com.apple.Keychain = {
+								enabled = 0;
+							};
+						};
 					};
 				};
 			};
@@ -1589,6 +1608,7 @@
 				18D343331F9AF646007CE166 /* CreateClassCell2.swift in Sources */,
 				188D0C061F99D65E0010814C /* KSPhotoBrowser.m in Sources */,
 				188D0C071F99D65E0010814C /* KSPhotoItem.h in Sources */,
+				183BA95C1FAD54FA001A3C1D /* ApplyModel.swift in Sources */,
 				188D0C081F99D65E0010814C /* KSPhotoItem.m in Sources */,
 				188D0C091F99D65E0010814C /* KSPhotoView.h in Sources */,
 				188D0C0A1F99D65E0010814C /* KSPhotoView.m in Sources */,
@@ -1668,6 +1688,7 @@
 				1823BF461F8E09DE0056C705 /* WorkBookCell.xib in Sources */,
 				180D6B6E1F945DA700480DEF /* SuggestViewController.swift in Sources */,
 				18759A931F95B75F00B8E851 /* showGradeCell.swift in Sources */,
+				18C3D2A81FAC1AE3001C295C /* AccountModel.swift in Sources */,
 				182181681FA829D800C2BE89 /* TEditInfoViewController.swift in Sources */,
 				186A28041F96037300FAA766 /* AddFriendViewController.swift in Sources */,
 				186F39331F921561009B8927 /* ClassCell.swift in Sources */,
@@ -1691,6 +1712,7 @@
 				1893785F1F944D6900393CB4 /* AboutUsViewController.swift in Sources */,
 				186F391E1F919F7C009B8927 /* CreateBookCell.swift in Sources */,
 				18520DD41F8C5DBA004EAF99 /* Non-WorkBookViewController.swift in Sources */,
+				183BA95A1FAD5310001A3C1D /* FriendsModel.swift in Sources */,
 				188D0C611F99F4FB0010814C /* ShowImageCell.swift in Sources */,
 				180D6B701F94654000480DEF /* SwitchRolesViewController.swift in Sources */,
 				180D6B7B1F94A51E00480DEF /* CheckWorkCell.swift in Sources */,
@@ -1876,13 +1898,16 @@
 			baseConfigurationReference = D2F62588E13D3D749174F1A1 /* Pods-CorrectsPapers.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = P3YYDXZKP4;
+				DEVELOPMENT_TEAM = DWKUG2PD45;
 				INFOPLIST_FILE = CorrectsPapers/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.RongXing.CorrectsPapers.;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "/Users/rongxingwangluo/Desktop/思而慧/CorrectsPapers/CorrectsPapers/CorrectsPapers-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1894,13 +1919,16 @@
 			baseConfigurationReference = 2F0BC8511BE4C6BF31BBE1BA /* Pods-CorrectsPapers.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = P3YYDXZKP4;
+				DEVELOPMENT_TEAM = DWKUG2PD45;
 				INFOPLIST_FILE = CorrectsPapers/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.RongXing.CorrectsPapers.;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "/Users/rongxingwangluo/Desktop/思而慧/CorrectsPapers/CorrectsPapers/CorrectsPapers-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

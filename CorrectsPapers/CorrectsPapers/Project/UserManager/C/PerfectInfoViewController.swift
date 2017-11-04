@@ -95,75 +95,90 @@ class PerfectInfoViewController: BaseViewController {
         
         
         if isTeacher {
-            //            params = ["phone":phoneNum,
-            //                      "password":passWord,
-            //                      "content":Thecode,
-            //                      "name":infoArr[0][0],
-            //                      "area_id":"1",
-            //                      "class_id":"1",
-            //                      "email":infoArr[0][1],
-            //                      "subject_id":"1",
-            //                      "education":"1",
-            //                      "working_time":infoArr[1][2],
-            //                      "user_type":"2",
-            //                      "type":"1",
-            //                     ]
+            params = ["phone":phoneNum,
+                      "password":passWord,
+                      "content":Thecode,
+                      "name":infoArr[0][0],
+                      "area_id":"1",
+                      "class_id":"1",
+                      "email":infoArr[0][1],
+                      "subject_id":"1",
+                      "education":"1",
+                      "working_time":infoArr[1][2],
+                      "user_type":"2",
+                      "type":"1",
+                     ]
             
-            params =
-                ["phone":"18939636603",
-                 "password":"123456",
-                 "content":"256485",
-                 "name":"我的",
-                 "area_id":"1",
-                 "userFitClass":"1",
-                 "user_type":"1",
-                 "type":"1",
-                 "email":"diligencefu@sina.com",
-                 "subject_id":"1",
-                 "education":"1",
-                 "working_time":"14:00-18:00"
-            ]
+//            params =
+//                ["phone":phoneNum,
+//                 "password":"123456",
+//                 "content":"256485",
+//                 "name":"我的",
+//                 "area_id":"1",
+//                 "userFitClass":"1",
+//                 "user_type":"1",
+//                 "type":"1",
+//                 "email":"diligencefu@sina.com",
+//                 "subject_id":"1",
+//                 "education":"1",
+//                 "working_time":"14:00-18:00"
+//            ]
             
         }else{
-            //            params =
-            //                ["phone":phoneNum,
-            //                 "password":passWord,
-            //                 "content":Thecode,
-            //                 "name":infoArr[0][0],
-            //                 "area_id":"1",
-            //                 "class_id":"1",
-            //                 "user_type":"1",
-            //                 "type":"1"
-            //                ]
             
             params =
                 ["phone":phoneNum,
-                 "password":"123456",
-                 "content":"256485",
-                 "name":"我的",
+                 "password":passWord,
+                 "content":Thecode,
+                 "name":infoArr[0][0],
                  "area_id":"1",
-                 "userFitClass":"1",
+                 "class_id":"1",
                  "user_type":"1",
                  "type":"1"
             ]
+//
+//            params =
+//                ["phone":phoneNum,
+//                 "password":"123456",
+//                 "content":"256485",
+//                 "name":"我的",
+//                 "area_id":"1",
+//                 "userFitClass":"1",
+//                 "user_type":"1",
+//                 "type":"1"
+//            ]
         }
         
         netWorkForRegistAccount(params: params) { (code) in
-            Defaults[username] = "nil"
-            Defaults[userToken] = "nil"
             
             if code == "haha" {
-                
+                if !self.isTeacher {
+                    Defaults[userIdentity] = kStudent
+                    Defaults[username] = self.infoArr[0][0]
+                    Defaults[userArea] = self.infoArr[0][1]
+                    Defaults[userToken] = "userToken"
+                    Defaults[userId] = "学号 008"
+//                    Defaults[userIcon] = kTeacher
+                    Defaults[userGrade] = self.infoArr[0][2]
+                }else{
+                    
+                    self.infoArr = [["付耀辉","diligencefu@sina.com","三年级","武汉"],["语文数学","一二三年级","12：00-14：00"]]
+
+                    Defaults[userIdentity] = kTeacher
+                    Defaults[username] = self.infoArr[0][0]
+                    Defaults[userArea] = self.infoArr[0][2]
+                    //                    Defaults[userId] = kTeacher
+                    Defaults[userId] = "学号 008"
+                    //                    Defaults[userIcon] = kTeacher
+                    Defaults[userGrade] = self.infoArr[0][3]
+                }
+
+                self.view.window?.rootViewController = MainTabBarController()
+
             }
         }
         
-        if self.isTeacher {
-            Defaults[userIdentity] = kTeacher
-        }else{
-            Defaults[userIdentity] = kStudent
-        }
         
-        self.view.window?.rootViewController = MainTabBarController()
 
         
     }

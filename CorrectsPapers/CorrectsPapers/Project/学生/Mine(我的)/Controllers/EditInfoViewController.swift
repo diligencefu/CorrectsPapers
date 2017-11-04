@@ -17,21 +17,23 @@ class EditInfoViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(title: "保存", style: .plain, target: self, action: #selector(pushToSetting(sender:)))
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(title: "保存", style: .plain, target: self, action: #selector(edittingInfoDone(sender:)))
         self.navigationItem.rightBarButtonItem?.tintColor = UIColor.white
-        
+        self.navigationItem.rightBarButtonItem?.isEnabled = false
+
         if model.user_name != nil {
             
             infoArr = [[""],[model.user_name,model.user_phone],[model.user_area,model.user_fit_class],[model.user_num]]
         }
+        addTagsView()
     }
     
-    @objc func pushToSetting(sender:UIBarButtonItem) {
+    @objc func edittingInfoDone(sender:UIBarButtonItem) {
         
         self.navigationItem.rightBarButtonItem?.isEnabled = false
         
         let cell = mainTableView.cellForRow(at: IndexPath.init(row: 0, section: 1)) as! EditInfoCell
-
+        let headCell = mainTableView.cellForRow(at: IndexPath.init(row: 0, section: 0)) as! EditHeadCell
         
         let params =
             [
@@ -43,10 +45,27 @@ class EditInfoViewController: BaseViewController {
                 "fit_class":infoArr[2][1],
                 ]
         
-        netWorkForEditoData(params: params) { (dataArr) in
+        var imgArr = [UIImage]()
+        var nameArr = [String]()
+        
+        imgArr.append(headCell.userIcon.image!)
+        
+        nameArr.append("User_headImage")
+        
+        upLoadImageRequest(params: params, data: imgArr, name: nameArr, success: { (datas) in
+            
+            self.navigationItem.rightBarButtonItem?.isEnabled = true
+        }) { (error) in
+            
+            print(error)
             self.navigationItem.rightBarButtonItem?.isEnabled = true
         }
         
+        
+//        netWorkForEditoData(params: params) { (dataArr) in
+//            self.navigationItem.rightBarButtonItem?.isEnabled = true
+//        }
+//
     }
     
     
@@ -93,7 +112,11 @@ class EditInfoViewController: BaseViewController {
         
         if indexPath.section == 0 {
             let cell : EditHeadCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable, for: indexPath) as! EditHeadCell
-            
+            cell.setUserIconBlock = {
+                
+                print($0)
+                self.navigationItem.rightBarButtonItem?.isEnabled = true
+            }
             return cell
         }else{
             let cell : EditInfoCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable1, for: indexPath) as! EditInfoCell
@@ -147,5 +170,113 @@ class EditInfoViewController: BaseViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         
+//        选择地区
+        if indexPath.section == 2 && indexPath.row == 0 {
+            showAreaView()
+        }
+//        选择年级
+        if indexPath.section == 2 && indexPath.row == 1 {
+            showGradeTagsView()
+        }
+
     }
+    
+    
+    var BGView = UIView()
+    var gradeTagsView = ShowTagsView()
+    var areaView = ShowTagsView()
+    
+    @objc func showChooseCondi(tap:UITapGestureRecognizer) -> Void {
+        if tap.view?.alpha == 1 {
+            
+            UIView.animate(withDuration: 0.5) {
+                tap.view?.alpha = 0
+                self.gradeTagsView.transform = .identity
+                self.areaView.transform = .identity
+            }
+        }
+    }
+    
+    func hiddenViews() {
+        UIView.animate(withDuration: 0.5) {
+            self.BGView.alpha = 0
+            self.gradeTagsView.transform = .identity
+            self.areaView.transform = .identity
+        }
+        
+    }
+    
+    
+    //    视图TagView
+    func addTagsView() {
+        
+        //        弹出视图弹出来之后的背景蒙层
+        BGView = UIView.init(frame: self.view.frame)
+        BGView.backgroundColor = kSetRGBAColor(r: 5, g: 5, b: 5, a: 0.5)
+        BGView.alpha = 0
+        //        BGView.isHidden = true
+        
+        let tapGes1 = UITapGestureRecognizer.init(target: self, action: #selector(showChooseCondi(tap:)))
+        tapGes1.numberOfTouchesRequired = 1
+        BGView.addGestureRecognizer(tapGes1)
+        self.view.addSubview(BGView)
+        
+        
+        gradeTagsView = UINib(nibName:"ShowTagsView",bundle:nil).instantiate(withOwner: self, options: nil).first as! ShowTagsView
+        gradeTagsView.ShowTagsViewForGrades(title: "选择年级", total: 1)
+        gradeTagsView.frame =  CGRect(x: 0, y: kSCREEN_HEIGHT, width: kSCREEN_WIDTH, height: 190+287*kSCREEN_SCALE)
+        gradeTagsView.layer.cornerRadius = 24*kSCREEN_SCALE
+        gradeTagsView.selectBlock = {
+            if !$1 {
+                self.infoArr[2][1] = $0
+                self.mainTableView.reloadRows(at: [IndexPath.init(row: 1, section: 2)], with: .automatic)
+                self.navigationItem.rightBarButtonItem?.isEnabled = true
+
+            }
+            self.hiddenViews()
+        }
+        
+        gradeTagsView.clipsToBounds = true
+        self.view.addSubview(gradeTagsView)
+        
+
+        areaView = UINib(nibName:"ShowTagsView",bundle:nil).instantiate(withOwner: self, options: nil).first as! ShowTagsView
+        areaView.ShowTagsViewForChooseEdu(title: "选择城市", index: 0)
+        areaView.frame =  CGRect(x: 0, y: kSCREEN_HEIGHT, width: kSCREEN_WIDTH, height: 350)
+        areaView.layer.cornerRadius = 24*kSCREEN_SCALE
+        areaView.selectBlock = {
+            if !$1 {
+                self.infoArr[2][0] = $0
+                self.mainTableView.reloadRows(at: [IndexPath.init(row: 0, section: 2)], with: .automatic)
+                self.navigationItem.rightBarButtonItem?.isEnabled = true
+
+            }
+            self.hiddenViews()
+        }
+        
+        areaView.clipsToBounds = true
+        self.view.addSubview(areaView)
+        
+    }
+    
+    
+    
+    func showGradeTagsView() -> Void {
+        let y = 180+287*kSCREEN_SCALE
+        
+        UIView.animate(withDuration: 0.5) {
+            self.gradeTagsView.transform = .init(translationX: 0, y: -y)
+            self.BGView.alpha = 1
+        }
+    }
+    
+    
+    func showAreaView() -> Void {
+        let y = CGFloat(330)
+        UIView.animate(withDuration: 0.5) {
+            self.areaView.transform = .init(translationX: 0, y: -y)
+            self.BGView.alpha = 1
+        }
+    }
+    
 }

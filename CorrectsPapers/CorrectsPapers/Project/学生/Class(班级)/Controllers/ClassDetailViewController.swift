@@ -390,10 +390,14 @@ class ClassDetailViewController: BaseViewController {
             
             let url = NSURL.init(string: "http://m.youku.com/video/id_XMzA4MDYxNzQ2OA==.html?spm=a2hww.20022069.m_215416.5~5%212~5~5%212~A&source=http%3A%2F%2Fyouku.com%2Fu%2F13656654646%3Fscreen%3Dphone")
             
-            UIApplication.shared.open(url! as URL, options: [:],
-                                      completionHandler: {
-                                        (success) in
-            })
+            if #available(iOS 10.0, *) {
+                UIApplication.shared.open(url! as URL, options: [:],
+                                          completionHandler: {
+                                            (success) in
+                })
+            } else {
+                // Fallback on earlier versions
+            }
             
         }
         

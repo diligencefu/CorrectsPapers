@@ -27,6 +27,9 @@ class WorkBookModel: BaseModel {
 
     ///批改老师
     var correct_teacher : String?
+    
+    ///用户练习册id（
+    var userWorkBookId : String?
 
     class func setValueForWorkBookModel(json: JSON) -> WorkBookModel {
         
@@ -39,6 +42,7 @@ class WorkBookModel: BaseModel {
         model.isFollow = json["isFollow"].boolValue
         model.correct_state = json["correct_state"].intValue
         model.correct_teacher = json["correct_teacher"].stringValue
+        model.userWorkBookId = json["userWorkBookId"].stringValue
 
         return model
     }

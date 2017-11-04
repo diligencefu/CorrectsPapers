@@ -9,6 +9,8 @@
 import UIKit
 import UserNotifications
 import SwiftyUserDefaults
+import IQKeyboardManagerSwift
+
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDelegate {
@@ -34,26 +36,44 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
         self.window!.makeKeyAndVisible()
         
         
-        let notifiCenter = UNUserNotificationCenter.current()
-        
-        notifiCenter.delegate = self
-        
-        let types = UNAuthorizationOptions(arrayLiteral: [.alert, .badge, .sound])
-        
-        notifiCenter.requestAuthorization(options: types) { (flag, error) in
-            if flag {
-                print("iOS request notification success")
-            }else{
-                print(" iOS 10 request notification fail")
+        if #available(iOS 10.0, *) {
+            let notifiCenter = UNUserNotificationCenter.current()
+            
+            notifiCenter.delegate = self
+            
+            let types = UNAuthorizationOptions(arrayLiteral: [.alert, .badge, .sound])
+            
+            notifiCenter.requestAuthorization(options: types) { (flag, error) in
+                if flag {
+                    print("iOS request notification success")
+                }else{
+                    print(" iOS 10 request notification fail")
+                }
             }
+
+        } else {
+            
+            // Fallback on earlier versions
         }
+        
         
         UIApplication.shared.applicationIconBadgeNumber = 0
         
+        setKeyBoard()
         
         return true
     }
 
+    
+    private func setKeyBoard() {
+        
+        let manager = IQKeyboardManager.sharedManager()
+        manager.enable = true
+        manager.shouldResignOnTouchOutside = true
+        manager.shouldToolbarUsesTextFieldTintColor = true
+        manager.enableAutoToolbar = true
+    }
+    
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.

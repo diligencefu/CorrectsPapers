@@ -65,7 +65,7 @@ class TChooseMemberViewController: BaseViewController {
         
         let cell : ShowFridensCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable, for: indexPath) as! ShowFridensCell
         cell.selectionStyle = .default
-        cell.ShowFridensCellForShowFriend()
+//        cell.ShowFridensCellForShowFriend(model: <#ApplyModel#>)
         
         if selectArr.contains(String(indexPath.row)) {
             cell.accessoryType = .checkmark

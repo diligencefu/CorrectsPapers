@@ -26,6 +26,7 @@ class ShowImageCell: UICollectionViewCell {
         
         deleteButton.layer.cornerRadius = 10
         deleteButton.clipsToBounds = true
+        showImage.contentMode = .scaleAspectFit
     }
 
     func setImages(image:UIImage,isEditting:Bool) {
@@ -49,12 +50,14 @@ class ShowImageCell: UICollectionViewCell {
     }
     
     func noImage() {
-
-    
+        showImage.image = #imageLiteral(resourceName: "Upload_btn_default")
+        deleteButton.isHidden = true
     }
     
     @objc func showDeleteButton(ges:UILongPressGestureRecognizer) {
-        deleteButton.isHidden = false
+        if showImage.image != #imageLiteral(resourceName: "Upload_btn_default") {
+            deleteButton.isHidden = false
+        }
     }
 
     @IBAction func deleteAction(_ sender: UIButton) {

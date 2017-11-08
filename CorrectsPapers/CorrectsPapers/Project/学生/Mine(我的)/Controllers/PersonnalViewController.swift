@@ -9,6 +9,7 @@
 import UIKit
 import SwiftyUserDefaults
 import MJRefresh
+import Alamofire
 
 class PersonnalViewController: BaseViewController {
     
@@ -37,7 +38,7 @@ class PersonnalViewController: BaseViewController {
                 Defaults[username] = self.model.user_name
                 Defaults[userArea] = self.model.user_area
                 Defaults[userId] = self.model.user_num
-                Defaults[userGrade]! = self.model.user_fit_class
+//                Defaults[userGrade]! = self.model.user_fit_class
                 Defaults[userAccount] = self.model.coin_count
                 
             }
@@ -55,7 +56,7 @@ class PersonnalViewController: BaseViewController {
                 Defaults[username] = self.model.user_name
                 Defaults[userArea] = self.model.user_area
                 Defaults[userId] = self.model.user_num
-                Defaults[userGrade]! = self.model.user_fit_class
+//                Defaults[userGrade]! = self.model.user_fit_class
                 Defaults[userAccount] = self.model.coin_count
 
             }
@@ -89,17 +90,17 @@ class PersonnalViewController: BaseViewController {
         model.user_name = Defaults[username]
         model.user_area = Defaults[userArea]
         model.user_num = Defaults[userId]
-        model.user_fit_class = Defaults[userGrade]!
+//        model.user_fit_class = Defaults[userGrade]!
         
         if Defaults[messageNum] != nil {
             model.num = Defaults[messageNum]
         }else{
-            model.num = "0"
+            model.num = "100"
         }
         if Defaults[userAccount] != nil{
             model.coin_count = Defaults[userAccount]
         }else{
-            model.coin_count = "0"
+            model.coin_count = "100"
         }
         if Defaults[userFriendCount] != nil {
             model.friendCount = Defaults[userFriendCount]
@@ -109,7 +110,7 @@ class PersonnalViewController: BaseViewController {
 
         self.infoArr = [[""],[self.model.coin_count!+"学币",self.model.friendCount+"人",""],[self.model.num,""],["",""]]
         
-//        infoArr = [[""],["10000学币","15624学分","100人",""],["",""],["",""]]
+//        infoArr = [[""],["100学币","100学分","0人",""],["",""],["",""]]
         
         mainTableView = UITableView.init(frame: CGRect(x: 0,
                                                        y: -504,
@@ -213,17 +214,15 @@ class PersonnalViewController: BaseViewController {
         if indexPath.section == 1 {
             
             switch indexPath.row {
-                
             case 0:
                 
                 let incomeVC = IncomeViewController()
                 self.navigationController?.pushViewController(incomeVC, animated: true)
                 break
             case 1:
+                
                 let friendsVC = MyFriendViewController()
                 self.navigationController?.pushViewController(friendsVC, animated: true)
-
-                
                 break
             case 2:
                 
@@ -268,4 +267,3 @@ class PersonnalViewController: BaseViewController {
         }
     }
 }
-

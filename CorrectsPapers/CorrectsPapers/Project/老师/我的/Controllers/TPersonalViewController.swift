@@ -7,21 +7,63 @@
 //
 
 import UIKit
+import SwiftyUserDefaults
+import MJRefresh
 
 class TPersonalViewController: BaseViewController {
     
     var dataArr = [Array<String>]()
     var infoArr = [Array<String>]()
     
+    var model = PersonalModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        mainTableView.mj_header = MJRefreshNormalHeader.init(refreshingBlock: {
+            self.refreshHeaderAction()
+        })
     }
     
-    override func addHeaderRefresh() {
+    override func requestData() {
         
+        netWorkForMyData { (dataArr) in
+            
+            if dataArr.count > 0{
+                self.model = dataArr[0] as! PersonalModel
+                self.infoArr = [[""],[self.model.coin_count!+"学币"],[self.model.friendCount+"人",""],[self.model.num,"",""]]
+
+                Defaults[username] = self.model.user_name
+                Defaults[userArea] = self.model.user_area
+                Defaults[userId] = self.model.user_num
+                //                Defaults[userGrade]! = self.model.user_fit_class
+                Defaults[userAccount] = self.model.coin_count
+                
+            }
+            self.mainTableView.reloadData()
+        }
     }
+    
+    override func refreshHeaderAction() {
+        netWorkForMyData { (dataArr) in
+            
+            if dataArr.count > 0{
+                self.model = dataArr[0] as! PersonalModel
+                self.infoArr = [[""],[self.model.coin_count!+"学币"],[self.model.friendCount+"人",""],[self.model.num,"",""]]
+
+                Defaults[username] = self.model.user_name
+                Defaults[userArea] = self.model.user_area
+                Defaults[userId] = self.model.user_num
+                //Defaults[userGrade]! = self.model.user_fit_class
+                Defaults[userAccount] = self.model.coin_count
+                
+            }
+            
+            self.mainTableView.mj_header.endRefreshing()
+            self.mainTableView.reloadData()
+        }
+    }
+
     
     override func leftBarButton() {
         self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(image: #imageLiteral(resourceName: "set_icon_default"), style: .plain, target: self, action: #selector(pushToSetting(sender:)))
@@ -35,17 +77,37 @@ class TPersonalViewController: BaseViewController {
         
     }
     
-    
     override func configSubViews() {
-        
         self.navigationItem.title = "我的"
         
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
         self.navigationController?.navigationBar.shadowImage = UIImage()
         self.navigationController?.navigationBar.isTranslucent = true
         
+        model.user_name = Defaults[username]
+        model.user_area = Defaults[userArea]
+        model.user_num = Defaults[userId]
+        //        model.user_fit_class = Defaults[userGrade]!
+        
+        if Defaults[messageNum] != nil {
+            model.num = Defaults[messageNum]
+        }else{
+            model.num = "100"
+        }
+        if Defaults[userAccount] != nil{
+            model.coin_count = Defaults[userAccount]
+        }else{
+            model.coin_count = "100"
+        }
+        if Defaults[userFriendCount] != nil {
+            model.friendCount = Defaults[userFriendCount]
+        }else{
+            model.friendCount = "0"
+        }
         dataArr = [[""],["我的收入"],["我的好友","邀请好友"],["消息中心","被投诉记录","意见和建议"]]
-        infoArr = [[""],["1000元"],["100人",""],["","",""],[""]]
+        
+
+        self.infoArr = [[""],[self.model.coin_count!+"学币"],[self.model.friendCount+"人",""],[self.model.num,"",""]]
         
         mainTableView = UITableView.init(frame: CGRect(x: 0,
                                                        y: -504,
@@ -60,9 +122,7 @@ class TPersonalViewController: BaseViewController {
         self.view.addSubview(mainTableView)
         mainTableView.backgroundColor = kSetRGBColor(r: 239, g: 239, b: 244)
         mainTableArr = ["关于医生端","清除缓存","检查更新"]
-        
     }
-    
     
     //    ******************代理 ： UITableViewDataSource,UITableViewDelegate  ************
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -78,7 +138,7 @@ class TPersonalViewController: BaseViewController {
         
         if indexPath.section == 0 {
             let cell : PersonHeadCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable1, for: indexPath) as! PersonHeadCell
-            
+            cell.setValues(model: model)
             return cell
         }
         
@@ -86,17 +146,20 @@ class TPersonalViewController: BaseViewController {
         cell.selectionStyle = .default
         var isShow = false
         
-        if indexPath.section == 1 && indexPath.row == 1 {
-            cell.accessoryType = .none
-        }
-        
         if indexPath.section == 0 {
             isShow = true
         }
         
-        if indexPath.section == 3 && indexPath.row == 0{
-            cell.showForMessages(count:"99+",titleStr:"消息中心")
+        if indexPath.section == 3 && indexPath.row == 0 {
+            if model.num == nil {
+                
+                cell.showForMessages(count:"",titleStr:"消息中心")
+            }else{
+                
+                cell.showForMessages(count:model.num,titleStr:"消息中心")
+            }
         }else{
+            
             cell.showForCreateBook(isShow: isShow, title:  dataArr[indexPath.section][indexPath.row], subTitle: infoArr[indexPath.section][indexPath.row])
         }
         
@@ -135,6 +198,7 @@ class TPersonalViewController: BaseViewController {
         return 0.01 * kSCREEN_SCALE
     }
     
+
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         

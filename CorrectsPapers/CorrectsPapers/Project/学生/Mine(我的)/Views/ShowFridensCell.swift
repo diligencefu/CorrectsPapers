@@ -33,19 +33,27 @@ class ShowFridensCell: UITableViewCell {
     
     
     
-    func ShowFridensCellForShowFriend() {
+    func ShowFridensCellForShowFriend(model:ApplyModel) {
         
         addBtn.isHidden = true
         
+        userIcon.kf.setImage(with:  URL(string:model.user_photo), placeholder: #imageLiteral(resourceName: "UserHead_64_default"), options: nil, progressBlock: nil, completionHandler: nil)
+        userId.text = model.user_num
+        userName.text = model.user_name
     }
     
     
-    func ShowFridensCellForAddFriend() {
+    func ShowFridensCellForAddFriend(model:FriendsModel) {
+        userIcon.kf.setImage(with:  URL(string:model.user_photo), placeholder: #imageLiteral(resourceName: "UserHead_64_default"), options: nil, progressBlock: nil, completionHandler: nil)
+        userId.text = model.user_num
+        userName.text = model.user_name
         
+        if model.isSent! {
+            addBtn.isEnabled = false
+            addBtn.setBackgroundImage(getNavigationIMG(27, fromColor: kGaryColor(num: 117), toColor: kGaryColor(num: 117)), for: .normal)
+            addBtn.setTitle("已发送请求", for: .normal)
+        }
     }
-    
-    
-    
     
     
     @IBAction func addFriendAction(_ sender: UIButton) {

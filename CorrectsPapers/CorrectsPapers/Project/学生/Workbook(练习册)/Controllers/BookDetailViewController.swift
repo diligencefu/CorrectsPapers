@@ -21,8 +21,8 @@ class BookDetailViewController: BaseViewController {
 
     var dateBtn = UIButton()
     
-    var book_id = ""
-    
+    var model = WorkBookModel()
+
     override func viewDidLoad() {
         super.viewDidLoad()
     }
@@ -31,13 +31,15 @@ class BookDetailViewController: BaseViewController {
         
         let params =
             [
-                "workBookId":book_id,
+                "userWorkBookId":model.userWorkBookId,
                 "SESSIONID":SESSIONID,
                 "mobileCode":mobileCode
         ]
+        
         netWorkForGetWorkBookByTime(params: params) { (dataArr) in
             print(dataArr)
         }
+        
     }
     
     override func configSubViews() {

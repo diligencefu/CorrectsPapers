@@ -10,11 +10,44 @@ import UIKit
 
 class MessgaeCenterViewController: BaseViewController {
 
+    var pageNum = 0
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        addFooterRefresh()
      }
  
+    
+    override func requestData() {
+        let params =
+            [
+                "SESSIONID":"1",
+                "mobileCode":"on",
+                "pageNo":pageNum
+                ] as [String : Any]
+
+        netWorkForGetMessages(params: params) { (datas) in
+            self.mainTableArr.removeAllObjects()
+            self.mainTableArr.addObjects(from: datas)
+        }
+    }
+    
+    override func refreshFooterAction() {
+        pageNum = pageNum+1
+        let params =
+            [
+                "SESSIONID":"1",
+                "mobileCode":"on",
+                "pageNo":pageNum
+                ] as [String : Any]
+        
+        netWorkForGetMessages(params: params) { (datas) in
+            self.mainTableArr.addObjects(from: datas)
+        }
+    }
+    
+    
     
     override func configSubViews() {
         
@@ -39,7 +72,7 @@ class MessgaeCenterViewController: BaseViewController {
     
     //    ******************代理 ： UITableViewDataSource,UITableViewDelegate  ************
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return  10
+        return  mainTableArr.count
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -48,10 +81,11 @@ class MessgaeCenterViewController: BaseViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
+        let model = mainTableArr[indexPath.row] as! MessageModel
+        
         let cell = tableView.dequeueReusableCell(withIdentifier: identyfierTable, for: indexPath) as! MessgesCell
-        
+        cell.setValueMessgesCell(model:model)
         return cell
-        
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

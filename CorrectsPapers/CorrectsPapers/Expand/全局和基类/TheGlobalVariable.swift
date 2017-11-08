@@ -55,8 +55,12 @@ let kFont46 = UIFont.systemFont(ofSize: kSCREEN_SCALE * 46)
 
 var timeInterval = 3600
 
-//MARK:全局定时器
+//MARK:全局定时器（练习册）
 var kTimer = Timer()
+
+var timeInterval2 = 3600
+//MARK:全局定时器（班级）
+var kTimer2 = Timer()
 
 //选择器的高度
 let DateHeight = 788 * kSCREEN_SCALE

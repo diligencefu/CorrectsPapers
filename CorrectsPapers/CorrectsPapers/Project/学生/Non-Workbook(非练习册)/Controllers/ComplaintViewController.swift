@@ -20,10 +20,6 @@ class ComplaintViewController: BaseViewController ,UITextFieldDelegate,UITextVie
         super.viewDidLoad()
         rightBarButton()
     }
- 
-    override func leftBarButton() {
-        
-    }
     
     func rightBarButton(){
         self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(title: "提交", style: .plain, target: self, action: #selector(pushSearchClass(sender:)))
@@ -65,6 +61,7 @@ class ComplaintViewController: BaseViewController ,UITextFieldDelegate,UITextVie
         content.font = kFont34
         content.layer.borderColor = kGaryColor(num: 221).cgColor
         content.delegate = self
+        content.isHidden = true
         content.layer.borderWidth = 1
         self.view.addSubview(content)
         
@@ -114,8 +111,13 @@ class ComplaintViewController: BaseViewController ,UITextFieldDelegate,UITextVie
             selectArr.add(mainTableArr[indexPath.row])
         }
         
-       tableView.reloadData()
+        if selectArr.contains("其他") {
+            content.isHidden = false
+        }else{
+            content.isHidden = true
+        }
         
+       tableView.reloadData()
     }
 
     //    MARK:UITextViewDelegate

@@ -169,4 +169,22 @@ class ClassViewController: BaseViewController {
         return "退出班级"
     }
 
+    
+    
+//    
+//    if currentIndex == 1 {
+//    let cell : ShowClassMemberCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable5, for: indexPath) as! ShowClassMemberCell
+//    return cell
+//    
+//    }
+//    
+//    
+//    if currentIndex == 2 {
+//    let cell : TClassInfoCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable6, for: indexPath) as! TClassInfoCell
+//    return cell
+//    }
+//    
+//    let cell : TGoodWorkCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable7, for: indexPath) as! TGoodWorkCell
+//    cell.TGoodWorkCellSetValueForGreade(count: indexPath.row+1)
+//    return cell
 }

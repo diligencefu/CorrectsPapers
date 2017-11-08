@@ -41,6 +41,7 @@ class CheckWorkCell: UITableViewCell {
     @IBOutlet weak var doneMark: UILabel!
     
     var complainAction:(()->())?  //声明闭包
+    var resubmitAction:(()->())?  //声明闭包
 
     
     override func awakeFromNib() {
@@ -127,16 +128,13 @@ class CheckWorkCell: UITableViewCell {
         if complainAction != nil {
             complainAction!()
         }
-        
-        let complainVC = ComplaintViewController()
-        
-        viewController()?.navigationController?.pushViewController(complainVC, animated: true)
-        
+                
     }
     
     @IBAction func resubmitAction(_ sender: UIButton) {        
-        
-        
+        if resubmitAction != nil {
+            resubmitAction!()
+        }        
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {

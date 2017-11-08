@@ -125,7 +125,7 @@ class TCreateClassViewController: BaseViewController {
                 
             }else{
                 let cell : ShowFridensCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable1, for: indexPath) as! ShowFridensCell
-                cell.ShowFridensCellForShowFriend()
+//                cell.ShowFridensCellForShowFriend()
                 return cell
             }
             
@@ -137,7 +137,7 @@ class TCreateClassViewController: BaseViewController {
                 return cell2
             }else{
                 let cell : ShowFridensCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable1, for: indexPath) as! ShowFridensCell
-                cell.ShowFridensCellForShowFriend()
+//                cell.ShowFridensCellForShowFriend()
                 return cell
                 
             }

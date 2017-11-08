@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SUploadWorkCell: UITableViewCell,UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout  {
+class SUploadWorkCell: UITableViewCell,UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout ,UITextFieldDelegate {
 
     var collect = UICollectionView(frame: CGRect(x: 25, y: 150, width: 50, height: 40), collectionViewLayout: UICollectionViewFlowLayout())
 
@@ -18,6 +18,9 @@ class SUploadWorkCell: UITableViewCell,UICollectionViewDelegate,UICollectionView
     
     var isEditting = false
 
+    @IBOutlet weak var countDown: UILabel!
+    
+    @IBOutlet weak var waitLabel: UILabel!
     
     @IBOutlet weak var imagesCollect: UIView!
     
@@ -28,14 +31,15 @@ class SUploadWorkCell: UITableViewCell,UICollectionViewDelegate,UICollectionView
     let identifierCell = "ShowImageCell"
     
     var addImageAction:((String)->())?  //声明闭包
-    
+    var deletImageAction:((Int)->())?  //声明闭包
+
     
     override func awakeFromNib() {
         super.awakeFromNib()
         
         uploadBtn.layer.cornerRadius = 5
         uploadBtn.clipsToBounds = true
-        
+        bookTitle.delegate = self
         uploadBtn.setBackgroundImage(getNavigationIMG(27, fromColor: kSetRGBColor(r: 0, g: 200, b: 255), toColor: kSetRGBColor(r: 0, g: 162, b: 255)), for: .normal)
         
         //        创建collectionView
@@ -59,23 +63,14 @@ class SUploadWorkCell: UITableViewCell,UICollectionViewDelegate,UICollectionView
         
     }
     
+//    初次上传作业
     func SUploadWorkCellSetValues(images:[UIImage]) {
 
+        countDown.isHidden = true
         dataArray = images
-        
-        if images.count > 0 {
-            uploadBtn.isEnabled = true
-        }
-        
-        if images.count == 0 || bookTitle.text?.characters.count == 0{
-            uploadBtn.isEnabled = false
-        }else{
-            uploadBtn.isEnabled = true
-            uploadBtn.setBackgroundImage(getNavigationIMG(27, fromColor: kSetRGBColor(r: 0, g: 200, b: 255), toColor: kSetRGBColor(r: 0, g: 162, b: 255)), for: .normal)
-        }
+        dataArr.addObjects(from: images)
         
         var rows = CGFloat(images.count/4+1)
-        
         
         if rows > 3 {
             rows = 3
@@ -89,12 +84,56 @@ class SUploadWorkCell: UITableViewCell,UICollectionViewDelegate,UICollectionView
     }
     
     
+//    上传改正后作业
+    func SUploadWorkCellResubmit(images:[UIImage]) {
+        
+        dataArray = images
+        dataArr.addObjects(from: images)
+        
+        var rows = CGFloat(images.count/4+1)
+        
+        if rows > 3 {
+            rows = 3
+        }
+        waitLabel.text = "等待更正错题"
+        imagesCollect.snp.updateConstraints { (make) in
+            make.height.equalTo(rows * kHeight)
+        }
+        
+        collect.reloadData()
+        kTimer2.invalidate()
+        kTimer2 = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(countDown(timer:)), userInfo: nil, repeats: true)
+        
+    }
+    
+    @objc func countDown(timer:Timer) {
+        
+        timeInterval2 = timeInterval2 - 1
+        
+        let minutes = String(timeInterval2/60)+"分"
+        let seconds = String(timeInterval2%60)+"秒"
+        
+        countDown.text = "截止倒计时 " + minutes + seconds
+        
+        if timeInterval == 0 {
+            
+            uploadBtn.backgroundColor = kGaryColor(num: 206)
+            uploadBtn.isEnabled = false
+            kTimer2.invalidate()
+            
+            setToast(str: "对不起，你已超时")
+        }
+        
+    }
+
+    
+    
     //    collectionViewDelegate and Datasource
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        
         if dataArray?.count == nil {
             return 1
         }
-        
         return (dataArray?.count)! + 1
     }
     
@@ -107,7 +146,11 @@ class SUploadWorkCell: UITableViewCell,UICollectionViewDelegate,UICollectionView
             cell.deleteAction = {
                 print($0)
                 self.dataArray?.remove(at: indexPath.row)
+                self.isEditting = false
                 collectionView.reloadData()
+                if self.deletImageAction != nil {
+                    self.deletImageAction!(indexPath.row)
+                }
             }            
         }else{
             cell.noImage()
@@ -135,17 +178,14 @@ class SUploadWorkCell: UITableViewCell,UICollectionViewDelegate,UICollectionView
         
         collectionView.deselectItem(at: indexPath, animated: true)
         
-        
         if addImageAction != nil {
-            if dataArray?.count != nil {
-                
+            if dataArray?.count == 0 {
+                addImageAction!("add")
+            }else{
+                if indexPath.row == (dataArray?.count)! {
+                    addImageAction!("add")
+                }
             }
-            
-            if indexPath.row == (dataArray?.count)!-1 {
-                
-            }
-            
-         addImageAction!("add")
         }
     }
     
@@ -156,8 +196,23 @@ class SUploadWorkCell: UITableViewCell,UICollectionViewDelegate,UICollectionView
         }
     }
     
+    @IBAction func upLoadWorkAction(_ sender: UIButton) {
+        
+        if dataArray?.count == 0 {
+            setToast(str: "请添加图片")
+            return
+        }
+        
+        if bookTitle.text == "" {
+            setToast(str: "请输入练习册标题")
+            bookTitle.becomeFirstResponder()
+            return
+        }
+        
+        setToast(str: "No problem.")
+    }
+    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
     }
-    
 }

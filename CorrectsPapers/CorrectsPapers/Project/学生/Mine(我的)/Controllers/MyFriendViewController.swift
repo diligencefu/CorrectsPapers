@@ -14,9 +14,14 @@ class MyFriendViewController: BaseViewController {
     var headView = UIView()
     var currentIndex = 123456
 
+    var teachers = [ApplyModel]()
+    var students = [ApplyModel]()
+
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         rightBarButton()
+        addImageWhenEmpty()
     }
 
     func rightBarButton(){
@@ -49,11 +54,50 @@ class MyFriendViewController: BaseViewController {
     }
 
     
+    override func requestData() {
+        
+        netWorkForMyFriend { (datas, success) in
+            
+            print(datas)
+            
+            for index in 0..<datas.count {
+                
+                let model = datas[index] as! ApplyModel
+                
+                if model.user_type == "1" {
+                    self.students.append(model)
+                }else{
+                    self.teachers.append(model)
+                }
+            }
+            self.mainTableView.reloadData()
+        }
+    }
+    
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        netWorkForMyFriend { (datas, success) in
+            
+            self.mainTableArr.removeAllObjects()
+            for index in 0..<datas.count {
+                
+                let model = datas[index] as! ApplyModel
+                
+                if model.user_type == "1" {
+                    self.students.append(model)
+                }else{
+                    self.teachers.append(model)
+                }
+            }
+            self.mainTableView.reloadData()
+        }
+
+    }
     
     override func configSubViews() {
         
         self.navigationItem.title = "我的好友"
-        
         
         headView = UIView.init(frame: CGRect(x: 0, y: 0, width: kSCREEN_WIDTH, height: 80*kSCREEN_SCALE+2))
         headView.backgroundColor = UIColor.white
@@ -125,10 +169,50 @@ class MyFriendViewController: BaseViewController {
         
     }
     
+    //    当数据为空的时候，显示提示
+    var emptyView = UIView()
+
+    func addImageWhenEmpty() {
+        emptyView = UIView.init(frame: CGRect(x: 0, y: 80*kSCREEN_SCALE+2, width: kSCREEN_WIDTH, height: kSCREEN_HEIGHT - 46))
+        emptyView.backgroundColor = kBGColor()
+        let imageView = UIImageView.init(frame: CGRect(x: 0, y: 0, width: 200 * kSCREEN_SCALE, height: 200 * kSCREEN_SCALE))
+        imageView.image = #imageLiteral(resourceName: "404_icon_default")
+        imageView.center = CGPoint(x: emptyView.centerX, y: emptyView.centerY - 200 * kSCREEN_SCALE)
+        emptyView.addSubview(imageView)
+        
+        let label = UILabel.init(frame: CGRect(x: 0, y: 0, width: kSCREEN_WIDTH, height: 18))
+        label.textAlignment = .center
+        label.textColor = kGaryColor(num: 163)
+        label.center = CGPoint(x: emptyView.centerX, y: emptyView.centerY-40)
+        label.font = kFont34
+        label.numberOfLines = 2
+        label.text = "未发现该类型好友"
+        emptyView.addSubview(label)
+    }
+    
+
     
     //    ******************代理 ： UITableViewDataSource,UITableViewDelegate  ************
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return  10
+        
+        if currentIndex == 123456 {
+            if students.count == 0 {
+                self.mainTableView.addSubview(emptyView)
+            }else{
+                emptyView.removeFromSuperview()
+            }
+
+            return students.count
+        }
+        
+        if teachers.count == 0 {
+            self.mainTableView.addSubview(emptyView)
+        }else{
+            emptyView.removeFromSuperview()
+        }
+
+        return  teachers.count
+        
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -137,8 +221,16 @@ class MyFriendViewController: BaseViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
+        var model = ApplyModel()
+        
+        if currentIndex == 123456 {
+            model = students[indexPath.section]
+        }else{
+            model = teachers[indexPath.section]
+        }
+        
         let cell = tableView.dequeueReusableCell(withIdentifier: identyfierTable, for: indexPath) as! ShowFridensCell
-        cell.ShowFridensCellForShowFriend()
+        cell.ShowFridensCellForShowFriend(model: model)
         return cell
         
     }
@@ -147,5 +239,36 @@ class MyFriendViewController: BaseViewController {
         tableView.deselectRow(at: indexPath, animated: true)
         
     }
+    
+    
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        
+        return true
+    }
+    
+    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {
+        return .delete
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        
+        if editingStyle == .delete {
+            
+//            let params =
+//                [
+//                    "workBookId":model.work_book_Id,
+//                    "SESSIONID":SESSIONID,
+//                    "mobileCode":mobileCode
+//            ]
+            
+        }
+        
+    }
+    
+    func tableView(_ tableView: UITableView, titleForDeleteConfirmationButtonForRowAt indexPath: IndexPath) -> String? {
+        
+        return "删除"
+    }
+    
 
 }

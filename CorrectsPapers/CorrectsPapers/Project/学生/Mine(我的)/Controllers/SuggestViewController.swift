@@ -55,8 +55,8 @@ class SuggestViewController: BaseViewController ,UITextFieldDelegate,UITextViewD
             
             let params = ["SESSIONID":"1",
                           "mobileCode":"on",
-                          "substance":"可以的啊"
-            ]
+                          "substance":self.content.text
+                ] as [String : Any]
             
             
             netWorkForSuggestion(params: params, callBack: { (photo) in

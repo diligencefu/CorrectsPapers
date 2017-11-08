@@ -145,13 +145,13 @@ class WorkBookViewController: BaseViewController ,UISearchBarDelegate{
         emptyView.backgroundColor = kBGColor()
         let imageView = UIImageView.init(frame: CGRect(x: 0, y: 0, width: 200 * kSCREEN_SCALE, height: 200 * kSCREEN_SCALE))
         imageView.image = #imageLiteral(resourceName: "404_icon_default")
-        imageView.center = CGPoint(x: emptyView.centerX, y: emptyView.centerY - 200 * kSCREEN_SCALE)
+        imageView.center = CGPoint(x: emptyView.centerX, y: emptyView.centerY - 130 * kSCREEN_SCALE)
         emptyView.addSubview(imageView)
         
         let label = UILabel.init(frame: CGRect(x: 0, y: 0, width: kSCREEN_WIDTH, height: 18))
         label.textAlignment = .center
         label.textColor = kGaryColor(num: 163)
-        label.center = CGPoint(x: emptyView.centerX, y: emptyView.centerY-40)
+        label.center = CGPoint(x: emptyView.centerX, y: emptyView.centerY-40+70*kSCREEN_SCALE)
         label.font = kFont34
         label.numberOfLines = 2
         label.text = "暂时没有练习册"
@@ -209,7 +209,7 @@ class WorkBookViewController: BaseViewController ,UISearchBarDelegate{
         tableView.deselectRow(at: indexPath, animated: true)
         let model = mainTableArr[indexPath.row] as! WorkBookModel
         let BookDetailVC = BookDetailViewController()
-        BookDetailVC.book_id = model.work_book_Id
+        BookDetailVC.model = model
         self.navigationController?.pushViewController(BookDetailVC, animated: true)
 
     }
@@ -232,7 +232,7 @@ class WorkBookViewController: BaseViewController ,UISearchBarDelegate{
             
             let params =
                 [
-                    "workBookId":"2",
+                    "workBookId":model.work_book_Id,
                     "SESSIONID":SESSIONID,
                     "mobileCode":mobileCode
             ]

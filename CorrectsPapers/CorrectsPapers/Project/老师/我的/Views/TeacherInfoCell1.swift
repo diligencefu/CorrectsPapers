@@ -22,9 +22,7 @@ class TeacherInfoCell1: UITableViewCell {
         super.awakeFromNib()
 
     }
-    
-    
-    
+        
     
     func TeacherInfoCellForSection2(title:String,subStr:String) {
         

@@ -20,6 +20,10 @@ class ApplyModel: NSObject {
     var user_type : String!
     ///申请人工号或者学号
     var user_num : String!
+    ///申请班级
+    var user_fit_class : String!
+    ///用户id
+    var userId : String!
 
     
     class func setValueForApplyModel(json: JSON) -> ApplyModel {
@@ -29,7 +33,9 @@ class ApplyModel: NSObject {
         model.user_area = json["user_area"].stringValue
         model.user_photo = json["user_photo"].stringValue
         model.user_type = json["user_type"].stringValue
+        model.userId = json["userId"].stringValue
         model.user_num = json["user_num"].stringValue
+        model.user_fit_class = json["user_fit_class"].stringValue
 
         return model
     }

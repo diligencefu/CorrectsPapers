@@ -119,8 +119,7 @@ class MyBookViewController: BaseViewController{
         tableView.deselectRow(at: indexPath, animated: true)
         let model = mainTableArr[indexPath.row] as! WorkBookModel
         let BookDetailVC = MyBookDetailViewController()
-        BookDetailVC.book_id = model.work_book_Id
-        BookDetailVC.workState = model.correct_state!
+        BookDetailVC.model = model
         self.navigationController?.pushViewController(BookDetailVC, animated: true)
 
     }

@@ -20,6 +20,7 @@ class IncomeViewController: BaseViewController {
 
         netWorkForMyCoin { (datas) in
             self.mainTableArr.addObjects(from: datas)
+            self.mainTableView.reloadData()
         }
     }
     
@@ -28,6 +29,7 @@ class IncomeViewController: BaseViewController {
         netWorkForMyCoin { (datas) in
             self.mainTableArr.removeAllObjects()
             self.mainTableArr.addObjects(from: datas)
+            self.mainTableView.mj_footer.endRefreshing()
             self.mainTableView.reloadData()
         }
     }

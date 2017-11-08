@@ -28,6 +28,20 @@ class MessgesCell: UITableViewCell {
         messageImage.layer.cornerRadius = 5
         messageImage.clipsToBounds = true
     }
+    
+    
+    func setValueMessgesCell(model:MessageModel) {
+        
+        messageContent.text = model.reason
+        
+        if model.isNewRecord == "0" {
+            isUnread.isHidden = false
+        }else{
+            isUnread.isHidden = true
+        }
+        
+    }
+    
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)

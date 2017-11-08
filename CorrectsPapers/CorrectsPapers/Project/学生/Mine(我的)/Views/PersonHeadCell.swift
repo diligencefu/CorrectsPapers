@@ -39,7 +39,6 @@ class PersonHeadCell: UITableViewCell {
     
     func setValues(model:PersonalModel) {
         
-//        headIcon.kf.setImage(with:  URL(string:model.user_photo)!, placeholder: #imageLiteral(resourceName: "photos_image_default"), options: nil, progressBlock: nil, completionHandler: nil)
         headIcon.kf.setImage(with:  URL(string:"https://ps.ssl.qhimg.com/sdmt/99_135_100/t01f61d3cc2fad557e5.jpg")!, placeholder: #imageLiteral(resourceName: "UserHead_64_default"), options: nil, progressBlock: nil, completionHandler: nil)
 
         userName.text = model.user_name

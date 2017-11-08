@@ -23,25 +23,40 @@ class MyBookDetailViewController: BaseViewController {
     
     var dateBtn = UIButton()
     
-    var book_id = ""
+    var model = WorkBookModel()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         addTimeSelector()
+        workState = model.correct_state!
     }
     
     override func requestData() {
         
         let params =
             [
-                "userWorkBookId":book_id,
+                "userWorkBookId":model.userWorkBookId,
                 "SESSIONID":SESSIONID,
                 "mobileCode":mobileCode
         ]
+        
         netWorkForGetWorkBookByTime(params: params) { (dataArr) in
             
             print(dataArr)
         }
+        
+        let params1 =
+            [
+                "userWorkBookId":model.userWorkBookId,
+                "SESSIONID":SESSIONID,
+                "mobileCode":mobileCode
+        ]
+        
+        netWorkForGetWorkBookTime(params: params1) { (datas) in
+            
+        }
+
+        
     }
     
     override func configSubViews() {
@@ -184,7 +199,7 @@ class MyBookDetailViewController: BaseViewController {
                 if $0 == "uploadAction" {
                     let params =
                         [
-                            "workBookId":self.book_id,
+                            "workBookId":self.model.work_book_Id,
                             "SESSIONID":SESSIONID,
                             "mobileCode":mobileCode
                     ]
@@ -210,7 +225,6 @@ class MyBookDetailViewController: BaseViewController {
             
         }
         
-        
         if currentIndex == 1 && workState == 1 && indexPath.row == 0{
             let cell : CheckWorkCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable2, for: indexPath) as! CheckWorkCell
             
@@ -224,10 +238,16 @@ class MyBookDetailViewController: BaseViewController {
             if indexPath.row == 0 {
                 let cell : CheckWorkCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable2, for: indexPath) as! CheckWorkCell
                 cell.checkWorkCellSetValues2()
+                cell.resubmitAction = {
+                    self.workState = 0
+                    tableView.reloadData()
+                }
+                cell.complainAction = {
+                    let complianVC = ComplaintViewController()
+                    self.navigationController?.pushViewController(complianVC, animated: true)
+                }
                 return cell
-                
             }
-            
         }
         
         if currentIndex == 1 && workState == 3 {
@@ -235,6 +255,10 @@ class MyBookDetailViewController: BaseViewController {
             if  indexPath.row == 0 {
                 let cell : CheckWorkCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable2, for: indexPath) as! CheckWorkCell
                 cell.checkWorkCellSetValues3()
+                cell.complainAction = {
+                    let complianVC = ComplaintViewController()
+                    self.navigationController?.pushViewController(complianVC, animated: true)
+                }
                 return cell
                 
             }
@@ -243,25 +267,40 @@ class MyBookDetailViewController: BaseViewController {
             cell.upLoadImagesForResubmit(images: images as! Array<UIImage>)
             
             cell.chooseImagesAction = {
-                print($0)
+                if $0 == "uploadAction" {
+                    let params =
+                        [
+                            "workBookId":self.model.work_book_Id,
+                            "SESSIONID":SESSIONID,
+                            "mobileCode":mobileCode
+                    ]
+                    
+                    var nameArr = [String]()
+                    
+                    for index in 0..<self.images.count {
+                        nameArr.append("image\(index)")
+                    }
+                    
+                    netWorkForUploadWorkBook(params: params, data: self.images as! [UIImage], name: nameArr, success: { (datas) in
+                        print(datas)
+                        
+//                        if datas["000"] == "000" {
+//                            setToast(str: "defeat")
+//                        }
+                        
+                    }, failture: { (error) in
+                        print(error)
+                    })
+                    
+                }else{
+                    self.setupPhoto1(count: 2)
+                }
                 
-                //                let imagePickTool = CLImagePickersTool()
-                //
-                //                imagePickTool.cameraOut = true
-                //
-                //                imagePickTool.setupImagePickerWith(MaxImagesCount: 2, superVC: self) { (asset,cutImage) in
-                //                    print("返回的asset数组是\(asset)")
-                //                    self.images.addObjects(from: asset)
-                //                    self.mainTableView.reloadData()
-                //                }
-                
-                self.setupPhoto1(count: 2)
             }
             
             return cell
             
         }
-        
         
         if currentIndex == 1 && workState == 4 {
             
@@ -279,7 +318,6 @@ class MyBookDetailViewController: BaseViewController {
             return cell
             
         }
-        
         
         if currentIndex == 2 {
             
@@ -542,7 +580,6 @@ class MyBookDetailViewController: BaseViewController {
         
         let y = DateHeight - 80 * kSCREEN_SCALE
         
-        
         UIView.animate(withDuration: 0.5) {
             self.datePickerView.transform = .init(translationX: 0, y: -y)
             self.BGView.alpha = 1
@@ -551,10 +588,7 @@ class MyBookDetailViewController: BaseViewController {
     }
     
     
-    
-    
     override func viewWillDisappear(_ animated: Bool) {
         PopViewUtil.share.stopLoading()
     }
 }
-

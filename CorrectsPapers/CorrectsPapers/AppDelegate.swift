@@ -19,7 +19,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-
         
         self.window = UIWindow(frame: UIScreen.main.bounds);
         self.window!.backgroundColor=UIColor.white;
@@ -55,7 +54,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
             
             // Fallback on earlier versions
         }
-        
         
         UIApplication.shared.applicationIconBadgeNumber = 0
         

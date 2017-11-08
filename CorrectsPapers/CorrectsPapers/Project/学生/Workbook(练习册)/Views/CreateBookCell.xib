@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -16,21 +17,21 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="287" height="43.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="286" height="43.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="练习册名字" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3uB-kC-AkT">
-                        <rect key="frame" x="8" y="11" width="77" height="21"/>
+                        <rect key="frame" x="16" y="11" width="77" height="21"/>
                         <constraints>
                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="15" id="P42-Sm-1m4"/>
                             <constraint firstAttribute="height" constant="21" id="iiD-Wg-AfR"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                        <color key="textColor" red="0.5842481255531311" green="0.58435159921646118" blue="0.58424162864685059" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="textColor" red="0.39211094379425049" green="0.39218336343765259" blue="0.39210647344589233" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="字数限制30字以内" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="DpN-QL-rDC">
-                        <rect key="frame" x="99" y="7" width="188" height="30"/>
+                        <rect key="frame" x="107" y="7" width="179" height="30"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="30" id="job-VV-V8a"/>
                         </constraints>
@@ -39,7 +40,7 @@
                         <textInputTraits key="textInputTraits"/>
                     </textField>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="六年级下册" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rGG-Cd-uvM">
-                        <rect key="frame" x="205" y="9" width="77" height="25"/>
+                        <rect key="frame" x="204" y="9" width="77" height="25"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="25" id="2cx-r3-9N0"/>
                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="25" id="n0N-UC-2hg"/>
@@ -49,10 +50,10 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EFB-eF-OGI">
-                        <rect key="frame" x="95" y="0.0" width="192" height="44"/>
+                        <rect key="frame" x="103" y="0.0" width="183" height="44"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="99+" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Htl-3b-ydg">
-                                <rect key="frame" x="144" y="13" width="48" height="18"/>
+                                <rect key="frame" x="135" y="13" width="48" height="18"/>
                                 <color key="backgroundColor" red="0.94003790620000005" green="0.074300535020000003" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="48" id="bqd-bK-XMC"/>
@@ -76,10 +77,9 @@
                     <constraint firstItem="EFB-eF-OGI" firstAttribute="leading" secondItem="3uB-kC-AkT" secondAttribute="trailing" constant="10" id="Gxk-fK-Pef"/>
                     <constraint firstItem="3uB-kC-AkT" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="KaO-jF-XqN"/>
                     <constraint firstItem="DpN-QL-rDC" firstAttribute="centerY" secondItem="3uB-kC-AkT" secondAttribute="centerY" id="NdY-Te-E5p"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="3uB-kC-AkT" secondAttribute="bottom" constant="1" id="VDh-Xc-Wc9"/>
                     <constraint firstAttribute="trailing" secondItem="EFB-eF-OGI" secondAttribute="trailing" id="WRe-WZ-8pX"/>
                     <constraint firstItem="DpN-QL-rDC" firstAttribute="leading" secondItem="3uB-kC-AkT" secondAttribute="trailing" constant="14.5" id="Wlm-jB-YrI"/>
-                    <constraint firstAttribute="bottomMargin" secondItem="3uB-kC-AkT" secondAttribute="bottom" constant="3.5" id="cMr-4z-LAu"/>
-                    <constraint firstItem="3uB-kC-AkT" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="3" id="dv2-7e-yCY"/>
                     <constraint firstItem="rGG-Cd-uvM" firstAttribute="centerY" secondItem="3uB-kC-AkT" secondAttribute="centerY" id="g5Q-2U-bbQ"/>
                     <constraint firstItem="Htl-3b-ydg" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="qo6-cx-Vib"/>
                     <constraint firstAttribute="trailing" secondItem="rGG-Cd-uvM" secondAttribute="trailing" constant="5" id="rGa-CN-eMD"/>
@@ -94,7 +94,7 @@
                 <outlet property="tipMark" destination="Htl-3b-ydg" id="zpO-yH-0Vd"/>
                 <outlet property="titleTextField" destination="DpN-QL-rDC" id="jxE-HP-69y"/>
             </connections>
-            <point key="canvasLocation" x="-153" y="43"/>
+            <point key="canvasLocation" x="-169" y="42"/>
         </tableViewCell>
     </objects>
 </document>

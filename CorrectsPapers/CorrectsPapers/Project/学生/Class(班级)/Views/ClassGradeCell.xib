@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="KGk-i7-Jjw" customClass="ClassGradeCell" customModule="CorrectsPapers" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="课时" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OXC-cy-UDx">
+                        <rect key="frame" x="16" y="12" width="65" height="21"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="65" id="UBd-vd-gvw"/>
+                            <constraint firstAttribute="height" constant="21" id="sMK-Ji-Clo"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                        <color key="textColor" red="0.64306563138961792" green="0.64317852258682251" blue="0.64305847883224487" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="sixing_icon_pressed" translatesAutoresizingMaskIntoConstraints="NO" id="8T7-1i-deL">
+                        <rect key="frame" x="129" y="16" width="70" height="12"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="12" id="0cY-6v-BXc"/>
+                            <constraint firstAttribute="width" constant="70" id="0sk-jV-auU"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="作业成绩" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iQW-q5-0AW">
+                        <rect key="frame" x="131" y="11" width="65.5" height="21"/>
+                        <constraints>
+                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="30" id="XbT-dn-clX"/>
+                            <constraint firstAttribute="height" constant="21" id="iOm-mX-z9d"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                        <color key="textColor" red="0.64306563139999995" green="0.64317852259999997" blue="0.6430584788" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="sixing_icon_pressed" translatesAutoresizingMaskIntoConstraints="NO" id="2mX-sr-MC0">
+                        <rect key="frame" x="256.5" y="16" width="70" height="12"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="70" id="geu-gr-m9a"/>
+                            <constraint firstAttribute="height" constant="12" id="lTi-9V-hLe"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="错题更正成绩" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cfg-fk-BPm" userLabel="错题更正成绩">
+                        <rect key="frame" x="242.5" y="11.5" width="98" height="21"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="21" id="ec5-Yp-MKh"/>
+                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="30" id="yrN-7Z-1TH"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                        <color key="textColor" red="0.64306563139999995" green="0.64317852259999997" blue="0.6430584788" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="8T7-1i-deL" firstAttribute="centerY" secondItem="OXC-cy-UDx" secondAttribute="centerY" id="4mc-kb-lko"/>
+                    <constraint firstItem="iQW-q5-0AW" firstAttribute="centerY" secondItem="8T7-1i-deL" secondAttribute="centerY" id="B8u-pv-uqu"/>
+                    <constraint firstItem="OXC-cy-UDx" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="DpG-uk-tw9"/>
+                    <constraint firstItem="iQW-q5-0AW" firstAttribute="centerX" secondItem="8T7-1i-deL" secondAttribute="centerX" id="J4Z-bv-1kc"/>
+                    <constraint firstItem="8T7-1i-deL" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" multiplier="7/8" id="ZIh-8W-dcy"/>
+                    <constraint firstItem="2mX-sr-MC0" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" multiplier="14/9" id="bqc-Sv-pUw"/>
+                    <constraint firstItem="OXC-cy-UDx" firstAttribute="bottom" secondItem="H2p-sc-9uM" secondAttribute="bottomMargin" id="cd9-Q4-Y7W"/>
+                    <constraint firstItem="2mX-sr-MC0" firstAttribute="centerY" secondItem="OXC-cy-UDx" secondAttribute="centerY" id="jjl-XM-Gi0"/>
+                    <constraint firstItem="cfg-fk-BPm" firstAttribute="centerX" secondItem="2mX-sr-MC0" secondAttribute="centerX" id="wDn-zQ-Nc4"/>
+                    <constraint firstItem="cfg-fk-BPm" firstAttribute="centerY" secondItem="2mX-sr-MC0" secondAttribute="centerY" id="xoL-kE-1My"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="doneGrade" destination="2mX-sr-MC0" id="F1h-8N-Bpp"/>
+                <outlet property="fristGrade" destination="8T7-1i-deL" id="s3t-7b-0cy"/>
+                <outlet property="label1" destination="iQW-q5-0AW" id="rxj-kv-vih"/>
+                <outlet property="label2" destination="cfg-fk-BPm" id="MCE-LG-62B"/>
+                <outlet property="periodsLabel" destination="OXC-cy-UDx" id="SMC-Ph-Ptk"/>
+            </connections>
+            <point key="canvasLocation" x="114.5" y="48"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="sixing_icon_pressed" width="72" height="12"/>
+    </resources>
+</document>

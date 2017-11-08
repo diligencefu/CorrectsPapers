@@ -138,6 +138,12 @@
 		18520DDF1F8C630A004EAF99 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18520DDE1F8C630A004EAF99 /* MainTabBarController.swift */; };
 		18520DF01F8C6997004EAF99 /* WorkBookCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18520DEE1F8C6997004EAF99 /* WorkBookCell.swift */; };
 		18520DF11F8C6997004EAF99 /* WorkBookCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18520DEF1F8C6997004EAF99 /* WorkBookCell.xib */; };
+		1853BFD41FB03FFB00FF2FC5 /* ShowPeriodsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1853BFD21FB03FFB00FF2FC5 /* ShowPeriodsCell.swift */; };
+		1853BFD51FB03FFB00FF2FC5 /* ShowPeriodsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1853BFD31FB03FFB00FF2FC5 /* ShowPeriodsCell.xib */; };
+		1853BFD81FB0457300FF2FC5 /* ClassGradeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1853BFD61FB0457300FF2FC5 /* ClassGradeCell.swift */; };
+		1853BFD91FB0457300FF2FC5 /* ClassGradeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1853BFD71FB0457300FF2FC5 /* ClassGradeCell.xib */; };
+		1853BFDB1FB04BF100FF2FC5 /* PeriodsDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1853BFDA1FB04BF100FF2FC5 /* PeriodsDetailViewController.swift */; };
+		1853BFDD1FB0632C00FF2FC5 /* MessageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1853BFDC1FB0632C00FF2FC5 /* MessageModel.swift */; };
 		1867C40E1F9DA0CB00831A23 /* SystemMsgViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1867C40D1F9DA0CB00831A23 /* SystemMsgViewController.swift */; };
 		1867C4101F9DC65C00831A23 /* TBookDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1867C40F1F9DC65C00831A23 /* TBookDetailViewController.swift */; };
 		1867C4121F9DC6BB00831A23 /* TBookHeadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1867C4111F9DC6BB00831A23 /* TBookHeadView.swift */; };
@@ -239,6 +245,10 @@
 		1893785B1F943FA600393CB4 /* SearchClassViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1893785A1F943FA600393CB4 /* SearchClassViewController.swift */; };
 		1893785D1F944CCB00393CB4 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1893785C1F944CCB00393CB4 /* SettingViewController.swift */; };
 		1893785F1F944D6900393CB4 /* AboutUsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1893785E1F944D6900393CB4 /* AboutUsViewController.swift */; };
+		1894DFA61FB152D3003E99FF /* ShowWorkStateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1894DFA41FB152D3003E99FF /* ShowWorkStateCell.swift */; };
+		1894DFA71FB152D3003E99FF /* ShowWorkStateCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1894DFA51FB152D3003E99FF /* ShowWorkStateCell.xib */; };
+		1894DFAB1FB1B447003E99FF /* HBAlertPasswordView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1894DFA91FB1B447003E99FF /* HBAlertPasswordView.m */; };
+		1894DFAC1FB1B45D003E99FF /* HBAlertPasswordView.h in Sources */ = {isa = PBXBuildFile; fileRef = 1894DFAA1FB1B447003E99FF /* HBAlertPasswordView.h */; };
 		18C3D2A81FAC1AE3001C295C /* AccountModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C3D2A71FAC1AE3001C295C /* AccountModel.swift */; };
 		18D343331F9AF646007CE166 /* CreateClassCell2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D343311F9AF646007CE166 /* CreateClassCell2.swift */; };
 		18D343341F9AF646007CE166 /* CreateClassCell2.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18D343321F9AF646007CE166 /* CreateClassCell2.xib */; };
@@ -391,6 +401,12 @@
 		18520DDE1F8C630A004EAF99 /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		18520DEE1F8C6997004EAF99 /* WorkBookCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkBookCell.swift; sourceTree = "<group>"; };
 		18520DEF1F8C6997004EAF99 /* WorkBookCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WorkBookCell.xib; sourceTree = "<group>"; };
+		1853BFD21FB03FFB00FF2FC5 /* ShowPeriodsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowPeriodsCell.swift; sourceTree = "<group>"; };
+		1853BFD31FB03FFB00FF2FC5 /* ShowPeriodsCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ShowPeriodsCell.xib; sourceTree = "<group>"; };
+		1853BFD61FB0457300FF2FC5 /* ClassGradeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassGradeCell.swift; sourceTree = "<group>"; };
+		1853BFD71FB0457300FF2FC5 /* ClassGradeCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ClassGradeCell.xib; sourceTree = "<group>"; };
+		1853BFDA1FB04BF100FF2FC5 /* PeriodsDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeriodsDetailViewController.swift; sourceTree = "<group>"; };
+		1853BFDC1FB0632C00FF2FC5 /* MessageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageModel.swift; sourceTree = "<group>"; };
 		1867C40D1F9DA0CB00831A23 /* SystemMsgViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemMsgViewController.swift; sourceTree = "<group>"; };
 		1867C40F1F9DC65C00831A23 /* TBookDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TBookDetailViewController.swift; sourceTree = "<group>"; };
 		1867C4111F9DC6BB00831A23 /* TBookHeadView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TBookHeadView.swift; sourceTree = "<group>"; };
@@ -492,6 +508,10 @@
 		1893785A1F943FA600393CB4 /* SearchClassViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchClassViewController.swift; sourceTree = "<group>"; };
 		1893785C1F944CCB00393CB4 /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
 		1893785E1F944D6900393CB4 /* AboutUsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutUsViewController.swift; sourceTree = "<group>"; };
+		1894DFA41FB152D3003E99FF /* ShowWorkStateCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowWorkStateCell.swift; sourceTree = "<group>"; };
+		1894DFA51FB152D3003E99FF /* ShowWorkStateCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ShowWorkStateCell.xib; sourceTree = "<group>"; };
+		1894DFA91FB1B447003E99FF /* HBAlertPasswordView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HBAlertPasswordView.m; sourceTree = "<group>"; };
+		1894DFAA1FB1B447003E99FF /* HBAlertPasswordView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HBAlertPasswordView.h; sourceTree = "<group>"; };
 		18C3D2A71FAC1AE3001C295C /* AccountModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountModel.swift; sourceTree = "<group>"; };
 		18D343311F9AF646007CE166 /* CreateClassCell2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateClassCell2.swift; sourceTree = "<group>"; };
 		18D343321F9AF646007CE166 /* CreateClassCell2.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CreateClassCell2.xib; sourceTree = "<group>"; };
@@ -527,9 +547,9 @@
 			isa = PBXGroup;
 			children = (
 				182181431FA827DD00C2BE89 /* BaseMethod.swift */,
+				182181461FA827DD00C2BE89 /* TheUrls.swift */,
 				182181441FA827DD00C2BE89 /* BaseViewController.swift */,
 				182181451FA827DD00C2BE89 /* TheGlobalVariable.swift */,
-				182181461FA827DD00C2BE89 /* TheUrls.swift */,
 				182181471FA827DD00C2BE89 /* XCNavigationController.swift */,
 				18449C7E1FA955CD00120FDA /* BaseModel.swift */,
 			);
@@ -571,6 +591,13 @@
 				182181731FA82AA800C2BE89 /* PerfectInfoViewController.swift */,
 			);
 			path = C;
+			sourceTree = "<group>";
+		};
+		183BAC7A1FAD5FF2001A3C1D /* ImageEditTools */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ImageEditTools;
 			sourceTree = "<group>";
 		};
 		184D941B1F971E2E00C79DBC /* ImagePickerTools */ = {
@@ -748,6 +775,7 @@
 		18520DC71F8C5C64004EAF99 /* Vander */ = {
 			isa = PBXGroup;
 			children = (
+				1894DFA81FB1B438003E99FF /* 密码弹框 */,
 				188D0C0D1F99D80A0010814C /* YYWebImage */,
 				188D0BFC1F99D6210010814C /* KSPhotoBrowser */,
 			);
@@ -766,6 +794,7 @@
 			children = (
 				182181481FA827F500C2BE89 /* HttpTools */,
 				182181421FA827DD00C2BE89 /* 全局和基类 */,
+				183BAC7A1FAD5FF2001A3C1D /* ImageEditTools */,
 				184D941B1F971E2E00C79DBC /* ImagePickerTools */,
 				186A27F91F95E45E00FAA766 /* others */,
 			);
@@ -797,7 +826,6 @@
 		18520DCC1F8C5CBB004EAF99 /* Class(班级) */ = {
 			isa = PBXGroup;
 			children = (
-				18520DED1F8C683D004EAF99 /* Models */,
 				18520DEC1F8C683C004EAF99 /* Views */,
 				18520DEB1F8C683A004EAF99 /* Controllers */,
 			);
@@ -979,6 +1007,7 @@
 				18520DD51F8C5DC6004EAF99 /* ClassViewController.swift */,
 				1893785A1F943FA600393CB4 /* SearchClassViewController.swift */,
 				187C22BE1F9872FA00B05594 /* ClassDetailViewController.swift */,
+				1853BFDA1FB04BF100FF2FC5 /* PeriodsDetailViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -986,6 +1015,7 @@
 		18520DEC1F8C683C004EAF99 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				18520DED1F8C683D004EAF99 /* Models */,
 				186F39311F921561009B8927 /* ClassCell.swift */,
 				186F39321F921561009B8927 /* ClassCell.xib */,
 				188D0BF01F99C4C50010814C /* ShowClassMemberCell.swift */,
@@ -998,6 +1028,12 @@
 				188D0C5C1F99EA1A0010814C /* SUploadWorkCell.xib */,
 				188D0C5F1F99F4FB0010814C /* ShowImageCell.swift */,
 				188D0C601F99F4FB0010814C /* ShowImageCell.xib */,
+				1853BFD21FB03FFB00FF2FC5 /* ShowPeriodsCell.swift */,
+				1853BFD31FB03FFB00FF2FC5 /* ShowPeriodsCell.xib */,
+				1853BFD61FB0457300FF2FC5 /* ClassGradeCell.swift */,
+				1853BFD71FB0457300FF2FC5 /* ClassGradeCell.xib */,
+				1894DFA41FB152D3003E99FF /* ShowWorkStateCell.swift */,
+				1894DFA51FB152D3003E99FF /* ShowWorkStateCell.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1229,6 +1265,7 @@
 		18749A091F99832700DEB777 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				1853BFDC1FB0632C00FF2FC5 /* MessageModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1314,6 +1351,15 @@
 				188D0C2E1F99D80A0010814C /* YYSpriteSheetImage.m */,
 			);
 			path = Image;
+			sourceTree = "<group>";
+		};
+		1894DFA81FB1B438003E99FF /* 密码弹框 */ = {
+			isa = PBXGroup;
+			children = (
+				1894DFAA1FB1B447003E99FF /* HBAlertPasswordView.h */,
+				1894DFA91FB1B447003E99FF /* HBAlertPasswordView.m */,
+			);
+			path = "密码弹框";
 			sourceTree = "<group>";
 		};
 		55CD78A0F82F1C28865150B3 /* Frameworks */ = {
@@ -1408,6 +1454,7 @@
 				181F3CFF1FA8744500C484D6 /* TViewBookCell.xib in Resources */,
 				181F3D001FA8744500C484D6 /* TClassCell.xib in Resources */,
 				183FEAAE1FA871060015CE9B /* TeacherInfoCell2.xib in Resources */,
+				1853BFD51FB03FFB00FF2FC5 /* ShowPeriodsCell.xib in Resources */,
 				183FEAAF1FA871060015CE9B /* TeacherInfoCell3.xib in Resources */,
 				183FEAB01FA871060015CE9B /* TeacherInfoCell4.xib in Resources */,
 				183FEAAD1FA870E40015CE9B /* TeacherInfoCell1.xib in Resources */,
@@ -1416,6 +1463,7 @@
 				1821815E1FA8298900C2BE89 /* RegisterViewController.xib in Resources */,
 				1867C4141F9DC6C700831A23 /* TBookHeadView.xib in Resources */,
 				184D94AA1F97299300C79DBC /* Localizable.strings in Resources */,
+				1853BFD91FB0457300FF2FC5 /* ClassGradeCell.xib in Resources */,
 				184D94AB1F97299300C79DBC /* Localizable.strings in Resources */,
 				184E6DEA1F960DEE00C2C3DB /* ShowFridensCell.xib in Resources */,
 				18D343381F9AFC9E007CE166 /* CreateHeadCell.xib in Resources */,
@@ -1446,6 +1494,7 @@
 				1823BF451F8E03B50056C705 /* VideoCell.xib in Resources */,
 				18759A941F95B75F00B8E851 /* showGradeCell.xib in Resources */,
 				18520DBB1F8C5BAE004EAF99 /* Main.storyboard in Resources */,
+				1894DFA71FB152D3003E99FF /* ShowWorkStateCell.xib in Resources */,
 				180D6B6C1F9456FF00480DEF /* PersonHeadCell.xib in Resources */,
 				18520DF11F8C6997004EAF99 /* WorkBookCell.xib in Resources */,
 				188D0BF71F99CB480010814C /* TClassInfoCell.xib in Resources */,
@@ -1548,7 +1597,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1894DFAC1FB1B45D003E99FF /* HBAlertPasswordView.h in Sources */,
 				1821816B1FA82A3100C2BE89 /* TeacherInfoCell1.swift in Sources */,
+				1894DFAB1FB1B447003E99FF /* HBAlertPasswordView.m in Sources */,
 				1821816D1FA82A3100C2BE89 /* TeacherInfoCell2.swift in Sources */,
 				1821816F1FA82A3100C2BE89 /* TeacherInfoCell3.swift in Sources */,
 				182181711FA82A3100C2BE89 /* TeacherInfoCell4.swift in Sources */,
@@ -1573,6 +1624,7 @@
 				188D0C3D1F99D8210010814C /* YYMemoryCache.m in Sources */,
 				188D0C3E1F99D8210010814C /* _YYWebImageSetter.h in Sources */,
 				188D0C3F1F99D8210010814C /* _YYWebImageSetter.m in Sources */,
+				1853BFDD1FB0632C00FF2FC5 /* MessageModel.swift in Sources */,
 				182EB5C31F9ECD6D00B74F84 /* TUpLoadVideoCell.swift in Sources */,
 				188D0C401F99D8210010814C /* CALayer+YYWebImage.h in Sources */,
 				188D0C411F99D8210010814C /* CALayer+YYWebImage.m in Sources */,
@@ -1612,6 +1664,7 @@
 				188D0C081F99D65E0010814C /* KSPhotoItem.m in Sources */,
 				188D0C091F99D65E0010814C /* KSPhotoView.h in Sources */,
 				188D0C0A1F99D65E0010814C /* KSPhotoView.m in Sources */,
+				1853BFD81FB0457300FF2FC5 /* ClassGradeCell.swift in Sources */,
 				188D0C0B1F99D65E0010814C /* KSProgressLayer.h in Sources */,
 				188D0C0C1F99D65E0010814C /* KSProgressLayer.m in Sources */,
 				181F3CFE1FA8743100C484D6 /* TViewBookCell.swift in Sources */,
@@ -1649,6 +1702,7 @@
 				184D94761F97250200C79DBC /* MessageStyleView.swift in Sources */,
 				184D94771F97250200C79DBC /* MessageStyleView.xib in Sources */,
 				184D94781F97250200C79DBC /* NomalStyleView.swift in Sources */,
+				1894DFA61FB152D3003E99FF /* ShowWorkStateCell.swift in Sources */,
 				188D0BF21F99C4C50010814C /* ShowClassMemberCell.swift in Sources */,
 				184D94791F97250200C79DBC /* NomalStyleView.xib in Sources */,
 				184D947A1F97250200C79DBC /* HDAlertViewController.swift in Sources */,
@@ -1711,6 +1765,7 @@
 				18759A971F95CFE000B8E851 /* MyBookCell.swift in Sources */,
 				1893785F1F944D6900393CB4 /* AboutUsViewController.swift in Sources */,
 				186F391E1F919F7C009B8927 /* CreateBookCell.swift in Sources */,
+				1853BFD41FB03FFB00FF2FC5 /* ShowPeriodsCell.swift in Sources */,
 				18520DD41F8C5DBA004EAF99 /* Non-WorkBookViewController.swift in Sources */,
 				183BA95A1FAD5310001A3C1D /* FriendsModel.swift in Sources */,
 				188D0C611F99F4FB0010814C /* ShowImageCell.swift in Sources */,
@@ -1726,6 +1781,7 @@
 				1867C4101F9DC65C00831A23 /* TBookDetailViewController.swift in Sources */,
 				188D0BF61F99CB480010814C /* TClassInfoCell.swift in Sources */,
 				186F39221F91A9B1009B8927 /* ChooseImageCell.swift in Sources */,
+				1853BFDB1FB04BF100FF2FC5 /* PeriodsDetailViewController.swift in Sources */,
 				188D0BFA1F99CF6C0010814C /* TGoodWorkCell.swift in Sources */,
 				18FDA6AB1F99950D003D61D8 /* TMyCorrectViewController.swift in Sources */,
 				187C22BF1F9872FA00B05594 /* ClassDetailViewController.swift in Sources */,

@@ -12,12 +12,19 @@ class ApplyListViewController: BaseViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        addImageWhenEmpty()
     }
     
     override func requestData() {
-        netWorkForApplyList { (datas) -> ()? in
-            print(datas)
+        netWorkForApplyList { (datas, flag) in
+             self.mainTableArr.removeAllObjects()
+            if flag {
+                self.mainTableArr.addObjects(from: datas)
+                self.mainTableView.reloadData()
+            }else{
+                self.mainTableArr.addObjects(from: datas)
+                self.mainTableView.reloadData()
+            }
         }
     }
     
@@ -25,7 +32,6 @@ class ApplyListViewController: BaseViewController {
     override func configSubViews() {
         
         self.navigationItem.title = "好友申请列表"
-        
         
         mainTableView = UITableView.init(frame: CGRect(x: 0,
                                                        y: 0,
@@ -38,8 +44,28 @@ class ApplyListViewController: BaseViewController {
         mainTableView.register(UINib(nibName: "ApplyCell", bundle: nil), forCellReuseIdentifier: identyfierTable)
         self.view.addSubview(mainTableView)
         mainTableView.backgroundColor = kSetRGBColor(r: 239, g: 239, b: 244)
-        mainTableArr = ["关于我们","清除缓存","检查更新","清除缓存","清除缓存","清除缓存","清除缓存","清除缓存"]
         
+    }
+    
+    //    当数据为空的时候，显示提示
+    var emptyView = UIView()
+    
+    func addImageWhenEmpty() {
+        emptyView = UIView.init(frame: CGRect(x: 0, y: 0, width: kSCREEN_WIDTH, height: kSCREEN_HEIGHT - 46))
+        emptyView.backgroundColor = kBGColor()
+        let imageView = UIImageView.init(frame: CGRect(x: 0, y: 0, width: 200 * kSCREEN_SCALE, height: 200 * kSCREEN_SCALE))
+        imageView.image = #imageLiteral(resourceName: "404_icon_default")
+        imageView.center = CGPoint(x: emptyView.centerX, y: emptyView.centerY - 130 * kSCREEN_SCALE)
+        emptyView.addSubview(imageView)
+        
+        let label = UILabel.init(frame: CGRect(x: 0, y: 0, width: kSCREEN_WIDTH, height: 18))
+        label.textAlignment = .center
+        label.textColor = kGaryColor(num: 163)
+        label.center = CGPoint(x: emptyView.centerX, y: emptyView.centerY-40+70*kSCREEN_SCALE)
+        label.font = kFont34
+        label.numberOfLines = 2
+        label.text = "暂无好友申请"
+        emptyView.addSubview(label)
     }
     
     
@@ -49,13 +75,22 @@ class ApplyListViewController: BaseViewController {
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return 10
+        if mainTableArr.count == 0 {
+            self.mainTableView.addSubview(emptyView)
+        }else{
+            emptyView.removeFromSuperview()
+        }
+        
+        return mainTableArr.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: identyfierTable, for: indexPath) as! ApplyCell
+        let model = mainTableArr[indexPath.section] as! ApplyModel
         
+        
+        let cell = tableView.dequeueReusableCell(withIdentifier: identyfierTable, for: indexPath) as! ApplyCell
+        cell.setValuesForApplyCell(model: model)
         cell.checkApplyBlock = {
             var params = ["":""]
             
@@ -64,17 +99,20 @@ class ApplyListViewController: BaseViewController {
                     "SESSIONID":SESSIONID,
                     "mobileCode":mobileCode,
                     "type":"1",
+                    "userId":model.userId,
                     ]
             }else{
                 params = [
                     "SESSIONID":SESSIONID,
                     "mobileCode":mobileCode,
                     "type":"2",
+                    "userId":model.userId,
                 ]
             }
             netWorkForDoAllow(params: params, callBack: { (success) in
                 
             })
+            self.requestData()
         }
         
         return cell

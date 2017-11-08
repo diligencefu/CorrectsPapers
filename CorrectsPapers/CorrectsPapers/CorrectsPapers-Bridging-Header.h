@@ -9,7 +9,8 @@
 #ifndef CorrectsPapers_Bridging_Header_h
 #define CorrectsPapers_Bridging_Header_h
 
-#import "KSPhotoBrowser.h"                                  //图片放大
+#import "KSPhotoBrowser.h"           //图片放大
+#import "HBAlertPasswordView.h"         //密码弹框
 
 
 #endif /* CorrectsPapers_Bridging_Header_h */

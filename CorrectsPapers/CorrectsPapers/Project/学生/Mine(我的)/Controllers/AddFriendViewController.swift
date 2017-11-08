@@ -11,11 +11,11 @@ import UIKit
 class AddFriendViewController: BaseViewController {
     
     var searchView = UITextField()
+    var addRecords = NSMutableArray()
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
     }
     
     override func configSubViews() {
@@ -25,7 +25,11 @@ class AddFriendViewController: BaseViewController {
         searchView = UITextField.init(frame: CGRect(x: 0, y: 20*kSCREEN_SCALE, width: kSCREEN_WIDTH, height: 88*kSCREEN_SCALE))
         searchView.backgroundColor = kGaryColor(num: 255)
         searchView.placeholder = " 学生姓名/学生学号/老师姓名/老师工号"
+        searchView.leftViewRect(forBounds: CGRect(x: 0, y: 0, width: 50*kSCREEN_SCALE, height: 88*kSCREEN_SCALE))
+        searchView.leftViewMode = .always
         searchView.font = kFont30
+        let leftView = UIView.init(frame: CGRect(x: 0, y: 0, width: 50*kSCREEN_SCALE, height: 88*kSCREEN_SCALE))
+        searchView.leftView = leftView
         
         let searchBtn = UIButton.init(frame: CGRect(x: 20, y: 156*kSCREEN_SCALE, width: kSCREEN_WIDTH - 40, height: 72*kSCREEN_SCALE))
         searchBtn.backgroundColor = UIColor.gray
@@ -41,7 +45,6 @@ class AddFriendViewController: BaseViewController {
         headView.backgroundColor = kGaryColor(num: 244)
         headView.addSubview(searchBtn)
         headView.addSubview(searchView)
-        
 
         mainTableView = UITableView.init(frame: CGRect(x: 0,
                                                        y: 0,
@@ -59,16 +62,14 @@ class AddFriendViewController: BaseViewController {
     
     @objc func searchFriendAction(sender:UIButton) {
         
-//        mainTableArr = ["关于我们","清除缓存","清除缓存","清除缓存","清除缓存","清除缓存","清除缓存","检查更新"]
-        
-        
+        mainTableArr.removeAllObjects()
         if searchView.text != "" {
             
             var params = ["":""]
-            
+            self.mainTableArr.removeAllObjects()
             let decimal = NSDecimalNumber(string: searchView.text)
             print(decimal.intValue)
-            if decimal.floatValue == 9 {
+            if decimal.intValue == 9 {
                 params =
                     [
                         "name":searchView.text!,
@@ -85,24 +86,54 @@ class AddFriendViewController: BaseViewController {
             }
             
             netWorkForGetSpecifiedUser(params: params, callBack: { (datas) in
-                
+                print(datas)
+                self.mainTableArr.addObjects(from: datas)
+                self.mainTableView.reloadData()
             })
             
         }else{
-            
             netWorkForGetAllPeope(callBack: { (datas) in
-                
+                print(datas)
+                self.mainTableArr.addObjects(from: datas)
+                self.mainTableView.reloadData()
             })
             
         }
-                
+        
+        addImageWhenEmpty()
         mainTableView.reloadData()
     }
     
+    //    当数据为空的时候，显示提示
+    var emptyView = UIView()
+    
+    func addImageWhenEmpty() {
+        emptyView = UIView.init(frame: CGRect(x: 0, y: 276*kSCREEN_SCALE, width: kSCREEN_WIDTH, height: kSCREEN_HEIGHT - 46-276*kSCREEN_SCALE))
+        emptyView.backgroundColor = kBGColor()
+        let imageView = UIImageView.init(frame: CGRect(x: 0, y: 0, width: 200 * kSCREEN_SCALE, height: 200 * kSCREEN_SCALE))
+        imageView.image = #imageLiteral(resourceName: "404_icon_default")
+        imageView.center = CGPoint(x: emptyView.centerX, y: emptyView.centerY - 400 * kSCREEN_SCALE)
+        emptyView.addSubview(imageView)
+        
+        let label = UILabel.init(frame: CGRect(x: 0, y: 0, width: kSCREEN_WIDTH, height: 18))
+        label.textAlignment = .center
+        label.textColor = kGaryColor(num: 163)
+        label.center = CGPoint(x: emptyView.centerX, y: emptyView.centerY-40-200*kSCREEN_SCALE)
+        label.font = kFont34
+        label.numberOfLines = 2
+        label.text = "未搜索到相关用户"
+        emptyView.addSubview(label)
+    }
     
     //    ******************代理 ： UITableViewDataSource,UITableViewDelegate  ************
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return  mainTableArr.count
+        if mainTableArr.count == 0 {
+            self.mainTableView.addSubview(emptyView)
+        }else{
+            emptyView.removeFromSuperview()
+        }
+        
+        return mainTableArr.count
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -110,12 +141,30 @@ class AddFriendViewController: BaseViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let model = mainTableArr[indexPath.row] as! FriendsModel
+        
+        
+        if addRecords.contains(model.userId) {
+            model.isSent = true
+        }else{
+            model.isSent = false
+        }
         
         let cell = tableView.dequeueReusableCell(withIdentifier: identyfierTable, for: indexPath) as! ShowFridensCell
-        cell.ShowFridensCellForAddFriend()
+        cell.ShowFridensCellForAddFriend(model:model)
         cell.addFriendsBlock = {
             print($0)
-            self.addFriendsAction()
+            let params = [
+                "SESSIONID":SESSIONID,
+                "mobileCode":mobileCode,
+                "userbyId":model.userId,
+                ]
+            netWorkForApplyFriend(params: params as! [String : String]) { (flag) in
+                if flag {
+                    self.addRecords.add(model.userId)
+                    self.mainTableView.reloadData()
+                }
+            }
         }
         return cell
         
@@ -170,19 +219,6 @@ class AddFriendViewController: BaseViewController {
         return 0.01 * kSCREEN_SCALE
     }
     
-    
-    //    网络请求
-    
-    func addFriendsAction() {
-    
-        let params = [
-            "SESSIONID":SESSIONID,
-            "mobileCode":mobileCode,
-            "userbyId":"1",
-            ]
-        netWorkForApplyFriend(params: params) { (flag) in
-            
-        }
-    }
+
 }
 

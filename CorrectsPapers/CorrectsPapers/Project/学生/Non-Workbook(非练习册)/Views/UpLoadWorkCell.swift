@@ -219,7 +219,6 @@ class UpLoadWorkCell: UITableViewCell {
         
         kTimer.invalidate()
         kTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(countDown(timer:)), userInfo: nil, repeats: true)
-        
     }
     
     @objc func countDown(timer:Timer) {

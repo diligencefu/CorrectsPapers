@@ -31,7 +31,6 @@ class MyBookCell: UITableViewCell {
     
     func MyBookCellSetValue(model:WorkBookModel) {
         
-        let colors = [kGaryColor(num: 149),kSetRGBColor(r: 255, g: 157, b: 47),kSetRGBColor(r: 255, g: 157, b: 47),kSetRGBColor(r: 255, g: 92, b: 95),kSetRGBColor(r: 255, g: 78, b: 78),kSetRGBColor(r: 113, g: 207, b: 46)]
         
         classMark.layer.borderColor = kGaryColor(num: 176).cgColor
         classMark.setTitleColor(kGaryColor(num: 176), for: .normal)
@@ -65,6 +64,8 @@ class MyBookCell: UITableViewCell {
             make.width.equalTo(getLabWidth(labelStr: model.subject_name, font: kFont24, height: 18) + 20)
         }
         
+        let colors = [kGaryColor(num: 149),kSetRGBColor(r: 255, g: 157, b: 47),kSetRGBColor(r: 255, g: 92, b: 95),kSetRGBColor(r: 255, g: 157, b: 47),kSetRGBColor(r: 255, g: 78, b: 78),kSetRGBColor(r: 113, g: 207, b: 46)]
+
         var state = ""
         if model.correct_state == 0 {
             state = "未分配老师"
@@ -72,13 +73,12 @@ class MyBookCell: UITableViewCell {
         }else if model.correct_state == 1 {
             state = "未批改"
         }else if model.correct_state == 2 {
-            state = "正在批改"
-        }else if model.correct_state == 3 {
             state = "退回-照片模糊改"
+        }else if model.correct_state == 3 {
+            state = "正在批改"
         }else if model.correct_state == 4 {
             state = "已批改"
         }
-        
         
         bookState.text = state
         bookState.textColor = colors[model.correct_state!]

@@ -24,7 +24,10 @@ class FriendsModel: NSObject {
     var user_photo : String!
     ///所在班级
     var user_class : String!
-
+    ///用户id
+    var userId : String!
+    ///是否点击过
+    var isSent : Bool?
 
     class func setValueForFriendsModel(json: JSON) -> FriendsModel {
         
@@ -36,6 +39,7 @@ class FriendsModel: NSObject {
         model.user_type = json["user_type"].stringValue
         model.user_photo = json["user_photo"].stringValue
         model.user_class = json["user_class"].stringValue
+        model.userId = json["id"].stringValue
 
         return model
     }

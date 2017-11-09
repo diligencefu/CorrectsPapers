@@ -78,9 +78,13 @@ class PeriodsDetailViewController: BaseViewController ,HBAlertPasswordViewDelega
         let kWidth = CGFloat(435*kSCREEN_SCALE)
         let kSpace = 53*kSCREEN_SCALE
         
-        let viewHeight = CGFloat(titles.count)*kHeight+CGFloat(titles.count+1)*kSpace
-
-        footBtnView = UIView.init(frame: CGRect(x: 0, y: kSCREEN_HEIGHT-viewHeight-64, width: KScreenWidth, height: viewHeight))
+        var viewHeight = CGFloat(titles.count)*kHeight+CGFloat(titles.count+1)*kSpace
+        
+        if titles.count == 0 {
+            viewHeight = 0
+        }
+        
+        footBtnView = UIView.init(frame: CGRect(x: 0, y: 0, width: KScreenWidth, height: viewHeight))
         for index in 0..<titles.count {
             
             let markBtn = UIButton.init(frame: CGRect(x: (kSCREEN_WIDTH-kWidth)/2 , y: kSpace+(kSpace+kHeight)*CGFloat(index), width: kWidth, height: kHeight))
@@ -95,7 +99,7 @@ class PeriodsDetailViewController: BaseViewController ,HBAlertPasswordViewDelega
             markBtn.tag = 181 + index
             footBtnView.addSubview(markBtn)
         }
-        self.view.addSubview(footBtnView)
+        mainTableView.tableFooterView = footBtnView
     }
     
     
@@ -202,7 +206,7 @@ class PeriodsDetailViewController: BaseViewController ,HBAlertPasswordViewDelega
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         if currentIndex == 3 {
-            return 1
+            return 3-titleArr3.count
         }
         
         if currentIndex == 2 {
@@ -212,6 +216,10 @@ class PeriodsDetailViewController: BaseViewController ,HBAlertPasswordViewDelega
             }
             
             return 2
+        }
+        
+        if currentIndex == 1 {
+            return 3-titleArr1.count
         }
         
         return 10
@@ -398,11 +406,18 @@ class PeriodsDetailViewController: BaseViewController ,HBAlertPasswordViewDelega
             
             titleArr1.remove(at: titleArr1.index(of: currentTitle1)!)
             footView(titles: titleArr1)
+            mainTableView.reloadData()
         }else{
             
             titleArr3.remove(at: titleArr3.index(of: currentTitle2)!)
             footView(titles: titleArr3)
+            mainTableView.reloadData()
         }
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        PopViewUtil.share.stopLoading()
     }
     
 }

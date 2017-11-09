@@ -26,7 +26,7 @@ class ShowImageCell: UICollectionViewCell {
         
         deleteButton.layer.cornerRadius = 10
         deleteButton.clipsToBounds = true
-        showImage.contentMode = .scaleAspectFit
+        deleteButton.contentMode = .scaleAspectFill
     }
 
     func setImages(image:UIImage,isEditting:Bool) {

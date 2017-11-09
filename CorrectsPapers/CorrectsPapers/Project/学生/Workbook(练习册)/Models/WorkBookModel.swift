@@ -26,10 +26,17 @@ class WorkBookModel: BaseModel {
     var correct_state : NSInteger?
 
     ///批改老师
-    var correct_teacher : String?
+    var teacherName : String?
     
     ///用户练习册id（
     var userWorkBookId : String?
+    
+    ///(人数)：（老师端使用）：
+    var counts : String?
+
+    ///年级
+    var grade : String?
+
 
     class func setValueForWorkBookModel(json: JSON) -> WorkBookModel {
         
@@ -40,9 +47,11 @@ class WorkBookModel: BaseModel {
         model.class_name = json["class_name"].stringValue
         model.subject_name = json["subject_name"].stringValue
         model.isFollow = json["isFollow"].boolValue
-        model.correct_state = json["correct_state"].intValue
-        model.correct_teacher = json["correct_teacher"].stringValue
+        model.correct_state = json["correcting_state"].intValue
+        model.teacherName = json["teacherName"].stringValue
         model.userWorkBookId = json["userWorkBookId"].stringValue
+        model.counts = json["counts"].stringValue
+        model.grade = json["grade"].stringValue
 
         return model
     }

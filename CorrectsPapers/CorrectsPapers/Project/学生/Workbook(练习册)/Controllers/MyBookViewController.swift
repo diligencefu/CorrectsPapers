@@ -86,7 +86,6 @@ class MyBookViewController: BaseViewController{
             label.text = "暂时没有练习册"
             emptyView.addSubview(label)
                         
-        
         }
     
     

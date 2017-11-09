@@ -160,7 +160,7 @@
                 <outlet property="workImages" destination="Ae0-Mb-pnY" id="c46-bc-rNj"/>
                 <outlet property="workTeacher" destination="raD-6k-rcr" id="GMA-eE-RKg"/>
             </connections>
-            <point key="canvasLocation" x="-414" y="132.5"/>
+            <point key="canvasLocation" x="-14" y="-3027"/>
         </tableViewCell>
     </objects>
     <resources>

@@ -31,13 +31,12 @@ class MyBookCell: UITableViewCell {
     
     func MyBookCellSetValue(model:WorkBookModel) {
         
-        
         classMark.layer.borderColor = kGaryColor(num: 176).cgColor
         classMark.setTitleColor(kGaryColor(num: 176), for: .normal)
         classMark.layer.borderWidth = 1
         classMark.layer.cornerRadius = 9
         classMark.clipsToBounds = true
-        classMark.setTitle(model.class_name, for: .normal)
+        classMark.setTitle(model.grade, for: .normal)
         
         objName.clipsToBounds = true
         objName.layer.cornerRadius = 9
@@ -48,16 +47,16 @@ class MyBookCell: UITableViewCell {
 
         bookTitle.text = model.work_book_name
         
-        
-        if (model.correct_teacher != "") {
+        if (model.teacherName != "") {
             
-            correctTeacher.text = model.correct_teacher
+            correctTeacher.text = model.teacherName
         }else{
+            
             correctTeacher.text = "Michael"
         }
         
         classMark.snp.updateConstraints { (make) in
-            make.width.equalTo(getLabWidth(labelStr: model.class_name, font: kFont24, height: 18) + 20)
+            make.width.equalTo(getLabWidth(labelStr: model.grade!, font: kFont24, height: 18) + 20)
         }
         
         objName.snp.updateConstraints { (make) in

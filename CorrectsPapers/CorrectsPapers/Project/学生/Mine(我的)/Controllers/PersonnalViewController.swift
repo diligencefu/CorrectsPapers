@@ -33,7 +33,7 @@ class PersonnalViewController: BaseViewController {
             
             if dataArr.count > 0{
                 self.model = dataArr[0] as! PersonalModel
-                self.infoArr = [[""],[self.model.coin_count!+"学币",self.model.friendCount+"人",""],[self.model.num,""],["",""]]
+                self.infoArr = [[""],[self.model.coin_count!+"学币","100学分",self.model.friendCount+"人",""],[self.model.num,"",""]]
                 
                 Defaults[username] = self.model.user_name
                 Defaults[userArea] = self.model.user_area
@@ -51,12 +51,11 @@ class PersonnalViewController: BaseViewController {
             
             if dataArr.count > 0{
                 self.model = dataArr[0] as! PersonalModel
-                self.infoArr = [[""],[self.model.coin_count!+"学币",self.model.friendCount+"人",""],[self.model.num,""],["",""]]
+                self.infoArr = [[""],[self.model.coin_count!+"学币","100学分",self.model.friendCount+"人",""],[self.model.num,"",""]]
                 
                 Defaults[username] = self.model.user_name
                 Defaults[userArea] = self.model.user_area
                 Defaults[userId] = self.model.user_num
-//                Defaults[userGrade]! = self.model.user_fit_class
                 Defaults[userAccount] = self.model.coin_count
 
             }
@@ -85,7 +84,7 @@ class PersonnalViewController: BaseViewController {
         self.navigationController?.navigationBar.shadowImage = UIImage()
         self.navigationController?.navigationBar.isTranslucent = true
         
-        dataArr = [[""],["我的学币","我的好友","邀请好友"],["消息中心","我想成为老师"],["意见和建议"]]
+        dataArr = [[""],["我的学币","我的学分","我的好友","邀请好友"],["消息中心","意见和建议","我想成为老师"]]
               
         model.user_name = Defaults[username]
         model.user_area = Defaults[userArea]
@@ -108,7 +107,7 @@ class PersonnalViewController: BaseViewController {
             model.friendCount = "0"
         }
 
-        self.infoArr = [[""],[self.model.coin_count!+"学币",self.model.friendCount+"人",""],[self.model.num,""],["",""]]
+        self.infoArr = [[""],[self.model.coin_count!+"学币","100学分",self.model.friendCount+"人",""],[self.model.num,"",""]]
         
 //        infoArr = [[""],["100学币","100学分","0人",""],["",""],["",""]]
         
@@ -220,11 +219,16 @@ class PersonnalViewController: BaseViewController {
                 self.navigationController?.pushViewController(incomeVC, animated: true)
                 break
             case 1:
-                
-                let friendsVC = MyFriendViewController()
-                self.navigationController?.pushViewController(friendsVC, animated: true)
+                let rankVC = CreditRankViewController()
+                self.navigationController?.pushViewController(rankVC, animated: true)
+
                 break
             case 2:
+                let friendsVC = MyFriendViewController()
+                self.navigationController?.pushViewController(friendsVC, animated: true)
+
+                break
+            case 3:
                 
                 break
             default:
@@ -242,6 +246,11 @@ class PersonnalViewController: BaseViewController {
                 break
             case 1:
                 
+                let suggestVC = SuggestViewController()
+                self.navigationController?.pushViewController(suggestVC, animated: true)
+                break
+            case 2:
+                
                 let perfecVC = PerfectInfoViewController()
                 perfecVC.isTeacher = true
                 self.navigationController?.pushViewController(perfecVC, animated: true)
@@ -250,20 +259,5 @@ class PersonnalViewController: BaseViewController {
                 break
             }
         }
-        
-        if indexPath.section == 3 {
-            
-            switch indexPath.row {
-            case 0:
-                let suggestVC = SuggestViewController()
-                self.navigationController?.pushViewController(suggestVC, animated: true)
-                break
-            case 1:
-                
-                break
-            default:
-                break
-            }
-        }
-    }
+     }
 }

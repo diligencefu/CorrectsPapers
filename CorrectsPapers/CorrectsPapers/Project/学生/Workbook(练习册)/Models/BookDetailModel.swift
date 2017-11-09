@@ -16,8 +16,6 @@ class BookDetailModel: BaseModel {
     var result : String!
     ///批改时间
     var correcting_time : String!
-    ///老师评论
-    var comment : String!
     ///批改状态
     var correcting_states : String!
     ///批改后的照片
@@ -26,7 +24,17 @@ class BookDetailModel: BaseModel {
     var teacher_id : String?
     ///批改老师姓名
     var teacher_name : String!
-    
+    ///老师工号
+    var teacher_num : String!
+    ///首次的得分1-5
+    var scores : String!
+    ///再次得分1-5
+    var scores_next : String!
+    ///老师首次评语
+    var comment : String?
+    ///老师再次评语
+    var comment_next : String?
+
     class func setValueForBookDetailModel(json: JSON) -> BookDetailModel {
         
         let model = BookDetailModel()
@@ -38,8 +46,11 @@ class BookDetailModel: BaseModel {
         model.corrected_error_photo = json["corrected_error_photo"].stringValue
         model.teacher_id = json["teacher_id"].stringValue
         model.teacher_name = json["teacher_name"].stringValue
+        model.teacher_num = json["teacher_num"].stringValue
+        model.scores = json["scores"].stringValue
+        model.scores_next = json["scores_next"].stringValue
+        model.comment_next = json["comment_next"].stringValue
 
         return model
     }
-
 }

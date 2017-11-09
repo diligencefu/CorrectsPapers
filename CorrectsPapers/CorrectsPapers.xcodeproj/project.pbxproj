@@ -249,6 +249,9 @@
 		1894DFA71FB152D3003E99FF /* ShowWorkStateCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1894DFA51FB152D3003E99FF /* ShowWorkStateCell.xib */; };
 		1894DFAB1FB1B447003E99FF /* HBAlertPasswordView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1894DFA91FB1B447003E99FF /* HBAlertPasswordView.m */; };
 		1894DFAC1FB1B45D003E99FF /* HBAlertPasswordView.h in Sources */ = {isa = PBXBuildFile; fileRef = 1894DFAA1FB1B447003E99FF /* HBAlertPasswordView.h */; };
+		18B1566F1FB2D3A300396653 /* CreditRankViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B1566E1FB2D3A300396653 /* CreditRankViewController.swift */; };
+		18B156721FB2F23F00396653 /* RankCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B156701FB2F23F00396653 /* RankCell.swift */; };
+		18B156731FB2F23F00396653 /* RankCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18B156711FB2F23F00396653 /* RankCell.xib */; };
 		18C3D2A81FAC1AE3001C295C /* AccountModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C3D2A71FAC1AE3001C295C /* AccountModel.swift */; };
 		18D343331F9AF646007CE166 /* CreateClassCell2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D343311F9AF646007CE166 /* CreateClassCell2.swift */; };
 		18D343341F9AF646007CE166 /* CreateClassCell2.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18D343321F9AF646007CE166 /* CreateClassCell2.xib */; };
@@ -512,6 +515,9 @@
 		1894DFA51FB152D3003E99FF /* ShowWorkStateCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ShowWorkStateCell.xib; sourceTree = "<group>"; };
 		1894DFA91FB1B447003E99FF /* HBAlertPasswordView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HBAlertPasswordView.m; sourceTree = "<group>"; };
 		1894DFAA1FB1B447003E99FF /* HBAlertPasswordView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HBAlertPasswordView.h; sourceTree = "<group>"; };
+		18B1566E1FB2D3A300396653 /* CreditRankViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreditRankViewController.swift; sourceTree = "<group>"; };
+		18B156701FB2F23F00396653 /* RankCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RankCell.swift; sourceTree = "<group>"; };
+		18B156711FB2F23F00396653 /* RankCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RankCell.xib; sourceTree = "<group>"; };
 		18C3D2A71FAC1AE3001C295C /* AccountModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountModel.swift; sourceTree = "<group>"; };
 		18D343311F9AF646007CE166 /* CreateClassCell2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateClassCell2.swift; sourceTree = "<group>"; };
 		18D343321F9AF646007CE166 /* CreateClassCell2.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CreateClassCell2.xib; sourceTree = "<group>"; };
@@ -826,6 +832,7 @@
 		18520DCC1F8C5CBB004EAF99 /* Class(班级) */ = {
 			isa = PBXGroup;
 			children = (
+				18520DED1F8C683D004EAF99 /* Models */,
 				18520DEC1F8C683C004EAF99 /* Views */,
 				18520DEB1F8C683A004EAF99 /* Controllers */,
 			);
@@ -913,6 +920,7 @@
 			children = (
 				18520DD71F8C5DD7004EAF99 /* PersonnalViewController.swift */,
 				184BBECB1F9B431400EF65C4 /* EditInfoViewController.swift */,
+				18B1566E1FB2D3A300396653 /* CreditRankViewController.swift */,
 				184E6DF91F961C5C00C2C3DB /* IncomeViewController.swift */,
 				186A280B1F96077E00FAA766 /* MyFriendViewController.swift */,
 				186A28051F96038500FAA766 /* ApplyListViewController.swift */,
@@ -951,6 +959,8 @@
 				184BBECE1F9B45E900EF65C4 /* EditInfoCell.xib */,
 				184BBED11F9B4CE800EF65C4 /* EditHeadCell.swift */,
 				184BBED21F9B4CE800EF65C4 /* EditHeadCell.xib */,
+				18B156701FB2F23F00396653 /* RankCell.swift */,
+				18B156711FB2F23F00396653 /* RankCell.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1015,25 +1025,10 @@
 		18520DEC1F8C683C004EAF99 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				18520DED1F8C683D004EAF99 /* Models */,
 				186F39311F921561009B8927 /* ClassCell.swift */,
 				186F39321F921561009B8927 /* ClassCell.xib */,
-				188D0BF01F99C4C50010814C /* ShowClassMemberCell.swift */,
-				188D0BF11F99C4C50010814C /* ShowClassMemberCell.xib */,
-				188D0BF41F99CB480010814C /* TClassInfoCell.swift */,
-				188D0BF51F99CB480010814C /* TClassInfoCell.xib */,
-				188D0BF81F99CF6C0010814C /* TGoodWorkCell.swift */,
-				188D0BF91F99CF6C0010814C /* TGoodWorkCell.xib */,
-				188D0C5B1F99EA1A0010814C /* SUploadWorkCell.swift */,
-				188D0C5C1F99EA1A0010814C /* SUploadWorkCell.xib */,
-				188D0C5F1F99F4FB0010814C /* ShowImageCell.swift */,
-				188D0C601F99F4FB0010814C /* ShowImageCell.xib */,
-				1853BFD21FB03FFB00FF2FC5 /* ShowPeriodsCell.swift */,
-				1853BFD31FB03FFB00FF2FC5 /* ShowPeriodsCell.xib */,
-				1853BFD61FB0457300FF2FC5 /* ClassGradeCell.swift */,
-				1853BFD71FB0457300FF2FC5 /* ClassGradeCell.xib */,
-				1894DFA41FB152D3003E99FF /* ShowWorkStateCell.swift */,
-				1894DFA51FB152D3003E99FF /* ShowWorkStateCell.xib */,
+				18B1566D1FB2A34100396653 /* 第二级 */,
+				18B1566C1FB2A33F00396653 /* 第三级 */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1362,6 +1357,36 @@
 			path = "密码弹框";
 			sourceTree = "<group>";
 		};
+		18B1566C1FB2A33F00396653 /* 第三级 */ = {
+			isa = PBXGroup;
+			children = (
+				188D0C5B1F99EA1A0010814C /* SUploadWorkCell.swift */,
+				188D0C5C1F99EA1A0010814C /* SUploadWorkCell.xib */,
+				1894DFA41FB152D3003E99FF /* ShowWorkStateCell.swift */,
+				1894DFA51FB152D3003E99FF /* ShowWorkStateCell.xib */,
+				188D0C5F1F99F4FB0010814C /* ShowImageCell.swift */,
+				188D0C601F99F4FB0010814C /* ShowImageCell.xib */,
+				188D0BF81F99CF6C0010814C /* TGoodWorkCell.swift */,
+				188D0BF91F99CF6C0010814C /* TGoodWorkCell.xib */,
+			);
+			path = "第三级";
+			sourceTree = "<group>";
+		};
+		18B1566D1FB2A34100396653 /* 第二级 */ = {
+			isa = PBXGroup;
+			children = (
+				1853BFD21FB03FFB00FF2FC5 /* ShowPeriodsCell.swift */,
+				1853BFD31FB03FFB00FF2FC5 /* ShowPeriodsCell.xib */,
+				188D0BF01F99C4C50010814C /* ShowClassMemberCell.swift */,
+				188D0BF11F99C4C50010814C /* ShowClassMemberCell.xib */,
+				188D0BF41F99CB480010814C /* TClassInfoCell.swift */,
+				188D0BF51F99CB480010814C /* TClassInfoCell.xib */,
+				1853BFD61FB0457300FF2FC5 /* ClassGradeCell.swift */,
+				1853BFD71FB0457300FF2FC5 /* ClassGradeCell.xib */,
+			);
+			path = "第二级";
+			sourceTree = "<group>";
+		};
 		55CD78A0F82F1C28865150B3 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -1465,6 +1490,7 @@
 				184D94AA1F97299300C79DBC /* Localizable.strings in Resources */,
 				1853BFD91FB0457300FF2FC5 /* ClassGradeCell.xib in Resources */,
 				184D94AB1F97299300C79DBC /* Localizable.strings in Resources */,
+				18B156731FB2F23F00396653 /* RankCell.xib in Resources */,
 				184E6DEA1F960DEE00C2C3DB /* ShowFridensCell.xib in Resources */,
 				18D343381F9AFC9E007CE166 /* CreateHeadCell.xib in Resources */,
 				182EB5C61F9ED38A00B74F84 /* TTipView.xib in Resources */,
@@ -1624,6 +1650,7 @@
 				188D0C3D1F99D8210010814C /* YYMemoryCache.m in Sources */,
 				188D0C3E1F99D8210010814C /* _YYWebImageSetter.h in Sources */,
 				188D0C3F1F99D8210010814C /* _YYWebImageSetter.m in Sources */,
+				18B1566F1FB2D3A300396653 /* CreditRankViewController.swift in Sources */,
 				1853BFDD1FB0632C00FF2FC5 /* MessageModel.swift in Sources */,
 				182EB5C31F9ECD6D00B74F84 /* TUpLoadVideoCell.swift in Sources */,
 				188D0C401F99D8210010814C /* CALayer+YYWebImage.h in Sources */,
@@ -1769,6 +1796,7 @@
 				18520DD41F8C5DBA004EAF99 /* Non-WorkBookViewController.swift in Sources */,
 				183BA95A1FAD5310001A3C1D /* FriendsModel.swift in Sources */,
 				188D0C611F99F4FB0010814C /* ShowImageCell.swift in Sources */,
+				18B156721FB2F23F00396653 /* RankCell.swift in Sources */,
 				180D6B701F94654000480DEF /* SwitchRolesViewController.swift in Sources */,
 				180D6B7B1F94A51E00480DEF /* CheckWorkCell.swift in Sources */,
 				18749A1A1F9988F600DEB777 /* TShowBooksCell.swift in Sources */,

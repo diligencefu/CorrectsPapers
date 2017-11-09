@@ -108,6 +108,7 @@ public func netWorkForSuggestion(params:[String:Any],callBack:((String)->())?) -
     
 }
 
+
 //MARK:消息中心
 public func netWorkForGetMessages(params:[String:Any],callBack:((Array<Any>)->())?) ->  Void {
     var dataArr = [MessageModel]()
@@ -142,7 +143,6 @@ public func netWorkForGetMessages(params:[String:Any],callBack:((Array<Any>)->()
     }
     
 }
-
 
 
 //MARK:(老师端3-3创建班级)接口
@@ -425,7 +425,7 @@ func netWorkForUploadWorkBook(
 
 
 
-//MARK:(学生端  用户根据时间查询该练习册详情)接口
+//MARK:(学生端  用户根据时间查询该练习册详情的日期)接口
 public func netWorkForGetWorkBookByTime(params:[String:Any],callBack:((Array<Any>)->())?) ->  Void {
     
     var dataArr = [BookDetailModel]()
@@ -463,7 +463,7 @@ public func netWorkForGetWorkBookByTime(params:[String:Any],callBack:((Array<Any
 }
 
 
-//MARK:(学生端  获取用户练习册里面的所有联系日期)接口
+//MARK:(学生端  获取用户练习册详情)接口
 public func netWorkForGetWorkBookTime(params:[String:Any],callBack:((Array<Any>)->())?) ->  Void {
     
 //    var dataArr = [BookDetailModel]()
@@ -488,7 +488,6 @@ public func netWorkForGetWorkBookTime(params:[String:Any],callBack:((Array<Any>)
 //                                }
 //
 //                            }
-                            setToast(str: "获取用户练习册里面的所有联系日期成功")
                             break
                         case .failure(let error):
                             print(error)

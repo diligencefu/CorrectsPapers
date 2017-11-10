@@ -94,7 +94,7 @@ class ImagePickerChooseImageCell: UICollectionViewCell {
         self.iconView.isUserInteractionEnabled = true
         
         // 初始化按钮状态
-        CLViewsBorder(self.chooseImageBtn, borderWidth: 1.5, borderColor: UIColor.white, cornerRadius: self.chooseImageBtn.cl_width*0.5)
+        CorrectsPapers.CLViewsBorder(self.chooseImageBtn, borderWidth: 1.5, borderColor: UIColor.white, cornerRadius: self.chooseImageBtn.cl_width*0.5)
         self.chooseImageBtn.backgroundColor = self.btnBackColor
         self.chooseImageBtn.titleLabel?.font = UIFont.systemFont(ofSize: 14)
         

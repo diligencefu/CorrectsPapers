@@ -13,9 +13,9 @@ PODS:
     - Reachability
   - ASIHTTPRequest/S3 (1.8.2):
     - ASIHTTPRequest/Core
-  - IQKeyboardManagerSwift (4.0.13)
-  - Kingfisher (4.0.1)
-  - Masonry (1.0.2)
+  - IQKeyboardManagerSwift (5.0.6)
+  - Kingfisher (4.2.0)
+  - Masonry (1.1.0)
   - MJRefresh (3.1.15)
   - mob_sharesdk (4.0.4):
     - mob_sharesdk/ShareSDK (= 4.0.4)
@@ -32,14 +32,17 @@ PODS:
     - MOBFoundation
   - mob_sharesdk/ShareSDKUI (4.0.4):
     - MOBFoundation
-  - MOBFoundation (3.0.5)
+  - MOBFoundation (3.0.6)
   - Reachability (3.2)
+  - RxCocoa (4.0.0):
+    - RxSwift (~> 4.0)
+  - RxSwift (4.0.0)
   - SDAutoLayout (2.2.0)
-  - SDWebImage (4.1.0):
-    - SDWebImage/Core (= 4.1.0)
-  - SDWebImage/Core (4.1.0)
+  - SDWebImage (4.2.2):
+    - SDWebImage/Core (= 4.2.2)
+  - SDWebImage/Core (4.2.2)
   - SnapKit (4.0.0)
-  - SwiftyJSON (3.1.4)
+  - SwiftyJSON (4.0.0)
   - SwiftyUserDefaults (3.0.0)
   - Toast (3.1.0)
   - ZFDownload (1.0.2):
@@ -57,6 +60,8 @@ DEPENDENCIES:
   - mob_sharesdk/ShareSDKPlatforms/QQ
   - mob_sharesdk/ShareSDKPlatforms/WeChat
   - mob_sharesdk/ShareSDKUI
+  - RxCocoa
+  - RxSwift
   - SDAutoLayout
   - SDWebImage
   - SnapKit
@@ -68,21 +73,23 @@ DEPENDENCIES:
 SPEC CHECKSUMS:
   Alamofire: 2d95912bf4c34f164fdfc335872e8c312acaea4a
   ASIHTTPRequest: ec013992946676b7978dcbde6396d57312d21db4
-  IQKeyboardManagerSwift: fb399c4cddcd8d9bbcd2d0c7c81ed290b61c088e
-  Kingfisher: b771785e9461ed4b8686d40e7145f9e58100cb24
-  Masonry: 7c429b56da9d4ee0bbb3ed77a5ea710d6a5df39e
+  IQKeyboardManagerSwift: 02bfbb0dff71c66d0ab77d80d25dfce0c3717735
+  Kingfisher: 9ee7e788d8ba07c3f21ce0d43f33cec310a4f781
+  Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
   MJRefresh: 9af70f5f9327a2cf87f0fb5929f35fcc2fa638ea
   mob_sharesdk: b3ac49261b0e56d9e305d473c70bcde2e3a6e8ff
-  MOBFoundation: 9166eb08ad9e99cfdd7fd1765707ea2250192e9e
+  MOBFoundation: 6f6ec1c2513278551f1a808b5692e983d99e5069
   Reachability: 33e18b67625424e47b6cde6d202dce689ad7af96
+  RxCocoa: d62846ca96495d862fa4c59ea7d87e5031d7340e
+  RxSwift: fd680d75283beb5e2559486f3c0ff852f0d35334
   SDAutoLayout: c5509e77ae75735d9a39f7bc83dba6d3f75d49d8
-  SDWebImage: 0e435c14e402a6730315a0fb79f95e68654d55a4
+  SDWebImage: 89a9d32cd520bbb46eb14e541d5109b3564af198
   SnapKit: a42d492c16e80209130a3379f73596c3454b7694
-  SwiftyJSON: c2842d878f95482ffceec5709abc3d05680c0220
+  SwiftyJSON: 070dabdcb1beb81b247c65ffa3a79dbbfb3b48aa
   SwiftyUserDefaults: 0f1d45fc3aafb9064dac661e367f8f83fe21a4b4
   Toast: 14a93686d6c8bfe2727afd342414e35660a8a1f3
   ZFDownload: a52f94ebb080833b8a8ceb19a409f2941343fe7f
 
-PODFILE CHECKSUM: d9aa86a97aaae4e564f82d90d33f128a4b43ae3b
+PODFILE CHECKSUM: 8e747f9031143787be0c8987172786859a48fd73
 
 COCOAPODS: 1.4.0.beta.1

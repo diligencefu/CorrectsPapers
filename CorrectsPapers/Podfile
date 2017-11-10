@@ -19,6 +19,10 @@ pod 'SDWebImage'
 pod 'Toast'        #吐司
 pod 'MJRefresh'
 
+
+pod 'RxSwift'
+pod 'RxCocoa'
+
 # 分享功能
 
 # 主模块(必须)

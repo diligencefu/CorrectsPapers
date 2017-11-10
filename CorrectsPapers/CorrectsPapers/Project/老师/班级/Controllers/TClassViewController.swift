@@ -133,6 +133,10 @@ class TClassViewController: BaseViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        let editorVC = QQQEditorViewController(nibName: "QQQEditorViewController", bundle: nil)
+        editorVC.editorImage = #imageLiteral(resourceName: "workBook")
+        self.navigationController?.pushViewController(editorVC, animated: true)
+
     }
     
     

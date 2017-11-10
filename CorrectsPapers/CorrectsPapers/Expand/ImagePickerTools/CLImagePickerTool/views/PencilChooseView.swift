@@ -40,7 +40,7 @@ class PencilChooseView: UIView {
             
             img.image = UIImage(named: imageArr[i], in: BundleUtil.getCurrentBundle(), compatibleWith: nil)
             img.isUserInteractionEnabled = true
-            CLViewsBorder(img, borderWidth: 1.5, borderColor: UIColor.white, cornerRadius: 3)
+            CorrectsPapers.CLViewsBorder(img, borderWidth: 1.5, borderColor: UIColor.white, cornerRadius: 3)
             scrollView.addSubview(img)
             
             img.addGestureRecognizer(UITapGestureRecognizer.init(target: self, action: #selector(PencilChooseView.clickPencilImageView(tap:))))
@@ -49,7 +49,7 @@ class PencilChooseView: UIView {
             if i == 0 {
                 self.currentImage = img
                 self.currentImage?.alpha = 0.5
-                CLViewsBorder(self.currentImage!, borderWidth: 0, borderColor: UIColor.white, cornerRadius: 3)
+                CorrectsPapers.CLViewsBorder(self.currentImage!, borderWidth: 0, borderColor: UIColor.white, cornerRadius: 3)
             }
         }
         
@@ -60,11 +60,11 @@ class PencilChooseView: UIView {
         if clickPencilImage != nil {
             
             self.currentImage?.alpha = 1
-            CLViewsBorder(self.currentImage!, borderWidth: 1.5, borderColor: UIColor.white, cornerRadius: 3)
+            CorrectsPapers.CLViewsBorder(self.currentImage!, borderWidth: 1.5, borderColor: UIColor.white, cornerRadius: 3)
             
             let imageView = tap.view as! UIImageView
             imageView.alpha = 0.5
-            CLViewsBorder(imageView, borderWidth: 0, borderColor: UIColor.white, cornerRadius: 3)
+            CorrectsPapers.CLViewsBorder(imageView, borderWidth: 0, borderColor: UIColor.white, cornerRadius: 3)
             
             self.currentImage = imageView
 

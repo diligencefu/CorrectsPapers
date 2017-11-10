@@ -11,6 +11,8 @@
 
 #import "KSPhotoBrowser.h"           //图片放大
 #import "HBAlertPasswordView.h"         //密码弹框
+#import "CTImageEditUtil.h"
+#import "UIImage+EditImageWithColor.h"
 
 
 #import <ShareSDK/ShareSDK.h>

@@ -28,6 +28,19 @@ class TBookDetailViewController: BaseViewController {
         
     }
     
+    override func requestData() {
+        
+        let params =
+            ["SESSIONID":SESSIONID,
+             "mobileCode":mobileCode,
+             ]
+        
+        NetWorkTeacherGetTStudentWorkList(params: params) { (datas) in
+            
+        }
+    }
+    
+    
     override func configSubViews() {
         
         self.navigationItem.title = "练习册名称"
@@ -75,7 +88,6 @@ class TBookDetailViewController: BaseViewController {
         underLine.clipsToBounds = true
         underLine.center.x = view.center.x
         headView.addSubview(underLine)
-        
         
         mainTableView = UITableView.init(frame: CGRect(x: 0,
                                                        y: 0,
@@ -226,7 +238,7 @@ class TBookDetailViewController: BaseViewController {
             }else{
                 let cell : AnserVideoCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable3, for: indexPath) as! AnserVideoCell
                 
-                cell.AnserVideoCellSetValues(title:videoArr[indexPath.row]["descrip"]!)
+//                cell.AnserVideoCellSetValues(title:videoArr[indexPath.row])
                 
                 return cell
                 

@@ -35,7 +35,7 @@ class TShowBookCell: UITableViewCell {
         addBtn.clipsToBounds = true
         
     }
-    func TShowBookCellSetValue(index:NSInteger) {
+    func TShowBookCellSetValue(model:WorkBookModel) {
         
         gradeMark.layer.borderColor = kGaryColor(num: 111).cgColor
         gradeMark.setTitleColor(kGaryColor(num: 111), for: .normal)
@@ -55,20 +55,34 @@ class TShowBookCell: UITableViewCell {
             make.width.equalTo(getLabWidth(labelStr: "语文", font: kFont24, height: 18) + 20)
         }
         
-        if index%4 > 2 {
+        
+        gradeMark.setTitle(model.grade, for: .normal)
+        studentCount.text = model.count! + "人"
+        
+        proMark.setTitle(model.subject_name, for: .normal)
+        
+        bookTitle.text = model.work_book_name
+        
+        termDate.text = model.semester
+        
+        bookImage.kf.setImage(with:  URL(string:model.cover_photo)!, placeholder: #imageLiteral(resourceName: "photos_image_default"), options: nil, progressBlock: nil, completionHandler: nil)
+        
+        if model.subject_name == "生物" {
             proMark.layer.borderColor = kSetRGBColor(r: 102, g: 200, b: 205).cgColor
             proMark.setTitleColor(kSetRGBColor(r: 102, g: 200, b: 205), for: .normal)
-        }else if index%4 > 1 {
+        }else if model.subject_name == "化学" {
             proMark.layer.borderColor = kSetRGBColor(r: 205, g: 112, b: 106).cgColor
             proMark.setTitleColor(kSetRGBColor(r: 205, g: 112, b: 106), for: .normal)
-        }else if index%4 > 0 {
+        }else if model.subject_name == "英语" {
             proMark.layer.borderColor = kSetRGBColor(r: 255, g: 174, b: 102).cgColor
             proMark.setTitleColor(kSetRGBColor(r: 255, g: 174, b: 102), for: .normal)
-        }else if index%4 == 0 {
+        }else if model.subject_name == "政治" {
+            proMark.layer.borderColor = kSetRGBColor(r: 87, g: 138, b: 242).cgColor
+            proMark.setTitleColor(kSetRGBColor(r: 87, g: 138, b: 242), for: .normal)
+        }else if model.subject_name == "物理" {
             proMark.layer.borderColor = kSetRGBColor(r: 87, g: 138, b: 242).cgColor
             proMark.setTitleColor(kSetRGBColor(r: 87, g: 138, b: 242), for: .normal)
         }
-        
     }
     
     

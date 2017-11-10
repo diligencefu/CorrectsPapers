@@ -9,30 +9,39 @@
 import UIKit
 
 class TDetailBookViewController: BaseViewController {
-    
+    var footBtnView = UIView()
+
     var typeArr = ["我的作业","知识点讲解","参考答案","成绩统计"]
     var underLine = UIView()
     var headView = UIView()
     var currentIndex = 1
-    var videoArr = [Dictionary<String, String>]()
-    var answerArr = [UIImage]()
-    
+    var imageArr = [UIImage]()
+    var videoArr = [UrlModel]()
+    var textArr = [String]()
+    var answerArr = [Array<Any>]()
+
+    var pointArr = [UrlModel]()
+
     var workState = 0
     
-    var tipView = TTipView()
     var BGView = UIView()
     
     let image1Arr = ["https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1507452668172&di=b56ef9d62498e704c0fa0e0b2c4d8dd5&imgtype=0&src=http%3A%2F%2Fimgphoto.gmw.cn%2Fattachement%2Fjpg%2Fsite2%2F20160714%2Fd02788d8df1018f171ec38.jpg","https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=998893491,2679530940&fm=27&gp=0.jpg"]
     
     let image2Arr = ["https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1508493015032&di=59d8fa812fd03a4721892617c48b431b&imgtype=0&src=http%3A%2F%2Fe.hiphotos.baidu.com%2Fimage%2Fpic%2Fitem%2Fa8ec8a13632762d02bd1d67fa9ec08fa503dc607.jpg","https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1508493043319&di=846fb92cbd69cba852b5052a3ac51bcd&imgtype=0&src=http%3A%2F%2Fimage1.miss-no1.com%2Fuploadfile%2F2015%2F11%2F06%2Fimg20246781918797.jpg"]
     
-    
+    let identyfierTable6 = "identyfierTable6"
+    let identyfierTable7 = "identyfierTable7"
+
     //    var bookState = 0
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        answerArr = [imageArr,videoArr,textArr]
+        
+        footView()
     }
     
     override func configSubViews() {
@@ -79,11 +88,10 @@ class TDetailBookViewController: BaseViewController {
         underLine.center.x = view.center.x
         headView.addSubview(underLine)
         
-        
         mainTableView = UITableView.init(frame: CGRect(x: 0,
                                                        y: 0,
                                                        width: kSCREEN_WIDTH,
-                                                       height: kSCREEN_HEIGHT - 64),
+                                                       height: kSCREEN_HEIGHT - 64-96*kSCREEN_SCALE-10),
                                          style: .grouped)
         mainTableView.dataSource = self;
         mainTableView.delegate = self;
@@ -92,47 +100,76 @@ class TDetailBookViewController: BaseViewController {
         
         mainTableView.register(UINib(nibName: "AnserImageCell", bundle: nil), forCellReuseIdentifier: identyfierTable2)
         mainTableView.register(UINib(nibName: "AnserVideoCell", bundle: nil), forCellReuseIdentifier: identyfierTable3)
-        mainTableView.register(UINib(nibName: "showGradeCell", bundle: nil), forCellReuseIdentifier: identyfierTable4)
+        mainTableView.register(UINib(nibName: "ClassGradeCell", bundle: nil), forCellReuseIdentifier: identyfierTable4)
         mainTableView.register(UINib(nibName: "TUpLoadVideoCell", bundle: nil), forCellReuseIdentifier: identyfierTable5)
-        
+        mainTableView.register(UINib(nibName: "ShowWriteAnswerCell", bundle: nil), forCellReuseIdentifier: identyfierTable6)
+        mainTableView.register(UINib(nibName: "AnswerImageCell", bundle: nil), forCellReuseIdentifier: identyfierTable7)
+
         mainTableView.tableHeaderView = headView
         self.view.addSubview(mainTableView)
         mainTableView.backgroundColor = kSetRGBColor(r: 239, g: 239, b: 244)
         mainTableArr = [["https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1507452668172&di=b56ef9d62498e704c0fa0e0b2c4d8dd5&imgtype=0&src=http%3A%2F%2Fimgphoto.gmw.cn%2Fattachement%2Fjpg%2Fsite2%2F20160714%2Fd02788d8df1018f171ec38.jpg","https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=998893491,2679530940&fm=27&gp=0.jpg"]]
-        
-        
-        
-        //        弹出视图弹出来之后的背景蒙层
-        BGView = UIView.init(frame: self.view.frame)
-        BGView.backgroundColor = kSetRGBAColor(r: 5, g: 5, b: 5, a: 0.5)
-        BGView.alpha = 0
-        self.view.addSubview(BGView)
-        
-        tipView = UINib(nibName:"TTipView",bundle:nil).instantiate(withOwner: self, options: nil).first as! TTipView
-        tipView.frame =  CGRect(x: (KScreenWidth-300)/2, y: KScreenHeight, width: 300, height: 200)
-        
-        tipView.chooseBlock = {
-            
-            self.videoArr.append($0)
-            self.mainTableView.reloadData()
-            self.tipView.frame =  CGRect(x: 0, y: KScreenHeight, width: 300, height: 200)
-            self.BGView.alpha = 0
-            
-        }
-        
-        tipView.closeBlock = {
-            
-            UIView.animate(withDuration: 0.5) {
-                self.tipView.frame =  CGRect(x: 0, y: KScreenHeight, width: 300, height: 200)
-                self.BGView.alpha = 0
-            }
-            
-        }
-        
-        self.view.addSubview(tipView)
-        
     }
     
+    
+    func footView() {
+        
+        let titles = ["上传视频","上传图片","书写答案"]
+        
+        footBtnView.removeFromSuperview()
+        _ = footBtnView.subviews.map {
+            $0.removeFromSuperview()
+        }
+        
+        let kHeight = CGFloat(72 * kSCREEN_SCALE)
+        let kSpace = 20*kSCREEN_SCALE
+        let kWidth = (kSCREEN_WIDTH-20*kSCREEN_SCALE*4)/3
+        
+        footBtnView = UIView.init(frame: CGRect(x: 0, y: kSCREEN_HEIGHT-74-96*kSCREEN_SCALE, width: KScreenWidth, height: 96*kSCREEN_SCALE+10))
+        
+        for index in 0..<titles.count {
+            
+            let markBtn = UIButton.init(frame: CGRect(x: kSpace+(kSpace+kWidth)*CGFloat(index), y: 10, width: kWidth, height: kHeight))
+            markBtn.setTitle(titles[index], for: .normal)
+            markBtn.setTitleColor(kGaryColor(num: 117), for: .normal)
+            markBtn.titleLabel?.font = kFont28
+            markBtn.setBackgroundImage(getNavigationIMG(27, fromColor: kSetRGBColor(r: 0, g: 200, b: 255), toColor: kSetRGBColor(r: 0, g: 162, b: 255)), for: .normal)
+            markBtn.addTarget(self, action: #selector(showUploadBtn(sender:)), for: .touchUpInside)
+            markBtn.layer.cornerRadius = 10*kSCREEN_SCALE
+            markBtn.clipsToBounds = true
+            markBtn.setTitleColor(UIColor.white, for: .normal)
+            markBtn.tag = 181 + index
+            footBtnView.addSubview(markBtn)
+        }
+    }
+    
+    //MARK:上传答案点击事件
+    @objc func showUploadBtn(sender:UIButton) {
+        
+        print(sender.tag)
+
+        if sender.tag == 181 {
+            
+            let nextVC = UploadVideoViewController()
+            nextVC.isAnswer = true
+            nextVC.addUrlBlock = {
+                self.videoArr.append($0)
+                self.mainTableView.reloadData()
+            }
+            self.navigationController?.pushViewController(nextVC, animated: true)
+        }else  if sender.tag == 182{
+            
+            setupPhoto1(count: 100)
+        }else  if sender.tag == 183{
+            
+            let nextVC = WriteAnswerViewController()
+            nextVC.addTextBlock = {
+                self.textArr.append($0)
+                self.mainTableView.reloadData()
+            }
+            self.navigationController?.pushViewController(nextVC, animated: true)
+        }
+    }
     
     //MARK:   顶部选择栏选择事件
     @objc func goodAtProject(sender:UIButton) {
@@ -151,9 +188,15 @@ class TDetailBookViewController: BaseViewController {
             
             self.underLine.center = CGPoint(x:  sender.center.x, y:  self.underLine.center.y)
         })
-        
+
         currentIndex = sender.tag - 130
         
+        if currentIndex == 3 {
+            self.view.addSubview(footBtnView)
+        }else{
+            footBtnView.removeFromSuperview()
+        }
+
         mainTableView.reloadData()
     }
     
@@ -166,32 +209,38 @@ class TDetailBookViewController: BaseViewController {
                 return 1
             }else{
                 return 2
-                
             }
         }
         
         if currentIndex == 2 {
             if section == 1 {
-                return videoArr.count
+                return pointArr.count
             }else{
                 return 1
             }
         }
         
         if currentIndex == 3 {
-            if section == 1 {
-                return answerArr.count
-            }else{
-                return 1
-            }
+            return imageArr.count+videoArr.count+textArr.count
         }
         
         return  10
     }
     
+    
     override func numberOfSections(in tableView: UITableView) -> Int {
         
-        if currentIndex == 3 || currentIndex == 4 {
+        
+        if currentIndex == 3 {
+            return 1
+        }
+        
+        if currentIndex == 2 {
+            return 2
+        }
+
+        
+        if currentIndex == 4 {
             return 2
         }
         
@@ -243,11 +292,11 @@ class TDetailBookViewController: BaseViewController {
                 let cell : TUpLoadVideoCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable5, for: indexPath) as! TUpLoadVideoCell
                 
                 return cell
-                
+
             }else{
                 let cell : AnserVideoCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable3, for: indexPath) as! AnserVideoCell
                 
-                cell.AnserVideoCellSetValues(title:videoArr[indexPath.row]["descrip"]!)
+//                cell.AnserVideoCellSetValues(title:videoArr[indexPath.row]["descrip"]!)
                 
                 return cell
                 
@@ -255,60 +304,72 @@ class TDetailBookViewController: BaseViewController {
             
         }else if currentIndex == 3 {
             
-            if indexPath.section == 0 {
+            let images = imageArr
+            let videos = videoArr
+            
+            if indexPath.row<videos.count{
                 
-                let cell : TUpLoadVideoCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable5, for: indexPath) as! TUpLoadVideoCell
-                
+                let model = videoArr[indexPath.row]
+                let cell : AnserVideoCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable3, for: indexPath) as! AnserVideoCell
+                 cell.AnserVideoCellSetValues(model: model)
                 return cell
+            }else if indexPath.row<videos.count+images.count{
                 
+                let cell : AnswerImageCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable7, for: indexPath) as! AnswerImageCell
+                cell.showWithImage(image: imageArr[indexPath.row-videoArr.count])
+                return cell
             }else{
                 
-                let cell : AnserImageCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable2, for: indexPath) as! AnserImageCell
+                let cell : ShowWriteAnswerCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable6, for: indexPath) as! ShowWriteAnswerCell
+                cell.showAnswer(text: textArr[indexPath.row-imageArr.count-videos.count])
                 return cell
-                
             }
             
         }else{
-            let cell : showGradeCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable4, for: indexPath) as! showGradeCell
-            if indexPath.row == 0 {
-                cell.showGrade(isTitle: true)
-            }else{
-                cell.showGrade(isTitle: false)
-            }
-            return cell
+            let cell : ClassGradeCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable4, for: indexPath) as! ClassGradeCell
             
+            if indexPath.row == 0 {
+                cell.is1thCell()
+            }else{
+                cell.setValueForClassGradeCell(index: 10-indexPath.row)
+            }
+
+            return cell
         }
         
     }
     
+    
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         
-        if currentIndex == 3 {
+        if currentIndex == 2 {
             
             if indexPath.section == 0 {
-                showTipView()
+                let nextVC = UploadVideoViewController()
+                nextVC.isAnswer = false
+                nextVC.addUrlBlock = {
+                    self.pointArr.append($0)
+                    self.mainTableView.reloadData()
+                }
+
+                self.navigationController?.pushViewController(nextVC, animated: true)
             }else{
-                let url = NSURL.init(string: videoArr[indexPath.row]["url"]!)
+                
+                let model = pointArr[indexPath.row]
+                
+                let url = StringToUTF_8InUrl(str: model.videoUrl)
                 
                 if #available(iOS 10.0, *) {
-                    UIApplication.shared.open(url! as URL, options: [:],
+                    
+                    UIApplication.shared.open(url, options: [:],
                                               completionHandler: {
                                                 (success) in
                     })
                 } else {
                     // Fallback on earlier versions
                 }
-                
-            }
-        }
-        
-        
-        if currentIndex == 4 {
-            if indexPath.section == 0 {
-                setupPhoto1(count: 10)
-            }else{
-                
+//
             }
         }
         
@@ -342,19 +403,6 @@ class TDetailBookViewController: BaseViewController {
     }
     
     
-    
-    //MARK:   弹出视图的出现事件
-    func showTipView() -> Void {
-        
-        UIView.animate(withDuration: 0.5) {
-            self.tipView.frame =  CGRect(x: (kSCREEN_WIDTH-300)/2, y: KScreenHeight / 2 - 200, width: 300, height: 200)
-            self.BGView.alpha = 1
-        }
-        
-    }
-    
-    
-    
     private func setupPhoto1(count:NSInteger) {
         let imagePickTool = CLImagePickersTool()
         
@@ -374,7 +422,7 @@ class TDetailBookViewController: BaseViewController {
             CLImagePickersTool.convertAssetArrToOriginImage(assetArr: assetArr, scale: 0.1, successClouse: {[weak self] (image,assetItem) in
                 imageArr.append(image)
                 
-                self?.answerArr.append(image)
+                self?.imageArr.append(image)
                 self?.dealImage(imageArr: imageArr, index: index)
                 self?.mainTableView.reloadData()
                 

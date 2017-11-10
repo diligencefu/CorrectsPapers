@@ -194,6 +194,17 @@ func KGetLabWidth(labelStr:String,font:UIFont,height:CGFloat) -> CGFloat {
     return strSize.width + 10
 }
 
+//MARK:转Utf-8
+func StringToUTF_8InUrl(str:String) -> (URL){
+    
+    let OCString = str as NSString
+    
+    let urlString = OCString.addingPercentEscapes(using: String.Encoding.utf8.rawValue)
+    
+    return URL(string: urlString!)!
+}
+
+
 
 class TheGlobalVariable: NSObject {
 

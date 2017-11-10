@@ -57,6 +57,7 @@ class WorkBookViewController: BaseViewController ,UISearchBarDelegate{
         }
     }
     
+    
     override func configSubViews() {
         
         self.navigationItem.title = "练习册作业"

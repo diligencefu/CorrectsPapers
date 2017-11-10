@@ -1,0 +1,181 @@
+//
+//  UploadVideoViewController.swift
+//  CorrectsPapers
+//
+//  Created by RongXing on 2017/11/10.
+//  Copyright © 2017年 Fu Yaohui. All rights reserved.
+//
+
+import UIKit
+
+class UploadVideoViewController: BaseViewController ,UIAlertViewDelegate{
+
+    var titleArr = ["添加视频描述","添加视频链接"]
+    var isAnswer = false
+    var addUrlBlock:((UrlModel)->())?  //声明闭包
+
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        self.navigationItem.title = "上传视频"
+        
+        rightBarButton()
+    }
+    
+    func rightBarButton() {
+        
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(title: "确认", style: .plain, target: self, action: #selector(submitAnswer(sender:)))
+        self.navigationItem.rightBarButtonItem?.tintColor = UIColor.white
+        
+    }
+    
+    
+    
+    
+    
+    //    MARK:提交
+    @objc func submitAnswer(sender:UIBarButtonItem) {
+        
+        addAlertTip()
+    }
+    
+    
+    var priceTextfield = UITextField()
+    func addAlertTip() {
+        
+        let alert = UIAlertView.init(title: "设置支付学币", message: "单位：（学币）", delegate: self, cancelButtonTitle: "确定", otherButtonTitles: "取消")
+        alert.alertViewStyle = .plainTextInput
+        
+        priceTextfield = alert.textField(at: 0)!
+//        priceTextfield.placeholder = "只能输入纯数字"
+        priceTextfield.keyboardType = .numberPad
+//        priceTextfield.rightViewRect(forBounds: CGRect(x: 0, y: 0, width: 40, height: 45))
+//        priceTextfield.rightViewMode = .always
+//        let textLabel = UILabel.init(frame: CGRect(x: 0, y: 0, width: 40, height: priceTextfield.height))
+//        textLabel.text = "学币"
+//        textLabel.font = kFont28
+//        textLabel.textColor = kGaryColor(num: 117)
+//        priceTextfield.rightView = textLabel
+        
+        let text = priceTextfield.text
+        print(text!)
+        alert.show()
+        
+    }
+    
+    
+    func alertView(_ alertView: UIAlertView, clickedButtonAt buttonIndex: Int) {
+        let buttonTitle = alertView.buttonTitle(at: buttonIndex)
+        if buttonTitle == "确定" {
+            let model = UrlModel()
+            
+            let textfield1 = self.view.viewWithTag(100) as! UITextField
+            let textfield2 = self.view.viewWithTag(101) as! UITextField
+            if !isAnswer {
+                let textfield3 = self.view.viewWithTag(102) as! UITextField
+                model.period = textfield1.text
+                model.videoUrl = textfield3.text
+                model.describe = textfield2.text
+                if !UIApplication.shared.canOpenURL(StringToUTF_8InUrl(str: textfield3.text!)) {
+                    setToast(str: "网址无效")
+                    return
+                }
+                
+                if textfield1.text?.count == 0 {
+                    setToast(str: "请填写练习册章节")
+                    return
+                }
+                
+                if textfield2.text?.count == 0 {
+                    setToast(str: "请填写知识点简介")
+                    return
+                }
+
+                
+            }else{
+                model.videoUrl = textfield1.text
+                model.describe = textfield2.text
+                if !UIApplication.shared.canOpenURL(StringToUTF_8InUrl(str: textfield2.text!)) {
+                    setToast(str: "网址无效")
+                    return
+                }
+                
+                if textfield1.text?.count == 0 {
+                    setToast(str: "请填写视频描述")
+                    return
+                }
+
+            }
+            
+            model.price = priceTextfield.text
+
+            if  addUrlBlock != nil {
+                addUrlBlock!(model)
+                setToast(str: "已提交")
+                self.navigationController?.popViewController(animated: true)
+            }
+            
+        }else{
+            setToast(str: "取消了")
+        }
+        
+    }
+    
+
+    
+    override func configSubViews() {
+        
+        if isAnswer {
+            titleArr = ["添加视频描述","添加视频链接"]
+        }else{
+            titleArr = ["练习册章节","知识点简介","添加视频链接"]
+        }
+
+        
+        let kWidth = kSCREEN_WIDTH-28*kSCREEN_SCALE*2
+        let labelHeight = CGFloat(35)
+        let textfieldHeight = 88*kSCREEN_SCALE
+        let kSpace = 28*kSCREEN_SCALE
+        
+        for index in 0..<titleArr.count {
+            
+            let label = UILabel.init(frame: CGRect(x: kSpace, y: kSpace+(labelHeight+textfieldHeight+kSpace)*CGFloat(index), width: kWidth, height: labelHeight))
+            
+            label.font = kFont32
+            label.textColor = kGaryColor(num: 101)
+            label.text = titleArr[index]
+            self.view.addSubview(label)
+            
+            let textfield = UITextField.init(frame: CGRect(x: kSpace, y: kSpace+labelHeight+(labelHeight+textfieldHeight+kSpace)*CGFloat(index), width: kWidth, height: textfieldHeight))
+            textfield.backgroundColor = UIColor.white
+            textfield.layer.cornerRadius = 10*kSCREEN_SCALE
+            textfield.clipsToBounds = true
+            textfield.tag = index+100
+            
+            textfield.leftViewRect(forBounds: CGRect(x: 0, y: 0, width: 10, height: 45))
+            textfield.leftViewMode = .always
+            let leftBG1 = UIView.init(frame: CGRect(x: 0, y: 0, width: 10, height: 45))
+            textfield.leftView = leftBG1
+            
+            if isAnswer {
+                
+                if index == 1 {
+                    textfield.text = "http://"
+                    textfield.keyboardType = .URL
+                }
+                
+            }else{
+                if index == 2 {
+                    textfield.text = "http://"
+                    textfield.keyboardType = .URL
+
+                }
+
+            }
+            
+            self.view.addSubview(textfield)
+        }        
+        
+    }
+
+}

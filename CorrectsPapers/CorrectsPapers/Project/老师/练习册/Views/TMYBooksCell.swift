@@ -27,7 +27,7 @@ class TMYBooksCell: UITableViewCell {
 
     }
     
-    func TMYBooksCellSetValue(index:NSInteger) {
+    func TMYBooksCellSetValue(model:WorkBookModel) {
         
         gradeMark.layer.borderColor = kGaryColor(num: 111).cgColor
         gradeMark.setTitleColor(kGaryColor(num: 111), for: .normal)
@@ -46,17 +46,28 @@ class TMYBooksCell: UITableViewCell {
         proMark.snp.updateConstraints { (make) in
             make.width.equalTo(getLabWidth(labelStr: "语文", font: kFont24, height: 18) + 20)
         }
+
+        gradeMark.setTitle(model.grade, for: .normal)
+        proMark.setTitle(model.subject_name, for: .normal)
+        bookTitle.text = model.work_book_name
         
-        if index%4 > 2 {
+        submitCount.text = model.correct_ti
+        doneCount.text = "\(model.correct_state!)"
+
+        
+        if model.subject_name == "生物" {
             proMark.layer.borderColor = kSetRGBColor(r: 102, g: 200, b: 205).cgColor
             proMark.setTitleColor(kSetRGBColor(r: 102, g: 200, b: 205), for: .normal)
-        }else if index%4 > 1 {
+        }else if model.subject_name == "化学" {
             proMark.layer.borderColor = kSetRGBColor(r: 205, g: 112, b: 106).cgColor
             proMark.setTitleColor(kSetRGBColor(r: 205, g: 112, b: 106), for: .normal)
-        }else if index%4 > 0 {
+        }else if model.subject_name == "英语" {
             proMark.layer.borderColor = kSetRGBColor(r: 255, g: 174, b: 102).cgColor
             proMark.setTitleColor(kSetRGBColor(r: 255, g: 174, b: 102), for: .normal)
-        }else if index%4 == 0 {
+        }else if model.subject_name == "政治" {
+            proMark.layer.borderColor = kSetRGBColor(r: 87, g: 138, b: 242).cgColor
+            proMark.setTitleColor(kSetRGBColor(r: 87, g: 138, b: 242), for: .normal)
+        }else if model.subject_name == "物理" {
             proMark.layer.borderColor = kSetRGBColor(r: 87, g: 138, b: 242).cgColor
             proMark.setTitleColor(kSetRGBColor(r: 87, g: 138, b: 242), for: .normal)
         }

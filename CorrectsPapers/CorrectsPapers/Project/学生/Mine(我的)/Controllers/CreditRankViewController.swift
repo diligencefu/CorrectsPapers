@@ -34,6 +34,36 @@ class CreditRankViewController: BaseViewController {
     
     
     @objc func shareRank(sender:UIBarButtonItem) {
+        let shareParames = NSMutableDictionary()
+        
+        
+//        if  WXApi.isWXAppInstalled() == false{
+//            debugPrint("微信还未安装");
+//            let alert = UIAlertView(title: "温馨提示", message: "您还没有安装微信,请安装后再分享！", delegate: nil, cancelButtonTitle: "我知道了")
+//            alert.show()
+//            return
+//        }
+        
+        shareParames.ssdkSetupShareParams(byText: "分享内容",
+                                          images : #imageLiteral(resourceName: "share_icon"),
+                                          url : NSURL(string:"http://mob.com") as URL!,
+                                          title : "分享标题",
+                                          type : SSDKContentType.text)
+        
+//        2.进行分享
+        ShareSDK.share(SSDKPlatformType.subTypeQQFriend, parameters: shareParames) { (state : SSDKResponseState, nil, entity : SSDKContentEntity?, error :Error?) in
+
+            switch state{
+
+            case SSDKResponseState.success: print("分享成功")
+            case SSDKResponseState.fail:    print("授权失败,错误描述:\(String(describing: error))")
+            case SSDKResponseState.cancel:  print("操作取消")
+
+            default:
+                break
+            }
+
+        }
         
     }
     

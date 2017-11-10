@@ -17,16 +17,56 @@ class TBookViewController: BaseViewController {
         super.viewDidLoad()
         
         rightBarButton()
+        addImageWhenEmpty()
+        addFooterRefresh()
     }
     
     override func leftBarButton() {
         
     }
     
+    
+    override func refreshFooterAction() {
+        self.mainTableView.mj_footer.endRefreshing() 
+    }
+    
+    
+    override func requestData() {
+        
+        let params =
+            ["SESSIONID":SESSIONIDT,
+             "mobileCode":mobileCodeT,
+             ]
+
+        NetWorkTeacherGetTAllWorkList(params: params) { (datas) in
+            
+            self.mainTableArr.removeAllObjects()
+            self.mainTableArr.addObjects(from: datas)
+            self.mainTableView.reloadData()
+        }
+    }
+    
+    
+    override func refreshHeaderAction() {
+        let params =
+            ["SESSIONID":SESSIONIDT,
+             "mobileCode":mobileCodeT,
+             ]
+
+        NetWorkTeacherGetTAllWorkList(params: params) { (datas) in
+            
+            self.mainTableArr.removeAllObjects()
+            self.mainTableArr.addObjects(from: datas)
+            self.mainTableView.reloadData()
+            self.mainTableView.mj_header.endRefreshing()
+
+        }
+    }
+    
+    
     override func configSubViews() {
         
         self.navigationItem.title = "练习册作业"
-        
         
         //        顶部搜索栏
         searchBar = UISearchBar.init(frame: CGRect(x: 0, y: 0, width: kSCREEN_WIDTH, height: 50 ))
@@ -66,17 +106,13 @@ class TBookViewController: BaseViewController {
         searchBtn.addTarget(self, action: #selector(pushToSearchBook(sender:)), for: .touchUpInside)
         searchBar.addSubview(searchBtn)
         
-        
-        //        self.navigationController?.navigationItem.titleView = searchBar
-        
-        mainTableArr =  ["","","","",""]
-
         mainTableView = UITableView.init(frame: CGRect(x: 0, y: 0, width: kSCREEN_WIDTH, height: kSCREEN_HEIGHT - 64 ), style: .plain)
         mainTableView.dataSource = self;
         mainTableView.delegate = self;
         mainTableView.estimatedRowHeight = 143 * kSCREEN_SCALE;
         mainTableView.register(UINib(nibName: "TShowBookCell", bundle: nil), forCellReuseIdentifier: identyfierTable)
         mainTableView.tableHeaderView = searchBar
+        mainTableView.tableFooterView = UIView()
         self.view.addSubview(mainTableView)
         
     }
@@ -86,8 +122,6 @@ class TBookViewController: BaseViewController {
         let searchVC = TSearchBookViewController()
         //        searchVC.style
         self.navigationController?.pushViewController(searchVC, animated: true)
-        
-        
     }
     
     //    右键
@@ -135,7 +169,6 @@ class TBookViewController: BaseViewController {
         //        creatBook.addTarget(self, action: #selector(createBookAction(sender:)), for: .touchUpInside)
         emptyView.addSubview(creatBook)
         
-        self.mainTableView.addSubview(emptyView)
     }
     
     
@@ -143,7 +176,7 @@ class TBookViewController: BaseViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         if mainTableArr.count == 0 {
-            addImageWhenEmpty()
+            self.mainTableView.addSubview(emptyView)
         }else{
             emptyView.removeFromSuperview()
         }
@@ -157,9 +190,10 @@ class TBookViewController: BaseViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
+        let model = mainTableArr[indexPath.row] as! WorkBookModel
         let cell : TShowBookCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable, for: indexPath) as! TShowBookCell
         cell.selectionStyle = .default
-        cell.TShowBookCellSetValue(index: indexPath.row)
+        cell.TShowBookCellSetValue(model:model)
         return cell
     }
     

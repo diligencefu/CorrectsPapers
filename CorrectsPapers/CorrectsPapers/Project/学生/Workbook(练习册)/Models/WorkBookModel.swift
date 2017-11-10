@@ -12,16 +12,22 @@ import  SwiftyJSON
 class WorkBookModel: BaseModel {
 //    练习册id
     var work_book_Id = ""  //字面量语法声明，设置默认值，这样避免=nil的情况
+    
     ///练习册名字
     var work_book_name : String!
+    
     ///练习册封面照
     var cover_photo : String!
+    
     ///班级名称
     var class_name : String!
+    
     ///课程名称
     var subject_name : String!
+    
     ///是否已添加标签
     var isFollow : Bool!
+    
     ///批改状态
     var correct_state : NSInteger?
 
@@ -32,12 +38,20 @@ class WorkBookModel: BaseModel {
     var userWorkBookId : String?
     
     ///(人数)：（老师端使用）：
-    var counts : String?
+    var count : String?
 
     ///年级
     var grade : String?
+    ///学期
+    var semester : String?
 
+    ///已交人数
+    var correct_ti : String?
 
+    ///book id
+    var id : String?
+
+    
     class func setValueForWorkBookModel(json: JSON) -> WorkBookModel {
         
         let model = WorkBookModel()
@@ -47,11 +61,14 @@ class WorkBookModel: BaseModel {
         model.class_name = json["class_name"].stringValue
         model.subject_name = json["subject_name"].stringValue
         model.isFollow = json["isFollow"].boolValue
-        model.correct_state = json["correcting_state"].intValue
+        model.correct_state = json["correct_state"].intValue
         model.teacherName = json["teacherName"].stringValue
         model.userWorkBookId = json["userWorkBookId"].stringValue
-        model.counts = json["counts"].stringValue
+        model.count = json["count"].stringValue
         model.grade = json["grade"].stringValue
+        model.semester = json["semester"].stringValue
+        model.correct_ti = json["correct_ti"].stringValue
+        model.id = json["id"].stringValue
 
         return model
     }

@@ -61,7 +61,6 @@ class EditInfoViewController: BaseViewController {
             self.navigationItem.rightBarButtonItem?.isEnabled = true
         }
         
-        
 //        netWorkForEditoData(params: params) { (dataArr) in
 //            self.navigationItem.rightBarButtonItem?.isEnabled = true
 //        }

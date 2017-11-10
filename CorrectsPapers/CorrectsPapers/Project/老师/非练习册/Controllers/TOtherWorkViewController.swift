@@ -20,19 +20,35 @@ class TOtherWorkViewController: BaseViewController {
         
     }
     
+    
+    override func requestData() {
+        
+        NetWorkTeacherGetTMyAllNotWork { (datas) in
+            self.mainTableArr.addObjects(from: datas)
+            self.mainTableView.reloadData()
+        }
+    }
+    
+    override func refreshHeaderAction() {
+        NetWorkTeacherGetTMyAllNotWork { (datas) in
+            self.mainTableArr.removeAllObjects()
+            self.mainTableArr.addObjects(from: datas)
+            self.mainTableView.reloadData()
+            self.mainTableView.mj_header.endRefreshing()
+        }
+    }
+
+    
     override func configSubViews() {
         
-        self.navigationItem.title = "练习册作业"
-        
-        
-        
-        mainTableArr =  ["","","","",""]
+        self.navigationItem.title = "非练习册"
 
         mainTableView = UITableView.init(frame: CGRect(x: 0, y: 0, width: kSCREEN_WIDTH, height: kSCREEN_HEIGHT - 64 ), style: .plain)
         mainTableView.dataSource = self;
         mainTableView.delegate = self;
         mainTableView.estimatedRowHeight = 143 * kSCREEN_SCALE;
         mainTableView.register(UINib(nibName: "TShowBooksCell", bundle: nil), forCellReuseIdentifier: identyfierTable)
+        mainTableView.tableFooterView = UIView()
         self.view.addSubview(mainTableView)
         
     }
@@ -66,19 +82,18 @@ class TOtherWorkViewController: BaseViewController {
         emptyView = UIView.init(frame: CGRect(x: 0, y: 0, width: kSCREEN_WIDTH, height: kSCREEN_HEIGHT - 46))
         emptyView.backgroundColor = kBGColor()
         let imageView = UIImageView.init(frame: CGRect(x: 0, y: 0, width: 200 * kSCREEN_SCALE, height: 200 * kSCREEN_SCALE))
-        imageView.image = #imageLiteral(resourceName: "headimage")
+        imageView.image = #imageLiteral(resourceName: "404_icon_default")
         imageView.center = CGPoint(x: emptyView.centerX, y: emptyView.centerY - 200 * kSCREEN_SCALE)
         emptyView.addSubview(imageView)
         
-        let label = UILabel.init(frame: CGRect(x: 0, y: 0, width: kSCREEN_WIDTH, height: 50))
+        let label = UILabel.init(frame: CGRect(x: 0, y: 0, width: kSCREEN_WIDTH, height: 18))
         label.textAlignment = .center
         label.textColor = kGaryColor(num: 163)
-        label.center = CGPoint(x: emptyView.centerX, y: emptyView.centerY + 20 * kSCREEN_SCALE)
-        label.font = kFont36
+        label.center = CGPoint(x: emptyView.centerX, y: emptyView.centerY-40)
+        label.font = kFont34
         label.numberOfLines = 2
-        label.text = "暂时没有练习册"
+        label.text = "暂时没有非练习册"
         emptyView.addSubview(label)
-        self.mainTableView.addSubview(emptyView)
     }
     
     
@@ -91,7 +106,8 @@ class TOtherWorkViewController: BaseViewController {
             emptyView.removeFromSuperview()
         }
         
-        return mainTableArr.count
+//        return mainTableArr.count
+        return 1
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {

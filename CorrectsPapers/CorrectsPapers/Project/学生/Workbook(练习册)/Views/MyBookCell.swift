@@ -52,7 +52,7 @@ class MyBookCell: UITableViewCell {
             correctTeacher.text = model.teacherName
         }else{
             
-            correctTeacher.text = "Michael"
+            correctTeacher.text = "未分配老师"
         }
         
         classMark.snp.updateConstraints { (make) in
@@ -67,16 +67,22 @@ class MyBookCell: UITableViewCell {
 
         var state = ""
         if model.correct_state == 0 {
-            state = "未分配老师"
+            state = "未"
             correctTeacher.text = "暂无"
         }else if model.correct_state == 1 {
-            state = "未批改"
+            state = "未上传"
         }else if model.correct_state == 2 {
-            state = "退回-照片模糊改"
+            state = "未批改"
         }else if model.correct_state == 3 {
-            state = "正在批改"
+            state = "退回-照片模糊改"
         }else if model.correct_state == 4 {
             state = "已批改"
+        }else if model.correct_state == 5 {
+            state = "错题 未批改"
+        }else if model.correct_state == 6 {
+            state = "错题 退回"
+        }else if model.correct_state == 7 {
+            state = "错题 已批改"
         }
         
         bookState.text = state

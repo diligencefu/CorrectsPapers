@@ -20,9 +20,9 @@ class AnserVideoCell: UITableViewCell {
         // Initialization code
     }
 
-    func AnserVideoCellSetValues(title:String) {
+    func AnserVideoCellSetValues(model:UrlModel) {
         
-        videoTitle.text = title
+        videoTitle.text = model.describe
         
     }
     

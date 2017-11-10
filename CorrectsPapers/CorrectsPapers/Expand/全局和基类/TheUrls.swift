@@ -12,6 +12,11 @@
 //let mobileCode = "sion"
 let SESSIONID = "562564455ffg5451vvc5565874512112"
 let mobileCode = "com"
+
+let SESSIONIDT = "12345689piosid"
+let mobileCodeT = "sam"
+
+
 //let header = [
 //    "SESSIONID":SESSIONID,
 //    "mobileCode":mobileCode
@@ -26,26 +31,67 @@ let kGet_Sms = kBaseUrl + "user/getSms"
 let kLogin_User = kBaseUrl +  "user/loginUser"
 
 
-
 let kBaseUrl1 = "http://192.168.1.181:8080/duties/m/rongxing/"
+let kBaseUrl11 = "http://192.168.1.230:8080/duties/m/rongxing/"
 //MARK: *****************老师端接口**************
 //MARK: *****************老师端接口**************
 //MARK: *****************老师端接口**************
 //MARK: *****************老师端接口**************
 //MARK: *****************老师端接口**************
+
+//MARK:(1-0 和 1-2 获取所有的练习册)接口
+let kGet_TAllWorkList = kBaseUrl11 +  "teacher/getTAllWorkList"
+
+
+//MARK:(1-1 我的练习册)接口
+let kGet_MyWorkList = kBaseUrl11 +  "teacher/getMyWorkList"
+
+//MARK:(1-1我的练习册  - 删除)接口
+let kdel_MyWork = kBaseUrl11 +  "teacher/delMyWork"
+
+//MARK:(1-3 练习册详情 根据练习册id获取详情)接口
+let kGet_TWorkDetail = kBaseUrl11 +  "teacher/getTWorkDetail"
+
+
+//MARK:(1-3 练习册详情 - 学生作业 》根据练习册id获取详情)接口
+let kGet_TStudentWork1 = kBaseUrl11 +  "teacher/getTStudentWork1"
+
+
+//MARK:(1-3 练习册详情 - 已批改 >> 根据练习册id获取详情)接口
+let kGet_TStudentWork2 = kBaseUrl11 +  "teacher/getTStudentWork2"
+
+
+//MARK:(1-3 练习册详情 - 成绩统计  》根据练习册id获取详情)接口
+let kGet_TStudentWork5 = kBaseUrl11 +  "teacher/getTStudentWork5"
+
+
+//MARK:(2-0 查询所有非练习册数据 (不属于自己的所有fei练习册))接口
+let kGet_TAllNotWork = kBaseUrl11 +  "teacher/getTAllNotWork"
+
+
+//MARK:(2-1 查询所有非练习册数据 (属于自己的所有fei练习册，所有状态))接口
+let kGet_TMyAllNotWork = kBaseUrl11 +  "teacher/getTMyAllNotWork"
+
+
+//MARK:(1-3 练习册详情 - 成绩统计  》根据练习册id获取详情)接口
+//let kGet_TAllWorkList = kBaseUrl1 +  "teacher/getTAllWorkList"
 
 
 //MARK:(学生端4-6、老师端4-7意见和建议)接口
 let kInsert_Suggestion = kBaseUrl1 +  "mine/insertSuggestion"
 
+
 //MARK:(老师端4-3-2好友申请添加)接口
 let kInsert_Friend = kBaseUrl1 +  "mine/insertFriend"
+
 
 //MARK:(老师端4-4消息中心)接口
 let kGet_Messages = kBaseUrl1 +  "mine/getMessages"
 
+
 //MARK:(老师端4-2 我的收入)接口
 let kGet_Coins = kBaseUrl1 +  "mine/getCoins"
+
 
 //MARK:(老师端4-0我的))接口
 let kGet_Users = kBaseUrl1 +  "mine/getUsers"

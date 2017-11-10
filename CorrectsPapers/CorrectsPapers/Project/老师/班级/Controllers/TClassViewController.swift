@@ -24,7 +24,7 @@ class TClassViewController: BaseViewController {
         
         self.navigationItem.title = "我的班级"
         
-        mainTableArr =  ["","","","",""]
+        mainTableArr =  ["",""]
         
         mainTableView = UITableView.init(frame: CGRect(x: 0, y: 0, width: kSCREEN_WIDTH, height: kSCREEN_HEIGHT - 64 ), style: .plain)
         mainTableView.dataSource = self;

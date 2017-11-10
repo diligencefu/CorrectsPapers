@@ -116,7 +116,6 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/SwiftyUserDefaults/SwiftyUserDefaults.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/Toast/Toast.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/ZFDownload/ZFDownload.framework"
-  install_framework "${BUILT_PRODUCTS_DIR}/ZFPlayer/ZFPlayer.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/ASIHTTPRequest/ASIHTTPRequest.framework"
@@ -133,7 +132,6 @@ if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/SwiftyUserDefaults/SwiftyUserDefaults.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/Toast/Toast.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/ZFDownload/ZFDownload.framework"
-  install_framework "${BUILT_PRODUCTS_DIR}/ZFPlayer/ZFPlayer.framework"
 fi
 if [ "${COCOAPODS_PARALLEL_CODE_SIGN}" == "true" ]; then
   wait

@@ -8,9 +8,9 @@
 
 import UIKit
 import SwiftyJSON
-import ZFPlayer
 
-class Non_WorkBookViewController: BaseViewController ,ZFPlayerDelegate,UIPickerViewDelegate,UIPickerViewDataSource{
+
+class Non_WorkBookViewController: BaseViewController ,UIPickerViewDelegate,UIPickerViewDataSource{
     
     var typeArr = NSMutableArray()
     var headView = UIView()

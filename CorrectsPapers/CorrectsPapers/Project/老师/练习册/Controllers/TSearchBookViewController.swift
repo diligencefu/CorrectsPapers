@@ -20,6 +20,9 @@ class TSearchBookViewController: BaseViewController,UITextFieldDelegate{
         resetTitleView()
     }
     
+    override func requestData() {
+        
+    }
     
     
     override func configSubViews() {
@@ -32,7 +35,7 @@ class TSearchBookViewController: BaseViewController,UITextFieldDelegate{
         mainTableView.estimatedRowHeight = 143 * kSCREEN_SCALE;
         mainTableView.register(UINib(nibName: "TShowBookCell", bundle: nil), forCellReuseIdentifier: identyfierTable)
         mainTableView.tableFooterView = UIView.init()
-        
+        mainTableView.tableFooterView = UIView()
         self.view.addSubview(mainTableView)
         
     }
@@ -50,8 +53,19 @@ class TSearchBookViewController: BaseViewController,UITextFieldDelegate{
     
     @objc func searchBegin() {
         setToast(str: "开始搜索")
-        isSearching = true
-        mainTableView.reloadData()
+
+        let params =
+            ["SESSIONID":SESSIONIDT,
+             "mobileCode":mobileCodeT,
+             "workName":searchTextfield.text!,
+             ] as [String : Any]
+        
+        NetWorkTeacherGetTAllWorkList(params: params) { (datas) in
+            self.isSearching = true
+            self.mainTableArr.removeAllObjects()
+            self.mainTableArr.addObjects(from: datas)
+            self.mainTableView.reloadData()
+        }
         
     }
     

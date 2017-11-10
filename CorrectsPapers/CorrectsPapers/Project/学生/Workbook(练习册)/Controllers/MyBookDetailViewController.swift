@@ -188,7 +188,7 @@ class MyBookDetailViewController: BaseViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         
-        if currentIndex == 1 && workState == 0 && indexPath.row == 0{
+        if currentIndex == 1 && workState == 1 && indexPath.row == 0{
             let cell : UpLoadWorkCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable1, for: indexPath) as! UpLoadWorkCell
             
             cell.upLoadImagesForWorkBook(images: images as! Array<UIImage>)
@@ -225,7 +225,7 @@ class MyBookDetailViewController: BaseViewController {
             
         }
         
-        if currentIndex == 1 && workState == 1 && indexPath.row == 0{
+        if currentIndex == 1 && workState == 2 && indexPath.row == 0{
             let cell : CheckWorkCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable2, for: indexPath) as! CheckWorkCell
             
             cell.checkWorkCellSetValues1()
@@ -233,7 +233,7 @@ class MyBookDetailViewController: BaseViewController {
             
         }
         
-        if currentIndex == 1 && workState == 2 {
+        if currentIndex == 1 && workState == 3 {
             
             if indexPath.row == 0 {
                 let cell : CheckWorkCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable2, for: indexPath) as! CheckWorkCell
@@ -250,7 +250,7 @@ class MyBookDetailViewController: BaseViewController {
             }
         }
         
-        if currentIndex == 1 && workState == 3 {
+        if currentIndex == 1 && workState == 4 {
             
             if  indexPath.row == 0 {
                 let cell : CheckWorkCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable2, for: indexPath) as! CheckWorkCell
@@ -259,8 +259,8 @@ class MyBookDetailViewController: BaseViewController {
                     let complianVC = ComplaintViewController()
                     self.navigationController?.pushViewController(complianVC, animated: true)
                 }
-                return cell
                 
+                return cell
             }
             
             let cell : UpLoadWorkCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable1, for: indexPath) as! UpLoadWorkCell
@@ -302,14 +302,44 @@ class MyBookDetailViewController: BaseViewController {
             
         }
         
-        if currentIndex == 1 && workState == 4 {
-            
+        if currentIndex == 1 && workState == 5 {
+            let cell : CheckWorkCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable2, for: indexPath) as! CheckWorkCell
+
             if  indexPath.row == 0 {
-                let cell : CheckWorkCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable2, for: indexPath) as! CheckWorkCell
                 
                 cell.checkWorkCellSetValues3()
                 return cell
                 
+            }
+            
+            cell.checkWorkCellSetValues1()
+            return cell
+            
+        }
+        
+        if currentIndex == 1 && workState == 6 {
+            let cell : CheckWorkCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable2, for: indexPath) as! CheckWorkCell
+
+            if  indexPath.row == 0 {
+                
+                cell.checkWorkCellSetValues3()
+                return cell
+                
+            }
+            
+            cell.checkWorkCellSetValues2()
+            return cell
+            
+        }
+
+        if currentIndex == 1 && workState == 7 {
+            
+            if  indexPath.row == 0 {
+                
+                let cell : CheckWorkCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable2, for: indexPath) as! CheckWorkCell
+                
+                cell.checkWorkCellSetValues3()
+                return cell
             }
             
             let cell : CheckWorkCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable2, for: indexPath) as! CheckWorkCell
@@ -318,6 +348,7 @@ class MyBookDetailViewController: BaseViewController {
             return cell
             
         }
+
         
         if currentIndex == 2 {
             
@@ -330,6 +361,7 @@ class MyBookDetailViewController: BaseViewController {
             return cell
             
         }
+        
         
         let cell : showGradeCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable4, for: indexPath) as! showGradeCell
         

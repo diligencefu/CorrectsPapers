@@ -13,26 +13,38 @@ class TMyBookViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        addImageWhenEmpty()
     }
     
     override func configSubViews() {
         
         self.navigationItem.title = "我的练习册"
-        
-        mainTableArr =  ["","","","",""]
 
         mainTableView = UITableView.init(frame: CGRect(x: 0, y: 0, width: kSCREEN_WIDTH, height: kSCREEN_HEIGHT - 64 ), style: .plain)
         mainTableView.dataSource = self;
         mainTableView.delegate = self;
         mainTableView.estimatedRowHeight = 143 * kSCREEN_SCALE;
         mainTableView.register(UINib(nibName: "TMYBooksCell", bundle: nil), forCellReuseIdentifier: identyfierTable)
-        self.view.addSubview(mainTableView)
-        
-        
+        mainTableView.tableFooterView = UIView()
+        self.view.addSubview(mainTableView)        
     }
     
     
-    //    当数据为空的时候，显示提示
+    override func requestData() {
+        
+        let params =
+            ["SESSIONID":SESSIONIDT,
+             "mobileCode":mobileCodeT,
+             ]
+
+        NetWorkTeacherGetMyWorkList(params: params) { (datas) in
+            
+            self.mainTableArr.removeAllObjects()
+            self.mainTableArr.addObjects(from: datas)
+            self.mainTableView.reloadData()
+        }
+    }
+    
     
     //    当数据为空的时候，显示提示
     func addImageWhenEmpty() {
@@ -78,7 +90,7 @@ class TMyBookViewController: BaseViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         if mainTableArr.count == 0 {
-            addImageWhenEmpty()
+            self.mainTableView.addSubview(emptyView)
         }else{
             emptyView.removeFromSuperview()
         }
@@ -92,9 +104,10 @@ class TMyBookViewController: BaseViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
+        let model = mainTableArr[indexPath.row] as! WorkBookModel
         let cell : TMYBooksCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable, for: indexPath) as! TMYBooksCell
         cell.selectionStyle = .default
-        cell.TMYBooksCellSetValue(index: indexPath.row)
+        cell.TMYBooksCellSetValue(model: model)
         return cell
     }
     
@@ -104,7 +117,6 @@ class TMyBookViewController: BaseViewController {
     
     
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        
         return true
     }
     
@@ -114,11 +126,22 @@ class TMyBookViewController: BaseViewController {
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         
+        let model = mainTableArr[indexPath.row] as! WorkBookModel
+        
         if editingStyle == .delete {
             
-            mainTableArr.removeObject(at: indexPath.row)
-            tableView.reloadData()
-            print("删除了---\(indexPath.section)分区-\(indexPath.row)行")
+            let params =
+                ["SESSIONID":SESSIONIDT,
+                 "mobileCode":mobileCodeT,
+                 "workId":model.id,
+                 ]
+
+            NetWorkTeacherDelMyWork(params: params, callBack: { (datas) in
+                
+                self.mainTableArr.removeObject(at: indexPath.row)
+                tableView.reloadData()
+                print("删除了---\(indexPath.section)分区-\(indexPath.row)行")
+            })
         }
     }
     
@@ -128,4 +151,3 @@ class TMyBookViewController: BaseViewController {
     }
     
 }
-

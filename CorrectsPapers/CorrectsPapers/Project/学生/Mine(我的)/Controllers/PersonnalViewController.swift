@@ -229,9 +229,9 @@ class PersonnalViewController: BaseViewController {
 
                 break
             case 3:
-                let dic = ["SESSIONID":"12345689piosid","mobileCode":"sam"]
+                let dic = ["SESSIONID":"1","mobileCode":"on"]
 
-                Alamofire.request("http://192.168.1.230kki:8080/duties/m/rongxing/teacher/getMyWorkList",
+                Alamofire.request("http://192.168.1.181:8080/duties/m/rongxing/mine/getComplaints",
                                   method: .get, parameters: dic,
                                   encoding: URLEncoding.default, headers: nil).responseJSON(queue:DispatchQueue.main, options: .allowFragments) { (response) in
                                     print(response.result)

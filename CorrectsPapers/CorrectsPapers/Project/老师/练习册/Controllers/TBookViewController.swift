@@ -201,15 +201,14 @@ class TBookViewController: BaseViewController {
         searchBar.endEditing(true)
         tableView.deselectRow(at: indexPath, animated: true)
         
-        let BookDetailVC = TBookDetailViewController()
         
-//        if indexPath.row % 2 == 0{
-//            BookDetailVC.bookState = 0
-//        }else{
-//            BookDetailVC.bookState = 1
-//        }
         
-        self.navigationController?.pushViewController(BookDetailVC, animated: true)
+//        缺少参数，暂时关闭
+//        let model = mainTableArr[indexPath.row] as! WorkBookModel
+//
+//        let BookDetailVC = TBookDetailViewController()
+//        BookDetailVC.book_id = model.id!
+//        self.navigationController?.pushViewController(BookDetailVC, animated: true)
     }
     
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {

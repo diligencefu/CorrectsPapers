@@ -254,12 +254,31 @@ class MyFriendViewController: BaseViewController {
         
         if editingStyle == .delete {
             
-//            let params =
-//                [
-//                    "workBookId":model.work_book_Id,
-//                    "SESSIONID":SESSIONID,
-//                    "mobileCode":mobileCode
-//            ]
+            var model = ApplyModel()
+            
+            
+            if currentIndex == 123456 {
+//                学生
+                model = students[indexPath.row]
+                
+            }else{
+                model = teachers[indexPath.row]
+
+            }
+            
+            let params =
+                [
+                    "freind_id":model.userId,
+                    "SESSIONID":SESSIONID,
+                    "mobileCode":mobileCode
+            ]
+            
+            netWorkForDelMyFriend(params: params, callBack: { (done) in
+                
+                
+                
+            })
+            
             
         }
         

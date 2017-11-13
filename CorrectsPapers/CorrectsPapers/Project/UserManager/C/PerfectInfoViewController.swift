@@ -152,35 +152,55 @@ class PerfectInfoViewController: BaseViewController {
         netWorkForRegistAccount(params: params) { (code) in
             
             if code == "haha" {
-                if !self.isTeacher {
-                    Defaults[userIdentity] = kStudent
-                    Defaults[username] = self.infoArr[0][0]
-                    Defaults[userArea] = self.infoArr[0][1]
-                    Defaults[userToken] = "userToken"
-                    Defaults[userId] = "学号 008"
-//                    Defaults[userIcon] = kTeacher
-                    Defaults[userGrade] = self.infoArr[0][2]
-                }else{
-                    
-                    self.infoArr = [["付耀辉","diligencefu@sina.com","三年级","武汉"],["语文数学","一二三年级","12：00-14：00"]]
-
-                    Defaults[userIdentity] = kTeacher
-                    Defaults[username] = self.infoArr[0][0]
-                    Defaults[userArea] = self.infoArr[0][2]
-                    //                    Defaults[userId] = kTeacher
-                    Defaults[userId] = "学号 008"
-                    //                    Defaults[userIcon] = kTeacher
-                    Defaults[userGrade] = self.infoArr[0][3]
-                }
-
-                self.view.window?.rootViewController = MainTabBarController()
+//                if !self.isTeacher {
+//                    Defaults[userIdentity] = kStudent
+//                    Defaults[username] = self.infoArr[0][0]
+//                    Defaults[userArea] = self.infoArr[0][1]
+//                    Defaults[userToken] = "userToken"
+//                    Defaults[userId] = "学号 008"
+//                    //                    Defaults[userIcon] = kTeacher
+//                    Defaults[userGrade] = self.infoArr[0][2]
+//                }else{
+//
+//                    self.infoArr = [["付耀辉","diligencefu@sina.com","三年级","武汉"],["语文数学","一二三年级","12：00-14：00"]]
+//
+//                    Defaults[userIdentity] = kTeacher
+//                    Defaults[username] = self.infoArr[0][0]
+//                    Defaults[userArea] = self.infoArr[0][2]
+//                    //                    Defaults[userId] = kTeacher
+//                    Defaults[userId] = "学号 008"
+//                    //                    Defaults[userIcon] = kTeacher
+//                    Defaults[userGrade] = self.infoArr[0][3]
+//                }
+//
+//                self.view.window?.rootViewController = MainTabBarController()
 
             }
         }
         
+        if !self.isTeacher {
+            Defaults[userIdentity] = kStudent
+            Defaults[username] = self.infoArr[0][0]
+            Defaults[userArea] = self.infoArr[0][1]
+            Defaults[userToken] = "userToken"
+            Defaults[userId] = "学号 008"
+            //                    Defaults[userIcon] = kTeacher
+            Defaults[userGrade] = self.infoArr[0][2]
+        }else{
+            
+            self.infoArr = [["付耀辉","diligencefu@sina.com","三年级","武汉"],["语文数学","一二三年级","12：00-14：00"]]
+            
+            Defaults[userIdentity] = kTeacher
+            Defaults[username] = self.infoArr[0][0]
+            Defaults[userArea] = self.infoArr[0][2]
+            //                    Defaults[userId] = kTeacher
+            Defaults[userId] = "学号 008"
+            //                    Defaults[userIcon] = kTeacher
+            Defaults[userGrade] = self.infoArr[0][3]
+        }
         
+        self.view.window?.rootViewController = MainTabBarController()
 
-        
     }
     
     
@@ -195,7 +215,6 @@ class PerfectInfoViewController: BaseViewController {
         if isTeacher {
             return 2
         }
-        
         return 1
     }
     

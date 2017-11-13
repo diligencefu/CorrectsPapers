@@ -119,6 +119,7 @@ class MyBookViewController: BaseViewController{
         let model = mainTableArr[indexPath.row] as! WorkBookModel
         let BookDetailVC = MyBookDetailViewController()
         BookDetailVC.model = model
+        BookDetailVC.workState = indexPath.row%8+1
         self.navigationController?.pushViewController(BookDetailVC, animated: true)
 
     }

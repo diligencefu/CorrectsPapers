@@ -108,6 +108,17 @@ class PeriodsDetailViewController: BaseViewController ,HBAlertPasswordViewDelega
         
         let passwd = HBAlertPasswordView.init(frame: self.view.bounds)
         passwd.delegate = self
+        
+        if currentIndex == 1 {
+            
+            
+            
+        }else{
+            
+            
+            
+        }
+        
         passwd.titleLabel.text = "五哈哈哈哈"
         self.view.addSubview(passwd)
         

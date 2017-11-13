@@ -60,42 +60,42 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
         setKeyBoard()
         
         
-//        分享
-        ShareSDK.registerActivePlatforms(
-            [
-                SSDKPlatformType.typeSinaWeibo.rawValue,
-                SSDKPlatformType.typeWechat.rawValue,
-                SSDKPlatformType.typeQQ.rawValue
-            ],
-            onImport: {(platform : SSDKPlatformType) -> Void in
-                switch platform
-                {
-                case SSDKPlatformType.typeWechat:
-                    ShareSDKConnector.connectWeChat(WXApi.classForCoder())
-                case SSDKPlatformType.typeQQ:
-                    ShareSDKConnector.connectQQ(QQApiInterface.classForCoder(), tencentOAuthClass: TencentOAuth.classForCoder())
-                default:
-                    break
-                }
-        },
-            onConfiguration: {(platform : SSDKPlatformType , appInfo : NSMutableDictionary?) -> Void in
-                switch platform
-                {
-                    
-                case SSDKPlatformType.typeWechat:
-                    //设置微信应用信息
-                    appInfo?.ssdkSetupWeChat(byAppId: "wxae03b49be2ba4978",
-                                             appSecret: "2952ea621d3634b858ab31c494801b53")
-                case SSDKPlatformType.typeQQ:
-                    //设置QQ应用信息
-                    appInfo?.ssdkSetupQQ(byAppId: "1105754153",
-                                         appKey: "PHeOk3wLbH6xFk2I",
-                                         authType: SSDKAuthTypeWeb)
-                default:
-                    break
-                }
-        })
-        
+////        分享
+//        ShareSDK.registerActivePlatforms(
+//            [
+//                SSDKPlatformType.typeSinaWeibo.rawValue,
+//                SSDKPlatformType.typeWechat.rawValue,
+//                SSDKPlatformType.typeQQ.rawValue
+//            ],
+//            onImport: {(platform : SSDKPlatformType) -> Void in
+//                switch platform
+//                {
+//                case SSDKPlatformType.typeWechat:
+//                    ShareSDKConnector.connectWeChat(WXApi.classForCoder())
+//                case SSDKPlatformType.typeQQ:
+//                    ShareSDKConnector.connectQQ(QQApiInterface.classForCoder(), tencentOAuthClass: TencentOAuth.classForCoder())
+//                default:
+//                    break
+//                }
+//        },
+//            onConfiguration: {(platform : SSDKPlatformType , appInfo : NSMutableDictionary?) -> Void in
+//                switch platform
+//                {
+//
+//                case SSDKPlatformType.typeWechat:
+//                    //设置微信应用信息
+//                    appInfo?.ssdkSetupWeChat(byAppId: "wxae03b49be2ba4978",
+//                                             appSecret: "2952ea621d3634b858ab31c494801b53")
+//                case SSDKPlatformType.typeQQ:
+//                    //设置QQ应用信息
+//                    appInfo?.ssdkSetupQQ(byAppId: "1105754153",
+//                                         appKey: "PHeOk3wLbH6xFk2I",
+//                                         authType: SSDKAuthTypeWeb)
+//                default:
+//                    break
+//                }
+//        })
+//
         
         return true
     }

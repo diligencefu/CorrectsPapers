@@ -255,36 +255,10 @@ class TDetailBookViewController: BaseViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         if currentIndex == 1 {
+           
             let cell : TViewBookCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable, for: indexPath) as! TViewBookCell
-            
-            if workState == 0{
-                cell.TViewBookCellSetValuesForUndone(images:image2Arr)
-                return cell
-                
-            }else if workState == 1 {
-                cell.TViewBookCellSetValuesForFirstCorrect(images: image1Arr)
-                return cell
-            }else if workState == 2 {
-                
-                if indexPath.section == 0{
-                    cell.TViewBookCellSetValuesForFirstCorrect(images: image2Arr)
-                    return cell
-                }else{
-                    cell.TViewBookCellSetValuesForCorrectedToCorrection(images: image1Arr)
-                    return cell
-                }
-                
-            }else{
-                if indexPath.section == 0{
-                    cell.TViewBookCellSetValuesForFirstCorrect(images: image2Arr)
-                    return cell
-                }else{
-                    cell.TViewBookCellSetValuesCorrectedDone(images: image1Arr)
-                    return cell
-                }
-                
-            }
-            
+            cell.TViewBookCellSetValues123456()
+            return cell
         }else if currentIndex == 2 {
             
             if indexPath.section == 0 {

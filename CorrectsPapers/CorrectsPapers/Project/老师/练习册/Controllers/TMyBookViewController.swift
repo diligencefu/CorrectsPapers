@@ -113,6 +113,11 @@ class TMyBookViewController: BaseViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        
+        let model = mainTableArr[indexPath.row] as! WorkBookModel
+        let BookDetailVC = TBookDetailViewController()
+        BookDetailVC.book_id = model.id!
+        self.navigationController?.pushViewController(BookDetailVC, animated: true)
     }
     
     

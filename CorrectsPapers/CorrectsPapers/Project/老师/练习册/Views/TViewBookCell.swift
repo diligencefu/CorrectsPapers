@@ -15,8 +15,6 @@ class TViewBookCell:  UITableViewCell {
     
     let kHeight = kSCREEN_SCALE * 200
     
-    @IBOutlet weak var correctMark: UILabel!
-    
     
     @IBOutlet weak var userIcon: UIImageView!
     
@@ -26,9 +24,7 @@ class TViewBookCell:  UITableViewCell {
     
     @IBOutlet weak var gradeLabel: UILabel!
     @IBOutlet weak var gradeImage: UIImageView!
-    
-    @IBOutlet weak var bookState: UILabel!
-    
+        
     @IBOutlet weak var timeLabel: UILabel!
     
     @IBOutlet weak var bookTitle: UILabel!
@@ -47,131 +43,82 @@ class TViewBookCell:  UITableViewCell {
     
     var showImages = [String]()
     
-    
+    var testImages = ["https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1507452668172&di=b56ef9d62498e704c0fa0e0b2c4d8dd5&imgtype=0&src=http%3A%2F%2Fimgphoto.gmw.cn%2Fattachement%2Fjpg%2Fsite2%2F20160714%2Fd02788d8df1018f171ec38.jpg","https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=998893491,2679530940&fm=27&gp=0.jpg"]
+
     override func awakeFromNib() {
         super.awakeFromNib()
+        
+//        let tapGes1 = UITapGestureRecognizer.init(target: self, action: #selector(moveToEditImage(tap:)))
+//        tapGes1.numberOfTouchesRequired = 1
+//        image1.addGestureRecognizer(tapGes1)
+//        image2.addGestureRecognizer(tapGes1)
+//        image3.addGestureRecognizer(tapGes1)
+        userNum.font = UIFont.boldSystemFont(ofSize: 24*kSCREEN_SCALE)
 
-//        "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1507452668172&di=b56ef9d62498e704c0fa0e0b2c4d8dd5&imgtype=0&src=http%3A%2F%2Fimgphoto.gmw.cn%2Fattachement%2Fjpg%2Fsite2%2F20160714%2Fd02788d8df1018f171ec38.jpg","https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=998893491,2679530940&fm=27&gp=0.jpg","https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1508492977181&di=6e19e784b2f3c99c1cc5bcdf5b80410c&imgtype=0&src=http%3A%2F%2Fpic1.win4000.com%2Fwallpaper%2F1%2F55daab78c98c6.jpg","https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1508492977181&di=65be80fcb3d1691e39c33a9bd075ed51&imgtype=0&src=http%3A%2F%2Fwww.pp3.cn%2Fuploads%2F201606%2F20160617016.jpg","https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1508493015032&di=59d8fa812fd03a4721892617c48b431b&imgtype=0&src=http%3A%2F%2Fe.hiphotos.baidu.com%2Fimage%2Fpic%2Fitem%2Fa8ec8a13632762d02bd1d67fa9ec08fa503dc607.jpg","https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1508493015032&di=638344075683b4ffd5faff080b6271af&imgtype=0&src=http%3A%2F%2Fg.hiphotos.baidu.com%2Fimage%2Fpic%2Fitem%2Ffaedab64034f78f0b17d083370310a55b2191cff.jpg","https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1508493043319&di=846fb92cbd69cba852b5052a3ac51bcd&imgtype=0&src=http%3A%2F%2Fimage1.miss-no1.com%2Fuploadfile%2F2015%2F11%2F06%2Fimg20246781918797.jpg","https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1508493075782&di=5b94886ffb411265673e1364788e0ab8&imgtype=0&src=http%3A%2F%2Fwww.pp3.cn%2Fuploads%2F201403%2F1394417566696.jpg"
-        
-        
-        let tapGes1 = UITapGestureRecognizer.init(target: self, action: #selector(moveToEditImage(tap:)))
-        tapGes1.numberOfTouchesRequired = 1
-        image1.addGestureRecognizer(tapGes1)
-        image2.addGestureRecognizer(tapGes1)
-        image3.addGestureRecognizer(tapGes1)
     }
 
     @objc func moveToEditImage(tap:UITapGestureRecognizer) {
         
 
-    }
+    }    
     
-    
-    
-    func TViewBookCellSetValuesForUndone(images:[String]) {
-        
-        showImages = images
-        
-        gradeImage.isHidden = true
-        gradeLabel.isHidden = true
-        bookState.isHidden = false
-        correctMark.isHidden = true
-        
-        theTeacher.snp.updateConstraints({ (make) in
-            make.height.equalTo(0)
-        })
+//    4
+    func TViewBookCellSetValuesForFirstCorrectDone(model:TShowStuWorksModel) {
+        bookTitle.text = model.result
 
-        bookState.snp.updateConstraints({ (make) in
-            make.width.equalTo(55)
-        })
-
-        doThing.snp.updateConstraints({ (make) in
-            make.height.equalTo(0)
-        })
-        remark.snp.updateConstraints({ (make) in
-            make.height.equalTo(0)
-        })
-
-        theTeacher.isHidden = true
-        doThing.isHidden = true
-        remark.isHidden = true
-
-        
-        if images.count == 1 {
-
-            image1.kf.setImage(with:  URL(string:images[0])!, placeholder: #imageLiteral(resourceName: "photos_image_default"), options: nil, progressBlock: nil, completionHandler: nil)
-            image2.isHidden = true
-            image3.isHidden = true
-            
-        }else  {
-            image1.isHidden = true
-            image2.kf.setImage(with:  URL(string:images[0])!, placeholder: #imageLiteral(resourceName: "photos_image_default"), options: nil, progressBlock: nil, completionHandler: nil)
-            image3.kf.setImage(with:  URL(string:images[1])!, placeholder: #imageLiteral(resourceName: "photos_image_default"), options: nil, progressBlock: nil, completionHandler: nil)
-            image2.isHidden = false
-            image3.isHidden = false
-            
-        }
-    }
-    
-    func TViewBookCellSetValuesForFirstCorrect(images:[String]) {
-        
-        showImages = images
-
-        bookState.snp.updateConstraints({ (make) in
-            make.width.equalTo(0)
-        })
-        
+        showImages = testImages
         gradeImage.isHidden = false
         gradeLabel.isHidden = false
-        bookState.isHidden = true
-        correctMark.isHidden = true
-
+        doThing.isHidden = false
+        theTeacher.isHidden = false
+        remark.isHidden = false
         
-//        theTeacher.snp.updateConstraints({ (make) in
-//            make.height.equalTo(0)
-//        })
-//
-//        doThing.snp.updateConstraints({ (make) in
-//            make.height.equalTo(0)
-//        })
-//        remark.snp.updateConstraints({ (make) in
-//            make.height.equalTo(0)
-//        })
-//
-//        theTeacher.isHidden = true
-//        doThing.isHidden = true
-//        remark.isHidden = true
-
-        if images.count == 1 {
-            
-            image1.kf.setImage(with:  URL(string:images[0])!, placeholder: #imageLiteral(resourceName: "photos_image_default"), options: nil, progressBlock: nil, completionHandler: nil)
-            image2.isHidden = true
-            image3.isHidden = true
-            
-        }else  {
-            image1.isHidden = true
-            image2.kf.setImage(with:  URL(string:images[0])!, placeholder: #imageLiteral(resourceName: "photos_image_default"), options: nil, progressBlock: nil, completionHandler: nil)
-            image3.kf.setImage(with:  URL(string:images[1])!, placeholder: #imageLiteral(resourceName: "photos_image_default"), options: nil, progressBlock: nil, completionHandler: nil)
-            image2.isHidden = false
-            image3.isHidden = false
-            
+        userIcon.kf.setImage(with:  URL(string:model.user_photo)!, placeholder: #imageLiteral(resourceName: "UserHead_128_default"), options: nil, progressBlock: nil, completionHandler: nil)
+        userNum.text =  model.user_num
+        userName.text = model.user_name
+        timeLabel.text = model.correcting_time
+        //        bookTitle.text = model.
+        theTeacher.text = model.teacher_name
+        remark.text = "老师评语：" + model.comment
+        
+        if model.scores == "1" {
+            gradeImage.image = #imageLiteral(resourceName: "yixing_icon_pressed")
+        }else if model.scores == "2" {
+            gradeImage.image = #imageLiteral(resourceName: "erxing_icon_pressed")
+        }else if model.scores == "3" {
+            gradeImage.image = #imageLiteral(resourceName: "sanxing_icon_pressed")
+        }else if model.scores == "4" {
+            gradeImage.image = #imageLiteral(resourceName: "sixing_icon_pressed")
+        }else if model.scores == "4"{
+            gradeImage.image = #imageLiteral(resourceName: "wuxing_icon_pressed")
         }
         
+        image2.snp.updateConstraints({ (make) in
+            make.bottom.equalTo(theTeacher.snp.top).offset(-5)
+        })
+
+        if testImages.count == 1 {
+            
+            image1.kf.setImage(with:  URL(string:testImages[0])!, placeholder: #imageLiteral(resourceName: "photos_image_default"), options: nil, progressBlock: nil, completionHandler: nil)
+            image2.isHidden = true
+            image3.isHidden = true
+        }else  {
+            
+            image1.isHidden = true
+            image2.kf.setImage(with:  URL(string:testImages[0])!, placeholder: #imageLiteral(resourceName: "photos_image_default"), options: nil, progressBlock: nil, completionHandler: nil)
+            image3.kf.setImage(with:  URL(string:testImages[1])!, placeholder: #imageLiteral(resourceName: "photos_image_default"), options: nil, progressBlock: nil, completionHandler: nil)
+            image2.isHidden = false
+            image3.isHidden = false
+        }
     }
     
     
-    func TViewBookCellSetValuesForCorrectedToCorrection(images:[String]){
-        showImages = images
-
-        userNum.isHidden = true
-        userIcon.isHidden = true
-        userName.isHidden = true
-        timeLabel.isHidden = true
-        correctMark.isHidden = false
-        bookState.isHidden = true
+    func TViewBookCellSetValues123456() {
+        
+        showImages = testImages
+        
         gradeImage.isHidden = true
         gradeLabel.isHidden = true
-
         
         theTeacher.snp.updateConstraints({ (make) in
             make.height.equalTo(0)
@@ -180,70 +127,27 @@ class TViewBookCell:  UITableViewCell {
         doThing.snp.updateConstraints({ (make) in
             make.height.equalTo(0)
         })
-        remark.snp.updateConstraints({ (make) in
-            make.height.equalTo(0)
-        })
+        remark.text = ""
         
         theTeacher.isHidden = true
         doThing.isHidden = true
         remark.isHidden = true
-
-        bookTitle.snp.updateConstraints { (make) in
-            make.top.equalTo(correctMark.snp.bottom).offset(5)
-        }
         
-        
-        
-        if images.count == 1 {
+        if testImages.count == 1 {
             
-            image1.kf.setImage(with:  URL(string:images[0])!, placeholder: #imageLiteral(resourceName: "photos_image_default"), options: nil, progressBlock: nil, completionHandler: nil)
+            image1.kf.setImage(with:  URL(string:testImages[0])!, placeholder: #imageLiteral(resourceName: "photos_image_default"), options: nil, progressBlock: nil, completionHandler: nil)
             image2.isHidden = true
             image3.isHidden = true
             
         }else  {
             image1.isHidden = true
-            image2.kf.setImage(with:  URL(string:images[0])!, placeholder: #imageLiteral(resourceName: "photos_image_default"), options: nil, progressBlock: nil, completionHandler: nil)
-            image3.kf.setImage(with:  URL(string:images[1])!, placeholder: #imageLiteral(resourceName: "photos_image_default"), options: nil, progressBlock: nil, completionHandler: nil)
+            image2.kf.setImage(with:  URL(string:testImages[0])!, placeholder: #imageLiteral(resourceName: "photos_image_default"), options: nil, progressBlock: nil, completionHandler: nil)
+            image3.kf.setImage(with:  URL(string:testImages[1])!, placeholder: #imageLiteral(resourceName: "photos_image_default"), options: nil, progressBlock: nil, completionHandler: nil)
             image2.isHidden = false
             image3.isHidden = false
             
         }
-        
     }
-    
-    func TViewBookCellSetValuesCorrectedDone(images:[String]){
-        showImages = images
-
-        userNum.isHidden = true
-        userIcon.isHidden = true
-        userName.isHidden = true
-        timeLabel.isHidden = true
-        correctMark.isHidden = false
-        bookState.isHidden = true
-
-        
-        bookTitle.snp.updateConstraints { (make) in
-            make.top.equalTo(correctMark.snp.bottom).offset(5)
-        }
-        
-        
-        if images.count == 1 {
-            
-            image1.kf.setImage(with:  URL(string:images[0])!, placeholder: #imageLiteral(resourceName: "photos_image_default"), options: nil, progressBlock: nil, completionHandler: nil)
-            image2.isHidden = true
-            image3.isHidden = true
-            
-        }else  {
-            image1.isHidden = true
-            image2.kf.setImage(with:  URL(string:images[0])!, placeholder: #imageLiteral(resourceName: "photos_image_default"), options: nil, progressBlock: nil, completionHandler: nil)
-            image3.kf.setImage(with:  URL(string:images[1])!, placeholder: #imageLiteral(resourceName: "photos_image_default"), options: nil, progressBlock: nil, completionHandler: nil)
-            image2.isHidden = false
-            image3.isHidden = false
-            
-        }
-        
-    }
-    
     
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)

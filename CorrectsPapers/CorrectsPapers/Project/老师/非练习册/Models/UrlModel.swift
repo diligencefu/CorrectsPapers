@@ -20,4 +20,15 @@ class UrlModel: NSObject {
     ///视频价格
     var price : String?
 
+    class func setValueForUrlModel(json: JSON) -> UrlModel {
+        
+        let model = UrlModel()
+        
+        model.videoUrl = json["videoUrl"].stringValue
+        model.describe = json["describe"].stringValue
+        model.period = json["period"].stringValue
+        model.price = json["price"].stringValue
+        return model
+    }
+
 }

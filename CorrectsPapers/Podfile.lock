@@ -17,22 +17,6 @@ PODS:
   - Kingfisher (4.2.0)
   - Masonry (1.1.0)
   - MJRefresh (3.1.15)
-  - mob_sharesdk (4.0.4):
-    - mob_sharesdk/ShareSDK (= 4.0.4)
-    - MOBFoundation
-  - mob_sharesdk/ShareSDK (4.0.4):
-    - MOBFoundation
-  - mob_sharesdk/ShareSDKConfigurationFile (4.0.4):
-    - MOBFoundation
-  - mob_sharesdk/ShareSDKExtension (4.0.4):
-    - MOBFoundation
-  - mob_sharesdk/ShareSDKPlatforms/QQ (4.0.4):
-    - MOBFoundation
-  - mob_sharesdk/ShareSDKPlatforms/WeChat (4.0.4):
-    - MOBFoundation
-  - mob_sharesdk/ShareSDKUI (4.0.4):
-    - MOBFoundation
-  - MOBFoundation (3.0.6)
   - Reachability (3.2)
   - RxCocoa (4.0.0):
     - RxSwift (~> 4.0)
@@ -54,12 +38,6 @@ DEPENDENCIES:
   - Kingfisher
   - Masonry
   - MJRefresh
-  - mob_sharesdk
-  - mob_sharesdk/ShareSDKConfigurationFile
-  - mob_sharesdk/ShareSDKExtension
-  - mob_sharesdk/ShareSDKPlatforms/QQ
-  - mob_sharesdk/ShareSDKPlatforms/WeChat
-  - mob_sharesdk/ShareSDKUI
   - RxCocoa
   - RxSwift
   - SDAutoLayout
@@ -77,8 +55,6 @@ SPEC CHECKSUMS:
   Kingfisher: 9ee7e788d8ba07c3f21ce0d43f33cec310a4f781
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
   MJRefresh: 9af70f5f9327a2cf87f0fb5929f35fcc2fa638ea
-  mob_sharesdk: b3ac49261b0e56d9e305d473c70bcde2e3a6e8ff
-  MOBFoundation: 6f6ec1c2513278551f1a808b5692e983d99e5069
   Reachability: 33e18b67625424e47b6cde6d202dce689ad7af96
   RxCocoa: d62846ca96495d862fa4c59ea7d87e5031d7340e
   RxSwift: fd680d75283beb5e2559486f3c0ff852f0d35334
@@ -90,6 +66,6 @@ SPEC CHECKSUMS:
   Toast: 14a93686d6c8bfe2727afd342414e35660a8a1f3
   ZFDownload: a52f94ebb080833b8a8ceb19a409f2941343fe7f
 
-PODFILE CHECKSUM: 8e747f9031143787be0c8987172786859a48fd73
+PODFILE CHECKSUM: 1ee9568189b372ba2fcc2971665b81b0ee56d87a
 
 COCOAPODS: 1.4.0.beta.1

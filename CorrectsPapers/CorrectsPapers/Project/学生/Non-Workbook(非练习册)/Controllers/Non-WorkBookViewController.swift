@@ -10,7 +10,7 @@ import UIKit
 import SwiftyJSON
 
 
-class Non_WorkBookViewController: BaseViewController ,UIPickerViewDelegate,UIPickerViewDataSource{
+class Non_WorkBookViewController: BaseViewController ,UIPickerViewDelegate,UIPickerViewDataSource,HBAlertPasswordViewDelegate{
     
     var typeArr = NSMutableArray()
     var headView = UIView()
@@ -27,6 +27,15 @@ class Non_WorkBookViewController: BaseViewController ,UIPickerViewDelegate,UIPic
     
     var dateBtn = UIButton()
     
+    
+    var titleArr1 = ["本节课课程视频","本节课讲义下载","本节课作业下载"]
+    var titleArr3 = ["作业视频讲解","作业答案文档下载","文字版答案"]
+    
+    var currentTitle1 = ""
+    var currentTitle2 = ""
+    var footBtnView = UIView()
+
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         addBGViewAndPickerView()
@@ -40,8 +49,8 @@ class Non_WorkBookViewController: BaseViewController ,UIPickerViewDelegate,UIPic
     override func configSubViews() {
         self.navigationItem.title = "非练习册"
         
-        titles = [[""],["批改方式","悬赏金额"],["练习册科目","适用年纪"]]
-        contents = [[""],["悬赏学币","学币"],["语文","六年级 下册"]]
+        titles = [[""],["批改方式","选择老师","悬赏金额"],["练习册科目","适用年纪"]]
+        contents = [[""],["悬赏学币","","学币"],["语文","六年级 下册"]]
         
         contents[0][0] = "卧槽"
         
@@ -123,11 +132,68 @@ class Non_WorkBookViewController: BaseViewController ,UIPickerViewDelegate,UIPic
         mainTableView.register(UINib(nibName: "UpLoadWorkCell", bundle: nil), forCellReuseIdentifier: identyfierTable1)
         mainTableView.register(UINib(nibName: "CheckWorkCell", bundle: nil), forCellReuseIdentifier: identyfierTable2)
         mainTableView.register(UINib(nibName: "AnserVideoCell", bundle: nil), forCellReuseIdentifier: identyfierTable3)
-        mainTableView.register(UINib(nibName: "showGradeCell", bundle: nil), forCellReuseIdentifier: identyfierTable4)
+        mainTableView.register(UINib(nibName: "ClassGradeCell", bundle: nil), forCellReuseIdentifier: identyfierTable4)
         mainTableView.register(UINib(nibName: "CreateBookCell", bundle: nil), forCellReuseIdentifier: identyfierTable5)
         
         //        mainTableView.tableHeaderView = headView
         self.view.addSubview(mainTableView)
+    }
+    
+    func footView(titles:[String]) {
+        footBtnView.removeFromSuperview()
+        _ = footBtnView.subviews.map {
+            $0.removeFromSuperview()
+        }
+        
+        let kHeight = CGFloat(72 * kSCREEN_SCALE)
+        let kWidth = CGFloat(435*kSCREEN_SCALE)
+        let kSpace = 53*kSCREEN_SCALE
+        
+        var viewHeight = CGFloat(titles.count)*kHeight+CGFloat(titles.count+1)*kSpace
+        
+        if titles.count == 0 {
+            viewHeight = 0
+        }
+        
+        footBtnView = UIView.init(frame: CGRect(x: 0, y: 0, width: KScreenWidth, height: viewHeight))
+        for index in 0..<titles.count {
+            
+            let markBtn = UIButton.init(frame: CGRect(x: (kSCREEN_WIDTH-kWidth)/2 , y: kSpace+(kSpace+kHeight)*CGFloat(index), width: kWidth, height: kHeight))
+            markBtn.setTitle(titles[index], for: .normal)
+            markBtn.setTitleColor(kGaryColor(num: 117), for: .normal)
+            markBtn.titleLabel?.font = kFont28
+            markBtn.setBackgroundImage(getNavigationIMG(27, fromColor: kSetRGBColor(r: 0, g: 200, b: 255), toColor: kSetRGBColor(r: 0, g: 162, b: 255)), for: .normal)
+            markBtn.addTarget(self, action: #selector(showDownloadBtn(sender:)), for: .touchUpInside)
+            markBtn.layer.cornerRadius = 10*kSCREEN_SCALE
+            markBtn.clipsToBounds = true
+            markBtn.setTitleColor(UIColor.white, for: .normal)
+            markBtn.tag = 181 + index
+            footBtnView.addSubview(markBtn)
+        }
+        mainTableView.tableFooterView = footBtnView
+    }
+    
+    
+    //MARK:下载视频点击事件
+    @objc func showDownloadBtn(sender:UIButton) {
+        
+        let passwd = HBAlertPasswordView.init(frame: self.view.bounds)
+        passwd.delegate = self
+        
+        if currentIndex == 1 {
+            
+        }else{
+            
+        }
+        
+        passwd.titleLabel.text = "五哈哈哈哈"
+        self.view.addSubview(passwd)
+        
+        if currentIndex == 2 {
+            currentTitle1 = (sender.titleLabel?.text)!
+        }else{
+            currentTitle2 = (sender.titleLabel?.text)!
+        }
     }
     
     
@@ -155,6 +221,16 @@ class Non_WorkBookViewController: BaseViewController ,UIPickerViewDelegate,UIPic
         })
         
         currentIndex = sender.tag - 130
+        
+        
+        if currentIndex == 2 {
+            footView(titles: titleArr1)
+        }else if currentIndex == 3 {
+            footView(titles: titleArr3)
+        }else{
+            footBtnView.removeFromSuperview()
+        }
+
         
         if currentIndex > 2 {
             mainTableArr = []
@@ -187,6 +263,16 @@ class Non_WorkBookViewController: BaseViewController ,UIPickerViewDelegate,UIPic
             }
             
         }
+        
+        
+        if currentIndex == 3 {
+            return 3-titleArr3.count
+        }
+
+        if currentIndex == 2 {
+            return 3-titleArr1.count
+        }
+
         
         return 1
     }
@@ -224,7 +310,7 @@ class Non_WorkBookViewController: BaseViewController ,UIPickerViewDelegate,UIPic
             
             let cell : CreateBookCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable5, for: indexPath) as! CreateBookCell
             
-            if indexPath.section == 1 && indexPath.row == 1{
+            if indexPath.section == 1 && indexPath.row == 2{
                 cell.showForCreate(isShow: true, title: titles[indexPath.section][indexPath.row], subTitle: contents[indexPath.section][indexPath.row])
                 cell.accessoryType = .none
             }else{
@@ -271,23 +357,11 @@ class Non_WorkBookViewController: BaseViewController ,UIPickerViewDelegate,UIPic
             cell.chooseImagesAction = {
                 print($0)
                 
-                //                let imagePickTool = CLImagePickersTool()
-                //
-                //                imagePickTool.cameraOut = true
-                //
-                //                imagePickTool.setupImagePickerWith(MaxImagesCount: 2, superVC: self) { (asset,cutImage) in
-                //                    print("返回的asset数组是\(asset)")
-                //                    self.images.addObjects(from: asset)
-                //                    self.mainTableView.reloadData()
-                //                }
-                
                 self.setupPhoto1(count: 2)
             }
             
             return cell
-            
         }
-        
         
         if currentIndex == 1 && workState == 4 {
             
@@ -303,9 +377,7 @@ class Non_WorkBookViewController: BaseViewController ,UIPickerViewDelegate,UIPic
             
             cell.checkWorkCellSetValues4()
             return cell
-            
         }
-        
         
         if currentIndex == 2 {
             
@@ -318,15 +390,14 @@ class Non_WorkBookViewController: BaseViewController ,UIPickerViewDelegate,UIPic
             return cell
             
         }
-        
-        let cell : showGradeCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable4, for: indexPath) as! showGradeCell
+        let cell : ClassGradeCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable4, for: indexPath) as! ClassGradeCell
         
         if indexPath.row == 0 {
-            cell.showGrade(isTitle: true)
+            cell.is1thCell()
         }else{
-            cell.showGrade(isTitle: false)
+            cell.setValueForClassGradeCell(index: 10-indexPath.row)
         }
-        
+
         return cell
     }
     
@@ -336,9 +407,16 @@ class Non_WorkBookViewController: BaseViewController ,UIPickerViewDelegate,UIPic
         if currentIndex == 1 && workState == 0 && indexPath.section != 0{
             
             if indexPath.section == 1 && indexPath.row == 1 {
+                
+                let chooseVC = ChooseTeacherCorrectVC()
+                self.navigationController?.pushViewController(chooseVC, animated: true)
                 return
             }
             
+            if indexPath.section == 1 && indexPath.row == 2 {
+                return
+            }
+
             if indexPath.section == 1 && indexPath.row == 0 {
                 currentCount = indexPath.row
                 titleLabel.text = "请选择修改方式"
@@ -349,11 +427,11 @@ class Non_WorkBookViewController: BaseViewController ,UIPickerViewDelegate,UIPic
                 currentCount = indexPath.row+1
                 
                 if indexPath.row == 1 {
+                    
                     titleLabel.text = "请选择科目"
-                    
                 }else{
-                    titleLabel.text = "请练习册版本"
                     
+                    titleLabel.text = "请练习册版本"
                 }
                 
             }
@@ -567,6 +645,7 @@ class Non_WorkBookViewController: BaseViewController ,UIPickerViewDelegate,UIPic
             
         }
         
+        
         if currentCount == 2 {
             print(gradeArr[pickerView.selectedRow(inComponent: 0)] + " " + detailArr[pickerView.selectedRow(inComponent: 1)])
             contents[2][1] = gradeArr[pickerView.selectedRow(inComponent: 0)] + " " + detailArr[pickerView.selectedRow(inComponent: 1)]
@@ -574,16 +653,19 @@ class Non_WorkBookViewController: BaseViewController ,UIPickerViewDelegate,UIPic
             
         }
         
+
         if currentCount == 0 {
             print(wayArr[pickerView.selectedRow(inComponent: 0)])
             contents[1][0] = wayArr[pickerView.selectedRow(inComponent: 0)]
+
+            if wayArr[pickerView.selectedRow(inComponent: 0)] == "请好友帮忙"{
+                titles = [[""],["批改方式","选择好友","悬赏金额"],["练习册科目","适用年纪"]]
+            }else{
+                titles = [[""],["批改方式","选择老师","悬赏金额"],["练习册科目","适用年纪"]]
+            }
             mainTableView.reloadSections([1], with: .none)
-            
         }
-        
     }
-    
-    
     
     
     @objc func showChooseCondi(tap:UITapGestureRecognizer) -> Void {
@@ -697,8 +779,6 @@ class Non_WorkBookViewController: BaseViewController ,UIPickerViewDelegate,UIPic
     var datePicker = UIDatePicker()
     
     func addTimeSelector() {
-        
-        
         
         //MARK:   时间选择器背景
         datePickerBGView = UIView.init(frame: CGRect(x: 0, y: kSCREEN_HEIGHT, width: kSCREEN_WIDTH, height: DateHeight))
@@ -828,24 +908,61 @@ class Non_WorkBookViewController: BaseViewController ,UIPickerViewDelegate,UIPic
     func uploadWorkImage() {
         
         let cell = mainTableView.cellForRow(at: IndexPath.init(row: 1, section: 1)) as! CreateBookCell
-        
+        let cell2 = mainTableView.cellForRow(at: IndexPath.init(row: 0, section: 0)) as! UpLoadWorkCell
+
         let params =
             [
-                "SESSIONID":"1",
-                "mobileCode":"on",
-                "sum":cell.titleTextField.text!,
-                "type":contents[1][0],
-                "project":contents[2][0],
-                "grade":contents[2][1],
+                "SESSIONID":SESSIONID,
+                "mobileCode":mobileCode,
+                "non_exercise_name":cell2.workDescrip.text!,
+//                "correct_way":contents[1][0],
+//                "subject_id":contents[2][0],
+//                "classes_id":contents[2][1],
+                "correct_way":"1",
+                "subject_id":"1",
+                "classes_id":"1",
+                "rewards":cell.titleTextField.text!,
+                "freind_id":"1"
                 ]
         
         print(params)
+        var imgArr = [UIImage]()
+        var nameArr = [String]()
+        
+        imgArr.append(cell2.image2.image!)
+        imgArr.append(cell2.image3.image!)
+
+        nameArr.append("User_headImage1")
+        nameArr.append("User_headImage2")
+        
+        netWorkForBulidnon_exercise(params: params, data: imgArr, name: nameArr, success: { (datas) in
+            
+        }) { (error) in
+            
+        }
         
     }
+    
+    //    HBAlertPasswordViewDelegate 密码弹框代理
+    func sureAction(with alertPasswordView: HBAlertPasswordView!, password: String!) {
+        alertPasswordView.removeFromSuperview()
+        setToast(str: "输入的密码为:"+password)
+        if currentIndex == 1 {
+            
+            titleArr1.remove(at: titleArr1.index(of: currentTitle1)!)
+            footView(titles: titleArr1)
+            mainTableView.reloadData()
+        }else{
+            
+            titleArr3.remove(at: titleArr3.index(of: currentTitle2)!)
+            footView(titles: titleArr3)
+            mainTableView.reloadData()
+        }
+    }
+
     
     
     override func viewWillDisappear(_ animated: Bool) {
         PopViewUtil.share.stopLoading()
     }
 }
-

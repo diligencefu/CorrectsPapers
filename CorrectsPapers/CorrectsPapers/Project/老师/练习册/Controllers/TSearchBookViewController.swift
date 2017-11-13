@@ -199,10 +199,12 @@ class TSearchBookViewController: BaseViewController,UITextFieldDelegate{
         return UIView()
     }
     
+    
     override func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         searchTextfield.endEditing(true)
         self.view.endEditing(true)
     }
+    
     
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         if isSearching {
@@ -210,7 +212,6 @@ class TSearchBookViewController: BaseViewController,UITextFieldDelegate{
         }
         return 0
     }
-    
     
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {

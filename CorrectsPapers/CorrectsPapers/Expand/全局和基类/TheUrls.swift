@@ -8,10 +8,10 @@
 
 
 //MARK:必要参数
-//let SESSIONID = "8956ssd4785955665ddddfggfg452f"
-//let mobileCode = "sion"
-let SESSIONID = "562564455ffg5451vvc5565874512112"
-let mobileCode = "com"
+let SESSIONID = "8956ssd4785955665ddddfggfg452f"
+let mobileCode = "sion"
+//let SESSIONID = "562564455ffg5451vvc5565874512112"
+//let mobileCode = "com"
 
 let SESSIONIDT = "12345689piosid"
 let mobileCodeT = "sam"
@@ -60,6 +60,11 @@ let kGet_TStudentWork1 = kBaseUrl11 +  "teacher/getTStudentWork1"
 //MARK:(1-3 练习册详情 - 已批改 >> 根据练习册id获取详情)接口
 let kGet_TStudentWork2 = kBaseUrl11 +  "teacher/getTStudentWork2"
 
+//MARK:(1-3 练习册 - 详情 - 知识点讲解
+let kGet_TStudentWork3 = kBaseUrl11 +  "teacher/getTStudentWork3"
+
+//MARK:(1-3 练习册 - 详情 - 参考答案
+let kGet_TStudentWork4 = kBaseUrl11 +  "teacher/getTStudentWork4"
 
 //MARK:(1-3 练习册详情 - 成绩统计  》根据练习册id获取详情)接口
 let kGet_TStudentWork5 = kBaseUrl11 +  "teacher/getTStudentWork5"
@@ -168,9 +173,19 @@ let kDo_Allow = kBaseUrl2 +  "workBook/doAllow"
 
 //MARK:接口说明 ：    获取用户练习册里面的所有联系日期
 let kGet_WorkBookTime = kBaseUrl2 +  "workBook/getWorkBookTime"
-
-//MARK:接口说明 ：    我的好友并按类型区分
+//MARK:接口说明 ：    我的好友
 let kMy_Friend = kBaseUrl2 +  "workBook/myFriend"
+
+//MARK:接口说明 ：    删除我的好友
+let kdel_MyFriend = kBaseUrl2 +  "workBook/delMyFriend"
+//MARK:接口说明 ：    创建非练习册的时候需要选择好友老师批改
+let kModle_exercise = kBaseUrl2 +  "workBook/modle_exercise"
+//MARK:接口说明 ：    创建非练习册
+let kBulidnon_exercise = kBaseUrl2 +  "workBook/bulidnon_exercise"
+//MARK:接口说明 ：    再次提交非练习册练习
+let kAdd_NonExerciseNext = kBaseUrl2 +  "workBook/addNonExerciseNext"
+//MARK:接口说明 ：   再次提交练习册作业
+let kUpload_WorkBookNext = kBaseUrl2 +  "workBook/uploadWorkBookNext"
 
 class TheUrls: NSObject {
 

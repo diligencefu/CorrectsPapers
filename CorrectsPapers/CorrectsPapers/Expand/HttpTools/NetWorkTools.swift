@@ -189,9 +189,9 @@ public func NetWorkTeacherDelMyWork(params:[String:Any],callBack:((Array<Any>)->
 
 //MARK:  1-3 练习册详情 根据练习册id获取详情
 public func NetWorkTeacherGetTWorkDetail(params:[String:Any],callBack:((Array<Any>)->())?) ->  Void {
-    //    let dataArr = NSMutableArraRy()
+   
+    var dataArr = [TMyWorkDetailModel]()
     let mainQueue = DispatchQueue.main;
-    
     Alamofire.request(kGet_TWorkDetail,
                       method: .get, parameters: params,
                       encoding: URLEncoding.default, headers: nil).responseJSON(queue:mainQueue, options: .allowFragments) { (response) in
@@ -199,7 +199,25 @@ public func NetWorkTeacherGetTWorkDetail(params:[String:Any],callBack:((Array<An
                         switch response.result {
                         case .success:
                             
-                            setToast(str: "完成")
+                            if let j = response.result.value {
+                                //SwiftyJSON解析数据
+                                let JSOnDictory = JSON(j)
+                                let code =  JSOnDictory["code"].stringValue
+                                if code == "0" {
+                                    setToast(str: "上传成功返回失败")
+                                }
+                                
+                                let datas =  JSOnDictory["data"].arrayValue
+                                
+                                for index in 0..<datas.count {
+                                    
+                                    let json = datas[index]
+                                    let model  = TMyWorkDetailModel.setValueForTMyWorkDetailModel(json: json)
+                                    dataArr.append(model)
+                                }
+                                callBack!(dataArr)
+                            }
+                            
                             break
                         case .failure(let error):
                             print(error)
@@ -213,17 +231,34 @@ public func NetWorkTeacherGetTWorkDetail(params:[String:Any],callBack:((Array<An
 
 //MARK:  1-3 练习册详情 - 学生作业 》根据练习册id获取详情
 public func NetWorkTeacherGetTStudentWorkList(params:[String:Any],callBack:((Array<Any>)->())?) ->  Void {
-    //    let dataArr = NSMutableArraRy()
-    let mainQueue = DispatchQueue.main;
     
+    var dataArr = [TShowStuWorksModel]()
+    let mainQueue = DispatchQueue.main;
     Alamofire.request(kGet_TStudentWork1,
                       method: .get, parameters: params,
                       encoding: URLEncoding.default, headers: nil).responseJSON(queue:mainQueue, options: .allowFragments) { (response) in
                         print(response.result)
                         switch response.result {
                         case .success:
-                            
-                            setToast(str: "完成")
+                            if let j = response.result.value {
+                                //SwiftyJSON解析数据
+                                let JSOnDictory = JSON(j)
+                                
+                                let code =  JSOnDictory["code"].stringValue
+                                if code == "0" {
+                                    setToast(str: "上传成功返回失败")
+                                }
+                                
+                                let datas =  JSOnDictory["data"].arrayValue
+                                
+                                for index in 0..<datas.count {
+                                    
+                                    let json = datas[index]
+                                    let model  = TShowStuWorksModel.setValueForTShowStuWorksModel(json: json)
+                                    dataArr.append(model)
+                                }
+                                callBack!(dataArr)
+                            }
                             break
                         case .failure(let error):
                             print(error)
@@ -237,21 +272,36 @@ public func NetWorkTeacherGetTStudentWorkList(params:[String:Any],callBack:((Arr
 
 //MARK:  1-3 练习册详情 - 已批改 >> 根据练习册id获取详情
 public func NetWorkTeacherGetTStudentCorrected(params:[String:Any],callBack:((Array<Any>)->())?) ->  Void {
-    //    let dataArr = NSMutableArraRy()
-    let mainQueue = DispatchQueue.main;
     
+    var dataArr = [TShowGradeModel]()
     Alamofire.request(kGet_TStudentWork2,
                       method: .get, parameters: params,
-                      encoding: URLEncoding.default, headers: nil).responseJSON(queue:mainQueue, options: .allowFragments) { (response) in
+                      encoding: URLEncoding.default, headers: nil).responseJSON(queue:DispatchQueue.main, options: .allowFragments) { (response) in
                         print(response.result)
                         switch response.result {
                         case .success:
-                            
-                            setToast(str: "完成")
+                            if let j = response.result.value {
+                                //SwiftyJSON解析数据
+                                let JSOnDictory = JSON(j)
+                                
+                                let code =  JSOnDictory["code"].stringValue
+                                if code == "0" {
+                                    setToast(str: "上传成功返回失败")
+                                }
+                                
+                                let datas =  JSOnDictory["data"].arrayValue
+                                
+                                for index in 0..<datas.count {
+                                    
+                                    let json = datas[index]
+                                    let model  = TShowGradeModel.setValueForTMyWorkTShowGradeModel(json: json)
+                                    dataArr.append(model)
+                                }
+                                callBack!(dataArr)
+                            }
                             break
                         case .failure(let error):
                             print(error)
-                            
                             setToast(str: "教师端获取所有的练习册失败")
                         }
     }
@@ -259,19 +309,112 @@ public func NetWorkTeacherGetTStudentCorrected(params:[String:Any],callBack:((Ar
 }
 
 
-//MARK:  1-3 练习册详情 - 已批改 >> 根据练习册id获取详情
-public func NetWorkTeacherGetTStudentGrades(params:[String:Any],callBack:((Array<Any>)->())?) ->  Void {
-    //    let dataArr = NSMutableArraRy()
-    let mainQueue = DispatchQueue.main;
+//MARK:   1-3 练习册 - 详情 - 知识点讲解
+public func NetWorkTeacherGetTPeriodPoint(params:[String:Any],callBack:((Array<Any>)->())?) ->  Void {
     
+    var dataArr = [UrlModel]()
+    Alamofire.request(kGet_TStudentWork3,
+                      method: .get, parameters: params,
+                      encoding: URLEncoding.default, headers: nil).responseJSON(queue:DispatchQueue.main, options: .allowFragments) { (response) in
+                        print(response.result)
+                        switch response.result {
+                        case .success:
+                            if let j = response.result.value {
+                                //SwiftyJSON解析数据
+                                let JSOnDictory = JSON(j)
+                                
+                                let code =  JSOnDictory["code"].stringValue
+                                if code == "0" {
+                                    setToast(str: "上传成功返回失败")
+                                }
+                                
+                                let datas =  JSOnDictory["data"].arrayValue
+                                
+                                for index in 0..<datas.count {
+                                    
+                                    let json = datas[index]
+                                    let model  = UrlModel.setValueForUrlModel(json: json)
+                                    dataArr.append(model)
+                                }
+                                callBack!(dataArr)
+                            }
+                            break
+                        case .failure(let error):
+                            print(error)
+                            setToast(str: "教师端获取所有的练习册失败")
+                        }
+    }
+    
+}
+
+
+//MARK:   1-3 练习册 - 详情 - 参考答案
+public func NetWorkTeacherGetTPeriodAnswers(params:[String:Any],callBack:((Array<Any>)->())?) ->  Void {
+    
+    var dataArr = [UrlModel]()
+    Alamofire.request(kGet_TStudentWork4,
+                      method: .get, parameters: params,
+                      encoding: URLEncoding.default, headers: nil).responseJSON(queue:DispatchQueue.main, options: .allowFragments) { (response) in
+                        print(response.result)
+                        switch response.result {
+                        case .success:
+                            if let j = response.result.value {
+                                //SwiftyJSON解析数据
+                                let JSOnDictory = JSON(j)
+                                
+                                let code =  JSOnDictory["code"].stringValue
+                                if code == "0" {
+                                    setToast(str: "上传成功返回失败")
+                                }
+                                
+                                let datas =  JSOnDictory["data"].arrayValue
+                                
+                                for index in 0..<datas.count {
+                                    
+                                    let json = datas[index]
+                                    let model  = UrlModel.setValueForUrlModel(json: json)
+                                    dataArr.append(model)
+                                }
+                                callBack!(dataArr)
+                            }
+                            break
+                        case .failure(let error):
+                            print(error)
+                            setToast(str: "教师端获取所有的练习册失败")
+                        }
+    }
+    
+}
+
+//MARK:  1-3 练习册详情  - 成绩统计  >> 根据练习册id获取详情
+public func NetWorkTeacherGetTStudentGrades(params:[String:Any],callBack:((Array<Any>)->())?) ->  Void {
+
+    var dataArr = [TShowGradeModel]()
     Alamofire.request(kGet_TStudentWork5,
                       method: .get, parameters: params,
-                      encoding: URLEncoding.default, headers: nil).responseJSON(queue:mainQueue, options: .allowFragments) { (response) in
+                      encoding: URLEncoding.default, headers: nil).responseJSON(queue:DispatchQueue.main, options: .allowFragments) { (response) in
                         print(response.result)
                         switch response.result {
                         case .success:
-                            
-                            setToast(str: "完成")
+                            if let j = response.result.value {
+                                //SwiftyJSON解析数据
+                                let JSOnDictory = JSON(j)
+                                
+                                let code =  JSOnDictory["code"].stringValue
+                                if code == "0" {
+                                    setToast(str: "上传成功返回失败")
+                                }
+                                
+                                let datas =  JSOnDictory["data"].arrayValue
+                                
+                                for index in 0..<datas.count {
+                                    
+                                    let json = datas[index]
+                                    let model  = TShowGradeModel.setValueForTMyWorkTShowGradeModel(json: json)
+                                    dataArr.append(model)
+                                }
+                                callBack!(dataArr)
+                            }
                             break
                         case .failure(let error):
                             print(error)
@@ -279,8 +422,9 @@ public func NetWorkTeacherGetTStudentGrades(params:[String:Any],callBack:((Array
                             setToast(str: "教师端获取所有的练习册失败")
                         }
     }
-    
 }
+
+
 
 
 //MARK:   2-0 查询所有非练习册数据 (不属于自己的所有fei练习册)
@@ -1080,7 +1224,7 @@ public func netWorkForApplyFriend(params:[String:String],callBack:((Bool)->())?)
 }
 
 
-//MARK:(学生端 查看好友申请表)接口
+//MARK:14(学生端 查看好友申请表)接口
 public func netWorkForApplyList(callBack:((Array<Any>,Bool)->())?) {
     
     let params = [
@@ -1126,7 +1270,7 @@ public func netWorkForApplyList(callBack:((Array<Any>,Bool)->())?) {
 }
 
 
-//MARK:(学生端 对请求进行操作)接口
+//MARK:15(学生端 对请求进行操作)接口
 public func netWorkForDoAllow(params:[String:Any],callBack:((Bool)->())?) ->  Void {
     //    let dataArr = NSMutableArraRy()
     
@@ -1149,7 +1293,7 @@ public func netWorkForDoAllow(params:[String:Any],callBack:((Bool)->())?) ->  Vo
 }
 
 
-//MARK:(学生端 我的好友并按类型区分)接口
+//MARK:17(学生端 我的好友并按类型区分)接口
 public func netWorkForMyFriend(callBack:((Array<Any>,Bool)->())?) ->  Void {
     let params = [
         "SESSIONID":SESSIONID,
@@ -1188,6 +1332,185 @@ public func netWorkForMyFriend(callBack:((Array<Any>,Bool)->())?) ->  Void {
 }
 
 
+//MARK:18(学生端 删除我的好友)接口
+public func netWorkForDelMyFriend(params:[String:Any],callBack:((Bool)->())?) ->  Void {
+    //    let dataArr = NSMutableArraRy()
+    
+    Alamofire.request(kdel_MyFriend,
+                      method: .get, parameters: params,
+                      encoding: URLEncoding.default, headers: nil).responseJSON(queue:DispatchQueue.main, options: .allowFragments) { (response) in
+                        print(response.result)
+                        switch response.result {
+                        case .success:
+                            
+                            if let j = response.result.value {
+                                //SwiftyJSON解析数据
+                                let JSOnDictory = JSON(j)
+                                let datas =  JSOnDictory["code"].stringValue
+                                if datas == "0" {
+                                    setToast(str: "删除好友上传成功返回失败")
+                                }
+                            }
+                            
+                            callBack!(true)
+                            break
+                        case .failure(let error):
+                            print(error)
+                            
+                            setToast(str: "删除好友失败")
+                            callBack!(false)
+                        }
+    }
+}
+
+
+//MARK:20(学生端 创建非练习册的时候需要选择好友老师批改)接口
+public func netWorkForModle_exercise(params:[String:Any],callBack:((Bool)->())?) ->  Void {
+    //    let dataArr = NSMutableArraRy()
+    
+    Alamofire.request(kModle_exercise,
+                      method: .get, parameters: params,
+                      encoding: URLEncoding.default, headers: nil).responseJSON(queue:DispatchQueue.main, options: .allowFragments) { (response) in
+                        print(response.result)
+                        switch response.result {
+                        case .success:
+                            if let j = response.result.value {
+                                //SwiftyJSON解析数据
+                                let JSOnDictory = JSON(j)
+                                let datas =  JSOnDictory["code"].stringValue
+                                if datas == "0" {
+                                    setToast(str: "选择好友老师上传成功返回失败")
+                                }
+                            }
+                            callBack!(true)
+                            break
+                        case .failure(let error):
+                            print(error)
+                            
+                            setToast(str: "选择好友老师失败")
+                            callBack!(false)
+                        }
+    }
+}
+
+
+//MARK:21(学生端 创建非练习册)接口
+//public func netWorkForBulidnon_exercise(params:[String:Any],callBack:((Bool)->())?) ->  Void {
+//    //    let dataArr = NSMutableArraRy()
+//
+//    Alamofire.request(kBulidnon_exercise,
+//                      method: .get, parameters: params,
+//                      encoding: URLEncoding.default, headers: nil).responseJSON(queue:DispatchQueue.main, options: .allowFragments) { (response) in
+//                        print(response.result)
+//                        switch response.result {
+//                        case .success:
+//
+//                            callBack!(true)
+//                            break
+//                        case .failure(let error):
+//                            print(error)
+//
+//                            setToast(str: " 创建非练习册失败")
+//                            callBack!(false)
+//                        }
+//    }
+//}
+
+//MARK:21(学生端 创建非练习册)接口
+func netWorkForBulidnon_exercise(
+    params:[String:String]!,
+    data: [UIImage],
+    name: [String],
+    success : @escaping (_ response : [String : AnyObject])->(), failture : @escaping (_ error : Error)->()){
+    
+    //    let headers = ["content-type":"multipart/form-data"]
+    
+    Alamofire.upload(
+        multipartFormData: { multipartFormData in
+            
+            multipartFormData.append((params["SESSIONID"]!.data(using: String.Encoding.utf8)!),
+                                     withName: "SESSIONID")
+            multipartFormData.append((params["mobileCode"]!.data(using: String.Encoding.utf8)!),
+                                     withName: "mobileCode")
+            multipartFormData.append((params["phone"]!.data(using: String.Encoding.utf8)!),
+                                     withName: "phone")
+            multipartFormData.append((params["area"]!.data(using: String.Encoding.utf8)!),
+                                     withName: "area")
+            multipartFormData.append((params["fit_class"]!.data(using: String.Encoding.utf8)!),
+                                     withName: "fit_class")
+            for i in 0..<data.count {
+                multipartFormData.append(UIImagePNGRepresentation(data[i])!, withName: "appPhoto", fileName: name[i], mimeType: "image/png")
+            }
+    },
+        to: kBulidnon_exercise,
+        headers: nil,
+        encodingCompletion: { encodingResult in
+            switch encodingResult {
+            case .success(let upload, _, _):
+                upload.responseJSON { response in
+                    if let value = response.result.value as? [String: AnyObject]{
+                        success(value)
+                    }
+                    
+                    if response.result.value == nil {
+                        success(["000":"000" as AnyObject])
+                    }
+                    
+                }
+            case .failure(let encodingError):
+                failture(encodingError)
+            }
+    }
+    )
+}
+
+
+
+//MARK:22(学生端 再次提交非练习册练习)接口
+public func netWorkForAddNonExerciseNext(params:[String:Any],callBack:((Bool)->())?) ->  Void {
+    //    let dataArr = NSMutableArraRy()
+    
+    Alamofire.request(kAdd_NonExerciseNext,
+                      method: .get, parameters: params,
+                      encoding: URLEncoding.default, headers: nil).responseJSON(queue:DispatchQueue.main, options: .allowFragments) { (response) in
+                        print(response.result)
+                        switch response.result {
+                        case .success:
+                            
+                            callBack!(true)
+                            break
+                        case .failure(let error):
+                            print(error)
+                            
+                            setToast(str: "再次提交非练习册练习失败")
+                            callBack!(false)
+                        }
+    }
+}
+
+//MARK:22(学生端 再次提交非练习册练习)接口
+public func netWorkForUploadWorkBookNextt(params:[String:Any],callBack:((Bool)->())?) ->  Void {
+    //    let dataArr = NSMutableArraRy()
+    
+    Alamofire.request(kUpload_WorkBookNext,
+                      method: .get, parameters: params,
+                      encoding: URLEncoding.default, headers: nil).responseJSON(queue:DispatchQueue.main, options: .allowFragments) { (response) in
+                        print(response.result)
+                        switch response.result {
+                        case .success:
+                            
+                            callBack!(true)
+                            break
+                        case .failure(let error):
+                            print(error)
+                            
+                            setToast(str: "再次提交非练习册练习失败")
+                            callBack!(false)
+                        }
+    }
+}
+
+
 ////MARK:(学生端 对请求进行操作)接口
 //public func netWorkForGetWorkBookTime(callBack:@escaping (Bool)->()?) ->  Void {
 //    //    let dataArr = NSMutableArraRy()
@@ -1210,6 +1533,11 @@ public func netWorkForMyFriend(callBack:((Array<Any>,Bool)->())?) ->  Void {
 //                        }
 //    }
 //}
+
+
+
+
+
 
 
 public func requestData(params:Any,callBack:((String)->())?) ->  Void {

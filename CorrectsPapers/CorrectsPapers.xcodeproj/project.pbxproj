@@ -119,6 +119,12 @@
 		184E6DF71F961BC100C2C3DB /* IncomeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184E6DF51F961BC100C2C3DB /* IncomeCell.swift */; };
 		184E6DF81F961BC100C2C3DB /* IncomeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 184E6DF61F961BC100C2C3DB /* IncomeCell.xib */; };
 		184E6DFA1F961C5C00C2C3DB /* IncomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184E6DF91F961C5C00C2C3DB /* IncomeViewController.swift */; };
+		184EC6801FB69EA9007C6BDE /* ShowFileCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184EC67E1FB69EA9007C6BDE /* ShowFileCell.swift */; };
+		184EC6811FB69EA9007C6BDE /* ShowFileCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 184EC67F1FB69EA9007C6BDE /* ShowFileCell.xib */; };
+		184EC6831FB6C425007C6BDE /* TMyWorkDetailModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184EC6821FB6C425007C6BDE /* TMyWorkDetailModel.swift */; };
+		184EC6851FB6D2E9007C6BDE /* TShowStuWorksModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184EC6841FB6D2E9007C6BDE /* TShowStuWorksModel.swift */; };
+		184EC6881FB6E6A0007C6BDE /* TViewBookCell2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184EC6861FB6E6A0007C6BDE /* TViewBookCell2.swift */; };
+		184EC6891FB6E6A0007C6BDE /* TViewBookCell2.xib in Resources */ = {isa = PBXBuildFile; fileRef = 184EC6871FB6E6A0007C6BDE /* TViewBookCell2.xib */; };
 		18520DB61F8C5BAE004EAF99 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18520DB51F8C5BAE004EAF99 /* AppDelegate.swift */; };
 		18520DBB1F8C5BAE004EAF99 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 18520DB91F8C5BAE004EAF99 /* Main.storyboard */; };
 		18520DBD1F8C5BAE004EAF99 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 18520DBC1F8C5BAE004EAF99 /* Assets.xcassets */; };
@@ -267,12 +273,22 @@
 		18B1E6631FB58EE000D1C6F3 /* CTImageEditUtil.h in Sources */ = {isa = PBXBuildFile; fileRef = 185981B81FB5885C0021EAD9 /* CTImageEditUtil.h */; };
 		18B1E6641FB58EE000D1C6F3 /* UIImage+EditImageWithColor.h in Sources */ = {isa = PBXBuildFile; fileRef = 185981BA1FB5885C0021EAD9 /* UIImage+EditImageWithColor.h */; };
 		18B1E6651FB58EE000D1C6F3 /* UIView+Ext.h in Sources */ = {isa = PBXBuildFile; fileRef = 185981B01FB588330021EAD9 /* UIView+Ext.h */; };
+		18B1E66C1FB5B10F00D1C6F3 /* ChooseTeacherCorrectVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B1E66B1FB5B10F00D1C6F3 /* ChooseTeacherCorrectVC.swift */; };
 		18C3D2A81FAC1AE3001C295C /* AccountModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C3D2A71FAC1AE3001C295C /* AccountModel.swift */; };
 		18D343331F9AF646007CE166 /* CreateClassCell2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D343311F9AF646007CE166 /* CreateClassCell2.swift */; };
 		18D343341F9AF646007CE166 /* CreateClassCell2.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18D343321F9AF646007CE166 /* CreateClassCell2.xib */; };
 		18D343371F9AFC9E007CE166 /* CreateHeadCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D343351F9AFC9E007CE166 /* CreateHeadCell.swift */; };
 		18D343381F9AFC9E007CE166 /* CreateHeadCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18D343361F9AFC9E007CE166 /* CreateHeadCell.xib */; };
 		18D3433A1F9B1469007CE166 /* TChooseMemberViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D343391F9B1469007CE166 /* TChooseMemberViewController.swift */; };
+		18E854A21FB92BA20029E81F /* TShowGradeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E854A11FB92BA20029E81F /* TShowGradeModel.swift */; };
+		18E854A51FB931370029E81F /* TShowDoneWorkCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E854A31FB931370029E81F /* TShowDoneWorkCell.swift */; };
+		18E854A61FB931370029E81F /* TShowDoneWorkCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18E854A41FB931370029E81F /* TShowDoneWorkCell.xib */; };
+		18E854A91FB94D800029E81F /* TViewBookCell1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E854A71FB94D800029E81F /* TViewBookCell1.swift */; };
+		18E854AA1FB94D800029E81F /* TViewBookCell1.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18E854A81FB94D800029E81F /* TViewBookCell1.xib */; };
+		18E854AD1FB958B80029E81F /* TViewBookCell3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E854AB1FB958B80029E81F /* TViewBookCell3.swift */; };
+		18E854AE1FB958B80029E81F /* TViewBookCell3.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18E854AC1FB958B80029E81F /* TViewBookCell3.xib */; };
+		18E854B11FB975B40029E81F /* TViewBookCell0.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E854AF1FB975B40029E81F /* TViewBookCell0.swift */; };
+		18E854B21FB975B40029E81F /* TViewBookCell0.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18E854B01FB975B40029E81F /* TViewBookCell0.xib */; };
 		18FB4A991F999C3E008AD1CB /* TMyBookViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FB4A981F999C3E008AD1CB /* TMyBookViewController.swift */; };
 		18FDA6A51F998E8C003D61D8 /* TDetailBookViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FDA6A41F998E8C003D61D8 /* TDetailBookViewController.swift */; };
 		18FDA6A81F998F7A003D61D8 /* TShowBookCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FDA6A61F998F7A003D61D8 /* TShowBookCell.swift */; };
@@ -397,6 +413,12 @@
 		184E6DF51F961BC100C2C3DB /* IncomeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IncomeCell.swift; sourceTree = "<group>"; };
 		184E6DF61F961BC100C2C3DB /* IncomeCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = IncomeCell.xib; sourceTree = "<group>"; };
 		184E6DF91F961C5C00C2C3DB /* IncomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IncomeViewController.swift; sourceTree = "<group>"; };
+		184EC67E1FB69EA9007C6BDE /* ShowFileCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShowFileCell.swift; sourceTree = "<group>"; };
+		184EC67F1FB69EA9007C6BDE /* ShowFileCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ShowFileCell.xib; sourceTree = "<group>"; };
+		184EC6821FB6C425007C6BDE /* TMyWorkDetailModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TMyWorkDetailModel.swift; sourceTree = "<group>"; };
+		184EC6841FB6D2E9007C6BDE /* TShowStuWorksModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TShowStuWorksModel.swift; sourceTree = "<group>"; };
+		184EC6861FB6E6A0007C6BDE /* TViewBookCell2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TViewBookCell2.swift; sourceTree = "<group>"; };
+		184EC6871FB6E6A0007C6BDE /* TViewBookCell2.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TViewBookCell2.xib; sourceTree = "<group>"; };
 		18509A4D1FAAC023008ACD4F /* CorrectsPapers.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CorrectsPapers.entitlements; sourceTree = "<group>"; };
 		18520DB21F8C5BAE004EAF99 /* CorrectsPapers.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CorrectsPapers.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		18520DB51F8C5BAE004EAF99 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -548,12 +570,22 @@
 		18B156701FB2F23F00396653 /* RankCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RankCell.swift; sourceTree = "<group>"; };
 		18B156711FB2F23F00396653 /* RankCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RankCell.xib; sourceTree = "<group>"; };
 		18B1E6601FB58DC500D1C6F3 /* DrawBoard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DrawBoard.swift; sourceTree = "<group>"; };
+		18B1E66B1FB5B10F00D1C6F3 /* ChooseTeacherCorrectVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseTeacherCorrectVC.swift; sourceTree = "<group>"; };
 		18C3D2A71FAC1AE3001C295C /* AccountModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountModel.swift; sourceTree = "<group>"; };
 		18D343311F9AF646007CE166 /* CreateClassCell2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateClassCell2.swift; sourceTree = "<group>"; };
 		18D343321F9AF646007CE166 /* CreateClassCell2.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CreateClassCell2.xib; sourceTree = "<group>"; };
 		18D343351F9AFC9E007CE166 /* CreateHeadCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateHeadCell.swift; sourceTree = "<group>"; };
 		18D343361F9AFC9E007CE166 /* CreateHeadCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CreateHeadCell.xib; sourceTree = "<group>"; };
 		18D343391F9B1469007CE166 /* TChooseMemberViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TChooseMemberViewController.swift; sourceTree = "<group>"; };
+		18E854A11FB92BA20029E81F /* TShowGradeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TShowGradeModel.swift; sourceTree = "<group>"; };
+		18E854A31FB931370029E81F /* TShowDoneWorkCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TShowDoneWorkCell.swift; sourceTree = "<group>"; };
+		18E854A41FB931370029E81F /* TShowDoneWorkCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TShowDoneWorkCell.xib; sourceTree = "<group>"; };
+		18E854A71FB94D800029E81F /* TViewBookCell1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TViewBookCell1.swift; sourceTree = "<group>"; };
+		18E854A81FB94D800029E81F /* TViewBookCell1.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TViewBookCell1.xib; sourceTree = "<group>"; };
+		18E854AB1FB958B80029E81F /* TViewBookCell3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TViewBookCell3.swift; sourceTree = "<group>"; };
+		18E854AC1FB958B80029E81F /* TViewBookCell3.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TViewBookCell3.xib; sourceTree = "<group>"; };
+		18E854AF1FB975B40029E81F /* TViewBookCell0.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TViewBookCell0.swift; sourceTree = "<group>"; };
+		18E854B01FB975B40029E81F /* TViewBookCell0.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TViewBookCell0.xib; sourceTree = "<group>"; };
 		18FB4A981F999C3E008AD1CB /* TMyBookViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TMyBookViewController.swift; sourceTree = "<group>"; };
 		18FDA6A41F998E8C003D61D8 /* TDetailBookViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TDetailBookViewController.swift; sourceTree = "<group>"; };
 		18FDA6A61F998F7A003D61D8 /* TShowBookCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TShowBookCell.swift; sourceTree = "<group>"; };
@@ -1022,6 +1054,7 @@
 			children = (
 				18520DD31F8C5DBA004EAF99 /* Non-WorkBookViewController.swift */,
 				186F392F1F920602009B8927 /* ComplaintViewController.swift */,
+				18B1E66B1FB5B10F00D1C6F3 /* ChooseTeacherCorrectVC.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -1116,6 +1149,8 @@
 		187499F81F99812B00DEB777 /* 学生 */ = {
 			isa = PBXGroup;
 			children = (
+				184EC67E1FB69EA9007C6BDE /* ShowFileCell.swift */,
+				184EC67F1FB69EA9007C6BDE /* ShowFileCell.xib */,
 				18520DCE1F8C5CBF004EAF99 /* Workbook(练习册) */,
 				18520DCD1F8C5CBD004EAF99 /* Non-Workbook(非练习册) */,
 				18520DCC1F8C5CBB004EAF99 /* Class(班级) */,
@@ -1195,12 +1230,22 @@
 				18FDA6AD1F9995D0003D61D8 /* TMYBooksCell.xib */,
 				1867C4111F9DC6BB00831A23 /* TBookHeadView.swift */,
 				1867C4131F9DC6C700831A23 /* TBookHeadView.xib */,
+				18E854AF1FB975B40029E81F /* TViewBookCell0.swift */,
+				18E854B01FB975B40029E81F /* TViewBookCell0.xib */,
 				181F3CFC1FA8743100C484D6 /* TViewBookCell.swift */,
 				181F3CFD1FA8743100C484D6 /* TViewBookCell.xib */,
+				18E854A71FB94D800029E81F /* TViewBookCell1.swift */,
+				18E854A81FB94D800029E81F /* TViewBookCell1.xib */,
+				184EC6861FB6E6A0007C6BDE /* TViewBookCell2.swift */,
+				184EC6871FB6E6A0007C6BDE /* TViewBookCell2.xib */,
+				18E854AB1FB958B80029E81F /* TViewBookCell3.swift */,
+				18E854AC1FB958B80029E81F /* TViewBookCell3.xib */,
 				182EB5C11F9ECD6D00B74F84 /* TUpLoadVideoCell.swift */,
 				182EB5C21F9ECD6D00B74F84 /* TUpLoadVideoCell.xib */,
 				182EB5C71F9ED6E200B74F84 /* TTipView.swift */,
 				182EB5C51F9ED38A00B74F84 /* TTipView.xib */,
+				18E854A31FB931370029E81F /* TShowDoneWorkCell.swift */,
+				18E854A41FB931370029E81F /* TShowDoneWorkCell.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1208,6 +1253,9 @@
 		18749A001F9982D900DEB777 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				184EC6821FB6C425007C6BDE /* TMyWorkDetailModel.swift */,
+				184EC6841FB6D2E9007C6BDE /* TShowStuWorksModel.swift */,
+				18E854A11FB92BA20029E81F /* TShowGradeModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1540,6 +1588,8 @@
 				184E6DEA1F960DEE00C2C3DB /* ShowFridensCell.xib in Resources */,
 				18D343381F9AFC9E007CE166 /* CreateHeadCell.xib in Resources */,
 				182EB5C61F9ED38A00B74F84 /* TTipView.xib in Resources */,
+				18E854A61FB931370029E81F /* TShowDoneWorkCell.xib in Resources */,
+				184EC6891FB6E6A0007C6BDE /* TViewBookCell2.xib in Resources */,
 				186A280A1F96039D00FAA766 /* ComplaintRecordCell.xib in Resources */,
 				184BBED01F9B45E900EF65C4 /* EditInfoCell.xib in Resources */,
 				188D0C621F99F4FB0010814C /* ShowImageCell.xib in Resources */,
@@ -1547,6 +1597,7 @@
 				182EB5C41F9ECD6D00B74F84 /* TUpLoadVideoCell.xib in Resources */,
 				18759A981F95CFE000B8E851 /* MyBookCell.xib in Resources */,
 				186A27FE1F96002E00FAA766 /* MessgesCell.xib in Resources */,
+				18E854AE1FB958B80029E81F /* TViewBookCell3.xib in Resources */,
 				18520DC01F8C5BAE004EAF99 /* LaunchScreen.storyboard in Resources */,
 				186F391F1F919F7C009B8927 /* CreateBookCell.xib in Resources */,
 				18749A1B1F9988F600DEB777 /* TShowBooksCell.xib in Resources */,
@@ -1557,9 +1608,11 @@
 				184BBED41F9B4CE800EF65C4 /* EditHeadCell.xib in Resources */,
 				180D6B7C1F94A51E00480DEF /* CheckWorkCell.xib in Resources */,
 				18FDA6A91F998F7A003D61D8 /* TShowBookCell.xib in Resources */,
+				18E854AA1FB94D800029E81F /* TViewBookCell1.xib in Resources */,
 				188D0BF31F99C4C50010814C /* ShowClassMemberCell.xib in Resources */,
 				184E6DF41F96197000C2C3DB /* IncomeHeadView.xib in Resources */,
 				180D6B741F94775500480DEF /* SystemMessageCell.xib in Resources */,
+				184EC6811FB69EA9007C6BDE /* ShowFileCell.xib in Resources */,
 				188D0BFB1F99CF6C0010814C /* TGoodWorkCell.xib in Resources */,
 				18FDA6AF1F9995D0003D61D8 /* TMYBooksCell.xib in Resources */,
 				18520DBD1F8C5BAE004EAF99 /* Assets.xcassets in Resources */,
@@ -1569,6 +1622,7 @@
 				180D6B6C1F9456FF00480DEF /* PersonHeadCell.xib in Resources */,
 				1859819C1FB5663D0021EAD9 /* ShowWriteAnswerCell.xib in Resources */,
 				18520DF11F8C6997004EAF99 /* WorkBookCell.xib in Resources */,
+				18E854B21FB975B40029E81F /* TViewBookCell0.xib in Resources */,
 				188D0BF71F99CB480010814C /* TClassInfoCell.xib in Resources */,
 				186F39341F921561009B8927 /* ClassCell.xib in Resources */,
 				184E6DF81F961BC100C2C3DB /* IncomeCell.xib in Resources */,
@@ -1706,6 +1760,7 @@
 				188D0C3B1F99D8210010814C /* YYKVStorage.m in Sources */,
 				188D0C3C1F99D8210010814C /* YYMemoryCache.h in Sources */,
 				188D0C3D1F99D8210010814C /* YYMemoryCache.m in Sources */,
+				184EC6831FB6C425007C6BDE /* TMyWorkDetailModel.swift in Sources */,
 				188D0C3E1F99D8210010814C /* _YYWebImageSetter.h in Sources */,
 				185981A41FB5718A0021EAD9 /* OCTools.m in Sources */,
 				188D0C3F1F99D8210010814C /* _YYWebImageSetter.m in Sources */,
@@ -1734,6 +1789,7 @@
 				188D0C4E1F99D8210010814C /* YYImage.h in Sources */,
 				188D0C4F1F99D8210010814C /* YYImage.m in Sources */,
 				188D0C501F99D8210010814C /* YYImageCoder.h in Sources */,
+				184EC6801FB69EA9007C6BDE /* ShowFileCell.swift in Sources */,
 				1867C40E1F9DA0CB00831A23 /* SystemMsgViewController.swift in Sources */,
 				188D0C511F99D8210010814C /* YYImageCoder.m in Sources */,
 				188D0C521F99D8210010814C /* YYSpriteSheetImage.h in Sources */,
@@ -1787,11 +1843,15 @@
 				184D94701F97250200C79DBC /* CLImagePickersViewController.swift in Sources */,
 				184BBED31F9B4CE800EF65C4 /* EditHeadCell.swift in Sources */,
 				184D94711F97250200C79DBC /* CLPreviewViewController.swift in Sources */,
+				18E854B11FB975B40029E81F /* TViewBookCell0.swift in Sources */,
 				184D94721F97250200C79DBC /* EditorViewController.swift in Sources */,
 				184D94731F97250200C79DBC /* EditorViewController.xib in Sources */,
 				184D94741F97250200C79DBC /* CLImagePickerPhotoModel.swift in Sources */,
 				184D94751F97250200C79DBC /* PreviewModel.swift in Sources */,
+				18B1E66C1FB5B10F00D1C6F3 /* ChooseTeacherCorrectVC.swift in Sources */,
 				184D94761F97250200C79DBC /* MessageStyleView.swift in Sources */,
+				184EC6851FB6D2E9007C6BDE /* TShowStuWorksModel.swift in Sources */,
+				18E854A51FB931370029E81F /* TShowDoneWorkCell.swift in Sources */,
 				184D94771F97250200C79DBC /* MessageStyleView.xib in Sources */,
 				184D94781F97250200C79DBC /* NomalStyleView.swift in Sources */,
 				1894DFA61FB152D3003E99FF /* ShowWorkStateCell.swift in Sources */,
@@ -1809,6 +1869,7 @@
 				187977931F9ADA98009AC957 /* TCreateClassViewController.swift in Sources */,
 				18749A131F99869300DEB777 /* TSearchClassViewController.swift in Sources */,
 				184D94821F97250200C79DBC /* CLPreviewCell.swift in Sources */,
+				18E854AD1FB958B80029E81F /* TViewBookCell3.swift in Sources */,
 				184D94831F97250200C79DBC /* CLPreviewVideoCell.swift in Sources */,
 				184D94841F97250200C79DBC /* CLSingleTypeCell.swift in Sources */,
 				18FB4A991F999C3E008AD1CB /* TMyBookViewController.swift in Sources */,
@@ -1825,14 +1886,17 @@
 				184AE50A1F90C156007FE81A /* MyBookViewController.swift in Sources */,
 				186A28091F96039D00FAA766 /* ComplaintRecordCell.swift in Sources */,
 				188D0C5D1F99EA1A0010814C /* SUploadWorkCell.swift in Sources */,
+				18E854A21FB92BA20029E81F /* TShowGradeModel.swift in Sources */,
 				180D6B771F949A4400480DEF /* UpLoadWorkCell.swift in Sources */,
 				186F391B1F919EF3009B8927 /* CreateBookViewController.swift in Sources */,
+				184EC6881FB6E6A0007C6BDE /* TViewBookCell2.swift in Sources */,
 				184E6DFA1F961C5C00C2C3DB /* IncomeViewController.swift in Sources */,
 				1893785D1F944CCB00393CB4 /* SettingViewController.swift in Sources */,
 				186A28021F96035800FAA766 /* ComplaintRecordViewController.swift in Sources */,
 				184AE5081F90C07B007FE81A /* SearchBooksViewController.swift in Sources */,
 				1823BF461F8E09DE0056C705 /* WorkBookCell.xib in Sources */,
 				180D6B6E1F945DA700480DEF /* SuggestViewController.swift in Sources */,
+				18E854A91FB94D800029E81F /* TViewBookCell1.swift in Sources */,
 				18759A931F95B75F00B8E851 /* showGradeCell.swift in Sources */,
 				18C3D2A81FAC1AE3001C295C /* AccountModel.swift in Sources */,
 				182181681FA829D800C2BE89 /* TEditInfoViewController.swift in Sources */,
@@ -1947,6 +2011,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -2006,6 +2071,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -2059,6 +2125,7 @@
 			baseConfigurationReference = D2F62588E13D3D749174F1A1 /* Pods-CorrectsPapers.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
@@ -2081,6 +2148,7 @@
 			baseConfigurationReference = 2F0BC8511BE4C6BF31BBE1BA /* Pods-CorrectsPapers.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;

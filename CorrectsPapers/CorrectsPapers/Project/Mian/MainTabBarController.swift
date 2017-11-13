@@ -104,10 +104,8 @@ func addChildCOntrollers() {
         self.viewControllers = [Nav0,Nav1,Nav2,Nav3]
         
     }
-
     
-    
-    self.selectedIndex = 3
+    self.selectedIndex = 0
 }
 
 func unSelectedTapTabBarItems(tabBarItem:UITabBarItem) {

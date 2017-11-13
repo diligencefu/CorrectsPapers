@@ -28,7 +28,7 @@ class MyBookDetailViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         addTimeSelector()
-        workState = model.correct_state!
+//        workState = model.correct_state!
     }
     
     override func requestData() {
@@ -173,7 +173,7 @@ class MyBookDetailViewController: BaseViewController {
         
         if currentIndex == 1 {
             
-            if workState == 3 || workState == 4 {
+            if workState > 3 {
                 return 2
             }
         }

@@ -36,6 +36,29 @@ class QQQEditorViewController: UIViewController {
     // 还原
     @IBOutlet weak var returnBtn: UIButton!
     
+    @IBOutlet weak var editBtn: UIButton!
+    
+    
+    @IBOutlet weak var userName: UILabel!
+    @IBOutlet weak var userNum: UILabel!
+    @IBOutlet weak var backView: UIView!
+    
+    var images = [UIImage]()
+    var currentIndex = 0
+    
+    var theName = ""
+    var theNum = ""
+    var bookid = ""
+    var bookState = ""
+    var doneImages = [UIImage]()
+    
+    
+    
+    var markView = GiveMarkView()
+    var BGView = UIView()
+
+    
+    
     var lastScaleFactor : CGFloat! = 1  //放大、缩小
     
     lazy var choosePencilView: PencilChooseView = {
@@ -64,50 +87,60 @@ class QQQEditorViewController: UIViewController {
         return chooseView
     }()
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
+        self.navigationController?.navigationBar.isHidden = true
+        typeLable.textColor = kMainColor()
+        backView.clipsToBounds = true
+        backView.layer.cornerRadius = 20
+        
+        userNum.text = theNum
+        userName.text = theName
         
         initView()
+        addMarkView()
     }
     
+    
     func initView() {
-        pencilBtn.setTitleColor(UIColor.red, for: .selected)
+        pencilBtn.setTitleColor(kMainColor(), for: .selected)
         pencilBtn.setTitleColor(UIColor.black, for: .normal)
-        eraserBtn.setTitleColor(UIColor.red, for: .selected)
+        eraserBtn.setTitleColor(kMainColor(), for: .selected)
         eraserBtn.setTitleColor(UIColor.black, for: .normal)
-        
+        editBtn.setTitleColor(kMainColor(), for: .selected)
+        editBtn.setTitleColor(UIColor.black, for: .normal)
+
         backBtn.isEnabled = false
         forwardBtn.isEnabled = false
         
-        slideView.setThumbImage(UIImage(named:"dian"), for: .normal)
+//        slideView.setThumbImage(UIImage(named:"dian"), for: .normal)
+        
+        slideView.thumbTintColor = kMainColor()
         slideView.value = 0.3
         
         pencilImage.layer.cornerRadius = 4
         pencilImage.layer.masksToBounds = true
         pencilImage.addGestureRecognizer(UITapGestureRecognizer.init(target: self, action: #selector(QQQEditorViewController.clickPencilImageView)))
-        
-        let btnDownLoad = UIBarButtonItem.init(image: UIImage(named:"downLoad"), style: .done, target: self, action: #selector(QQQEditorViewController.clickLoadBtn))
-        let btnShare = UIBarButtonItem.init(image: UIImage(named:"share"), style: .done, target: self, action: #selector(QQQEditorViewController.clickShareBtn))
-        let btnEditor = UIBarButtonItem.init(image: UIImage(named:"editor"), style: .done, target: self, action: #selector(QQQEditorViewController.clickEditorBtn))
-        self.navigationItem.rightBarButtonItems = [btnDownLoad,btnShare,btnEditor]
-        
+                
         scrollView = UIScrollView()
-        scrollView.frame = CGRect(x: 0, y: 0, width: KScreenWidth, height: KScreenHeight-50-40-64)
+        scrollView.frame = CGRect(x: 0, y: 0, width: KScreenWidth, height: KScreenHeight-50-40)
         scrollView.showsHorizontalScrollIndicator = false
         scrollView.showsVerticalScrollIndicator = false
         scrollView.delegate = self
         scrollView.minimumZoomScale = 1
         scrollView.maximumZoomScale = 10
-        self.view.addSubview(scrollView!)
+//        self.view.addSubview(scrollView!)
+        self.view.insertSubview(scrollView!, at: 0)
         
         drawBoardImageView = DrawBoard.init(frame:scrollView.bounds)
         drawBoardImageView.isUserInteractionEnabled = true
         // 对长图压缩处理
-        let scaleImage = UIImage.scaleImage(image: self.editorImage)
+        let scaleImage = UIImage.scaleImage(image: images[currentIndex])
         drawBoardImageView.backgroundColor = UIColor(patternImage: scaleImage)
         drawBoardImageView.currentImage = scaleImage
-        drawBoardImageView.masicImage = UIImage.trans(toMosaicImage: self.editorImage, blockLevel: 20)
+        drawBoardImageView.masicImage = UIImage.trans(toMosaicImage: images[currentIndex], blockLevel: 20)
         scrollView?.addSubview(drawBoardImageView)
         drawBoardImageView.beginDraw = {[weak self]() in
             self?.backBtn.isEnabled = true
@@ -122,27 +155,9 @@ class QQQEditorViewController: UIViewController {
         // 默认的画笔
         self.drawBoardImageView.strokeColor = UIColor(patternImage: UIImage(named: "clr_black")!)
         self.pencilImage.image = UIImage(named: "clr_black")!
+        self.typeLable.text = "拖动模式"
     }
-    //MARK: - 编辑,文本输入
-    @objc func clickEditorBtn() {
-        self.typeLable.text = "编辑模式"
-        self.scrollView.isScrollEnabled = false
-        self.pencilBtn.isSelected = false
-        self.eraserBtn.isSelected = false
-        self.drawBoardImageView.brush = InputBrush()
-    }
-    
-    //MARK: - 分享
-    @objc func clickShareBtn() {
-        //        let win = UIApplication.shared.keyWindow
-        //        let shareView = CLShareView()
-        //        shareView.shareTitle = ""
-        //        shareView.shareUrlStr = ""
-        //        shareView.shareContent = ""
-        //        shareView.shareImage = self.drawBoardImageView.takeImage()
-        //        win?.addSubview(shareView)
-        
-    }
+
     
     //MARK: - 选择画笔颜色
     @objc func clickPencilImageView(){
@@ -162,36 +177,39 @@ class QQQEditorViewController: UIViewController {
         }
     }
     
-    //MARK: - 下载图片
-    @objc func clickLoadBtn(){
-        let alertController = UIAlertController(title: "提示", message: "您确定要保存整个图片到相册吗？", preferredStyle: .alert)
-        let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
-        let okAction = UIAlertAction(title: "确定", style: .default, handler: {
-            action in
-            
-            UIImageWriteToSavedPhotosAlbum(self.drawBoardImageView.takeImage(), self, #selector(QQQEditorViewController.image(_:didFinishSavingWithError:contextInfo:)), nil)
-        })
-        alertController.addAction(cancelAction)
-        alertController.addAction(okAction)
-        self.present(alertController, animated: true, completion: nil)
-    }
-    // 保存图片的结果
-    @objc func image(_ image: UIImage, didFinishSavingWithError error: NSError?, contextInfo:UnsafeRawPointer) {
-        if let err = error {
-            UIAlertView(title: "错误", message: err.localizedDescription, delegate: nil, cancelButtonTitle: "确定").show()
-        } else {
-            UIAlertView(title: "提示", message: "保存成功", delegate: nil, cancelButtonTitle: "确定").show()
+    
+    //MARK: - 编辑,文本输入
+    @IBAction func editingAction(_ sender: UIButton) {
+        
+        if  self.typeLable.text == "编辑模式" {
+            self.scrollView.isScrollEnabled = true
+            drawBoardImageView?.brush = nil
+            self.typeLable.text = "拖动模式"
+            self.editBtn.isSelected = false
+            kHiddenTextView = 11151635
+        }else{
+            self.typeLable.text = "编辑模式"
+            self.scrollView.isScrollEnabled = false
+            self.pencilBtn.isSelected = false
+            self.eraserBtn.isSelected = false
+            self.drawBoardImageView.brush = InputBrush()
+            self.editBtn.isSelected = true
+            kHiddenTextView = 11111
         }
     }
+    
     
     //MARK: - 改变画笔大小
     @IBAction func clickSlide(_ sender: Any) {
         // 先判断是不是文本，如果是文本，直接设置文本的颜色
         if self.drawBoardImageView.brush?.classForKeyedArchiver == InputBrush.classForCoder() {
-            drawBoardImageView.textFont = UIFont.systemFont(ofSize: CGFloat(self.slideView.value*50))
+            drawBoardImageView.textFont = UIFont.systemFont(ofSize: CGFloat(self.slideView.value*35+8))
             return
         }
         drawBoardImageView.strokeWidth = CGFloat(self.slideView.value*15)
+        
+//        kFontSize = Int(self.slideView.value*15+12)
+//        print(kFontSize)
     }
     //MARK: - 点击了画笔
     @IBAction func clickPencilBtn(_ sender: Any) {
@@ -201,7 +219,7 @@ class QQQEditorViewController: UIViewController {
             self.scrollView.isScrollEnabled = false
             self.pencilBtn?.isSelected = true
             self.eraserBtn?.isSelected = false
-            
+            self.editBtn.isSelected = false
             self.typeLable.text = "画笔模式"
             
             // 先判断是不是模糊矩形
@@ -215,6 +233,7 @@ class QQQEditorViewController: UIViewController {
         } else {
             self.scrollView.isScrollEnabled = true
             self.pencilBtn?.isSelected = false
+            self.typeLable.text = "拖动模式"
             drawBoardImageView?.brush = nil
         }
     }
@@ -228,6 +247,7 @@ class QQQEditorViewController: UIViewController {
             self.scrollView.isScrollEnabled = false
             self.pencilBtn?.isSelected = false
             self.eraserBtn?.isSelected = true
+            self.editBtn.isSelected = false
             drawBoardImageView?.brush = EraserBrush()
         } else {
             self.scrollView.isScrollEnabled = true
@@ -269,12 +289,136 @@ class QQQEditorViewController: UIViewController {
         self.present(alertController, animated: true, completion: nil)
         
     }
+
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+    }
+    
+    
+    @IBAction func popAction(_ sender: UIButton) {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    
+    @IBAction func changeToNextImage(_ sender: UIButton) {
+        setToast(str: "换图")
+        currentIndex = currentIndex+1
+        
+        if currentIndex < images.count+1 {
+            let doneImage = self.drawBoardImageView.takeImage()
+            self.doneImages.append(doneImage)
+            print(doneImage)
+        }
+        
+        if currentIndex < images.count {
+            drawBoardImageView.removeFromSuperview()
+
+//            编辑后的图片
+            editorImage = images[currentIndex]
+            // 对长图压缩处理
+            let scaleImage = UIImage.scaleImage(image: self.editorImage)
+            drawBoardImageView.backgroundColor = UIColor(patternImage: scaleImage)
+            drawBoardImageView.currentImage = scaleImage
+            drawBoardImageView.masicImage = UIImage.trans(toMosaicImage: self.editorImage, blockLevel: 20)
+            scrollView?.addSubview(drawBoardImageView)
+            drawBoardImageView.beginDraw = {[weak self]() in
+                self?.backBtn.isEnabled = true
+            }
+            
+            drawBoardImageView.unableDraw = {[weak self]() in
+                self?.backBtn.isEnabled = false
+            }
+            
+            drawBoardImageView.reableDraw = {[weak self]() in
+                self?.forwardBtn.isEnabled = false
+            }
+            
+            self.drawBoardImageView?.retureAction()
+            scrollView.zoomScale = 1
+        }else{
+            showTheMarkView()
+            setToast(str: "This is the last one.")
+        }
+    }
+    
+    
+    func  addMarkView() {
+        
+        //        弹出视图弹出来之后的背景蒙层
+        BGView = UIView.init(frame: self.view.frame)
+        BGView.backgroundColor = kSetRGBAColor(r: 5, g: 5, b: 5, a: 0.5)
+        BGView.alpha = 0
+        //        BGView.isHidden = true
+        
+        let tapGes1 = UITapGestureRecognizer.init(target: self, action: #selector(showChooseCondi(tap:)))
+        tapGes1.numberOfTouchesRequired = 1
+        BGView.addGestureRecognizer(tapGes1)
+        self.view.addSubview(BGView)
+        
+        markView = UINib(nibName:"GiveMarkView",bundle:nil).instantiate(withOwner: self, options: nil).first as! GiveMarkView
+        markView.frame =  CGRect(x: 0, y: kSCREEN_HEIGHT, width: kSCREEN_WIDTH, height: 236)
+        markView.layer.cornerRadius = 24*kSCREEN_SCALE
+        markView.selectBlock = {
+            if $1 {
+                print($0)
+                print($2)
+                
+                if self.bookState == "2" {
+//                    第一次
+                }else if self.bookState == "5" {
+//                    第二次
+                }
+                self.dismiss(animated: true, completion: nil)
+            }
+            self.hiddenViews()
+        }
+        markView.clipsToBounds = true
+        self.view.addSubview(markView)
+    }
+    
+    
+    @objc func showChooseCondi(tap:UITapGestureRecognizer) -> Void {
+        
+        if tap.view?.alpha == 1 {
+            UIView.animate(withDuration: 0.5) {
+                tap.view?.alpha = 0
+                self.markView.transform = .identity
+            }
+        }
+    }
+    
+    
+    func hiddenViews() {
+        
+        UIView.animate(withDuration: 0.5) {
+            self.BGView.alpha = 0
+            self.markView.transform = .identity
+        }
+    }
+    
+    func showTheMarkView() -> Void {
+        
+        let y = 225
+        UIView.animate(withDuration: 0.5) {
+            self.markView.transform = .init(translationX: 0, y: CGFloat(-y))
+            self.BGView.alpha = 1
+        }
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        kHiddenTextView = 11151635
+    }
+    
 }
+
 
 extension QQQEditorViewController:UIScrollViewDelegate{
     func viewForZooming(in scrollView: UIScrollView) -> UIView? {
         return drawBoardImageView
     }
+    
+    
     func scrollViewWillBeginZooming(_ scrollView: UIScrollView, with view: UIView?) {
         drawBoardImageView?.brush = nil
         self.pencilBtn?.isSelected = false
@@ -282,4 +426,3 @@ extension QQQEditorViewController:UIScrollViewDelegate{
         self.scrollView.isScrollEnabled = true
     }
 }
-

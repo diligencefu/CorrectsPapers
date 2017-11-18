@@ -14,18 +14,31 @@ class ClassViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         rightBarButton()
+        addImageWhenEmpty()
     }
 
     override func leftBarButton() {
         
     }
     
+    
+    override func requestData() {
+        let params = [
+            "SESSIONID":SESSIONID,
+            "mobileCode":mobileCode
+        ]
+        netWorkForMyClass(params: params) { (datas) in
+            self.mainTableArr.removeAllObjects()
+            self.mainTableArr.addObjects(from: datas)
+            self.mainTableView.reloadData()
+        }
+    }
+    
+    
     override func configSubViews() {
         
         self.navigationItem.title = "我的班级"
-        
-        mainTableArr =  ["最近天气真的好热呀，出门就像","Swift 中随机数的使用总结在我们开发的过程中，时不时地需要产生一些随机数。这里我们总结一下Swift中常用的一些随机数生成函数。这里我们将在Playground中来做些示例演示。","在我们开发的过程中，时不时地需要产生一些随机数。这里我们总结一下Swift中常用的一些随机数生成函数。这里我们将在Playground中来做些示例演示。整型随机数","在大部分应用中，上","这个函数使用ARC4加密的随机数来填充该函数第二个参数指定的长度的缓存区域。因此，如果我们传入的是sizeof(UInt64)，该函数便会生成一个随机数来填充8个字节的区域，并返回给r。那么64位的随机数生成方法便可以如下实现："]
-        
+                
         mainTableView = UITableView.init(frame: CGRect(x: 0, y: 0, width: kSCREEN_WIDTH, height: kSCREEN_HEIGHT - 64 ), style: .plain)
         mainTableView.dataSource = self;
         mainTableView.delegate = self;
@@ -37,14 +50,12 @@ class ClassViewController: BaseViewController {
     }
     
     override func refreshHeaderAction() {
-          mainTableArr =  ["最近天气真的好热呀，出门就像","Swift 中随机数的使用总结在我们开发的过程中，时不时地需要产生一些随机数。这里我们总结一下Swift中常用的一些随机数生成函数。这里我们将在Playground中来做些示例演示。","在我们开发的过程中，时不时地需要产生一些随机数。这里我们总结一下Swift中常用的一些随机数生成函数。这里我们将在Playground中来做些示例演示。整型随机数","在大部分应用中，上","这个函数使用ARC4加密的随机数来填充该函数第二个参数指定的长度的缓存区域。因此，如果我们传入的是sizeof(UInt64)，该函数便会生成一个随机数来填充8个字节的区域，并返回给r。那么64位的随机数生成方法便可以如下实现："]
         mainTableView.mj_header.endRefreshing()
         mainTableView.reloadData()
     }
     
     
     override func refreshFooterAction() {
-        mainTableArr.addObjects(from:  ["最近天气真的好热呀，出门就像","Swift 中随机数的使用总结在我们开发的过程中，时不时地需要产生一些随机数。这里我们总结一下Swift中常用的一些随机数生成函数。这里我们将在Playground中来做些示例演示。","在我们开发的过程中，时不时地需要产生一些随机数。这里我们总结一下Swift中常用的一些随机数生成函数。这里我们将在Playground中来做些示例演示。整型随机数"])
         mainTableView.mj_footer.endRefreshing()
         mainTableView.reloadData()
     }
@@ -96,7 +107,6 @@ class ClassViewController: BaseViewController {
         creatBook.addTarget(self, action: #selector(creatClassAction(sender:)), for: .touchUpInside)
         emptyView.addSubview(creatBook)
         
-        self.mainTableView.addSubview(emptyView)
     }
     
     
@@ -112,7 +122,7 @@ class ClassViewController: BaseViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         if mainTableArr.count == 0 {
-            addImageWhenEmpty()
+            self.mainTableView.addSubview(emptyView)
         }else{
             emptyView.removeFromSuperview()
         }
@@ -126,9 +136,10 @@ class ClassViewController: BaseViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
+        let model = mainTableArr[indexPath.row] as! ClassModel
         let cell : ClassCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable, for: indexPath) as! ClassCell
         cell.selectionStyle = .default
-        cell.classCellSetValue(isSearch: false)
+        cell.classCellSetValue(model: model, isSearch: false)
         return cell
     }
     
@@ -153,9 +164,18 @@ class ClassViewController: BaseViewController {
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         
         if editingStyle == .delete {
-            
-            mainTableArr.removeObject(at: indexPath.row)
-            tableView.reloadData()
+            let model = mainTableArr[indexPath.row] as! ClassModel
+            let params = [
+                "SESSIONID":SESSIONID,
+                "classes_id":model.classes_id,
+                "mobileCode":mobileCode
+                ] as [String:Any]
+            netWorkForQuitClass(params: params, callBack: { (flag) in
+                
+            })
+
+//            mainTableArr.removeObject(at: indexPath.row)
+//            tableView.reloadData()
             print("删除了---\(indexPath.section)分区-\(indexPath.row)行")
         }
     }

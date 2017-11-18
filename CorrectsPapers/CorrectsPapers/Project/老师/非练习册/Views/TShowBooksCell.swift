@@ -19,7 +19,6 @@ class TShowBooksCell: UITableViewCell {
     @IBOutlet weak var priceLabel: UILabel!
     @IBOutlet weak var bookState: UILabel!
     
-    
     @IBOutlet weak var addbtn: UIButton!
     
     
@@ -31,9 +30,16 @@ class TShowBooksCell: UITableViewCell {
         addbtn.setBackgroundImage(getNavigationIMG(27, fromColor: kSetRGBColor(r: 0, g: 200, b: 255), toColor: kSetRGBColor(r: 0, g: 162, b: 255)), for: .normal)
     }
 
-    func TShowBooksCellForShowBook() {
+    func TShowBooksCellForShowBook(model:TNotWorkModel) {
         
+        bookImage.kf.setImage(with:StringToUTF_8InUrl(str: model.pre_photos), placeholder: #imageLiteral(resourceName: "photos_image_default"), options: nil, progressBlock: nil, completionHandler: nil)
+        studentName.text = model.user_name
+        proName.text = model.subject_name
+        bookTitle.text = model.non_exercise_name
+        priceLabel.text = model.rewards
+        bookState.text = kGetStateFromString(str: model.state!)
         
+        bookState.textColor = kGetColorFromString(str:bookState.text!)
     }
     
     

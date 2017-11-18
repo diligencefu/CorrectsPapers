@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="TShowTheTipView" customModule="CorrectsPapers" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="300" height="220"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="友情提示" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QX4-5k-9u8">
+                    <rect key="frame" x="111.5" y="14" width="77.5" height="21"/>
+                    <constraints>
+                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="42" id="iCD-mU-pmb"/>
+                        <constraint firstAttribute="height" constant="21" id="jKr-33-4Gy"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="19"/>
+                    <color key="textColor" red="0.44308614730834961" green="0.44316673278808594" blue="0.44308102130889893" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rpN-m2-GXs">
+                    <rect key="frame" x="16" y="49" width="268" height="118"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="118" id="j5Q-1p-kEW"/>
+                    </constraints>
+                    <string key="text">1.认真对待每一份作业是老师的基本职责，如胡乱批改遭到投诉经核实无误后将会接受相应的处罚。2.练习册批改周期为一个学期，中途退出将会扣除10元。</string>
+                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                    <color key="textColor" red="0.44308614730000001" green="0.44316673280000002" blue="0.44308102129999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AVc-dp-mqT">
+                    <rect key="frame" x="16" y="175" width="105" height="45"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="45" id="IIA-HA-tGg"/>
+                        <constraint firstAttribute="width" constant="105" id="j6C-T3-dIf"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="19"/>
+                    <state key="normal" title="取消">
+                        <color key="titleColor" red="0.44308614730000001" green="0.44316673280000002" blue="0.44308102129999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </state>
+                    <connections>
+                        <action selector="cancelAntion:" destination="iN0-l3-epB" eventType="touchUpInside" id="J8Z-Ak-1GF"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ISC-UO-1QB">
+                    <rect key="frame" x="179" y="175" width="105" height="45"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="45" id="0vu-Ez-iMa"/>
+                        <constraint firstAttribute="width" constant="105" id="Yle-kP-W2U"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="19"/>
+                    <state key="normal" title="确定">
+                        <color key="titleColor" red="0.0068388171490000003" green="0.6570377946" blue="0.96047681569999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </state>
+                    <connections>
+                        <action selector="certainAction:" destination="iN0-l3-epB" eventType="touchUpInside" id="UZW-c7-6HM"/>
+                    </connections>
+                </button>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="AVc-dp-mqT" firstAttribute="bottom" secondItem="vUN-kp-3ea" secondAttribute="bottom" id="8wA-G9-lYb"/>
+                <constraint firstItem="ISC-UO-1QB" firstAttribute="bottom" secondItem="vUN-kp-3ea" secondAttribute="bottom" id="GUR-Vb-vOp"/>
+                <constraint firstItem="AVc-dp-mqT" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="16" id="JIQ-MV-yf4"/>
+                <constraint firstItem="rpN-m2-GXs" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="16" id="JRi-Jp-fh0"/>
+                <constraint firstItem="QX4-5k-9u8" firstAttribute="centerX" secondItem="vUN-kp-3ea" secondAttribute="centerX" id="OLu-8C-QQm"/>
+                <constraint firstItem="rpN-m2-GXs" firstAttribute="top" secondItem="QX4-5k-9u8" secondAttribute="bottom" constant="14" id="SKn-gY-jxq"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="ISC-UO-1QB" secondAttribute="trailing" constant="16" id="fFv-AG-wPP"/>
+                <constraint firstItem="QX4-5k-9u8" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="14" id="fPd-sE-6dM"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="rpN-m2-GXs" secondAttribute="trailing" constant="16" id="qzH-JE-X0o"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <point key="canvasLocation" x="34" y="140"/>
+        </view>
+    </objects>
+</document>

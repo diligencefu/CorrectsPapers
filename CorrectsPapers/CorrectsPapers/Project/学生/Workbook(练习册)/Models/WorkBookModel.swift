@@ -50,6 +50,12 @@ class WorkBookModel: BaseModel {
 
     ///book id
     var id : String?
+    
+    ///已批改人数
+    var state1 : String?
+    
+    ///交作业人数
+    var state2 : String?
 
     
     class func setValueForWorkBookModel(json: JSON) -> WorkBookModel {
@@ -69,6 +75,8 @@ class WorkBookModel: BaseModel {
         model.semester = json["semester"].stringValue
         model.correct_ti = json["correct_ti"].stringValue
         model.id = json["id"].stringValue
+        model.state2 = json["state2"].stringValue
+        model.state1 = json["state1"].stringValue
 
         return model
     }

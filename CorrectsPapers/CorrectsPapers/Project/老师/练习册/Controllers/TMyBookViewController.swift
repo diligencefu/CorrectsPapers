@@ -45,6 +45,22 @@ class TMyBookViewController: BaseViewController {
         }
     }
     
+    override func refreshHeaderAction() {
+        let params =
+            ["SESSIONID":SESSIONIDT,
+             "mobileCode":mobileCodeT,
+             ]
+        
+        NetWorkTeacherGetMyWorkList(params: params) { (datas) in
+            
+            self.mainTableArr.removeAllObjects()
+            self.mainTableArr.addObjects(from: datas)
+            self.mainTableView.reloadData()
+            self.mainTableView.mj_header.endRefreshing()
+        }
+    }
+    
+    
     
     //    当数据为空的时候，显示提示
     func addImageWhenEmpty() {
@@ -138,14 +154,24 @@ class TMyBookViewController: BaseViewController {
             let params =
                 ["SESSIONID":SESSIONIDT,
                  "mobileCode":mobileCodeT,
-                 "workId":model.id,
-                 ]
+                 "workId":model.id
+                    ] as! [String:String]
 
-            NetWorkTeacherDelMyWork(params: params, callBack: { (datas) in
+            NetWorkTeacherDelMyWork(params: params, callBack: { (flag) in
                 
-                self.mainTableArr.removeObject(at: indexPath.row)
-                tableView.reloadData()
-                print("删除了---\(indexPath.section)分区-\(indexPath.row)行")
+                if flag {
+                    let params =
+                        ["SESSIONID":SESSIONIDT,
+                         "mobileCode":mobileCodeT,
+                         ]
+                    NetWorkTeacherGetMyWorkList(params: params) { (datas) in
+                        
+                        self.mainTableArr.removeAllObjects()
+                        self.mainTableArr.addObjects(from: datas)
+                        self.mainTableView.reloadData()
+                    }
+                }
+                
             })
         }
     }

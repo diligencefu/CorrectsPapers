@@ -17,17 +17,17 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="323"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="375" height="323"/>
+                <rect key="frame" x="0.0" y="0.0" width="375" height="322.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" tag="2" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="EOX-Gd-vNc">
+                    <imageView userInteractionEnabled="NO" tag="2" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="workBook" translatesAutoresizingMaskIntoConstraints="NO" id="EOX-Gd-vNc">
                         <rect key="frame" x="22.5" y="31" width="160" height="200"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="200" id="7pM-kT-UYe"/>
                             <constraint firstAttribute="width" constant="160" id="fb2-dQ-Ihr"/>
                         </constraints>
                     </imageView>
-                    <imageView userInteractionEnabled="NO" tag="3" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="RUG-2H-tH7">
+                    <imageView userInteractionEnabled="NO" tag="3" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="workBook" translatesAutoresizingMaskIntoConstraints="NO" id="RUG-2H-tH7">
                         <rect key="frame" x="107" y="31" width="160" height="200"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="200" id="H2r-vk-mQj"/>
@@ -71,7 +71,7 @@
                             <constraint firstAttribute="height" constant="12" id="iio-cu-S5u"/>
                         </constraints>
                     </imageView>
-                    <imageView userInteractionEnabled="NO" tag="1" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="sys-XQ-47l">
+                    <imageView userInteractionEnabled="NO" tag="1" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="workBook" translatesAutoresizingMaskIntoConstraints="NO" id="sys-XQ-47l">
                         <rect key="frame" x="192.5" y="31" width="160" height="200"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="200" id="e2K-WM-K6l"/>
@@ -113,5 +113,6 @@
     </objects>
     <resources>
         <image name="sixing_icon_pressed" width="72" height="12"/>
+        <image name="workBook" width="160" height="200"/>
     </resources>
 </document>

@@ -38,7 +38,7 @@
                         <color key="textColor" red="0.25879135730000002" green="0.25884211060000001" blue="0.25878816840000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="50K-aJ-K66">
+                    <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="50K-aJ-K66">
                         <rect key="frame" x="104" y="56" width="30" height="18"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -50,7 +50,7 @@
                             <color key="titleColor" red="0.096586210699999994" green="0.097319232180000007" blue="0.099518296630000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         </state>
                     </button>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ok3-Qj-fWI">
+                    <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ok3-Qj-fWI">
                         <rect key="frame" x="142" y="56" width="67" height="18"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -115,6 +115,9 @@
                         <state key="normal" title="我来批改">
                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         </state>
+                        <connections>
+                            <action selector="addWorkAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="QY1-nh-mlM"/>
+                        </connections>
                     </button>
                 </subviews>
                 <constraints>
@@ -152,7 +155,7 @@
                 <outlet property="studentCount" destination="cXp-q5-VKS" id="xI7-oq-fSW"/>
                 <outlet property="termDate" destination="eMo-Ez-brd" id="HuO-nY-ytH"/>
             </connections>
-            <point key="canvasLocation" x="5" y="35.5"/>
+            <point key="canvasLocation" x="-94" y="38"/>
         </tableViewCell>
     </objects>
     <resources>

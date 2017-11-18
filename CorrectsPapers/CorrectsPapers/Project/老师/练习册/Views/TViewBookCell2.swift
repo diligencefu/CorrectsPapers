@@ -67,4 +67,53 @@ class TViewBookCell2: UITableViewCell {
       
         }
     }
+    
+    
+    
+    func TViewBookCellSetValuesForNotWorkDone(model:TNotWorkDetailModel) {
+        
+        gradeImage.isHidden = false
+        gradeLabel.isHidden = false
+        doneMark.isHidden = false
+        
+        remark.isHidden = false
+        remark.text = "老师评语：" + model.pre_comment!
+        
+        if model.pre_score == "1" {
+            gradeImage.image = #imageLiteral(resourceName: "yixing_icon_pressed")
+        }else if model.pre_score == "2" {
+            gradeImage.image = #imageLiteral(resourceName: "erxing_icon_pressed")
+        }else if model.pre_score == "3" {
+            gradeImage.image = #imageLiteral(resourceName: "sanxing_icon_pressed")
+        }else if model.pre_score == "4" {
+            gradeImage.image = #imageLiteral(resourceName: "sixing_icon_pressed")
+        }else if model.pre_score == "5"{
+            gradeImage.image = #imageLiteral(resourceName: "wuxing_icon_pressed")
+        }
+        
+        var images = [String]()
+        
+        let imageDatas = model.pre_photos?.arrayValue
+        
+        for index in 0..<imageDatas!.count {
+            images.append(imageDatas![index].stringValue)
+        }
+        
+        
+
+        if images.count == 1 {
+            
+            image1.kf.setImage(with:  URL(string:testImages[0])!, placeholder: #imageLiteral(resourceName: "photos_image_default"), options: nil, progressBlock: nil, completionHandler: nil)
+            image2.isHidden = true
+            image3.isHidden = true
+            
+        }else {
+            image1.isHidden = true
+            image2.kf.setImage(with:  URL(string:testImages[0])!, placeholder: #imageLiteral(resourceName: "photos_image_default"), options: nil, progressBlock: nil, completionHandler: nil)
+            image3.kf.setImage(with:  URL(string:testImages[1])!, placeholder: #imageLiteral(resourceName: "photos_image_default"), options: nil, progressBlock: nil, completionHandler: nil)
+            image2.isHidden = false
+            image3.isHidden = false
+            
+        }
+    }
 }

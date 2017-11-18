@@ -66,6 +66,12 @@ var kTimer2 = Timer()
 let DateHeight = 788 * kSCREEN_SCALE
 
 
+//MARK:是否需要
+var kHiddenTextView = 123135
+
+
+
+
 
 func getColorWithNotAlphe(_ seting : CLongLong) -> UIColor {
     
@@ -202,6 +208,68 @@ func StringToUTF_8InUrl(str:String) -> (URL){
     let urlString = OCString.addingPercentEscapes(using: String.Encoding.utf8.rawValue)
     
     return URL(string: urlString!)!
+}
+
+
+
+//MARK:获取状态
+func kGetStateFromString(str:String) -> (String){
+    
+    if str == "2" {
+        return "未批改"
+    }
+    
+    if str == "3" {
+        return "退回"
+    }
+
+    if str == "4" {
+        return "已批改"
+    }
+
+    if str == "5" {
+        return "错题未批改"
+    }
+
+    if str == "6" {
+        return "错题已退回"
+    }
+
+    if str == "7" {
+        return "批改已完成"
+    }
+
+    return ""
+}
+
+//MARK:获取颜色
+func kGetColorFromString(str:String) -> (UIColor){
+    
+    if str == "未批改" {
+        return kSetRGBColor(r: 255, g: 153, b: 0)
+    }
+    
+    if str == "退回" {
+        return kSetRGBColor(r: 255, g: 78, b: 78)
+    }
+    
+    if str == "已批改" {
+        return kSetRGBColor(r: 102, g: 204, b: 0)
+    }
+    
+    if str == "错题未批改" {
+        return kSetRGBColor(r: 255, g: 153, b: 0)
+    }
+    
+    if str == "错题已退回"{
+    return kSetRGBColor(r: 255, g: 65, b: 65)
+    }
+    
+    if str == "批改已完成" {
+        return kSetRGBColor(r: 102, g: 204, b: 0)
+    }
+    
+    return kSetRGBColor(r: 255, g: 78, b: 78)
 }
 
 

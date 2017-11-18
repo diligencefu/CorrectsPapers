@@ -281,6 +281,9 @@ class DrawBoard: UIImageView {
             }
         }
     }
+        
+    
+    
     // 前进
     func redo() {
         if self.canRedo == false {
@@ -457,6 +460,13 @@ extension DrawBoard {
         UIView.animate(withDuration: duration) {
             self.drawIputView.cl_y = KScreenHeight-self.kBoardH-self.drawIputView.cl_height
         }
+        
+        if kHiddenTextView != 11111 {
+            self.drawIputView.isHidden = true
+        }else{
+            self.drawIputView.isHidden = false
+        }
+        
     }
     
     //键盘的隐藏

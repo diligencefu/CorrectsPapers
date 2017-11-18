@@ -83,21 +83,21 @@
                             <constraint firstAttribute="height" constant="12" id="IHx-gj-sKo"/>
                         </constraints>
                     </imageView>
-                    <imageView userInteractionEnabled="NO" tag="2" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="12q-DN-f91">
+                    <imageView userInteractionEnabled="NO" tag="2" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="workBook" translatesAutoresizingMaskIntoConstraints="NO" id="12q-DN-f91">
                         <rect key="frame" x="15" y="103" width="160" height="200"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="200" id="52z-uT-BiI"/>
                             <constraint firstAttribute="width" constant="160" id="aaf-E5-8tQ"/>
                         </constraints>
                     </imageView>
-                    <imageView userInteractionEnabled="NO" tag="3" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Dwg-G2-2CB">
+                    <imageView userInteractionEnabled="NO" tag="3" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="workBook" translatesAutoresizingMaskIntoConstraints="NO" id="Dwg-G2-2CB">
                         <rect key="frame" x="185" y="103" width="160" height="200"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="160" id="J1k-q5-1NV"/>
                             <constraint firstAttribute="height" constant="200" id="s9W-dd-f9E"/>
                         </constraints>
                     </imageView>
-                    <imageView userInteractionEnabled="NO" tag="1" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="vQI-eo-iJg">
+                    <imageView userInteractionEnabled="NO" tag="1" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="workBook" translatesAutoresizingMaskIntoConstraints="NO" id="vQI-eo-iJg">
                         <rect key="frame" x="100" y="103" width="160" height="200"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="200" id="FzI-nM-6em"/>
@@ -127,6 +127,7 @@
                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZM4-5m-bVg">
                         <rect key="frame" x="15" y="328" width="330" height="2"/>
                         <color key="backgroundColor" red="0.94891661405563354" green="0.94907897710800171" blue="0.94890636205673218" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <string key="text">也是七月份的时候，因为换了公司，被迫开始使用swift，现在虽然不算是特别精通，但是配合Google写一个正常的项目还是没问题。 公司做了一个整形医院的APP，里面有一个类似于朋友圈动态的功能，找了一圈才找到一个合适的图片查看器，感觉还不错，所以就配合着我的动态圈一块上传来了。</string>
                         <color key="textColor" red="0.66659259796142578" green="0.666709303855896" blue="0.66658520698547363" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -201,5 +202,6 @@
     <resources>
         <image name="UserHead_64_default" width="32" height="32"/>
         <image name="sixing_icon_pressed" width="72" height="12"/>
+        <image name="workBook" width="160" height="200"/>
     </resources>
 </document>

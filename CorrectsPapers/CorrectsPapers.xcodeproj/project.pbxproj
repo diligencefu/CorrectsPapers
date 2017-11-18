@@ -52,6 +52,14 @@
 		183FEAAE1FA871060015CE9B /* TeacherInfoCell2.xib in Resources */ = {isa = PBXBuildFile; fileRef = 182181601FA829CC00C2BE89 /* TeacherInfoCell2.xib */; };
 		183FEAAF1FA871060015CE9B /* TeacherInfoCell3.xib in Resources */ = {isa = PBXBuildFile; fileRef = 182181661FA829CD00C2BE89 /* TeacherInfoCell3.xib */; };
 		183FEAB01FA871060015CE9B /* TeacherInfoCell4.xib in Resources */ = {isa = PBXBuildFile; fileRef = 182181631FA829CC00C2BE89 /* TeacherInfoCell4.xib */; };
+		1842B7CF1FBBDA9A00BE6977 /* TNotWorkInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1842B7CD1FBBDA9A00BE6977 /* TNotWorkInfoCell.swift */; };
+		1842B7D01FBBDA9A00BE6977 /* TNotWorkInfoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1842B7CE1FBBDA9A00BE6977 /* TNotWorkInfoCell.xib */; };
+		1842B7D21FBBEE7600BE6977 /* TShowClassMessageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1842B7D11FBBEE7600BE6977 /* TShowClassMessageVC.swift */; };
+		1842B7D51FBBEFA500BE6977 /* TClassMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1842B7D31FBBEFA500BE6977 /* TClassMessageCell.swift */; };
+		1842B7D61FBBEFA500BE6977 /* TClassMessageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1842B7D41FBBEFA500BE6977 /* TClassMessageCell.xib */; };
+		1842B7D81FBC0E5900BE6977 /* TPeriodsDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1842B7D71FBC0E5900BE6977 /* TPeriodsDetailViewController.swift */; };
+		1842B7DB1FBC387300BE6977 /* ComplaintDetailcell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1842B7D91FBC387300BE6977 /* ComplaintDetailcell.swift */; };
+		1842B7DC1FBC387300BE6977 /* ComplaintDetailcell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1842B7DA1FBC387300BE6977 /* ComplaintDetailcell.xib */; };
 		18449C7D1FA9556500120FDA /* WorkBookModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18449C7C1FA9556500120FDA /* WorkBookModel.swift */; };
 		18449C7F1FA955CD00120FDA /* BaseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18449C7E1FA955CD00120FDA /* BaseModel.swift */; };
 		18449C811FA9591F00120FDA /* BookDetailModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18449C801FA9591F00120FDA /* BookDetailModel.swift */; };
@@ -174,6 +182,8 @@
 		186A28091F96039D00FAA766 /* ComplaintRecordCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186A28071F96039D00FAA766 /* ComplaintRecordCell.swift */; };
 		186A280A1F96039D00FAA766 /* ComplaintRecordCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 186A28081F96039D00FAA766 /* ComplaintRecordCell.xib */; };
 		186A280C1F96077E00FAA766 /* MyFriendViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186A280B1F96077E00FAA766 /* MyFriendViewController.swift */; };
+		186D83481FBD27EA00F8E39C /* TComplaintModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186D83471FBD27EA00F8E39C /* TComplaintModel.swift */; };
+		186D834A1FBD29C200F8E39C /* TComplaintDetailModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186D83491FBD29C200F8E39C /* TComplaintDetailModel.swift */; };
 		186F391B1F919EF3009B8927 /* CreateBookViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186F391A1F919EF3009B8927 /* CreateBookViewController.swift */; };
 		186F391E1F919F7C009B8927 /* CreateBookCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186F391C1F919F7C009B8927 /* CreateBookCell.swift */; };
 		186F391F1F919F7C009B8927 /* CreateBookCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 186F391D1F919F7C009B8927 /* CreateBookCell.xib */; };
@@ -199,9 +209,31 @@
 		18759A941F95B75F00B8E851 /* showGradeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18759A921F95B75F00B8E851 /* showGradeCell.xib */; };
 		18759A971F95CFE000B8E851 /* MyBookCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18759A951F95CFE000B8E851 /* MyBookCell.swift */; };
 		18759A981F95CFE000B8E851 /* MyBookCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18759A961F95CFE000B8E851 /* MyBookCell.xib */; };
+		1877A3531FBA977900F8C9A7 /* GiveMarkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1877A3521FBA977900F8C9A7 /* GiveMarkView.swift */; };
+		1877A3551FBA978700F8C9A7 /* GiveMarkView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1877A3541FBA978700F8C9A7 /* GiveMarkView.xib */; };
+		1877A3571FBAC25300F8C9A7 /* TShowOneGradeVCViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1877A3561FBAC25300F8C9A7 /* TShowOneGradeVCViewController.swift */; };
+		1877A3591FBACD1A00F8C9A7 /* TNotWorkModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1877A3581FBACD1A00F8C9A7 /* TNotWorkModel.swift */; };
+		1877A35B1FBAD07900F8C9A7 /* TNotWorkDetailModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1877A35A1FBAD07900F8C9A7 /* TNotWorkDetailModel.swift */; };
+		1877A35D1FBAD1DB00F8C9A7 /* TNotWorkPointsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1877A35C1FBAD1DB00F8C9A7 /* TNotWorkPointsModel.swift */; };
+		1877A3611FBADD5500F8C9A7 /* TClassDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1877A3601FBADD5500F8C9A7 /* TClassDetailViewController.swift */; };
+		1877A3641FBADE5A00F8C9A7 /* TApplyJoinClassCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1877A3621FBADE5A00F8C9A7 /* TApplyJoinClassCell.swift */; };
+		1877A3651FBADE5A00F8C9A7 /* TApplyJoinClassCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1877A3631FBADE5A00F8C9A7 /* TApplyJoinClassCell.xib */; };
+		1877A3681FBAE14200F8C9A7 /* TClassStudentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1877A3661FBAE14200F8C9A7 /* TClassStudentCell.swift */; };
+		1877A3691FBAE14200F8C9A7 /* TClassStudentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1877A3671FBAE14200F8C9A7 /* TClassStudentCell.xib */; };
+		1877A36B1FBAEF7400F8C9A7 /* TShowTheTipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1877A36A1FBAEF7400F8C9A7 /* TShowTheTipView.swift */; };
+		1877A36D1FBAEF7C00F8C9A7 /* TShowTheTipView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1877A36C1FBAEF7C00F8C9A7 /* TShowTheTipView.xib */; };
 		187977931F9ADA98009AC957 /* TCreateClassViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187977921F9ADA98009AC957 /* TCreateClassViewController.swift */; };
 		187977961F9AE280009AC957 /* CreateClassCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187977941F9AE280009AC957 /* CreateClassCell.swift */; };
 		187977971F9AE280009AC957 /* CreateClassCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 187977951F9AE280009AC957 /* CreateClassCell.xib */; };
+		187B9DA91FBE7C650096688A /* TClassModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187B9DA81FBE7C650096688A /* TClassModel.swift */; };
+		187B9DAB1FBE92B40096688A /* TPeriodsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187B9DAA1FBE92B40096688A /* TPeriodsModel.swift */; };
+		187B9DAD1FBE93860096688A /* TClassWorkModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187B9DAC1FBE93860096688A /* TClassWorkModel.swift */; };
+		187B9DAF1FBEBD610096688A /* TClassMemberModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187B9DAE1FBEBD610096688A /* TClassMemberModel.swift */; };
+		187B9DB11FBEBDB90096688A /* THeadTeacherModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187B9DB01FBEBDB90096688A /* THeadTeacherModel.swift */; };
+		187B9DB31FBEBDCE0096688A /* TStudentModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187B9DB21FBEBDCE0096688A /* TStudentModel.swift */; };
+		187B9DB51FBEBDE00096688A /* TTeacherModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187B9DB41FBEBDE00096688A /* TTeacherModel.swift */; };
+		187B9DB71FBEF1920096688A /* TShowClassWorksModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187B9DB61FBEF1920096688A /* TShowClassWorksModel.swift */; };
+		187B9DB91FBEF7EC0096688A /* TClassApplyModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187B9DB81FBEF7EC0096688A /* TClassApplyModel.swift */; };
 		187C22BF1F9872FA00B05594 /* ClassDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187C22BE1F9872FA00B05594 /* ClassDetailViewController.swift */; };
 		188D0BF21F99C4C50010814C /* ShowClassMemberCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188D0BF01F99C4C50010814C /* ShowClassMemberCell.swift */; };
 		188D0BF31F99C4C50010814C /* ShowClassMemberCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 188D0BF11F99C4C50010814C /* ShowClassMemberCell.xib */; };
@@ -261,6 +293,12 @@
 		1893785B1F943FA600393CB4 /* SearchClassViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1893785A1F943FA600393CB4 /* SearchClassViewController.swift */; };
 		1893785D1F944CCB00393CB4 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1893785C1F944CCB00393CB4 /* SettingViewController.swift */; };
 		1893785F1F944D6900393CB4 /* AboutUsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1893785E1F944D6900393CB4 /* AboutUsViewController.swift */; };
+		1893E2971FBD5F9B0020C6EB /* NotWorkCellCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1893E2951FBD5F9B0020C6EB /* NotWorkCellCell.swift */; };
+		1893E2981FBD5F9B0020C6EB /* NotWorkCellCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1893E2961FBD5F9B0020C6EB /* NotWorkCellCell.xib */; };
+		1893E29A1FBD65300020C6EB /* NotWorkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1893E2991FBD65300020C6EB /* NotWorkViewController.swift */; };
+		1893E29C1FBD65570020C6EB /* CreateNotWorkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1893E29B1FBD65570020C6EB /* CreateNotWorkViewController.swift */; };
+		1893E29E1FBD65930020C6EB /* NotWorkDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1893E29D1FBD65930020C6EB /* NotWorkDetailViewController.swift */; };
+		1893E2A01FBD79780020C6EB /* ClassModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1893E29F1FBD79780020C6EB /* ClassModel.swift */; };
 		1894DFA61FB152D3003E99FF /* ShowWorkStateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1894DFA41FB152D3003E99FF /* ShowWorkStateCell.swift */; };
 		1894DFA71FB152D3003E99FF /* ShowWorkStateCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1894DFA51FB152D3003E99FF /* ShowWorkStateCell.xib */; };
 		1894DFAB1FB1B447003E99FF /* HBAlertPasswordView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1894DFA91FB1B447003E99FF /* HBAlertPasswordView.m */; };
@@ -289,6 +327,7 @@
 		18E854AE1FB958B80029E81F /* TViewBookCell3.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18E854AC1FB958B80029E81F /* TViewBookCell3.xib */; };
 		18E854B11FB975B40029E81F /* TViewBookCell0.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E854AF1FB975B40029E81F /* TViewBookCell0.swift */; };
 		18E854B21FB975B40029E81F /* TViewBookCell0.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18E854B01FB975B40029E81F /* TViewBookCell0.xib */; };
+		18E854B41FB98EE40029E81F /* TShowBookViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E854B31FB98EE40029E81F /* TShowBookViewController.swift */; };
 		18FB4A991F999C3E008AD1CB /* TMyBookViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FB4A981F999C3E008AD1CB /* TMyBookViewController.swift */; };
 		18FDA6A51F998E8C003D61D8 /* TDetailBookViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FDA6A41F998E8C003D61D8 /* TDetailBookViewController.swift */; };
 		18FDA6A81F998F7A003D61D8 /* TShowBookCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FDA6A61F998F7A003D61D8 /* TShowBookCell.swift */; };
@@ -345,6 +384,14 @@
 		183BA9591FAD5310001A3C1D /* FriendsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsModel.swift; sourceTree = "<group>"; };
 		183BA95B1FAD54F9001A3C1D /* ApplyModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplyModel.swift; sourceTree = "<group>"; };
 		183C57771FA9AAE00038CA8B /* MyBookDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyBookDetailViewController.swift; sourceTree = "<group>"; };
+		1842B7CD1FBBDA9A00BE6977 /* TNotWorkInfoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TNotWorkInfoCell.swift; sourceTree = "<group>"; };
+		1842B7CE1FBBDA9A00BE6977 /* TNotWorkInfoCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TNotWorkInfoCell.xib; sourceTree = "<group>"; };
+		1842B7D11FBBEE7600BE6977 /* TShowClassMessageVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TShowClassMessageVC.swift; sourceTree = "<group>"; };
+		1842B7D31FBBEFA500BE6977 /* TClassMessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TClassMessageCell.swift; sourceTree = "<group>"; };
+		1842B7D41FBBEFA500BE6977 /* TClassMessageCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TClassMessageCell.xib; sourceTree = "<group>"; };
+		1842B7D71FBC0E5900BE6977 /* TPeriodsDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPeriodsDetailViewController.swift; sourceTree = "<group>"; };
+		1842B7D91FBC387300BE6977 /* ComplaintDetailcell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComplaintDetailcell.swift; sourceTree = "<group>"; };
+		1842B7DA1FBC387300BE6977 /* ComplaintDetailcell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ComplaintDetailcell.xib; sourceTree = "<group>"; };
 		18449C7C1FA9556500120FDA /* WorkBookModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkBookModel.swift; sourceTree = "<group>"; };
 		18449C7E1FA955CD00120FDA /* BaseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseModel.swift; sourceTree = "<group>"; };
 		18449C801FA9591F00120FDA /* BookDetailModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookDetailModel.swift; sourceTree = "<group>"; };
@@ -475,6 +522,8 @@
 		186A28071F96039D00FAA766 /* ComplaintRecordCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComplaintRecordCell.swift; sourceTree = "<group>"; };
 		186A28081F96039D00FAA766 /* ComplaintRecordCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ComplaintRecordCell.xib; sourceTree = "<group>"; };
 		186A280B1F96077E00FAA766 /* MyFriendViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyFriendViewController.swift; sourceTree = "<group>"; };
+		186D83471FBD27EA00F8E39C /* TComplaintModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TComplaintModel.swift; sourceTree = "<group>"; };
+		186D83491FBD29C200F8E39C /* TComplaintDetailModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TComplaintDetailModel.swift; sourceTree = "<group>"; };
 		186F391A1F919EF3009B8927 /* CreateBookViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateBookViewController.swift; sourceTree = "<group>"; };
 		186F391C1F919F7C009B8927 /* CreateBookCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateBookCell.swift; sourceTree = "<group>"; };
 		186F391D1F919F7C009B8927 /* CreateBookCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CreateBookCell.xib; sourceTree = "<group>"; };
@@ -500,9 +549,31 @@
 		18759A921F95B75F00B8E851 /* showGradeCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = showGradeCell.xib; sourceTree = "<group>"; };
 		18759A951F95CFE000B8E851 /* MyBookCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyBookCell.swift; sourceTree = "<group>"; };
 		18759A961F95CFE000B8E851 /* MyBookCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MyBookCell.xib; sourceTree = "<group>"; };
+		1877A3521FBA977900F8C9A7 /* GiveMarkView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GiveMarkView.swift; sourceTree = "<group>"; };
+		1877A3541FBA978700F8C9A7 /* GiveMarkView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GiveMarkView.xib; sourceTree = "<group>"; };
+		1877A3561FBAC25300F8C9A7 /* TShowOneGradeVCViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TShowOneGradeVCViewController.swift; sourceTree = "<group>"; };
+		1877A3581FBACD1A00F8C9A7 /* TNotWorkModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TNotWorkModel.swift; sourceTree = "<group>"; };
+		1877A35A1FBAD07900F8C9A7 /* TNotWorkDetailModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TNotWorkDetailModel.swift; sourceTree = "<group>"; };
+		1877A35C1FBAD1DB00F8C9A7 /* TNotWorkPointsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TNotWorkPointsModel.swift; sourceTree = "<group>"; };
+		1877A3601FBADD5500F8C9A7 /* TClassDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TClassDetailViewController.swift; sourceTree = "<group>"; };
+		1877A3621FBADE5A00F8C9A7 /* TApplyJoinClassCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TApplyJoinClassCell.swift; sourceTree = "<group>"; };
+		1877A3631FBADE5A00F8C9A7 /* TApplyJoinClassCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TApplyJoinClassCell.xib; sourceTree = "<group>"; };
+		1877A3661FBAE14200F8C9A7 /* TClassStudentCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TClassStudentCell.swift; sourceTree = "<group>"; };
+		1877A3671FBAE14200F8C9A7 /* TClassStudentCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TClassStudentCell.xib; sourceTree = "<group>"; };
+		1877A36A1FBAEF7400F8C9A7 /* TShowTheTipView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TShowTheTipView.swift; sourceTree = "<group>"; };
+		1877A36C1FBAEF7C00F8C9A7 /* TShowTheTipView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TShowTheTipView.xib; sourceTree = "<group>"; };
 		187977921F9ADA98009AC957 /* TCreateClassViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TCreateClassViewController.swift; sourceTree = "<group>"; };
 		187977941F9AE280009AC957 /* CreateClassCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateClassCell.swift; sourceTree = "<group>"; };
 		187977951F9AE280009AC957 /* CreateClassCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CreateClassCell.xib; sourceTree = "<group>"; };
+		187B9DA81FBE7C650096688A /* TClassModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TClassModel.swift; sourceTree = "<group>"; };
+		187B9DAA1FBE92B40096688A /* TPeriodsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPeriodsModel.swift; sourceTree = "<group>"; };
+		187B9DAC1FBE93860096688A /* TClassWorkModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TClassWorkModel.swift; sourceTree = "<group>"; };
+		187B9DAE1FBEBD610096688A /* TClassMemberModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TClassMemberModel.swift; sourceTree = "<group>"; };
+		187B9DB01FBEBDB90096688A /* THeadTeacherModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THeadTeacherModel.swift; sourceTree = "<group>"; };
+		187B9DB21FBEBDCE0096688A /* TStudentModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TStudentModel.swift; sourceTree = "<group>"; };
+		187B9DB41FBEBDE00096688A /* TTeacherModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TTeacherModel.swift; sourceTree = "<group>"; };
+		187B9DB61FBEF1920096688A /* TShowClassWorksModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TShowClassWorksModel.swift; sourceTree = "<group>"; };
+		187B9DB81FBEF7EC0096688A /* TClassApplyModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TClassApplyModel.swift; sourceTree = "<group>"; };
 		187C22BE1F9872FA00B05594 /* ClassDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassDetailViewController.swift; sourceTree = "<group>"; };
 		188D0BF01F99C4C50010814C /* ShowClassMemberCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowClassMemberCell.swift; sourceTree = "<group>"; };
 		188D0BF11F99C4C50010814C /* ShowClassMemberCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ShowClassMemberCell.xib; sourceTree = "<group>"; };
@@ -562,6 +633,12 @@
 		1893785A1F943FA600393CB4 /* SearchClassViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchClassViewController.swift; sourceTree = "<group>"; };
 		1893785C1F944CCB00393CB4 /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
 		1893785E1F944D6900393CB4 /* AboutUsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutUsViewController.swift; sourceTree = "<group>"; };
+		1893E2951FBD5F9B0020C6EB /* NotWorkCellCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotWorkCellCell.swift; sourceTree = "<group>"; };
+		1893E2961FBD5F9B0020C6EB /* NotWorkCellCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NotWorkCellCell.xib; sourceTree = "<group>"; };
+		1893E2991FBD65300020C6EB /* NotWorkViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotWorkViewController.swift; sourceTree = "<group>"; };
+		1893E29B1FBD65570020C6EB /* CreateNotWorkViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateNotWorkViewController.swift; sourceTree = "<group>"; };
+		1893E29D1FBD65930020C6EB /* NotWorkDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotWorkDetailViewController.swift; sourceTree = "<group>"; };
+		1893E29F1FBD79780020C6EB /* ClassModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassModel.swift; sourceTree = "<group>"; };
 		1894DFA41FB152D3003E99FF /* ShowWorkStateCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowWorkStateCell.swift; sourceTree = "<group>"; };
 		1894DFA51FB152D3003E99FF /* ShowWorkStateCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ShowWorkStateCell.xib; sourceTree = "<group>"; };
 		1894DFA91FB1B447003E99FF /* HBAlertPasswordView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HBAlertPasswordView.m; sourceTree = "<group>"; };
@@ -586,6 +663,7 @@
 		18E854AC1FB958B80029E81F /* TViewBookCell3.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TViewBookCell3.xib; sourceTree = "<group>"; };
 		18E854AF1FB975B40029E81F /* TViewBookCell0.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TViewBookCell0.swift; sourceTree = "<group>"; };
 		18E854B01FB975B40029E81F /* TViewBookCell0.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TViewBookCell0.xib; sourceTree = "<group>"; };
+		18E854B31FB98EE40029E81F /* TShowBookViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TShowBookViewController.swift; sourceTree = "<group>"; };
 		18FB4A981F999C3E008AD1CB /* TMyBookViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TMyBookViewController.swift; sourceTree = "<group>"; };
 		18FDA6A41F998E8C003D61D8 /* TDetailBookViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TDetailBookViewController.swift; sourceTree = "<group>"; };
 		18FDA6A61F998F7A003D61D8 /* TShowBookCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TShowBookCell.swift; sourceTree = "<group>"; };
@@ -615,7 +693,6 @@
 			isa = PBXGroup;
 			children = (
 				182181431FA827DD00C2BE89 /* BaseMethod.swift */,
-				182181461FA827DD00C2BE89 /* TheUrls.swift */,
 				182181441FA827DD00C2BE89 /* BaseViewController.swift */,
 				182181451FA827DD00C2BE89 /* TheGlobalVariable.swift */,
 				182181471FA827DD00C2BE89 /* XCNavigationController.swift */,
@@ -629,6 +706,7 @@
 		182181481FA827F500C2BE89 /* HttpTools */ = {
 			isa = PBXGroup;
 			children = (
+				182181461FA827DD00C2BE89 /* TheUrls.swift */,
 				182181491FA827F500C2BE89 /* NetWorkTools.swift */,
 			);
 			path = HttpTools;
@@ -998,7 +1076,6 @@
 				186A280B1F96077E00FAA766 /* MyFriendViewController.swift */,
 				186A28051F96038500FAA766 /* ApplyListViewController.swift */,
 				186A28031F96037300FAA766 /* AddFriendViewController.swift */,
-				186A28011F96035800FAA766 /* ComplaintRecordViewController.swift */,
 				186A27FF1F96016000FAA766 /* MessgaeCenterViewController.swift */,
 				1867C40D1F9DA0CB00831A23 /* SystemMsgViewController.swift */,
 				180D6B6F1F94654000480DEF /* SwitchRolesViewController.swift */,
@@ -1018,8 +1095,6 @@
 				180D6B721F94775500480DEF /* SystemMessageCell.xib */,
 				186A27FB1F96002E00FAA766 /* MessgesCell.swift */,
 				186A27FC1F96002E00FAA766 /* MessgesCell.xib */,
-				186A28071F96039D00FAA766 /* ComplaintRecordCell.swift */,
-				186A28081F96039D00FAA766 /* ComplaintRecordCell.xib */,
 				184E6DE71F960DEE00C2C3DB /* ShowFridensCell.swift */,
 				184E6DE81F960DEE00C2C3DB /* ShowFridensCell.xib */,
 				184E6DEB1F960FDA00C2C3DB /* ApplyCell.swift */,
@@ -1052,7 +1127,10 @@
 		18520DE81F8C682D004EAF99 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				1893E2991FBD65300020C6EB /* NotWorkViewController.swift */,
+				1893E29D1FBD65930020C6EB /* NotWorkDetailViewController.swift */,
 				18520DD31F8C5DBA004EAF99 /* Non-WorkBookViewController.swift */,
+				1893E29B1FBD65570020C6EB /* CreateNotWorkViewController.swift */,
 				186F392F1F920602009B8927 /* ComplaintViewController.swift */,
 				18B1E66B1FB5B10F00D1C6F3 /* ChooseTeacherCorrectVC.swift */,
 			);
@@ -1074,6 +1152,8 @@
 				18759A8E1F95B66A00B8E851 /* AnserVideoCell.xib */,
 				18759A911F95B75F00B8E851 /* showGradeCell.swift */,
 				18759A921F95B75F00B8E851 /* showGradeCell.xib */,
+				1893E2951FBD5F9B0020C6EB /* NotWorkCellCell.swift */,
+				1893E2961FBD5F9B0020C6EB /* NotWorkCellCell.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1110,6 +1190,7 @@
 		18520DED1F8C683D004EAF99 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				1893E29F1FBD79780020C6EB /* ClassModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1217,6 +1298,8 @@
 				18FB4A981F999C3E008AD1CB /* TMyBookViewController.swift */,
 				18FDA6B01F99982C003D61D8 /* TSearchBookViewController.swift */,
 				1867C40F1F9DC65C00831A23 /* TBookDetailViewController.swift */,
+				18E854B31FB98EE40029E81F /* TShowBookViewController.swift */,
+				1877A3561FBAC25300F8C9A7 /* TShowOneGradeVCViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -1246,6 +1329,10 @@
 				182EB5C51F9ED38A00B74F84 /* TTipView.xib */,
 				18E854A31FB931370029E81F /* TShowDoneWorkCell.swift */,
 				18E854A41FB931370029E81F /* TShowDoneWorkCell.xib */,
+				1877A3521FBA977900F8C9A7 /* GiveMarkView.swift */,
+				1877A3541FBA978700F8C9A7 /* GiveMarkView.xib */,
+				1877A36A1FBAEF7400F8C9A7 /* TShowTheTipView.swift */,
+				1877A36C1FBAEF7C00F8C9A7 /* TShowTheTipView.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1281,6 +1368,8 @@
 				1859819A1FB5663D0021EAD9 /* ShowWriteAnswerCell.xib */,
 				185981951FB558AD0021EAD9 /* AnswerImageCell.swift */,
 				185981961FB558AD0021EAD9 /* AnswerImageCell.xib */,
+				1842B7CD1FBBDA9A00BE6977 /* TNotWorkInfoCell.swift */,
+				1842B7CE1FBBDA9A00BE6977 /* TNotWorkInfoCell.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1289,6 +1378,9 @@
 			isa = PBXGroup;
 			children = (
 				1859818B1FB543600021EAD9 /* UrlModel.swift */,
+				1877A3581FBACD1A00F8C9A7 /* TNotWorkModel.swift */,
+				1877A35A1FBAD07900F8C9A7 /* TNotWorkDetailModel.swift */,
+				1877A35C1FBAD1DB00F8C9A7 /* TNotWorkPointsModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1297,6 +1389,9 @@
 			isa = PBXGroup;
 			children = (
 				18749A0E1F99838400DEB777 /* TClassViewController.swift */,
+				1877A3601FBADD5500F8C9A7 /* TClassDetailViewController.swift */,
+				1842B7D71FBC0E5900BE6977 /* TPeriodsDetailViewController.swift */,
+				1842B7D11FBBEE7600BE6977 /* TShowClassMessageVC.swift */,
 				187977921F9ADA98009AC957 /* TCreateClassViewController.swift */,
 				18D343391F9B1469007CE166 /* TChooseMemberViewController.swift */,
 				18749A121F99869300DEB777 /* TSearchClassViewController.swift */,
@@ -1315,6 +1410,12 @@
 				18D343361F9AFC9E007CE166 /* CreateHeadCell.xib */,
 				182181751FA82C2C00C2BE89 /* TClassCell.swift */,
 				182181761FA82C2C00C2BE89 /* TClassCell.xib */,
+				1877A3621FBADE5A00F8C9A7 /* TApplyJoinClassCell.swift */,
+				1877A3631FBADE5A00F8C9A7 /* TApplyJoinClassCell.xib */,
+				1877A3661FBAE14200F8C9A7 /* TClassStudentCell.swift */,
+				1877A3671FBAE14200F8C9A7 /* TClassStudentCell.xib */,
+				1842B7D31FBBEFA500BE6977 /* TClassMessageCell.swift */,
+				1842B7D41FBBEFA500BE6977 /* TClassMessageCell.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1322,6 +1423,15 @@
 		18749A061F99830E00DEB777 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				187B9DA81FBE7C650096688A /* TClassModel.swift */,
+				187B9DAA1FBE92B40096688A /* TPeriodsModel.swift */,
+				187B9DAC1FBE93860096688A /* TClassWorkModel.swift */,
+				187B9DAE1FBEBD610096688A /* TClassMemberModel.swift */,
+				187B9DB01FBEBDB90096688A /* THeadTeacherModel.swift */,
+				187B9DB21FBEBDCE0096688A /* TStudentModel.swift */,
+				187B9DB41FBEBDE00096688A /* TTeacherModel.swift */,
+				187B9DB61FBEF1920096688A /* TShowClassWorksModel.swift */,
+				187B9DB81FBEF7EC0096688A /* TClassApplyModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1331,6 +1441,7 @@
 			children = (
 				18749A101F99839700DEB777 /* TPersonalViewController.swift */,
 				182181671FA829D800C2BE89 /* TEditInfoViewController.swift */,
+				186A28011F96035800FAA766 /* ComplaintRecordViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -1338,6 +1449,10 @@
 		18749A081F99832500DEB777 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				186A28071F96039D00FAA766 /* ComplaintRecordCell.swift */,
+				186A28081F96039D00FAA766 /* ComplaintRecordCell.xib */,
+				1842B7D91FBC387300BE6977 /* ComplaintDetailcell.swift */,
+				1842B7DA1FBC387300BE6977 /* ComplaintDetailcell.xib */,
 				182181621FA829CC00C2BE89 /* TeacherInfoCell1.swift */,
 				182181651FA829CD00C2BE89 /* TeacherInfoCell1.xib */,
 				182181611FA829CC00C2BE89 /* TeacherInfoCell2.swift */,
@@ -1354,6 +1469,8 @@
 			isa = PBXGroup;
 			children = (
 				1853BFDC1FB0632C00FF2FC5 /* MessageModel.swift */,
+				186D83471FBD27EA00F8E39C /* TComplaintModel.swift */,
+				186D83491FBD29C200F8E39C /* TComplaintDetailModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1569,6 +1686,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1877A36D1FBAEF7C00F8C9A7 /* TShowTheTipView.xib in Resources */,
 				181F3CFF1FA8744500C484D6 /* TViewBookCell.xib in Resources */,
 				181F3D001FA8744500C484D6 /* TClassCell.xib in Resources */,
 				183FEAAE1FA871060015CE9B /* TeacherInfoCell2.xib in Resources */,
@@ -1590,6 +1708,7 @@
 				182EB5C61F9ED38A00B74F84 /* TTipView.xib in Resources */,
 				18E854A61FB931370029E81F /* TShowDoneWorkCell.xib in Resources */,
 				184EC6891FB6E6A0007C6BDE /* TViewBookCell2.xib in Resources */,
+				1893E2981FBD5F9B0020C6EB /* NotWorkCellCell.xib in Resources */,
 				186A280A1F96039D00FAA766 /* ComplaintRecordCell.xib in Resources */,
 				184BBED01F9B45E900EF65C4 /* EditInfoCell.xib in Resources */,
 				188D0C621F99F4FB0010814C /* ShowImageCell.xib in Resources */,
@@ -1604,14 +1723,18 @@
 				185981981FB558AD0021EAD9 /* AnswerImageCell.xib in Resources */,
 				188D0C5E1F99EA1A0010814C /* SUploadWorkCell.xib in Resources */,
 				186F392E1F91FA8D009B8927 /* ComplaintCell.xib in Resources */,
+				1842B7DC1FBC387300BE6977 /* ComplaintDetailcell.xib in Resources */,
 				187977971F9AE280009AC957 /* CreateClassCell.xib in Resources */,
 				184BBED41F9B4CE800EF65C4 /* EditHeadCell.xib in Resources */,
 				180D6B7C1F94A51E00480DEF /* CheckWorkCell.xib in Resources */,
 				18FDA6A91F998F7A003D61D8 /* TShowBookCell.xib in Resources */,
 				18E854AA1FB94D800029E81F /* TViewBookCell1.xib in Resources */,
+				1877A3651FBADE5A00F8C9A7 /* TApplyJoinClassCell.xib in Resources */,
 				188D0BF31F99C4C50010814C /* ShowClassMemberCell.xib in Resources */,
 				184E6DF41F96197000C2C3DB /* IncomeHeadView.xib in Resources */,
 				180D6B741F94775500480DEF /* SystemMessageCell.xib in Resources */,
+				1842B7D61FBBEFA500BE6977 /* TClassMessageCell.xib in Resources */,
+				1842B7D01FBBDA9A00BE6977 /* TNotWorkInfoCell.xib in Resources */,
 				184EC6811FB69EA9007C6BDE /* ShowFileCell.xib in Resources */,
 				188D0BFB1F99CF6C0010814C /* TGoodWorkCell.xib in Resources */,
 				18FDA6AF1F9995D0003D61D8 /* TMYBooksCell.xib in Resources */,
@@ -1623,12 +1746,14 @@
 				1859819C1FB5663D0021EAD9 /* ShowWriteAnswerCell.xib in Resources */,
 				18520DF11F8C6997004EAF99 /* WorkBookCell.xib in Resources */,
 				18E854B21FB975B40029E81F /* TViewBookCell0.xib in Resources */,
+				1877A3691FBAE14200F8C9A7 /* TClassStudentCell.xib in Resources */,
 				188D0BF71F99CB480010814C /* TClassInfoCell.xib in Resources */,
 				186F39341F921561009B8927 /* ClassCell.xib in Resources */,
 				184E6DF81F961BC100C2C3DB /* IncomeCell.xib in Resources */,
 				186F39231F91A9B1009B8927 /* ChooseImageCell.xib in Resources */,
 				18759A8C1F95B5EC00B8E851 /* AnserImageCell.xib in Resources */,
 				18759A901F95B66A00B8E851 /* AnserVideoCell.xib in Resources */,
+				1877A3551FBA978700F8C9A7 /* GiveMarkView.xib in Resources */,
 				184E6DEE1F960FDA00C2C3DB /* ApplyCell.xib in Resources */,
 				18D343341F9AF646007CE166 /* CreateClassCell2.xib in Resources */,
 			);
@@ -1730,6 +1855,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1842B7DB1FBC387300BE6977 /* ComplaintDetailcell.swift in Sources */,
 				18B1E6621FB58EE000D1C6F3 /* OCTools.h in Sources */,
 				18B1E6631FB58EE000D1C6F3 /* CTImageEditUtil.h in Sources */,
 				18B1E6641FB58EE000D1C6F3 /* UIImage+EditImageWithColor.h in Sources */,
@@ -1738,6 +1864,7 @@
 				1821816B1FA82A3100C2BE89 /* TeacherInfoCell1.swift in Sources */,
 				1894DFAB1FB1B447003E99FF /* HBAlertPasswordView.m in Sources */,
 				1821816D1FA82A3100C2BE89 /* TeacherInfoCell2.swift in Sources */,
+				1842B7D51FBBEFA500BE6977 /* TClassMessageCell.swift in Sources */,
 				1821816F1FA82A3100C2BE89 /* TeacherInfoCell3.swift in Sources */,
 				182181711FA82A3100C2BE89 /* TeacherInfoCell4.swift in Sources */,
 				1821815B1FA8296400C2BE89 /* ShowTagsView.swift in Sources */,
@@ -1745,6 +1872,7 @@
 				1821814B1FA8285A00C2BE89 /* LookPsWViewController.swift in Sources */,
 				1821814E1FA8285A00C2BE89 /* RegisterViewController.swift in Sources */,
 				185981971FB558AD0021EAD9 /* AnswerImageCell.swift in Sources */,
+				187B9DAF1FBEBD610096688A /* TClassMemberModel.swift in Sources */,
 				182181501FA8285A00C2BE89 /* NetWorkTools.swift in Sources */,
 				182181511FA8285A00C2BE89 /* BaseMethod.swift in Sources */,
 				182181521FA8285A00C2BE89 /* BaseViewController.swift in Sources */,
@@ -1752,9 +1880,11 @@
 				182181541FA8285A00C2BE89 /* TheUrls.swift in Sources */,
 				182181551FA8285A00C2BE89 /* XCNavigationController.swift in Sources */,
 				188D0C361F99D8210010814C /* YYCache.h in Sources */,
+				1893E2971FBD5F9B0020C6EB /* NotWorkCellCell.swift in Sources */,
 				188D0C371F99D8210010814C /* YYCache.m in Sources */,
 				188D0C381F99D8210010814C /* YYDiskCache.h in Sources */,
 				188D0C391F99D8210010814C /* YYDiskCache.m in Sources */,
+				1877A3571FBAC25300F8C9A7 /* TShowOneGradeVCViewController.swift in Sources */,
 				188D0C3A1F99D8210010814C /* YYKVStorage.h in Sources */,
 				182181771FA82C2D00C2BE89 /* TClassCell.swift in Sources */,
 				188D0C3B1F99D8210010814C /* YYKVStorage.m in Sources */,
@@ -1791,11 +1921,13 @@
 				188D0C501F99D8210010814C /* YYImageCoder.h in Sources */,
 				184EC6801FB69EA9007C6BDE /* ShowFileCell.swift in Sources */,
 				1867C40E1F9DA0CB00831A23 /* SystemMsgViewController.swift in Sources */,
+				1877A36B1FBAEF7400F8C9A7 /* TShowTheTipView.swift in Sources */,
 				188D0C511F99D8210010814C /* YYImageCoder.m in Sources */,
 				188D0C521F99D8210010814C /* YYSpriteSheetImage.h in Sources */,
 				188D0C531F99D8210010814C /* YYSpriteSheetImage.m in Sources */,
 				188D0C541F99D8210010814C /* YYImageCache.h in Sources */,
 				188D0C551F99D8210010814C /* YYImageCache.m in Sources */,
+				187B9DB11FBEBDB90096688A /* THeadTeacherModel.swift in Sources */,
 				188D0C561F99D8210010814C /* YYWebImage.h in Sources */,
 				188D0C571F99D8210010814C /* YYWebImageManager.h in Sources */,
 				18D3433A1F9B1469007CE166 /* TChooseMemberViewController.swift in Sources */,
@@ -1808,11 +1940,13 @@
 				18D343331F9AF646007CE166 /* CreateClassCell2.swift in Sources */,
 				188D0C061F99D65E0010814C /* KSPhotoBrowser.m in Sources */,
 				188D0C071F99D65E0010814C /* KSPhotoItem.h in Sources */,
+				1877A3591FBACD1A00F8C9A7 /* TNotWorkModel.swift in Sources */,
 				183BA95C1FAD54FA001A3C1D /* ApplyModel.swift in Sources */,
 				188D0C081F99D65E0010814C /* KSPhotoItem.m in Sources */,
 				188D0C091F99D65E0010814C /* KSPhotoView.h in Sources */,
 				188D0C0A1F99D65E0010814C /* KSPhotoView.m in Sources */,
 				1853BFD81FB0457300FF2FC5 /* ClassGradeCell.swift in Sources */,
+				1893E29C1FBD65570020C6EB /* CreateNotWorkViewController.swift in Sources */,
 				188D0C0B1F99D65E0010814C /* KSProgressLayer.h in Sources */,
 				188D0C0C1F99D65E0010814C /* KSProgressLayer.m in Sources */,
 				181F3CFE1FA8743100C484D6 /* TViewBookCell.swift in Sources */,
@@ -1821,6 +1955,7 @@
 				184D94611F97250200C79DBC /* EraserBrush.swift in Sources */,
 				184D94621F97250200C79DBC /* GaussianBlurBrush.swift in Sources */,
 				184D94631F97250200C79DBC /* InputBrush.swift in Sources */,
+				18E854B41FB98EE40029E81F /* TShowBookViewController.swift in Sources */,
 				18449C7F1FA955CD00120FDA /* BaseModel.swift in Sources */,
 				184D94641F97250200C79DBC /* LineBrush.swift in Sources */,
 				184D94651F97250200C79DBC /* PencilBrush.swift in Sources */,
@@ -1835,8 +1970,10 @@
 				18D343371F9AFC9E007CE166 /* CreateHeadCell.swift in Sources */,
 				184D946D1F97250200C79DBC /* CLCropViewController.swift in Sources */,
 				184BBECC1F9B431500EF65C4 /* EditInfoViewController.swift in Sources */,
+				1893E29E1FBD65930020C6EB /* NotWorkDetailViewController.swift in Sources */,
 				184D946E1F97250200C79DBC /* CLImagePickerSingleViewController.swift in Sources */,
 				18FDA6A81F998F7A003D61D8 /* TShowBookCell.swift in Sources */,
+				186D834A1FBD29C200F8E39C /* TComplaintDetailModel.swift in Sources */,
 				185981C11FB588980021EAD9 /* CLWebProgressView.swift in Sources */,
 				184D946F1F97250200C79DBC /* CLImagePickerSingleViewController.xib in Sources */,
 				18FDA6B11F99982C003D61D8 /* TSearchBookViewController.swift in Sources */,
@@ -1858,17 +1995,22 @@
 				188D0BF21F99C4C50010814C /* ShowClassMemberCell.swift in Sources */,
 				184D94791F97250200C79DBC /* NomalStyleView.xib in Sources */,
 				185981B61FB588330021EAD9 /* UIView+Frame.swift in Sources */,
+				1842B7D81FBC0E5900BE6977 /* TPeriodsDetailViewController.swift in Sources */,
 				184D947A1F97250200C79DBC /* HDAlertViewController.swift in Sources */,
 				184D947B1F97250200C79DBC /* HDAlertWindowView.swift in Sources */,
 				184D947C1F97250200C79DBC /* PopViewUtil.swift in Sources */,
 				184D947D1F97250200C79DBC /* CLCircleView.swift in Sources */,
 				184D947E1F97250200C79DBC /* CLImageAmplifyView.swift in Sources */,
 				184D947F1F97250200C79DBC /* CLImagePickerCamaroCell.swift in Sources */,
+				187B9DB71FBEF1920096688A /* TShowClassWorksModel.swift in Sources */,
 				184D94801F97250200C79DBC /* CLImagePickerListCell.swift in Sources */,
 				184D94811F97250200C79DBC /* CLImagePickerListCell.xib in Sources */,
 				187977931F9ADA98009AC957 /* TCreateClassViewController.swift in Sources */,
+				1877A35D1FBAD1DB00F8C9A7 /* TNotWorkPointsModel.swift in Sources */,
 				18749A131F99869300DEB777 /* TSearchClassViewController.swift in Sources */,
 				184D94821F97250200C79DBC /* CLPreviewCell.swift in Sources */,
+				187B9DAD1FBE93860096688A /* TClassWorkModel.swift in Sources */,
+				187B9DB31FBEBDCE0096688A /* TStudentModel.swift in Sources */,
 				18E854AD1FB958B80029E81F /* TViewBookCell3.swift in Sources */,
 				184D94831F97250200C79DBC /* CLPreviewVideoCell.swift in Sources */,
 				184D94841F97250200C79DBC /* CLSingleTypeCell.swift in Sources */,
@@ -1882,6 +2024,7 @@
 				184D94881F97250200C79DBC /* ImagePickerChooseImageCell.xib in Sources */,
 				18449C831FA95AB400120FDA /* PersonalModel.swift in Sources */,
 				184D94891F97250200C79DBC /* PencilChooseView.swift in Sources */,
+				1842B7D21FBBEE7600BE6977 /* TShowClassMessageVC.swift in Sources */,
 				184D948A1F97250200C79DBC /* PhotoView.swift in Sources */,
 				184AE50A1F90C156007FE81A /* MyBookViewController.swift in Sources */,
 				186A28091F96039D00FAA766 /* ComplaintRecordCell.swift in Sources */,
@@ -1895,11 +2038,14 @@
 				186A28021F96035800FAA766 /* ComplaintRecordViewController.swift in Sources */,
 				184AE5081F90C07B007FE81A /* SearchBooksViewController.swift in Sources */,
 				1823BF461F8E09DE0056C705 /* WorkBookCell.xib in Sources */,
+				1877A3681FBAE14200F8C9A7 /* TClassStudentCell.swift in Sources */,
 				180D6B6E1F945DA700480DEF /* SuggestViewController.swift in Sources */,
 				18E854A91FB94D800029E81F /* TViewBookCell1.swift in Sources */,
 				18759A931F95B75F00B8E851 /* showGradeCell.swift in Sources */,
+				1877A3641FBADE5A00F8C9A7 /* TApplyJoinClassCell.swift in Sources */,
 				18C3D2A81FAC1AE3001C295C /* AccountModel.swift in Sources */,
 				182181681FA829D800C2BE89 /* TEditInfoViewController.swift in Sources */,
+				187B9DAB1FBE92B40096688A /* TPeriodsModel.swift in Sources */,
 				186A28041F96037300FAA766 /* AddFriendViewController.swift in Sources */,
 				186F39331F921561009B8927 /* ClassCell.swift in Sources */,
 				18749A0B1F99834F00DEB777 /* TBookViewController.swift in Sources */,
@@ -1917,11 +2063,15 @@
 				186A27FD1F96002E00FAA766 /* MessgesCell.swift in Sources */,
 				18520DD61F8C5DC6004EAF99 /* ClassViewController.swift in Sources */,
 				18520DB61F8C5BAE004EAF99 /* AppDelegate.swift in Sources */,
+				1877A35B1FBAD07900F8C9A7 /* TNotWorkDetailModel.swift in Sources */,
+				187B9DA91FBE7C650096688A /* TClassModel.swift in Sources */,
 				18FDA6A51F998E8C003D61D8 /* TDetailBookViewController.swift in Sources */,
 				185981C31FB588BE0021EAD9 /* AppConfig.swift in Sources */,
 				18759A971F95CFE000B8E851 /* MyBookCell.swift in Sources */,
 				1893785F1F944D6900393CB4 /* AboutUsViewController.swift in Sources */,
 				186F391E1F919F7C009B8927 /* CreateBookCell.swift in Sources */,
+				1893E2A01FBD79780020C6EB /* ClassModel.swift in Sources */,
+				186D83481FBD27EA00F8E39C /* TComplaintModel.swift in Sources */,
 				1853BFD41FB03FFB00FF2FC5 /* ShowPeriodsCell.swift in Sources */,
 				18520DD41F8C5DBA004EAF99 /* Non-WorkBookViewController.swift in Sources */,
 				183BA95A1FAD5310001A3C1D /* FriendsModel.swift in Sources */,
@@ -1934,12 +2084,16 @@
 				187977961F9AE280009AC957 /* CreateClassCell.swift in Sources */,
 				186A280C1F96077E00FAA766 /* MyFriendViewController.swift in Sources */,
 				184E6DED1F960FDA00C2C3DB /* ApplyCell.swift in Sources */,
+				187B9DB51FBEBDE00096688A /* TTeacherModel.swift in Sources */,
 				18520DF01F8C6997004EAF99 /* WorkBookCell.swift in Sources */,
 				180D6B6B1F9456FF00480DEF /* PersonHeadCell.swift in Sources */,
 				1859818C1FB543600021EAD9 /* UrlModel.swift in Sources */,
 				1867C4101F9DC65C00831A23 /* TBookDetailViewController.swift in Sources */,
+				1877A3611FBADD5500F8C9A7 /* TClassDetailViewController.swift in Sources */,
 				188D0BF61F99CB480010814C /* TClassInfoCell.swift in Sources */,
 				186F39221F91A9B1009B8927 /* ChooseImageCell.swift in Sources */,
+				1842B7CF1FBBDA9A00BE6977 /* TNotWorkInfoCell.swift in Sources */,
+				1893E29A1FBD65300020C6EB /* NotWorkViewController.swift in Sources */,
 				1853BFDB1FB04BF100FF2FC5 /* PeriodsDetailViewController.swift in Sources */,
 				188D0BFA1F99CF6C0010814C /* TGoodWorkCell.swift in Sources */,
 				18FDA6AB1F99950D003D61D8 /* TMyCorrectViewController.swift in Sources */,
@@ -1951,6 +2105,8 @@
 				18759A8F1F95B66A00B8E851 /* AnserVideoCell.swift in Sources */,
 				184D941A1F97019E00C79DBC /* BookDetailViewController.swift in Sources */,
 				18B1E6611FB58DC500D1C6F3 /* DrawBoard.swift in Sources */,
+				1877A3531FBA977900F8C9A7 /* GiveMarkView.swift in Sources */,
+				187B9DB91FBEF7EC0096688A /* TClassApplyModel.swift in Sources */,
 				184E6DF01F96195D00C2C3DB /* IncomeHeadView.swift in Sources */,
 				184E6DF71F961BC100C2C3DB /* IncomeCell.swift in Sources */,
 				183C57781FA9AAE00038CA8B /* MyBookDetailViewController.swift in Sources */,

@@ -43,7 +43,6 @@ class SuggestViewController: BaseViewController ,UITextFieldDelegate,UITextViewD
         
         self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(title: "提交", style: .plain, target: self, action: #selector(submitSuggest(sender:)))
         self.navigationItem.rightBarButtonItem?.tintColor = UIColor.white
-        
     }
     
     

@@ -15,6 +15,16 @@ class ClassCell: UITableViewCell {
     
     @IBOutlet weak var bookImage: UIImageView!
     
+    @IBOutlet weak var bookTitle: UILabel!
+    
+    @IBOutlet weak var theTeacher: UILabel!
+    
+    @IBOutlet weak var theCount: UILabel!
+    
+    @IBOutlet weak var handTime: UILabel!
+    
+    @IBOutlet weak var handedCount: UILabel!
+    
     var addClassBlock:((String)->())?  //声明闭包
 
     override func awakeFromNib() {
@@ -29,7 +39,7 @@ class ClassCell: UITableViewCell {
     }
 
     
-    func classCellSetValue(isSearch:Bool) {
+    func classCellSetValue(model:ClassModel,isSearch:Bool) {
         if !isSearch {
             addClass.snp.updateConstraints { (make) in
                 make.height.equalTo(0)
@@ -38,11 +48,41 @@ class ClassCell: UITableViewCell {
             addClass.snp.updateConstraints { (make) in
                 make.height.equalTo(25)
             }
-
         }
-        addClass.isHidden = !isSearch
         
+        bookImage.kf.setImage(with:  URL(string:model.class_photo)!, placeholder: #imageLiteral(resourceName: "photos_image_default"), options: nil, progressBlock: nil, completionHandler: nil)
+        bookTitle.text = model.class_name
+        theTeacher.text = model.user_name
+        theCount.text = model.countStudent
+        handTime.text = model.work_times
+        handedCount.text = model.countWorkBookBy+"/"+model.countStudent
+        addClass.isHidden = !isSearch
     }
+    
+    
+    
+//    func classCellSetValueTeacher(model:TClassModel,isSearch:Bool) {
+//        if !isSearch {
+//            addClass.snp.updateConstraints { (make) in
+//                make.height.equalTo(0)
+//            }
+//        }else{
+//            addClass.snp.updateConstraints { (make) in
+//                make.height.equalTo(25)
+//            }
+//        }
+//        
+//        bookImage.kf.setImage(with:  URL(string:model.class_photo)!, placeholder: #imageLiteral(resourceName: "photos_image_default"), options: nil, progressBlock: nil, completionHandler: nil)
+//        bookTitle.text = model.class_name
+//        theTeacher.text = model.user_name
+//        theCount.text = model.countStudent
+//        handTime.text = model.work_times
+//        handedCount.text = model.countWorkBookBy+"/"+model.countStudent
+//        addClass.isHidden = !isSearch
+//    }
+//    
+
+    
     
     @IBAction func addClassAction(_ sender: UIButton) {
         

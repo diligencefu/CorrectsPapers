@@ -24,7 +24,7 @@
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="课时" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OXC-cy-UDx">
                         <rect key="frame" x="16" y="12" width="65" height="21"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="65" id="UBd-vd-gvw"/>
+                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="65" id="UBd-vd-gvw"/>
                             <constraint firstAttribute="height" constant="21" id="sMK-Ji-Clo"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
@@ -74,6 +74,7 @@
                     <constraint firstItem="8T7-1i-deL" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" multiplier="7/8" id="ZIh-8W-dcy"/>
                     <constraint firstItem="2mX-sr-MC0" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" multiplier="14/9" id="bqc-Sv-pUw"/>
                     <constraint firstItem="OXC-cy-UDx" firstAttribute="bottom" secondItem="H2p-sc-9uM" secondAttribute="bottomMargin" id="cd9-Q4-Y7W"/>
+                    <constraint firstItem="8T7-1i-deL" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="OXC-cy-UDx" secondAttribute="trailing" constant="10" id="f9F-Ih-SMR"/>
                     <constraint firstItem="2mX-sr-MC0" firstAttribute="centerY" secondItem="OXC-cy-UDx" secondAttribute="centerY" id="jjl-XM-Gi0"/>
                     <constraint firstItem="cfg-fk-BPm" firstAttribute="centerX" secondItem="2mX-sr-MC0" secondAttribute="centerX" id="wDn-zQ-Nc4"/>
                     <constraint firstItem="cfg-fk-BPm" firstAttribute="centerY" secondItem="2mX-sr-MC0" secondAttribute="centerY" id="xoL-kE-1My"/>

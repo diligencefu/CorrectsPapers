@@ -12,8 +12,8 @@ class TOtherWorkViewController: BaseViewController {
     var emptyView = UIView()
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         rightBarButton()
+        addImageWhenEmpty()
     }
     
     override func leftBarButton() {
@@ -23,14 +23,15 @@ class TOtherWorkViewController: BaseViewController {
     
     override func requestData() {
         
-        NetWorkTeacherGetTMyAllNotWork { (datas) in
+        NetWorkTeacherGetTAllNotWork { (datas) in
+            self.mainTableArr.removeAllObjects()
             self.mainTableArr.addObjects(from: datas)
             self.mainTableView.reloadData()
         }
     }
     
     override func refreshHeaderAction() {
-        NetWorkTeacherGetTMyAllNotWork { (datas) in
+        NetWorkTeacherGetTAllNotWork { (datas) in
             self.mainTableArr.removeAllObjects()
             self.mainTableArr.addObjects(from: datas)
             self.mainTableView.reloadData()
@@ -50,27 +51,19 @@ class TOtherWorkViewController: BaseViewController {
         mainTableView.register(UINib(nibName: "TShowBooksCell", bundle: nil), forCellReuseIdentifier: identyfierTable)
         mainTableView.tableFooterView = UIView()
         self.view.addSubview(mainTableView)
-        
     }
     
-    
-    @objc func pushToSearchBook(sender:UIBarButtonItem) {
-        let searchVC = SearchBooksViewController()
-        //        searchVC.style
-        self.navigationController?.pushViewController(searchVC, animated: true)
-        
-        
-    }
+
     //    右键
     func rightBarButton() {
         
         self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(image: #imageLiteral(resourceName: "book_icon_default"), style: .plain, target: self, action: #selector(pushToMyBook(sender:)))
     }
     
+    
     @objc func pushToMyBook(sender:UIBarButtonItem) {
         
-        let myBook = TMyBookViewController()
-        
+        let myBook = TMyCorrectViewController()
         self.navigationController?.pushViewController(myBook, animated: true)
     }
     
@@ -101,13 +94,12 @@ class TOtherWorkViewController: BaseViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         if mainTableArr.count == 0 {
-            addImageWhenEmpty()
+            self.mainTableView.addSubview(emptyView)
         }else{
             emptyView.removeFromSuperview()
         }
         
-//        return mainTableArr.count
-        return 1
+        return mainTableArr.count
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -116,22 +108,25 @@ class TOtherWorkViewController: BaseViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
+        let model = mainTableArr[indexPath.row] as! TNotWorkModel
         let cell : TShowBooksCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable, for: indexPath) as! TShowBooksCell
         cell.selectionStyle = .default
+        cell.TShowBooksCellForShowBook(model: model)
         return cell
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        
-        let BookDetailVC = TDetailBookViewController()
-        BookDetailVC.workState = indexPath.row % 6
-        self.navigationController?.pushViewController(BookDetailVC, animated: true)
+//        
+//        let BookDetailVC = TDetailBookViewController()
+//        BookDetailVC.workState = indexPath.row % 6
+//        self.navigationController?.pushViewController(BookDetailVC, animated: true)
     }
     
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         
-        return true
+//        return true
+        return false
     }
     
     func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {

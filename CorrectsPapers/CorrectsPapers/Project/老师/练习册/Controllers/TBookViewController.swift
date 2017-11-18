@@ -12,13 +12,17 @@ class TBookViewController: BaseViewController {
 
     var emptyView = UIView()
     var searchBar = UISearchBar()
-    
+//    添加练习册的id
+    var book_id = ""
+    var index = 0
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
         rightBarButton()
         addImageWhenEmpty()
         addFooterRefresh()
+        addTipView()
     }
     
     override func leftBarButton() {
@@ -166,11 +170,17 @@ class TBookViewController: BaseViewController {
         creatBook.setTitle("创建练习册", for: .normal)
         creatBook.layer.cornerRadius = 5
         creatBook.clipsToBounds = true
-        //        creatBook.addTarget(self, action: #selector(createBookAction(sender:)), for: .touchUpInside)
+                creatBook.addTarget(self, action: #selector(createBookAction(sender:)), for: .touchUpInside)
         emptyView.addSubview(creatBook)
         
     }
     
+    
+    @objc func createBookAction(sender:UIButton) {
+        let createBook = CreateBookViewController()
+        self.navigationController?.pushViewController(createBook, animated: true)
+    }
+
     
     //MARK:  ******代理 ：UITableViewDataSource,UITableViewDelegate
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -180,7 +190,6 @@ class TBookViewController: BaseViewController {
         }else{
             emptyView.removeFromSuperview()
         }
-        
         return mainTableArr.count
     }
     
@@ -193,6 +202,11 @@ class TBookViewController: BaseViewController {
         let model = mainTableArr[indexPath.row] as! WorkBookModel
         let cell : TShowBookCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable, for: indexPath) as! TShowBookCell
         cell.selectionStyle = .default
+        cell.addWorkBlock = {
+            self.book_id = model.id!
+            self.index = indexPath.row
+            self.showTheTipView()
+        }
         cell.TShowBookCellSetValue(model:model)
         return cell
     }
@@ -200,9 +214,7 @@ class TBookViewController: BaseViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         searchBar.endEditing(true)
         tableView.deselectRow(at: indexPath, animated: true)
-        
-        
-        
+                
 //        缺少参数，暂时关闭
 //        let model = mainTableArr[indexPath.row] as! WorkBookModel
 //
@@ -230,6 +242,7 @@ class TBookViewController: BaseViewController {
         }
     }
     
+    
     func tableView(_ tableView: UITableView, titleForDeleteConfirmationButtonForRowAt indexPath: IndexPath) -> String? {
         
         return "删除练习册"
@@ -245,5 +258,83 @@ class TBookViewController: BaseViewController {
         searchBar.endEditing(true)
     }
     
+    
+    var tipView = TShowTheTipView()
+    var BGView = UIView()
+
+    func addTipView()  {
+        //        弹出视图弹出来之后的背景蒙层
+        BGView = UIView.init(frame: self.view.frame)
+        BGView.backgroundColor = kSetRGBAColor(r: 5, g: 5, b: 5, a: 0.5)
+        BGView.alpha = 0
+        let tapGes1 = UITapGestureRecognizer.init(target: self, action: #selector(showChooseCondi(tap:)))
+        tapGes1.numberOfTouchesRequired = 1
+        BGView.addGestureRecognizer(tapGes1)
+        self.view.addSubview(BGView)
+        
+        tipView = UINib(nibName:"TShowTheTipView",bundle:nil).instantiate(withOwner: self, options: nil).first as! TShowTheTipView
+        tipView.frame =  CGRect(x: 30*kSCREEN_SCALE, y: kSCREEN_HEIGHT/2-130-30, width: kSCREEN_WIDTH-60*kSCREEN_SCALE, height: 550*kSCREEN_SCALE)
+        tipView.layer.cornerRadius = 24*kSCREEN_SCALE
+        
+        self.tipView.isHidden = true
+
+        tipView.chooseBlock = {
+            if !$0 {
+                let params =
+                    ["SESSIONID":SESSIONIDT,
+                     "mobileCode":mobileCodeT,
+                     "workId":self.book_id,
+                ] as [String:Any]
+
+                NetWorkTeacherAddMyWork(params: params, callBack: { (flag) in
+                    
+                    if flag {
+                        self.mainTableArr.removeObject(at: self.index)
+                        self.mainTableView.reloadData()
+                    }
+                    
+                })
+                
+            }
+            self.hiddenViews()
+        }
+        
+        tipView.clipsToBounds = true
+        self.view.addSubview(tipView)
+    }
+    
+    
+    @objc func showChooseCondi(tap:UITapGestureRecognizer) -> Void {
+        
+//        if tap.view?.alpha == 1 {
+//            UIView.animate(withDuration: 0.5) {
+//                tap.view?.alpha = 0
+//                self.tipView.isHidden = true
+//            }
+//        }
+    }
+    
+    
+    func hiddenViews() {
+        
+        UIView.animate(withDuration: 0.5) {
+            self.BGView.alpha = 0
+            self.tipView.isHidden = true
+        }
+    }
+    
+    
+    func showTheTipView() -> Void {
+        UIView.animate(withDuration: 0.5) {
+            self.tipView.isHidden = false
+            self.BGView.alpha = 1
+        }
+    }
+    
+    
+    @objc func certainCorrect() {
+        
+    }
+
 }
 

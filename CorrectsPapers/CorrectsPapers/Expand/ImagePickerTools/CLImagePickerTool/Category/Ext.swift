@@ -13,7 +13,7 @@ extension UIImage {
     // 对截取的长图进行压缩，因为项目中的长图是设置为背景颜色，如果不压缩到适当的尺寸图片就会平铺
     static func scaleImage(image: UIImage) -> UIImage {
         // 画板高度
-        let boardH = KScreenHeight-64-50-40
+        let boardH = KScreenHeight-50-40
         // 图片的宽高比
         let picBili: CGFloat = image.size.width/image.size.height
         // 画板的宽高比

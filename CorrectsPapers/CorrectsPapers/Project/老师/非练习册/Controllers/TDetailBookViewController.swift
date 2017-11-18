@@ -15,42 +15,68 @@ class TDetailBookViewController: BaseViewController {
     var underLine = UIView()
     var headView = UIView()
     var currentIndex = 1
+    
     var imageArr = [UIImage]()
     var videoArr = [UrlModel]()
     var textArr = [String]()
     var answerArr = [Array<Any>]()
+    var pointArr = NSMutableArray()
 
-    var pointArr = [UrlModel]()
+    var model = TNotWorkDetailModel.init()
+    var model1 = TNotWorkModel()
 
-    var workState = 0
-    
-    var BGView = UIView()
-    
     let image1Arr = ["https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1507452668172&di=b56ef9d62498e704c0fa0e0b2c4d8dd5&imgtype=0&src=http%3A%2F%2Fimgphoto.gmw.cn%2Fattachement%2Fjpg%2Fsite2%2F20160714%2Fd02788d8df1018f171ec38.jpg","https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=998893491,2679530940&fm=27&gp=0.jpg"]
     
     let image2Arr = ["https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1508493015032&di=59d8fa812fd03a4721892617c48b431b&imgtype=0&src=http%3A%2F%2Fe.hiphotos.baidu.com%2Fimage%2Fpic%2Fitem%2Fa8ec8a13632762d02bd1d67fa9ec08fa503dc607.jpg","https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1508493043319&di=846fb92cbd69cba852b5052a3ac51bcd&imgtype=0&src=http%3A%2F%2Fimage1.miss-no1.com%2Fuploadfile%2F2015%2F11%2F06%2Fimg20246781918797.jpg"]
     
     let identyfierTable6 = "identyfierTable6"
     let identyfierTable7 = "identyfierTable7"
+    let identyfierTable8 = "identyfierTable8"
+    let identyfierTable9 = "identyfierTable9"
+    let identyfierTable10 = "identyfierTable10"
+    let identyfierTable11 = "identyfierTable11"
 
-    //    var bookState = 0
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         answerArr = [imageArr,videoArr,textArr]
-        
         footView()
+        addReasonView()
     }
+    
+    
+    override func addHeaderRefresh() {
+        
+    }
+
+    
+    override func requestData() {
+        
+        let params1 =
+            ["SESSIONID":SESSIONIDT,
+             "mobileCode":mobileCodeT,
+             "workId":model1.id
+        ] as [String:Any]
+        
+        NetWorkTeacherGetTMyNotWorkDatails(params: params1) { (datas) in
+            if datas.count>0{
+                self.model = datas[0] as! TNotWorkDetailModel
+            }
+            self.mainTableArr.addObjects(from: datas)
+            self.mainTableView.reloadData()
+        }
+    }
+    
     
     override func configSubViews() {
         
         self.navigationItem.title = "练习册名称"
         
         headView = UIView.init(frame: CGRect(x: 0, y: 0, width: kSCREEN_WIDTH, height: 80*kSCREEN_SCALE))
-        
-        
+        headView.backgroundColor = UIColor.white
+
         let kHeight = CGFloat(80 * kSCREEN_SCALE)
         var contentWidth = CGFloat()
         var totalWidth = CGFloat()
@@ -87,28 +113,30 @@ class TDetailBookViewController: BaseViewController {
         underLine.clipsToBounds = true
         underLine.center.x = view.center.x
         headView.addSubview(underLine)
+        self.view.addSubview(headView)
         
         mainTableView = UITableView.init(frame: CGRect(x: 0,
-                                                       y: 0,
+                                                       y: 80*kSCREEN_SCALE,
                                                        width: kSCREEN_WIDTH,
-                                                       height: kSCREEN_HEIGHT - 64-96*kSCREEN_SCALE-10),
+                                                       height: kSCREEN_HEIGHT - 64-80*kSCREEN_SCALE),
                                          style: .grouped)
         mainTableView.dataSource = self;
         mainTableView.delegate = self;
         mainTableView.estimatedRowHeight = 44
         mainTableView.register(UINib(nibName: "TViewBookCell", bundle: nil), forCellReuseIdentifier: identyfierTable)
-        
         mainTableView.register(UINib(nibName: "AnserImageCell", bundle: nil), forCellReuseIdentifier: identyfierTable2)
         mainTableView.register(UINib(nibName: "AnserVideoCell", bundle: nil), forCellReuseIdentifier: identyfierTable3)
         mainTableView.register(UINib(nibName: "ClassGradeCell", bundle: nil), forCellReuseIdentifier: identyfierTable4)
         mainTableView.register(UINib(nibName: "TUpLoadVideoCell", bundle: nil), forCellReuseIdentifier: identyfierTable5)
         mainTableView.register(UINib(nibName: "ShowWriteAnswerCell", bundle: nil), forCellReuseIdentifier: identyfierTable6)
         mainTableView.register(UINib(nibName: "AnswerImageCell", bundle: nil), forCellReuseIdentifier: identyfierTable7)
+        mainTableView.register(UINib(nibName: "TNotWorkInfoCell", bundle: nil), forCellReuseIdentifier: identyfierTable8)
+        mainTableView.register(UINib(nibName: "TViewBookCell1", bundle: nil), forCellReuseIdentifier: identyfierTable9)
+        mainTableView.register(UINib(nibName: "TViewBookCell2", bundle: nil), forCellReuseIdentifier: identyfierTable10)
+        mainTableView.register(UINib(nibName: "TViewBookCell3", bundle: nil), forCellReuseIdentifier: identyfierTable11)
 
-        mainTableView.tableHeaderView = headView
         self.view.addSubview(mainTableView)
         mainTableView.backgroundColor = kSetRGBColor(r: 239, g: 239, b: 244)
-        mainTableArr = [["https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1507452668172&di=b56ef9d62498e704c0fa0e0b2c4d8dd5&imgtype=0&src=http%3A%2F%2Fimgphoto.gmw.cn%2Fattachement%2Fjpg%2Fsite2%2F20160714%2Fd02788d8df1018f171ec38.jpg","https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=998893491,2679530940&fm=27&gp=0.jpg"]]
     }
     
     
@@ -126,7 +154,7 @@ class TDetailBookViewController: BaseViewController {
         let kWidth = (kSCREEN_WIDTH-20*kSCREEN_SCALE*4)/3
         
         footBtnView = UIView.init(frame: CGRect(x: 0, y: kSCREEN_HEIGHT-74-96*kSCREEN_SCALE, width: KScreenWidth, height: 96*kSCREEN_SCALE+10))
-        
+        footBtnView.backgroundColor = kGaryColor(num: 239)
         for index in 0..<titles.count {
             
             let markBtn = UIButton.init(frame: CGRect(x: kSpace+(kSpace+kWidth)*CGFloat(index), y: 10, width: kWidth, height: kHeight))
@@ -143,6 +171,7 @@ class TDetailBookViewController: BaseViewController {
         }
     }
     
+    
     //MARK:上传答案点击事件
     @objc func showUploadBtn(sender:UIButton) {
         
@@ -152,8 +181,9 @@ class TDetailBookViewController: BaseViewController {
             
             let nextVC = UploadVideoViewController()
             nextVC.isAnswer = true
+            nextVC.currentType = 2
             nextVC.addUrlBlock = {
-                self.videoArr.append($0)
+//                self.videoArr.append($0)
                 self.mainTableView.reloadData()
             }
             self.navigationController?.pushViewController(nextVC, animated: true)
@@ -163,6 +193,7 @@ class TDetailBookViewController: BaseViewController {
         }else  if sender.tag == 183{
             
             let nextVC = WriteAnswerViewController()
+            nextVC.currentType = 2
             nextVC.addTextBlock = {
                 self.textArr.append($0)
                 self.mainTableView.reloadData()
@@ -196,7 +227,46 @@ class TDetailBookViewController: BaseViewController {
         }else{
             footBtnView.removeFromSuperview()
         }
+        
+        let params =
+            ["SESSIONID":SESSIONIDT,
+             "mobileCode":mobileCodeT,
+             "id":model1.id
+        ]
 
+        if currentIndex == 1 {
+            
+            NetWorkTeacherGetTStudentWorkList(params: params) { (datas) in
+//                self.works.removeAllObjects()
+//                self.works.addObjects(from: datas)
+//                self.mainTableView.reloadData()
+            }
+        }else if currentIndex == 2 {
+            
+            NetWorkTeacherGetTMyNotWorkDatailPoints(params: params) { (datas) in
+                self.pointArr.removeAllObjects()
+                self.pointArr.addObjects(from: datas)
+                self.mainTableView.reloadData()
+            }
+        }else if currentIndex == 3 {
+            
+//            let params1 =
+//                ["SESSIONID":SESSIONIDT,
+//                 "mobileCode":mobileCodeT,
+////                 "workBookId":book_id
+//            ]
+//            NetWorkTeacherGetTMyNotWorkDatailAnswers(params: params1) { (datas) in
+//                self.mainTableView.reloadData()
+//            }
+        }else if currentIndex == 4{
+            
+            NetWorkTeacherGetTMyNotWorkDatailGrades(params: params) { (datas) in
+                self.answerArr.removeAll()
+                // #MARK:待处理
+                self.mainTableView.reloadData()
+            }
+        }
+        
         mainTableView.reloadData()
     }
     
@@ -205,10 +275,19 @@ class TDetailBookViewController: BaseViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         if currentIndex == 1 {
-            if workState == 2 || workState == 3 {
+            
+            if section == 1 {
                 return 1
             }else{
-                return 2
+                if model.state != nil {
+                    if Int(model.state!)!<5{
+                        return 1
+                    }else{
+                        return 2
+                    }
+                }else{
+                    return 0
+                }
             }
         }
         
@@ -230,7 +309,6 @@ class TDetailBookViewController: BaseViewController {
     
     override func numberOfSections(in tableView: UITableView) -> Int {
         
-        
         if currentIndex == 3 {
             return 1
         }
@@ -238,13 +316,8 @@ class TDetailBookViewController: BaseViewController {
         if currentIndex == 2 {
             return 2
         }
-
         
-        if currentIndex == 4 {
-            return 2
-        }
-        
-        if workState == 2 || workState == 3 {
+        if currentIndex == 1 {
             return 2
         }
         
@@ -256,26 +329,83 @@ class TDetailBookViewController: BaseViewController {
         
         if currentIndex == 1 {
            
-            let cell : TViewBookCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable, for: indexPath) as! TViewBookCell
-            cell.TViewBookCellSetValues123456()
-            return cell
+            if indexPath.section == 1 {
+                
+                let cell : TNotWorkInfoCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable8, for: indexPath) as! TNotWorkInfoCell
+                return cell
+            }
+            
+            if model.state == "2" {
+                let cell : TViewBookCell1 = tableView.dequeueReusableCell(withIdentifier: identyfierTable9, for: indexPath) as! TViewBookCell1
+                cell.TViewBookCellSetValuesForNotWorkUndone(model: model)
+                return cell
+            }else  if model.state == "3" {
+                let cell : TViewBookCell1 = tableView.dequeueReusableCell(withIdentifier: identyfierTable9, for: indexPath) as! TViewBookCell1
+                cell.TViewBookCellSetValuesForNotWorkUndone(model: model)
+                return cell
+
+            }
+            else  if model.state == "4" {
+                
+                let cell : TViewBookCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable, for: indexPath) as! TViewBookCell
+                cell.TViewBookCellSetValuesForNotWorkFirstCorrectDone(model: model)
+                return cell
+            }
+            else  if model.state == "5" {
+                
+                if indexPath.row == 0 {
+                    let cell : TViewBookCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable, for: indexPath) as! TViewBookCell
+                    cell.TViewBookCellSetValuesForNotWorkFirstCorrectDone(model: model)
+                    return cell
+                }else{
+                    let cell : TViewBookCell3 = tableView.dequeueReusableCell(withIdentifier: identyfierTable11, for: indexPath) as! TViewBookCell3
+                    cell.TViewBookCellSetValuesForNorWorkUndone(model: model)
+                    return cell
+                }
+            }
+            else  if model.state == "6" {
+                
+                if indexPath.row == 0 {
+                    
+                    let cell : TViewBookCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable, for: indexPath) as! TViewBookCell
+                    cell.TViewBookCellSetValuesForNotWorkFirstCorrectDone(model: model)
+                    return cell
+                    
+                }else{
+                    
+                    let cell : TViewBookCell3 = tableView.dequeueReusableCell(withIdentifier: identyfierTable11, for: indexPath) as! TViewBookCell3
+                    cell.TViewBookCellSetValuesForNorWorkUndone(model: model)
+                    return cell
+                }
+            }
+            else {
+                
+                if indexPath.row == 0 {
+                    
+                    let cell : TViewBookCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable, for: indexPath) as! TViewBookCell
+                    cell.TViewBookCellSetValuesForNotWorkFirstCorrectDone(model: model)
+                    return cell
+                }else{
+                    
+                    let cell : TViewBookCell2 = tableView.dequeueReusableCell(withIdentifier: identyfierTable10, for: indexPath) as! TViewBookCell2
+                    cell.TViewBookCellSetValuesForNotWorkDone(model: model)
+                    return cell
+                }
+            }
+            
         }else if currentIndex == 2 {
             
             if indexPath.section == 0 {
                 
                 let cell : TUpLoadVideoCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable5, for: indexPath) as! TUpLoadVideoCell
-                
                 return cell
-
             }else{
+                
+                let model = pointArr[indexPath.row] as! UrlModel
                 let cell : AnserVideoCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable3, for: indexPath) as! AnserVideoCell
-                
-//                cell.AnserVideoCellSetValues(title:videoArr[indexPath.row]["descrip"]!)
-                
+                cell.AnserVideoCellSetValues(model: model)
                 return cell
-                
             }
-            
         }else if currentIndex == 3 {
             
             let images = imageArr
@@ -298,19 +428,17 @@ class TDetailBookViewController: BaseViewController {
                 cell.showAnswer(text: textArr[indexPath.row-imageArr.count-videos.count])
                 return cell
             }
-            
         }else{
             let cell : ClassGradeCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable4, for: indexPath) as! ClassGradeCell
             
             if indexPath.row == 0 {
-                cell.is1thCell()
+                cell.is1thCellForWorkBook()
             }else{
                 cell.setValueForClassGradeCell(index: 10-indexPath.row)
+//                cell.setValueForBookGrade(model: <#T##TShowGradeModel#>)
             }
-
             return cell
         }
-        
     }
     
     
@@ -323,14 +451,13 @@ class TDetailBookViewController: BaseViewController {
                 let nextVC = UploadVideoViewController()
                 nextVC.isAnswer = false
                 nextVC.addUrlBlock = {
-                    self.pointArr.append($0)
+//                    self.pointArr.append($0)
                     self.mainTableView.reloadData()
                 }
-
                 self.navigationController?.pushViewController(nextVC, animated: true)
             }else{
                 
-                let model = pointArr[indexPath.row]
+                let model = pointArr[indexPath.row] as! UrlModel
                 
                 let url = StringToUTF_8InUrl(str: model.videoUrl)
                 
@@ -339,20 +466,88 @@ class TDetailBookViewController: BaseViewController {
                     UIApplication.shared.open(url, options: [:],
                                               completionHandler: {
                                                 (success) in
+                                                if !success {
+                                                    setToast(str: "网址格式错误！")
+                                                }
+                                                
                     })
                 } else {
                     // Fallback on earlier versions
                 }
-//
             }
         }
         
+        
+        if currentIndex == 4 {
+            if indexPath.row != 0 {
+                let showVC = TShowOneGradeVCViewController()
+                self.navigationController?.pushViewController(showVC, animated: true)
+            }
+        }
     }
+    
     
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         
-        let view = UIView.init(frame: CGRect(x: 0, y: 0, width: kSCREEN_WIDTH, height: 19 * kSCREEN_SCALE))
+        if section == 0 && currentIndex == 1 {
+            let footView = UIView.init(frame: CGRect(x: 0, y: 0, width: kSCREEN_WIDTH, height: 350*kSCREEN_SCALE))
+            footView.backgroundColor = UIColor.clear
+            let certain = UIButton.init(frame: CGRect(x: 60 * kSCREEN_SCALE, y: 72*kSCREEN_SCALE, width: kSCREEN_WIDTH - 120 * kSCREEN_SCALE, height: 86 * kSCREEN_SCALE))
+            certain.layer.cornerRadius = 10 * kSCREEN_SCALE
+            certain.clipsToBounds = true
+            certain.setBackgroundImage(getNavigationIMG(27, fromColor: kSetRGBColor(r: 0, g: 200, b: 255), toColor: kSetRGBColor(r: 0, g: 162, b: 255)), for: .normal)
+            certain.setTitle("确认批改", for: .normal)
+            certain.setTitleColor(kSetRGBColor(r: 255, g: 153, b: 0), for: .normal)
+            certain.addTarget(self, action: #selector(certainCorrect), for: .touchUpInside)
+            certain.setTitleColor(UIColor.white, for: .normal)
+            footView.addSubview(certain)
+            
+            let sendBack = UIButton.init(frame: CGRect(x: 60 * kSCREEN_SCALE, y: 224*kSCREEN_SCALE, width: kSCREEN_WIDTH - 120 * kSCREEN_SCALE, height: 86 * kSCREEN_SCALE))
+            sendBack.layer.cornerRadius = 10 * kSCREEN_SCALE
+            sendBack.clipsToBounds = true
+            sendBack.layer.borderColor = kMainColor().cgColor
+            sendBack.layer.borderWidth = 1
+            sendBack.setTitle("退回作业", for: .normal)
+            sendBack.setTitleColor(kSetRGBColor(r: 255, g: 153, b: 0), for: .normal)
+            sendBack.setTitleColor(kMainColor(), for: .normal)
+            sendBack.addTarget(self, action: #selector(sendBackAction), for: .touchUpInside)
+            footView.addSubview(sendBack)
+            
+            if model.state == "2" || model.state == "5" {
+             
+            }else{
+                
+                if model.state == "3" {
+                    sendBack.setTitle("已退回", for: .normal)
+                }
+                
+                if model.state == "4" {
+                    certain.setTitle("已批改", for: .normal)
+                }
+
+                if model.state == "6" {
+                    certain.setTitle("已批改", for: .normal)
+                    sendBack.setTitle("已退回", for: .normal)
+                }
+                
+                if model.state == "7" {
+                    certain.setTitle("已批改", for: .normal)
+                }
+                
+                certain.setBackgroundImage(getNavigationIMG(27, fromColor: kGaryColor(num: 206), toColor: kGaryColor(num: 206)), for: .normal)
+                certain.backgroundColor = kGaryColor(num: 206)
+                certain.setTitleColor(UIColor.white, for: .normal)
+                certain.isEnabled = false
+                sendBack.backgroundColor = kGaryColor(num: 206)
+                sendBack.setTitleColor(UIColor.white, for: .normal)
+                sendBack.isEnabled = false
+                sendBack.layer.borderColor = kGaryColor(num: 206).cgColor
+            }
+            
+            return footView
+        }
         
+        let view = UIView.init(frame: CGRect(x: 0, y: 0, width: kSCREEN_WIDTH, height: 19 * kSCREEN_SCALE))
         view.backgroundColor = UIColor.blue
         return view
     }
@@ -373,6 +568,10 @@ class TDetailBookViewController: BaseViewController {
     }
     
     override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        
+        if section == 0 && currentIndex == 1{
+            return 350*kSCREEN_SCALE
+        }
         return 0
     }
     
@@ -415,5 +614,98 @@ class TDetailBookViewController: BaseViewController {
         }
         // 图片显示出来以后可能还要上传到云端的服务器获取图片的url，这里不再细说了。
     }
-}
+    
+    
+    
+    var BGView = UIView()
+    var reasonView = ShowTagsView()
 
+    func addReasonView() {
+        //        弹出视图弹出来之后的背景蒙层
+        BGView = UIView.init(frame: self.view.frame)
+        BGView.backgroundColor = kSetRGBAColor(r: 5, g: 5, b: 5, a: 0.5)
+        BGView.alpha = 0
+        //        BGView.isHidden = true
+        
+        let tapGes1 = UITapGestureRecognizer.init(target: self, action: #selector(showChooseCondi(tap:)))
+        tapGes1.numberOfTouchesRequired = 1
+        BGView.addGestureRecognizer(tapGes1)
+        self.view.addSubview(BGView)
+        
+        reasonView = UINib(nibName:"ShowTagsView",bundle:nil).instantiate(withOwner: self, options: nil).first as! ShowTagsView
+        reasonView.ShowTagsViewForChooseEdu(title: "", index: 1000)
+        reasonView.frame =  CGRect(x: 0, y: kSCREEN_HEIGHT, width: kSCREEN_WIDTH, height: 190+206*kSCREEN_SCALE)
+        reasonView.layer.cornerRadius = 24*kSCREEN_SCALE
+        reasonView.selectBlock = {
+            if !$1 {
+                print($0)
+            }
+            self.hiddenViews()
+        }
+        
+        reasonView.clipsToBounds = true
+        self.view.addSubview(reasonView)
+
+    }
+    
+    
+    @objc func showChooseCondi(tap:UITapGestureRecognizer) -> Void {
+        
+        if tap.view?.alpha == 1 {
+            UIView.animate(withDuration: 0.5) {
+                tap.view?.alpha = 0
+                self.reasonView.transform = .identity
+            }
+        }
+    }
+    
+    
+    func hiddenViews() {
+        
+        UIView.animate(withDuration: 0.5) {
+            self.BGView.alpha = 0
+            self.reasonView.transform = .identity
+        }
+    }
+    
+    func showTheProjectTagsView() -> Void {
+        
+        let y = 180+206*kSCREEN_SCALE
+        UIView.animate(withDuration: 0.5) {
+            self.reasonView.transform = .init(translationX: 0, y: -y)
+            self.BGView.alpha = 1
+        }
+    }
+    
+    
+    @objc func certainCorrect() {
+        
+        var imageArr = [UIImage]()
+        
+        if model.state == "2" {
+            let cell = mainTableView.cellForRow(at: IndexPath.init(row: 0, section: 0)) as! TViewBookCell1
+            imageArr.append(cell.image2.image!)
+            imageArr.append(cell.image3.image!)
+            let editorVC = QQQEditorViewController(nibName: "QQQEditorViewController", bundle: nil)
+            editorVC.images = imageArr
+            editorVC.theName = "刘二蛋"
+            editorVC.theNum = "学号 008"
+            self.present(editorVC, animated: true, completion: nil)
+            
+        }else{
+            
+            let cell = mainTableView.cellForRow(at: IndexPath.init(row: 1, section: 0)) as! TViewBookCell3
+            imageArr.append(cell.image2.image!)
+            imageArr.append(cell.image3.image!)
+            let editorVC = QQQEditorViewController(nibName: "QQQEditorViewController", bundle: nil)
+            editorVC.theName = "刘二蛋"
+            editorVC.theNum = "学号 008"
+            editorVC.images = imageArr
+            self.present(editorVC, animated: true, completion: nil)
+        }
+    }
+    
+    @objc func sendBackAction() {
+        showTheProjectTagsView()
+    }
+}

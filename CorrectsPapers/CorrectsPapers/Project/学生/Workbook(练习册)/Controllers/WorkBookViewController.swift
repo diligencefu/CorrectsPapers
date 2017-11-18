@@ -140,23 +140,37 @@ class WorkBookViewController: BaseViewController ,UISearchBarDelegate{
     
     
 //    当数据为空的时候，显示提示
-    
     func addImageWhenEmpty() {
         emptyView = UIView.init(frame: CGRect(x: 0, y: 0, width: kSCREEN_WIDTH, height: kSCREEN_HEIGHT - 46))
         emptyView.backgroundColor = kBGColor()
         let imageView = UIImageView.init(frame: CGRect(x: 0, y: 0, width: 200 * kSCREEN_SCALE, height: 200 * kSCREEN_SCALE))
         imageView.image = #imageLiteral(resourceName: "404_icon_default")
-        imageView.center = CGPoint(x: emptyView.centerX, y: emptyView.centerY - 130 * kSCREEN_SCALE)
+        imageView.center = CGPoint(x: emptyView.centerX, y: emptyView.centerY - 200 * kSCREEN_SCALE)
         emptyView.addSubview(imageView)
         
         let label = UILabel.init(frame: CGRect(x: 0, y: 0, width: kSCREEN_WIDTH, height: 18))
         label.textAlignment = .center
         label.textColor = kGaryColor(num: 163)
-        label.center = CGPoint(x: emptyView.centerX, y: emptyView.centerY-40+70*kSCREEN_SCALE)
+        label.center = CGPoint(x: emptyView.centerX, y: emptyView.centerY-40)
         label.font = kFont34
         label.numberOfLines = 2
-        label.text = "暂时没有练习册"
+        label.text = "未搜索到此练习册"
         emptyView.addSubview(label)
+        
+        let creatBook = UIButton.init(frame: CGRect(x: 0, y: 0, width: 120, height: 30))
+        creatBook.setBackgroundImage(getNavigationIMG(27, fromColor: kSetRGBColor(r: 0, g: 200, b: 255), toColor: kSetRGBColor(r: 0, g: 162, b: 255)), for: .normal)
+        creatBook.center = CGPoint(x: emptyView.centerX, y: emptyView.centerY + 10 * kSCREEN_SCALE)
+        creatBook.setTitle("创建练习册", for: .normal)
+        creatBook.layer.cornerRadius = 5
+        creatBook.clipsToBounds = true
+        creatBook.addTarget(self, action: #selector(createBookAction(sender:)), for: .touchUpInside)
+        emptyView.addSubview(creatBook)
+    }
+
+    
+    @objc func createBookAction(sender:UIButton) {
+        let createBook = CreateBookViewController()
+        self.navigationController?.pushViewController(createBook, animated: true)
     }
 
     
@@ -172,9 +186,11 @@ class WorkBookViewController: BaseViewController ,UISearchBarDelegate{
         return mainTableArr.count
     }
     
+    
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
+    
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
@@ -205,6 +221,7 @@ class WorkBookViewController: BaseViewController ,UISearchBarDelegate{
         return cell
     }
     
+    
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         searchBar.endEditing(true)
         tableView.deselectRow(at: indexPath, animated: true)
@@ -215,14 +232,17 @@ class WorkBookViewController: BaseViewController ,UISearchBarDelegate{
 
     }
     
+    
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         
         return true
     }
     
+    
     func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {
         return .delete
     }
+    
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         
@@ -254,6 +274,7 @@ class WorkBookViewController: BaseViewController ,UISearchBarDelegate{
         }
         
     }
+    
     
     func tableView(_ tableView: UITableView, titleForDeleteConfirmationButtonForRowAt indexPath: IndexPath) -> String? {
         

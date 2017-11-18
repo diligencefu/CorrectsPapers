@@ -40,21 +40,20 @@ class TMYBooksCell: UITableViewCell {
         proMark.layer.borderWidth = 1
         
         gradeMark.snp.updateConstraints { (make) in
-            make.width.equalTo(getLabWidth(labelStr: "六年级下册", font: kFont24, height: 18) + 20)
+            make.width.equalTo(getLabWidth(labelStr: model.grade!, font: kFont24, height: 18) + 20)
         }
         
         proMark.snp.updateConstraints { (make) in
-            make.width.equalTo(getLabWidth(labelStr: "语文", font: kFont24, height: 18) + 20)
+            make.width.equalTo(getLabWidth(labelStr: model.subject_name, font: kFont24, height: 18) + 20)
         }
 
         gradeMark.setTitle(model.grade, for: .normal)
         proMark.setTitle(model.subject_name, for: .normal)
         bookTitle.text = model.work_book_name
         
-        submitCount.text = model.correct_ti
-        doneCount.text = "\(model.correct_state!)"
+        submitCount.text = model.state2
+        doneCount.text = model.state1!
 
-        
         if model.subject_name == "生物" {
             proMark.layer.borderColor = kSetRGBColor(r: 102, g: 200, b: 205).cgColor
             proMark.setTitleColor(kSetRGBColor(r: 102, g: 200, b: 205), for: .normal)
@@ -71,7 +70,6 @@ class TMYBooksCell: UITableViewCell {
             proMark.layer.borderColor = kSetRGBColor(r: 87, g: 138, b: 242).cgColor
             proMark.setTitleColor(kSetRGBColor(r: 87, g: 138, b: 242), for: .normal)
         }
-        
     }
     
 

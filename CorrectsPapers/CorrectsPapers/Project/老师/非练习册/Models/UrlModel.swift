@@ -19,6 +19,14 @@ class UrlModel: NSObject {
     var period : String?
     ///视频价格
     var price : String?
+    
+    ///章节数
+    var counts : String?
+    ///标题
+    var title : String?
+    ///章节链接地址
+    var address : String?
+    
 
     class func setValueForUrlModel(json: JSON) -> UrlModel {
         
@@ -28,7 +36,9 @@ class UrlModel: NSObject {
         model.describe = json["describe"].stringValue
         model.period = json["period"].stringValue
         model.price = json["price"].stringValue
+        model.counts = json["counts"].stringValue
+        model.title = json["title"].stringValue
+        model.address = json["address"].stringValue
         return model
     }
-
 }

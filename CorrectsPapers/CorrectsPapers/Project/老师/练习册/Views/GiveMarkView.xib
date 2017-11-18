@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="GiveMarkView" customModule="CorrectsPapers" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="236"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="成绩评分" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ox2-FA-9Nr">
+                    <rect key="frame" x="149" y="15.5" width="77.5" height="21"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="21" id="0bh-8q-8rA"/>
+                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="42" id="XdI-va-Hfj"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="19"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YcY-Tl-edi">
+                    <rect key="frame" x="6" y="8" width="69" height="36"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="69" id="IeO-ij-F8f"/>
+                        <constraint firstAttribute="height" constant="36" id="vO4-JW-68Y"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <state key="normal" title="取消">
+                        <color key="titleColor" red="0.23526433110237122" green="0.23531129956245422" blue="0.23526135087013245" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </state>
+                    <connections>
+                        <action selector="cancelActionClick:" destination="iN0-l3-epB" eventType="touchUpInside" id="sEn-g5-Rha"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0pA-9Q-zgp">
+                    <rect key="frame" x="300" y="8" width="69" height="36"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="36" id="rXw-xg-Htr"/>
+                        <constraint firstAttribute="width" constant="69" id="w49-ux-aUb"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <state key="normal" title="确认">
+                        <color key="titleColor" red="0.2352643311" green="0.2353112996" blue="0.2352613509" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </state>
+                    <connections>
+                        <action selector="certainActionClick:" destination="iN0-l3-epB" eventType="touchUpInside" id="QhP-Eh-cZU"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PYo-kF-SBo">
+                    <rect key="frame" x="168" y="46.5" width="38" height="35"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="38" id="bpg-La-FId"/>
+                        <constraint firstAttribute="height" constant="35" id="tjE-Wd-FDk"/>
+                    </constraints>
+                    <state key="normal" image="kongxin_icon_default"/>
+                    <state key="selected" image="shixin_icon_default"/>
+                    <state key="highlighted" image="shixin_icon_default"/>
+                    <connections>
+                        <action selector="sanxingAction:" destination="iN0-l3-epB" eventType="touchUpInside" id="66f-uQ-DNa"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZD2-Ga-GKb">
+                    <rect key="frame" x="221" y="47" width="38" height="35"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="38" id="4tM-hY-k26"/>
+                        <constraint firstAttribute="height" constant="35" id="WIb-gr-2wI"/>
+                    </constraints>
+                    <state key="normal" image="kongxin_icon_default"/>
+                    <state key="selected" image="shixin_icon_default"/>
+                    <state key="highlighted" image="shixin_icon_default"/>
+                    <connections>
+                        <action selector="sixingAction:" destination="iN0-l3-epB" eventType="touchUpInside" id="kry-du-YRl"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1h7-3k-UlF">
+                    <rect key="frame" x="274" y="47" width="38" height="35"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="38" id="TRy-NY-13o"/>
+                        <constraint firstAttribute="height" constant="35" id="bzT-jG-iIq"/>
+                    </constraints>
+                    <state key="normal" image="kongxin_icon_default"/>
+                    <state key="selected" image="shixin_icon_default"/>
+                    <state key="highlighted" image="shixin_icon_default"/>
+                    <connections>
+                        <action selector="wuxingAction:" destination="iN0-l3-epB" eventType="touchUpInside" id="lq3-8g-OAT"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qad-8O-i84">
+                    <rect key="frame" x="115" y="47" width="38" height="35"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="38" id="p2A-JY-29T"/>
+                        <constraint firstAttribute="height" constant="35" id="xdG-T1-ov9"/>
+                    </constraints>
+                    <state key="normal" image="kongxin_icon_default"/>
+                    <state key="selected" image="shixin_icon_default"/>
+                    <state key="highlighted" image="shixin_icon_default"/>
+                    <connections>
+                        <action selector="erxingAction:" destination="iN0-l3-epB" eventType="touchUpInside" id="zPU-jI-1Tp"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="r40-3e-4km">
+                    <rect key="frame" x="62" y="47" width="38" height="35"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="35" id="SuA-6T-g1e"/>
+                        <constraint firstAttribute="width" constant="38" id="Ucf-to-stT"/>
+                    </constraints>
+                    <state key="normal" image="shixin_icon_default"/>
+                    <connections>
+                        <action selector="yixingAction:" destination="iN0-l3-epB" eventType="touchUpInside" id="5Mt-8k-fNO"/>
+                    </connections>
+                </button>
+                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="crS-NB-xfr">
+                    <rect key="frame" x="19" y="98" width="340" height="100"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="100" id="tL8-8u-LJl"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                </textView>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="PYo-kF-SBo" firstAttribute="centerX" secondItem="vUN-kp-3ea" secondAttribute="centerX" id="2wA-ZN-sMT"/>
+                <constraint firstItem="crS-NB-xfr" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="19" id="78o-yN-lBE"/>
+                <constraint firstItem="Ox2-FA-9Nr" firstAttribute="centerX" secondItem="vUN-kp-3ea" secondAttribute="centerX" id="8TN-ow-x9k"/>
+                <constraint firstItem="PYo-kF-SBo" firstAttribute="top" secondItem="Ox2-FA-9Nr" secondAttribute="bottom" constant="10" id="9hM-9C-HnI"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="crS-NB-xfr" secondAttribute="trailing" constant="16" id="9jV-gW-aac"/>
+                <constraint firstItem="YcY-Tl-edi" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="8" id="AZd-IF-RZI"/>
+                <constraint firstItem="ZD2-Ga-GKb" firstAttribute="leading" secondItem="PYo-kF-SBo" secondAttribute="trailing" constant="15" id="CqE-fh-ICh"/>
+                <constraint firstItem="YcY-Tl-edi" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="6" id="EEh-6Y-C7o"/>
+                <constraint firstItem="qad-8O-i84" firstAttribute="leading" secondItem="r40-3e-4km" secondAttribute="trailing" constant="15" id="GyH-0t-aAJ"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="0pA-9Q-zgp" secondAttribute="trailing" constant="6" id="Ofg-Cx-Nel"/>
+                <constraint firstItem="qad-8O-i84" firstAttribute="centerY" secondItem="r40-3e-4km" secondAttribute="centerY" id="RfN-YF-Hbb"/>
+                <constraint firstItem="1h7-3k-UlF" firstAttribute="centerY" secondItem="r40-3e-4km" secondAttribute="centerY" id="c0x-wD-dKF"/>
+                <constraint firstItem="0pA-9Q-zgp" firstAttribute="centerY" secondItem="Ox2-FA-9Nr" secondAttribute="centerY" id="euu-ZF-ZYt"/>
+                <constraint firstItem="1h7-3k-UlF" firstAttribute="leading" secondItem="ZD2-Ga-GKb" secondAttribute="trailing" constant="15" id="hQk-cj-v4p"/>
+                <constraint firstItem="ZD2-Ga-GKb" firstAttribute="centerY" secondItem="r40-3e-4km" secondAttribute="centerY" id="hyl-I5-Van"/>
+                <constraint firstItem="0pA-9Q-zgp" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="8" id="mHD-oA-gDn"/>
+                <constraint firstItem="PYo-kF-SBo" firstAttribute="centerY" secondItem="r40-3e-4km" secondAttribute="centerY" id="tlQ-0T-dDI"/>
+                <constraint firstItem="crS-NB-xfr" firstAttribute="top" secondItem="ZD2-Ga-GKb" secondAttribute="bottom" constant="16" id="vRI-aL-Iw1"/>
+                <constraint firstItem="PYo-kF-SBo" firstAttribute="leading" secondItem="qad-8O-i84" secondAttribute="trailing" constant="15" id="xcf-hA-sCR"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <connections>
+                <outlet property="cancelBtn" destination="YcY-Tl-edi" id="Ei4-b9-LB7"/>
+                <outlet property="certainBtn" destination="0pA-9Q-zgp" id="slM-zk-FQ9"/>
+                <outlet property="image1" destination="r40-3e-4km" id="NHu-ex-uUJ"/>
+                <outlet property="image2" destination="qad-8O-i84" id="VE2-Pp-9Mi"/>
+                <outlet property="image3" destination="PYo-kF-SBo" id="al5-jL-VAW"/>
+                <outlet property="image4" destination="ZD2-Ga-GKb" id="WiY-sy-3nf"/>
+                <outlet property="image5" destination="1h7-3k-UlF" id="eDo-fA-52e"/>
+                <outlet property="remark" destination="crS-NB-xfr" id="6d9-f6-uKc"/>
+                <outlet property="titleLabel" destination="Ox2-FA-9Nr" id="fp2-0C-vtA"/>
+            </connections>
+            <point key="canvasLocation" x="2.5" y="94"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="kongxin_icon_default" width="32" height="32"/>
+        <image name="shixin_icon_default" width="32" height="32"/>
+    </resources>
+</document>

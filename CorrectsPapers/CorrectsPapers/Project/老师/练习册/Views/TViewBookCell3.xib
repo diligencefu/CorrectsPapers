@@ -20,14 +20,14 @@
                 <rect key="frame" x="0.0" y="0.0" width="360" height="246.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" tag="2" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="OZe-MM-prb">
+                    <imageView userInteractionEnabled="NO" tag="2" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="workBook" translatesAutoresizingMaskIntoConstraints="NO" id="OZe-MM-prb">
                         <rect key="frame" x="15" y="38" width="160" height="200"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="160" id="4xt-eW-LOD"/>
                             <constraint firstAttribute="height" constant="200" id="5kr-Lb-xde"/>
                         </constraints>
                     </imageView>
-                    <imageView userInteractionEnabled="NO" tag="1" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Bdp-BW-n0k">
+                    <imageView userInteractionEnabled="NO" tag="1" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="workBook" translatesAutoresizingMaskIntoConstraints="NO" id="Bdp-BW-n0k">
                         <rect key="frame" x="185" y="38" width="160" height="200"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="160" id="R95-53-6o0"/>
@@ -44,7 +44,7 @@
                         <color key="textColor" red="0.93707936999999997" green="0.5591246486" blue="0.01715909317" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <imageView userInteractionEnabled="NO" tag="3" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="spS-0p-YCH">
+                    <imageView userInteractionEnabled="NO" tag="3" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="workBook" translatesAutoresizingMaskIntoConstraints="NO" id="spS-0p-YCH">
                         <rect key="frame" x="100" y="38" width="160" height="200"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="160" id="RyA-fU-OKq"/>
@@ -71,7 +71,10 @@
                 <outlet property="image2" destination="OZe-MM-prb" id="fKd-Ag-Uyt"/>
                 <outlet property="image3" destination="Bdp-BW-n0k" id="CID-me-cHJ"/>
             </connections>
-            <point key="canvasLocation" x="-153" y="94"/>
+            <point key="canvasLocation" x="-153" y="93.5"/>
         </tableViewCell>
     </objects>
+    <resources>
+        <image name="workBook" width="160" height="200"/>
+    </resources>
 </document>

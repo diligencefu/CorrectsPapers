@@ -27,6 +27,8 @@ class TBookDetailViewController: BaseViewController,UITextFieldDelegate {
 //    成绩
     var grades = NSMutableArray()
     
+    var searchArr = NSMutableArray()
+    
     //    var bookState = 0
     
     var book_id = ""
@@ -36,6 +38,7 @@ class TBookDetailViewController: BaseViewController,UITextFieldDelegate {
     let identyfierTable8 = "identyfierTable8"
     let identyfierTable9 = "identyfierTable9"
     let identyfierTable10 = "identyfierTable10"
+    let identyfierTable11 = "identyfierTable11"
 
 //    搜索框
     var isSearching = false
@@ -68,11 +71,17 @@ class TBookDetailViewController: BaseViewController,UITextFieldDelegate {
              "mobileCode":mobileCodeT,
              "id":book_id
         ]
+        
         NetWorkTeacherGetTStudentWorkList(params: params1) { (datas) in
             self.works.removeAllObjects()
             self.works.addObjects(from: datas)
             self.mainTableView.reloadData()
         }
+    }
+    
+    
+    override func addHeaderRefresh() {
+        
     }
     
     
@@ -128,26 +137,86 @@ class TBookDetailViewController: BaseViewController,UITextFieldDelegate {
                                                        y: 0,
                                                        width: kSCREEN_WIDTH,
                                                        height: kSCREEN_HEIGHT - 64),
-                                         style: .grouped)
+                                         style: .plain)
         mainTableView.dataSource = self
         mainTableView.delegate = self
         mainTableView.estimatedRowHeight = 100
-//        mainTableView.register(UINib(nibName: "TViewBookCell",     bundle: nil), forCellReuseIdentifier: identyfierTable)
         mainTableView.register(UINib(nibName: "AnserImageCell",    bundle: nil), forCellReuseIdentifier: identyfierTable2)
         mainTableView.register(UINib(nibName: "AnserVideoCell",    bundle: nil), forCellReuseIdentifier: identyfierTable3)
         mainTableView.register(UINib(nibName: "ClassGradeCell",    bundle: nil), forCellReuseIdentifier: identyfierTable4)
         mainTableView.register(UINib(nibName: "TUpLoadVideoCell",  bundle: nil), forCellReuseIdentifier: identyfierTable5)
-//        mainTableView.register(UINib(nibName: "TViewBookCell2",    bundle: nil), forCellReuseIdentifier: identyfierTable6)
         mainTableView.register(UINib(nibName: "TShowDoneWorkCell", bundle: nil), forCellReuseIdentifier: identyfierTable7)
-//        mainTableView.register(UINib(nibNam   e: "TViewBookCell1",    bundle: nil), forCellReuseIdentifier: identyfierTable8)
-//        mainTableView.register(UINib(nibName: "TViewBookCell3",    bundle: nil), forCellReuseIdentifier: identyfierTable9)
         mainTableView.register(UINib(nibName: "TViewBookCell0",    bundle: nil), forCellReuseIdentifier: identyfierTable10)
-
+        mainTableView.register(UITableViewCell.self, forCellReuseIdentifier: identyfierTable11)
+        
         mainTableView.tableHeaderView = headView
         self.view.addSubview(mainTableView)
         mainTableView.backgroundColor = kSetRGBColor(r: 239, g: 239, b: 244)
         mainTableArr = ["关于我们","清除缓存","检查更新"]
     }
+    
+    
+//    刷新数据
+    override func refreshHeaderAction() {
+        isSearching = false
+
+        let params =
+            ["SESSIONID":SESSIONIDT,
+             "mobileCode":mobileCodeT,
+             "id":book_id
+        ]
+        
+        if currentIndex == 4 {
+            self.view.addSubview(footBtnView)
+        }else{
+            footBtnView.removeFromSuperview()
+        }
+        
+        if currentIndex == 1 {
+            
+            NetWorkTeacherGetTStudentWorkList(params: params) { (datas) in
+                self.works.removeAllObjects()
+                self.works.addObjects(from: datas)
+                self.mainTableView.reloadData()
+            }
+        }else if currentIndex == 2 {
+            
+            NetWorkTeacherGetTStudentCorrected(params: params) { (datas) in
+                self.doneWorks.removeAllObjects()
+                self.doneWorks.addObjects(from: datas)
+                self.mainTableView.reloadData()
+            }
+        }else if currentIndex == 3 {
+            
+            NetWorkTeacherGetTPeriodPoint(params: params) { (datas) in
+                self.videoArr.removeAll()
+                
+                for index in 0..<datas.count {
+                    let model = datas[index] as! UrlModel
+                    self.videoArr.append(model)
+                }
+                self.mainTableView.reloadData()
+            }
+        }else if currentIndex == 4{
+            
+            NetWorkTeacherGetTPeriodAnswers(params: params) { (datas) in
+                self.answerArr.removeAll()
+                
+                // #MARK:待处理
+                self.mainTableView.reloadData()
+            }
+            
+        }else{
+            
+            NetWorkTeacherGetTStudentGrades(params: params) { (datas) in
+                self.grades.removeAllObjects()
+                self.grades.addObjects(from: datas)
+                self.mainTableView.reloadData()
+            }
+        }
+
+    }
+    
     
     
     //    右键
@@ -210,7 +279,12 @@ class TBookDetailViewController: BaseViewController,UITextFieldDelegate {
             }
         }else if currentIndex == 3 {
             
-            NetWorkTeacherGetTPeriodPoint(params: params) { (datas) in
+            let params1 =
+                ["SESSIONID":SESSIONIDT,
+                 "mobileCode":mobileCodeT,
+                 "workBookId":book_id
+            ]
+            NetWorkTeacherGetTPeriodPoint(params: params1) { (datas) in
                 self.videoArr.removeAll()
                 
                 for index in 0..<datas.count {
@@ -221,13 +295,11 @@ class TBookDetailViewController: BaseViewController,UITextFieldDelegate {
             }            
         }else if currentIndex == 4{
 
-            NetWorkTeacherGetTPeriodAnswers(params: params) { (datas) in
-                self.answerArr.removeAll()
-                
-                // #MARK:待处理
-                self.mainTableView.reloadData()
-            }
-            
+//            NetWorkTeacherGetTPeriodAnswers(params: params) { (datas) in
+//                self.answerArr.removeAll()
+//                // #MARK:待处理
+//                self.mainTableView.reloadData()
+//            }
         }else{
             
             NetWorkTeacherGetTStudentGrades(params: params) { (datas) in
@@ -236,7 +308,7 @@ class TBookDetailViewController: BaseViewController,UITextFieldDelegate {
                 self.mainTableView.reloadData()
             }
         }
-        
+        isSearching = false
         mainTableView.reloadData()
     }
     
@@ -245,14 +317,14 @@ class TBookDetailViewController: BaseViewController,UITextFieldDelegate {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         if currentIndex == 1 {
-            
-//            let model = works[section] as! TShowStuWorksModel
-//            if NSInteger(model.state)! < 4 {
-//                return 1
-//            }else{
-//                return 2
-//            }
-            return 1
+            if isSearching {
+                if searchArr.count == 0 {
+                    return 1
+                }
+                return searchArr.count
+            }else{
+                return works.count
+            }
         }
         
         if currentIndex == 2  {
@@ -281,10 +353,6 @@ class TBookDetailViewController: BaseViewController,UITextFieldDelegate {
             return 2
         }
         
-        if currentIndex == 1 {
-            return works.count
-        }
-        
         if currentIndex == 2 {
             return doneWorks.count
         }
@@ -296,13 +364,27 @@ class TBookDetailViewController: BaseViewController,UITextFieldDelegate {
         
         if currentIndex == 1 {
             
-            let model = works[indexPath.section] as! TShowStuWorksModel
+            var model = TShowStuWorksModel()
+            if isSearching {
+                
+                if searchArr.count == 0 {
+                    let cell : UITableViewCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable11, for: indexPath)
+                    cell.textLabel?.text = "未找到关于“"+searchTextfield.text!+"”的作业"
+                    cell.selectionStyle = .none
+                    return cell
+                }else{
+                    model = searchArr[indexPath.row] as! TShowStuWorksModel
+                }
+            }else{
+                model = works[indexPath.row] as! TShowStuWorksModel
+            }
             print(model.state)
             
             let cell : TViewBookCell0 = tableView.dequeueReusableCell(withIdentifier: identyfierTable10, for: indexPath) as! TViewBookCell0
             
             cell.TViewBookCell0SetValuesForShowWork(model: model)
             return cell
+            
 //            if model.state == "2" {
 //                let cell : TViewBookCell1 = tableView.dequeueReusableCell(withIdentifier: identyfierTable8, for: indexPath) as! TViewBookCell1
 //                cell.TViewBookCellSetValuesForUndone(model: model)
@@ -409,21 +491,34 @@ class TBookDetailViewController: BaseViewController,UITextFieldDelegate {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         
+        if currentIndex == 1 {
+            
+            if !isSearching {
+                let viewC = TShowBookViewController()
+                let model = works[indexPath.row] as! TShowStuWorksModel
+                viewC.model = model
+                if model.state == "2" || model.state == "5" {
+                    self.navigationController?.pushViewController(viewC, animated: true)
+                }
+            }
+        }
+        
         if currentIndex == 3 {
             
             if indexPath.section == 0 {
                 
                 let nextVC = UploadVideoViewController()
                 nextVC.isAnswer = false
+                nextVC.bookId = book_id
                 nextVC.addUrlBlock = {
-                    self.videoArr.append($0)
+
                     self.mainTableView.reloadData()
                 }
                 self.navigationController?.pushViewController(nextVC, animated: true)
             }else{
                
                 let model = videoArr[indexPath.row]
-                let url = StringToUTF_8InUrl(str: model.videoUrl)
+                let url = StringToUTF_8InUrl(str: model.address!)
                 if #available(iOS 10.0, *) {
                   
                     UIApplication.shared.open(url as URL, options: [:],
@@ -437,10 +532,13 @@ class TBookDetailViewController: BaseViewController,UITextFieldDelegate {
         }
         
         if currentIndex == 4 {
-            if indexPath.section == 0 {
-                setupPhoto1(count: 10)
-            }else{
-                
+
+        }
+        
+        if currentIndex == 5 {
+            if indexPath.row != 0 {
+                let showVC = TShowOneGradeVCViewController()
+                self.navigationController?.pushViewController(showVC, animated: true)
             }
         }
     }
@@ -463,7 +561,7 @@ class TBookDetailViewController: BaseViewController,UITextFieldDelegate {
         if currentIndex == 1 {
             
             if section == 0 {
-                //        密码
+
                 let BGiew = UIView.init(frame:CGRect(x: 0, y: 0, width: kSCREEN_WIDTH , height: 43) )
                 BGiew.backgroundColor = UIColor.white
                 searchTextfield.frame = CGRect(x: 15*kSCREEN_SCALE, y: 4, width: kSCREEN_WIDTH-30*kSCREEN_SCALE , height: 35)
@@ -474,7 +572,9 @@ class TBookDetailViewController: BaseViewController,UITextFieldDelegate {
                 searchTextfield.placeholder = "学生姓名/学号"
                 searchTextfield.leftViewMode = .always
                 searchTextfield.returnKeyType = .search
+                searchTextfield.clearButtonMode = .whileEditing
                 searchTextfield.backgroundColor = kGaryColor(num: 243)
+                searchTextfield.addTarget(self, action: #selector(textFieldDidChange(textfield:)), for: .editingChanged)
                 searchTextfield.delegate = self
                 
                 let view = UIView.init(frame: CGRect(x: 0, y: 0, width: 35, height: 17))
@@ -490,6 +590,17 @@ class TBookDetailViewController: BaseViewController,UITextFieldDelegate {
         let view = UIView.init(frame: CGRect(x: 0, y: 0, width: kSCREEN_WIDTH, height: 19 * kSCREEN_SCALE))
         view.backgroundColor = kSetRGBColor(r: 239, g: 239, b: 244)
         return view
+    }
+    
+    
+    @objc func textFieldDidChange(textfield:UITextField) {
+        
+        if textfield.text?.count == 0 {
+            setToast(str: "取消搜索")
+            isSearching = false
+             mainTableView.reloadData()
+            textfield.resignFirstResponder()
+        }
     }
     
     
@@ -554,6 +665,7 @@ class TBookDetailViewController: BaseViewController,UITextFieldDelegate {
             
             let nextVC = UploadVideoViewController()
             nextVC.isAnswer = true
+            nextVC.currentType = 1
 //            nextVC.addUrlBlock = {
 //                self.videoArr.append($0)
 //                self.mainTableView.reloadData()
@@ -565,6 +677,7 @@ class TBookDetailViewController: BaseViewController,UITextFieldDelegate {
         }else  if sender.tag == 183{
             
             let nextVC = WriteAnswerViewController()
+            nextVC.currentType = 1
 //            nextVC.addTextBlock = {
 //                self.mainTableView.reloadData()
 //            }
@@ -575,7 +688,20 @@ class TBookDetailViewController: BaseViewController,UITextFieldDelegate {
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
 
-        setToast(str: "开始请求")
+        textField.resignFirstResponder()
+
+        let params1 =
+            ["SESSIONID":SESSIONIDT,
+             "mobileCode":mobileCodeT,
+             "id":book_id
+        ]
+        
+        NetWorkTeacherGetTStudentWorkList(params: params1) { (datas) in
+            self.works.removeAllObjects()
+            self.works.addObjects(from: datas)
+            self.isSearching = true
+            self.mainTableView.reloadData()
+        }
         return true
     }
     
@@ -610,6 +736,7 @@ class TBookDetailViewController: BaseViewController,UITextFieldDelegate {
             
         }
     }
+    
     
     @objc func dealImage(imageArr:[UIImage],index:Int) {
         // 图片下载完成后再去掉我们的转转转控件，这里没有考虑assetArr中含有视频文件的情况

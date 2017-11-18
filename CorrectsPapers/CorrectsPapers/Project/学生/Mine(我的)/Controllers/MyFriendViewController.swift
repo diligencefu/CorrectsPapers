@@ -75,25 +75,25 @@ class MyFriendViewController: BaseViewController {
     }
     
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        netWorkForMyFriend { (datas, success) in
-            
-            self.mainTableArr.removeAllObjects()
-            for index in 0..<datas.count {
-                
-                let model = datas[index] as! ApplyModel
-                
-                if model.user_type == "1" {
-                    self.students.append(model)
-                }else{
-                    self.teachers.append(model)
-                }
-            }
-            self.mainTableView.reloadData()
-        }
-
-    }
+//    override func viewWillAppear(_ animated: Bool) {
+//        super.viewWillAppear(animated)
+//        netWorkForMyFriend { (datas, success) in
+//            
+//            self.mainTableArr.removeAllObjects()
+//            for index in 0..<datas.count {
+//                
+//                let model = datas[index] as! ApplyModel
+//                
+//                if model.user_type == "1" {
+//                    self.students.append(model)
+//                }else{
+//                    self.teachers.append(model)
+//                }
+//            }
+//            self.mainTableView.reloadData()
+//        }
+//
+//    }
     
     override func configSubViews() {
         

@@ -37,7 +37,11 @@ class TShowStuWorksModel: NSObject {
     var teacher_name : String!
     //作业描述
     var result : String!
+    //作业id
+    var book_details_id : String!
 
+    
+    
     class func setValueForTShowStuWorksModel(json: JSON) -> TShowStuWorksModel {
         
         let model = TShowStuWorksModel()
@@ -54,6 +58,7 @@ class TShowStuWorksModel: NSObject {
         model.state = json["state"].stringValue
         model.teacher_name = json["teacher_name"].stringValue
         model.result = json["result"].stringValue
+        model.book_details_id = json["book_details_id"].stringValue
 
         return model
     }

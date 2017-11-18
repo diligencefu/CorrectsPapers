@@ -68,15 +68,15 @@ class MessgaeCenterViewController: BaseViewController {
         mainTableView.register(UINib(nibName: "MessgesCell", bundle: nil), forCellReuseIdentifier: identyfierTable)
         self.view.addSubview(mainTableView)
         mainTableView.backgroundColor = kSetRGBColor(r: 239, g: 239, b: 244)
-//        mainTableView.tableFooterView = UIView()
+        mainTableView.tableFooterView = UIView()
     }
     
     
     //    ******************代理 ： UITableViewDataSource,UITableViewDelegate  ************
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if mainTableArr.count == 0 {
-            mainTableView.mj_footer.endRefreshingWithNoMoreData()
-        }
+//        if mainTableArr.count == 0 {
+//            mainTableView.mj_footer.endRefreshingWithNoMoreData()
+//        }
         
         return  mainTableArr.count
     }

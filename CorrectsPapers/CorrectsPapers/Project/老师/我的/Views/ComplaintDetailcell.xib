@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="KGk-i7-Jjw" customClass="ComplaintDetailcell" customModule="CorrectsPapers" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="38"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="37.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2017年10月11日" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Iww-DS-cGA">
+                        <rect key="frame" x="15" y="8" width="109" height="21"/>
+                        <constraints>
+                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="20" id="RMQ-eu-9cU"/>
+                            <constraint firstAttribute="height" constant="21" id="UwF-Wi-6ce"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <color key="textColor" red="0.74109476804733276" green="0.74122357368469238" blue="0.74108666181564331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="原因：" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sy8-22-JOI">
+                        <rect key="frame" x="150" y="8" width="46" height="21"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="21" id="GBS-3L-bQ4"/>
+                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="20" id="m4q-7m-tU7"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <color key="textColor" red="0.74109476799999996" green="0.74122357370000003" blue="0.74108666180000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="未按时批改作业" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="x3v-cD-iYd">
+                        <rect key="frame" x="196" y="8" width="108" height="21"/>
+                        <constraints>
+                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="20" id="503-cV-pw6"/>
+                            <constraint firstAttribute="height" constant="21" id="r3U-fQ-oXJ"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <color key="textColor" red="0.43132263422012329" green="0.43140128254890442" blue="0.43131768703460693" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="Iww-DS-cGA" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="1TB-CA-Fj9"/>
+                    <constraint firstItem="Iww-DS-cGA" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="3tV-6a-g5A"/>
+                    <constraint firstAttribute="trailing" secondItem="x3v-cD-iYd" secondAttribute="trailing" constant="16" id="A6X-cJ-5eM"/>
+                    <constraint firstItem="x3v-cD-iYd" firstAttribute="centerY" secondItem="Iww-DS-cGA" secondAttribute="centerY" id="FIY-wa-MP2"/>
+                    <constraint firstAttribute="bottom" secondItem="Iww-DS-cGA" secondAttribute="bottom" constant="8.5" id="LIL-09-ByZ"/>
+                    <constraint firstItem="sy8-22-JOI" firstAttribute="centerY" secondItem="Iww-DS-cGA" secondAttribute="centerY" id="QCE-hh-qDK"/>
+                    <constraint firstItem="x3v-cD-iYd" firstAttribute="leading" secondItem="sy8-22-JOI" secondAttribute="trailing" id="mRU-ZA-X8y"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="theDate" destination="Iww-DS-cGA" id="naM-mT-a2d"/>
+                <outlet property="theReason" destination="x3v-cD-iYd" id="Zap-s7-CaJ"/>
+            </connections>
+        </tableViewCell>
+    </objects>
+</document>

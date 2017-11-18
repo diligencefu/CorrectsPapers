@@ -12,6 +12,7 @@ class AnserVideoCell: UITableViewCell {
 
     @IBOutlet weak var videoTitle: UILabel!
     
+    @IBOutlet weak var videoDesc: UILabel!
     
     
     
@@ -22,8 +23,8 @@ class AnserVideoCell: UITableViewCell {
 
     func AnserVideoCellSetValues(model:UrlModel) {
         
-        videoTitle.text = model.describe
-        
+        videoTitle.text = model.counts
+        videoDesc.text = model.title
     }
     
     

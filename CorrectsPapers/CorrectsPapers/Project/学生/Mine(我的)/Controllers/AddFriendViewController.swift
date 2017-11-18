@@ -18,6 +18,11 @@ class AddFriendViewController: BaseViewController {
         super.viewDidLoad()
     }
     
+    
+    override func addHeaderRefresh() {
+        
+    }
+    
     override func configSubViews() {
         
         self.navigationItem.title = "添加好友"

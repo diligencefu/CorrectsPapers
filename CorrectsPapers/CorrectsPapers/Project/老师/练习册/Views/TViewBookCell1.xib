@@ -66,21 +66,21 @@
                         <color key="textColor" red="0.38034743069999999" green="0.38041785360000002" blue="0.38034301999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <imageView userInteractionEnabled="NO" tag="2" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="fTo-rc-zzT">
+                    <imageView userInteractionEnabled="NO" tag="2" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="workBook" translatesAutoresizingMaskIntoConstraints="NO" id="fTo-rc-zzT">
                         <rect key="frame" x="15" y="96" width="160" height="200"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="160" id="TDT-ls-gAW"/>
                             <constraint firstAttribute="height" constant="200" id="dlH-kt-BxX"/>
                         </constraints>
                     </imageView>
-                    <imageView userInteractionEnabled="NO" tag="3" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="vMR-Xw-KQl">
+                    <imageView userInteractionEnabled="NO" tag="3" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="workBook" translatesAutoresizingMaskIntoConstraints="NO" id="vMR-Xw-KQl">
                         <rect key="frame" x="185" y="96" width="160" height="200"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="200" id="SOh-mh-sms"/>
                             <constraint firstAttribute="width" constant="160" id="d7n-s8-vfl"/>
                         </constraints>
                     </imageView>
-                    <imageView userInteractionEnabled="NO" tag="1" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="8Uc-W7-xMB">
+                    <imageView userInteractionEnabled="NO" tag="1" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="workBook" translatesAutoresizingMaskIntoConstraints="NO" id="8Uc-W7-xMB">
                         <rect key="frame" x="100" y="96" width="160" height="200"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="160" id="AvF-fs-r9I"/>
@@ -150,5 +150,6 @@
     </objects>
     <resources>
         <image name="UserHead_64_default" width="32" height="32"/>
+        <image name="workBook" width="160" height="200"/>
     </resources>
 </document>

@@ -9,76 +9,66 @@
 import UIKit
 
 class TMyCorrectViewController: BaseViewController {
-    var emptyView = UIView()
+    var emptyView = UIView()    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        rightBarButton()
+        addImageWhenEmpty()
     }
     
-    override func leftBarButton() {
+    
+    override func requestData() {
         
+        NetWorkTeacherGetTMyAllNotWork { (datas) in
+            self.mainTableArr.removeAllObjects()
+            self.mainTableArr.addObjects(from: datas)
+            self.mainTableView.reloadData()
+        }
     }
+    
+    
+    override func refreshHeaderAction() {
+        NetWorkTeacherGetTMyAllNotWork { (datas) in
+            self.mainTableArr.removeAllObjects()
+            self.mainTableArr.addObjects(from: datas)
+            self.mainTableView.reloadData()
+            self.mainTableView.mj_header.endRefreshing()
+        }
+    }
+
     
     override func configSubViews() {
         
         self.navigationItem.title = "我的批改"
-        
-        
-        
-        mainTableArr =  ["","","","",""]
-
         mainTableView = UITableView.init(frame: CGRect(x: 0, y: 0, width: kSCREEN_WIDTH, height: kSCREEN_HEIGHT - 64 ), style: .plain)
         mainTableView.dataSource = self;
         mainTableView.delegate = self;
         mainTableView.estimatedRowHeight = 143 * kSCREEN_SCALE;
+        mainTableView.tableFooterView = UIView()
         mainTableView.register(UINib(nibName: "TShowBooksCell", bundle: nil), forCellReuseIdentifier: identyfierTable)
         self.view.addSubview(mainTableView)
-        
     }
     
-    
-    @objc func pushToSearchBook(sender:UIBarButtonItem) {
-        let searchVC = SearchBooksViewController()
-        //        searchVC.style
-        self.navigationController?.pushViewController(searchVC, animated: true)
-        
-        
-    }
-    //    右键
-    func rightBarButton() {
-        
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(image: #imageLiteral(resourceName: "book_icon_default"), style: .plain, target: self, action: #selector(pushToMyBook(sender:)))
-    }
-    
-    @objc func pushToMyBook(sender:UIBarButtonItem) {
-        
-        let myBook = MyBookViewController()
-        
-        self.navigationController?.pushViewController(myBook, animated: true)
-    }
     
     
     //    当数据为空的时候，显示提示
-    
     func addImageWhenEmpty() {
         
         emptyView = UIView.init(frame: CGRect(x: 0, y: 0, width: kSCREEN_WIDTH, height: kSCREEN_HEIGHT - 46))
         emptyView.backgroundColor = kBGColor()
         let imageView = UIImageView.init(frame: CGRect(x: 0, y: 0, width: 200 * kSCREEN_SCALE, height: 200 * kSCREEN_SCALE))
-        imageView.image = #imageLiteral(resourceName: "headimage")
+        imageView.image = #imageLiteral(resourceName: "404_icon_default")
         imageView.center = CGPoint(x: emptyView.centerX, y: emptyView.centerY - 200 * kSCREEN_SCALE)
         emptyView.addSubview(imageView)
         
-        let label = UILabel.init(frame: CGRect(x: 0, y: 0, width: kSCREEN_WIDTH, height: 50))
+        let label = UILabel.init(frame: CGRect(x: 0, y: 0, width: kSCREEN_WIDTH, height: 18))
         label.textAlignment = .center
         label.textColor = kGaryColor(num: 163)
-        label.center = CGPoint(x: emptyView.centerX, y: emptyView.centerY + 20 * kSCREEN_SCALE)
-        label.font = kFont36
+        label.center = CGPoint(x: emptyView.centerX, y: emptyView.centerY-40)
+        label.font = kFont34
         label.numberOfLines = 2
-        label.text = "暂时没有练习册"
+        label.text = "暂时没有非练习册"
         emptyView.addSubview(label)
-        self.mainTableView.addSubview(emptyView)
     }
     
     
@@ -86,31 +76,52 @@ class TMyCorrectViewController: BaseViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         if mainTableArr.count == 0 {
-            addImageWhenEmpty()
+            mainTableView.addSubview(emptyView)
         }else{
             emptyView.removeFromSuperview()
         }
-        
         return mainTableArr.count
     }
+    
     
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+
+        let model = mainTableArr[indexPath.row] as! TNotWorkModel
         
         let cell : TShowBooksCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable, for: indexPath) as! TShowBooksCell
         cell.selectionStyle = .default
-        cell.TShowBooksCellForMyCorrect()
+        cell.TShowBooksCellForShowBook(model: model)
         return cell
     }
+    
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         
+        let model = mainTableArr[indexPath.row] as! TNotWorkModel
+
+        
         let BookDetailVC = TDetailBookViewController()
-        BookDetailVC.workState = indexPath.row % 6
+//        BookDetailVC.model.comment = "fsdghjkl;:lkjhgnfbdsdfghjkl;/k.jh,gfdsfghjkl.,n时实打实大所大所撒发放阿萨法阿萨法阿斯达按时啊"
+//        BookDetailVC.model.comment_next = "dfghjk"
+//        BookDetailVC.model.corrected_error_photo = "dfghjk"
+//        BookDetailVC.model.correcting_time = "2017-12-12"
+//        BookDetailVC.model.photo = "dfghjk"
+//        BookDetailVC.model.result = "werghtjykuli"
+//        BookDetailVC.model.scores = "3"
+//        BookDetailVC.model.scores_next = "5"
+//        BookDetailVC.model.state = "\(indexPath.row%6+2)"
+//        BookDetailVC.model.teacher_name = "搜索到"
+//        BookDetailVC.model.user_name = "Michigan"
+//        BookDetailVC.model.user_num = "008"
+//        BookDetailVC.model.user_photo = "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1511315485&di=721c22ab84cb171b4f5c8293c99c2ca8&imgtype=jpg&er=1&src=http%3A%2F%2Fwww.feizl.com%2Fupload2007%2F2015_07%2F1507241542922222.jpg"
+        BookDetailVC.model1 = model
+        
         self.navigationController?.pushViewController(BookDetailVC, animated: true)
     }
     

@@ -35,16 +35,43 @@ class TViewBookCell0: UITableViewCell {
         userName.text = model.user_name
         timeLabel.text = model.correcting_time
         
+        bookState.textColor = kSetRGBColor(r: 255, g: 153, b: 0)
+
         if model.state == "2" {
             
             bookState.text = "未批改"
-            bookState.textColor = kSetRGBColor(r: 255, g: 153, b: 0)
+        }else if model.state == "5"{
+            
+            bookState.text = "错题未批改"
+        }
+        
+        bookState.textColor = kGetColorFromString(str:bookState.text!)
+    }
+    
+    func TViewBookCell0SetValuesForShowClassWork(model:TShowClassWorksModel) {
+        
+        bookTitle.text = model.title
+        userIcon.kf.setImage(with:  URL(string:model.user_photo)!, placeholder: #imageLiteral(resourceName: "UserHead_128_default"), options: nil, progressBlock: nil, completionHandler: nil)
+        userNum.text =  model.student_num
+        userName.text = model.user_name
+        timeLabel.text = model.p_datetime
+        
+        bookState.textColor = kSetRGBColor(r: 255, g: 153, b: 0)
+        
+        if model.type == "2" {
+            
+            bookState.text = "未批改"
         }else{
             
-            bookState.text = "退回-照片模糊"
-            bookState.textColor = kSetRGBColor(r: 255, g: 78, b: 78)
+            bookState.text = "错题未批改"
         }
+        
+        bookState.textColor = kGetColorFromString(str:bookState.text!)
     }
+    
+    
+
+    
     
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)

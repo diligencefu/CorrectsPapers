@@ -73,7 +73,60 @@ class TViewBookCell1: UITableViewCell {
         }
         
     }
+    
+    
+    
+    //    2
+    func TViewBookCellSetValuesForNotWorkUndone(model:TNotWorkDetailModel) {
+        
+        
+        var images = [String]()
+        
+        let imageDatas = model.pre_photos?.arrayValue
+        
+        for index in 0..<imageDatas!.count {
+            images.append(imageDatas![index].stringValue)
+        }
+        
+        bookTitle.text = "model."
+        
+        if model.state == "2" {
+            
+            workState.text = "未批改"
+            workState.textColor = kSetRGBColor(r: 255, g: 153, b: 0)
+        }else{
+            
+            workState.text = "退回-照片模糊"
+            workState.textColor = kSetRGBColor(r: 255, g: 78, b: 78)
+        }
+        workState.textColor = kGetColorFromString(str:model.state)
 
+        image2.snp.updateConstraints({ (make) in
+            make.bottom.equalToSuperview().offset(-10)
+        })
+        
+        userIcon.kf.setImage(with:  URL(string:model.user_photo)!, placeholder: #imageLiteral(resourceName: "UserHead_128_default"), options: nil, progressBlock: nil, completionHandler: nil)
+        userNum.text = "学号 " + model.user_num
+        userName.text = model.student_name
+        timeLabel.text = model.create_date
+        
+        if images.count == 1 {
+            
+            image1.kf.setImage(with:  URL(string:testImages[0])!, placeholder: #imageLiteral(resourceName: "photos_image_default"), options: nil, progressBlock: nil, completionHandler: nil)
+            image2.isHidden = true
+            image3.isHidden = true
+        }else  {
+            
+            image1.isHidden = true
+            image2.kf.setImage(with:  URL(string:testImages[0])!, placeholder: #imageLiteral(resourceName: "photos_image_default"), options: nil, progressBlock: nil, completionHandler: nil)
+            image3.kf.setImage(with:  URL(string:testImages[1])!, placeholder: #imageLiteral(resourceName: "photos_image_default"), options: nil, progressBlock: nil, completionHandler: nil)
+            image2.isHidden = false
+            image3.isHidden = false
+        }
+        
+    }
+
+    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 

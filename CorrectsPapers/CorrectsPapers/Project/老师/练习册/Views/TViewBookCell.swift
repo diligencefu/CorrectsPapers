@@ -113,6 +113,65 @@ class TViewBookCell:  UITableViewCell {
     }
     
     
+    //    4
+    func TViewBookCellSetValuesForNotWorkFirstCorrectDone(model:TNotWorkDetailModel) {
+        bookTitle.text = model.non_exercise_name
+        
+        showImages = testImages
+        gradeImage.isHidden = false
+        gradeLabel.isHidden = false
+        doThing.isHidden = false
+        theTeacher.isHidden = false
+        remark.isHidden = false
+        
+        var images = [String]()
+        
+        let imageDatas = model.pre_photos?.arrayValue
+        
+        for index in 0..<imageDatas!.count {
+            images.append(imageDatas![index].stringValue)
+        }
+        
+        userIcon.kf.setImage(with:  URL(string:model.user_photo)!, placeholder: #imageLiteral(resourceName: "UserHead_128_default"), options: nil, progressBlock: nil, completionHandler: nil)
+        userNum.text =  model.user_num
+        userName.text = model.student_name
+        timeLabel.text = model.create_date
+        //        bookTitle.text = model.
+        theTeacher.text = model.teacher_name
+        remark.text = "老师评语：" + model.pre_comment!
+        
+        if model.pre_score == "1" {
+            gradeImage.image = #imageLiteral(resourceName: "yixing_icon_pressed")
+        }else if model.pre_score == "2" {
+            gradeImage.image = #imageLiteral(resourceName: "erxing_icon_pressed")
+        }else if model.pre_score == "3" {
+            gradeImage.image = #imageLiteral(resourceName: "sanxing_icon_pressed")
+        }else if model.pre_score == "4" {
+            gradeImage.image = #imageLiteral(resourceName: "sixing_icon_pressed")
+        }else if model.pre_score == "4"{
+            gradeImage.image = #imageLiteral(resourceName: "wuxing_icon_pressed")
+        }
+
+        image2.snp.updateConstraints({ (make) in
+            make.bottom.equalTo(theTeacher.snp.top).offset(-5)
+        })
+        
+        if images.count == 1 {
+            
+            image1.kf.setImage(with:  URL(string:testImages[0])!, placeholder: #imageLiteral(resourceName: "photos_image_default"), options: nil, progressBlock: nil, completionHandler: nil)
+            image2.isHidden = true
+            image3.isHidden = true
+        }else  {
+            
+            image1.isHidden = true
+            image2.kf.setImage(with:  URL(string:testImages[0])!, placeholder: #imageLiteral(resourceName: "photos_image_default"), options: nil, progressBlock: nil, completionHandler: nil)
+            image3.kf.setImage(with:  URL(string:testImages[1])!, placeholder: #imageLiteral(resourceName: "photos_image_default"), options: nil, progressBlock: nil, completionHandler: nil)
+            image2.isHidden = false
+            image3.isHidden = false
+        }
+    }
+
+    
     func TViewBookCellSetValues123456() {
         
         showImages = testImages

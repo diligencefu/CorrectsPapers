@@ -13,9 +13,13 @@ class WriteAnswerViewController: BaseViewController ,UITextFieldDelegate,UITextV
     var tipTextField = UITextField()
     var content = UITextView()
     
+//    判断是哪里的答案
+    var currentType = 0
+    
     var addTextBlock:((String)->())?  //声明闭包
 
-    
+    var bookId = ""
+
     override func viewDidLoad() {
         super.viewDidLoad()
         rightBarButton()
@@ -52,13 +56,44 @@ class WriteAnswerViewController: BaseViewController ,UITextFieldDelegate,UITextV
     
     //    MARK:提交
     @objc func submitAnswer(sender:UIBarButtonItem) {
+//
+//        if addTextBlock != nil {
+//            addTextBlock!(content.text)
+//        }
+//
+//        setToast(str: "已提交")
+//        self.navigationController?.popViewController(animated: true)
         
-        if addTextBlock != nil {
-            addTextBlock!(content.text)
+        
+        let params1 =
+            ["SESSIONID":SESSIONIDT,
+             "mobileCode":mobileCodeT,
+             "bookId":bookId,
+             "answardRes":content.text,
+             "money":"2",
+             ] as [String : Any]
+        
+        
+        if currentType == 1 {
+            
+            NetWorkTeacherAddTWorkUploadContent(params: params1, callBack: { (flag) in
+                if flag {
+                    setToast(str: "已提交")
+                    self.navigationController?.popViewController(animated: true)
+                }
+            })
+        }else if currentType == 2 {
+            
+            
+            
+        }else if currentType == 3 {
+            
+            
+            
         }
+
         
-        setToast(str: "已提交")
-        self.navigationController?.popViewController(animated: true)
+        
     }
     
 

@@ -22,6 +22,9 @@ class ClassGradeCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        fristGrade.contentMode = .center
+        doneGrade.contentMode = .center
+
         // Initialization code
     }
 
@@ -48,8 +51,6 @@ class ClassGradeCell: UITableViewCell {
     }
     
     
-    
-    
     func is1thCellForWorkBook() {
         fristGrade.alpha = 0
         doneGrade.alpha = 0
@@ -58,8 +59,7 @@ class ClassGradeCell: UITableViewCell {
         label2.isHidden = false
         periodsLabel.text = "学生姓名"
     }
-
-    
+        
 //    练习册详情
     func  setValueForBookGrade(model:TShowGradeModel) {
         
@@ -95,8 +95,7 @@ class ClassGradeCell: UITableViewCell {
             doneGrade.image = #imageLiteral(resourceName: "wuxing_icon_pressed")
         }
     }
-    
-    
+        
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 

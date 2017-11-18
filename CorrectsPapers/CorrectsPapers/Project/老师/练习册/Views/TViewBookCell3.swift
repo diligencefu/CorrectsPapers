@@ -26,14 +26,16 @@ class TViewBookCell3: UITableViewCell {
     
     func TViewBookCellSetValuesForUndone(model:TShowStuWorksModel) {
         bookState.isHidden = false
+        
+        bookState.textColor = kSetRGBColor(r: 255, g: 153, b: 0)
+
         if model.state == "2" {
             
             bookState.text = "未批改"
-            bookState.textColor = kSetRGBColor(r: 255, g: 153, b: 0)
         }else{
             
-            bookState.text = "退回-照片模糊"
-            bookState.textColor = kSetRGBColor(r: 255, g: 78, b: 78)
+            bookState.text = "错题未批改"
+//            bookState.textColor = kSetRGBColor(r: 255, g: 78, b: 78)
         }
         
         if testImages.count == 1 {
@@ -49,6 +51,44 @@ class TViewBookCell3: UITableViewCell {
             image2.isHidden = false
             image3.isHidden = false
             
+        }
+    }
+    
+    
+    
+    func TViewBookCellSetValuesForNorWorkUndone(model:TNotWorkDetailModel) {
+        bookState.isHidden = false
+        var images = [String]()
+        
+        let imageDatas = model.pre_photos?.arrayValue
+        
+        for index in 0..<imageDatas!.count {
+            images.append(imageDatas![index].stringValue)
+        }
+
+        if model.state == "5" {
+            
+            bookState.textColor = kSetRGBColor(r: 255, g: 153, b: 0)
+            bookState.text = "未批改"
+        }else{
+            
+            bookState.text = "退回-照片模糊"
+            bookState.textColor = kSetRGBColor(r: 255, g: 78, b: 78)
+        }
+        bookState.textColor = kGetColorFromString(str:model.state)
+
+        if images.count == 1 {
+            
+            image1.kf.setImage(with:  URL(string:testImages[0])!, placeholder: #imageLiteral(resourceName: "photos_image_default"), options: nil, progressBlock: nil, completionHandler: nil)
+            image2.isHidden = true
+            image3.isHidden = true
+        }else  {
+            
+            image1.isHidden = true
+            image2.kf.setImage(with:  URL(string:testImages[0])!, placeholder: #imageLiteral(resourceName: "photos_image_default"), options: nil, progressBlock: nil, completionHandler: nil)
+            image3.kf.setImage(with:  URL(string:testImages[1])!, placeholder: #imageLiteral(resourceName: "photos_image_default"), options: nil, progressBlock: nil, completionHandler: nil)
+            image2.isHidden = false
+            image3.isHidden = false
         }
     }
     

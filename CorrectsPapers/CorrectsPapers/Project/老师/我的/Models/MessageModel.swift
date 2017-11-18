@@ -29,7 +29,6 @@ class MessageModel: NSObject {
         model.isNewRecord = json["isNewRecord"].stringValue
         model.reason = json["reason"].stringValue
         model.id = json["id"].stringValue
-
         return model
     }
 }

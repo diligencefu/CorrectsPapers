@@ -11,7 +11,7 @@ import SwiftyUserDefaults
 class MainTabBarController: UITabBarController {
 
     var workBookVC  = WorkBookViewController()
-    var non_WorkBookVC  = Non_WorkBookViewController()
+    var non_WorkBookVC  = NotWorkViewController()
     var classVC    = ClassViewController()
     var personVC    = PersonnalViewController()
     

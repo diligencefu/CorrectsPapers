@@ -22,10 +22,10 @@ class ShowPeriodsCell: UITableViewCell {
 
     
     
-    func  setValueForShowPeriodsCell(index:NSInteger) {
+    func  setValueForShowPeriodsCell(model:TPeriodsModel) {
         
-        periodsLabel.text = "\(index)课时"
-        
+        periodsLabel.text = "第"+model.orders+"课时"
+        periodsContent.text = model.name
     }
 
     

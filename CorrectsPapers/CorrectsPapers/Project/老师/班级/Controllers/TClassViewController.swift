@@ -14,23 +14,52 @@ class TClassViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         rightBarButton()
+        addImageWhenEmpty()
+
     }
     
     override func leftBarButton() {
         
     }
     
+    
+    override func requestData() {
+        let params = [
+            "SESSIONID":SESSIONIDT,
+            "mobileCode":mobileCodeT
+        ]
+        netWorkForMyClass(params: params) { (datas) in
+            self.mainTableArr.removeAllObjects()
+            self.mainTableArr.addObjects(from: datas)
+            self.mainTableView.reloadData()
+        }
+    }
+    
+    
+    override func refreshHeaderAction() {
+        let params = [
+            "SESSIONID":SESSIONIDT,
+            "mobileCode":mobileCodeT
+        ]
+        netWorkForMyClass(params: params) { (datas) in
+            self.mainTableArr.removeAllObjects()
+            self.mainTableArr.addObjects(from: datas)
+            self.mainTableView.reloadData()
+            self.mainTableView.mj_header.endRefreshing()
+        }
+    }
+    
+    
     override func configSubViews() {
         
         self.navigationItem.title = "我的班级"
-        
-        mainTableArr =  ["",""]
         
         mainTableView = UITableView.init(frame: CGRect(x: 0, y: 0, width: kSCREEN_WIDTH, height: kSCREEN_HEIGHT - 64 ), style: .plain)
         mainTableView.dataSource = self;
         mainTableView.delegate = self;
         mainTableView.estimatedRowHeight = 143 * kSCREEN_SCALE;
         mainTableView.register(UINib(nibName: "ClassCell", bundle: nil), forCellReuseIdentifier: identyfierTable)
+        mainTableView.tableFooterView = UIView()
         self.view.addSubview(mainTableView)
     }
     
@@ -64,9 +93,6 @@ class TClassViewController: BaseViewController {
         
     }
     
-    
-    //    当数据为空的时候，显示提示
-    
     //    当数据为空的时候，显示提示
     func addImageWhenEmpty() {
         
@@ -95,7 +121,6 @@ class TClassViewController: BaseViewController {
         creatBook.addTarget(self, action: #selector(creatClassAction(sender:)), for: .touchUpInside)
         emptyView.addSubview(creatBook)
         
-        self.mainTableView.addSubview(emptyView)
     }
     
     
@@ -111,11 +136,10 @@ class TClassViewController: BaseViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         if mainTableArr.count == 0 {
-            addImageWhenEmpty()
+            self.mainTableView.addSubview(emptyView)
         }else{
             emptyView.removeFromSuperview()
         }
-        
         return mainTableArr.count
     }
     
@@ -125,17 +149,25 @@ class TClassViewController: BaseViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
+        let model = mainTableArr[indexPath.row] as! ClassModel
         let cell : ClassCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable, for: indexPath) as! ClassCell
         cell.selectionStyle = .default
-        cell.classCellSetValue(isSearch: false)
+        cell.classCellSetValue(model: model, isSearch: false)
         return cell
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        let editorVC = QQQEditorViewController(nibName: "QQQEditorViewController", bundle: nil)
-        editorVC.editorImage = #imageLiteral(resourceName: "workBook")
-        self.navigationController?.pushViewController(editorVC, animated: true)
+//        let editorVC = QQQEditorViewController(nibName: "QQQEditorViewController", bundle: nil)
+//        editorVC.images = [#imageLiteral(resourceName: "wocao")]
+//        editorVC.theName = "刘二蛋"
+//        editorVC.theNum = "学号 008"
+//        self.present(editorVC, animated: true, completion: nil)
+        
+        let model = mainTableArr[indexPath.row] as! ClassModel
+        let classVC = TClassDetailViewController()
+        classVC.classid = model.classes_id
+        self.navigationController?.pushViewController(classVC, animated: true)
 
     }
     
@@ -161,10 +193,11 @@ class TClassViewController: BaseViewController {
     
     func tableView(_ tableView: UITableView, titleForDeleteConfirmationButtonForRowAt indexPath: IndexPath) -> String? {
         
-        if indexPath.row%3 == 0 {
+        let model = mainTableArr[indexPath.row] as! ClassModel
+        
+        if model.is_head_teacher == "yes" {
             return "解散班级"
         }
-        
         return "退出班级"
     }
     

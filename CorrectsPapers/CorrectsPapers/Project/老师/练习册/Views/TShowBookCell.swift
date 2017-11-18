@@ -27,7 +27,8 @@ class TShowBookCell: UITableViewCell {
     
     @IBOutlet weak var addBtn: UIButton!
     
-    
+    var addWorkBlock:(()->())?  //声明闭包
+
     override func awakeFromNib() {
         super.awakeFromNib()
         addBtn.setBackgroundImage(getNavigationIMG(27, fromColor: kSetRGBColor(r: 0, g: 200, b: 255), toColor: kSetRGBColor(r: 0, g: 162, b: 255)), for: .normal)
@@ -125,6 +126,14 @@ class TShowBookCell: UITableViewCell {
             proMark.setTitleColor(kSetRGBColor(r: 87, g: 138, b: 242), for: .normal)
         }
         
+    }
+    
+    
+    @IBAction func addWorkAction(_ sender: UIButton) {
+        
+        if addWorkBlock != nil {
+            addWorkBlock!()
+        }
     }
     
     

@@ -11,8 +11,13 @@ import UIKit
 class UploadVideoViewController: BaseViewController ,UIAlertViewDelegate{
 
     var titleArr = ["添加视频描述","添加视频链接"]
+//    是不是参考答案的视频地址
     var isAnswer = false
-    var addUrlBlock:((UrlModel)->())?  //声明闭包
+    var currentType = 0
+    var bookId = ""
+    
+    
+    var addUrlBlock:(()->())?  //声明闭包
 
     
     override func viewDidLoad() {
@@ -28,10 +33,7 @@ class UploadVideoViewController: BaseViewController ,UIAlertViewDelegate{
         self.navigationItem.rightBarButtonItem?.tintColor = UIColor.white
         
     }
-    
-    
-    
-    
+        
     
     //    MARK:提交
     @objc func submitAnswer(sender:UIBarButtonItem) {
@@ -47,36 +49,26 @@ class UploadVideoViewController: BaseViewController ,UIAlertViewDelegate{
         alert.alertViewStyle = .plainTextInput
         
         priceTextfield = alert.textField(at: 0)!
-//        priceTextfield.placeholder = "只能输入纯数字"
         priceTextfield.keyboardType = .numberPad
-//        priceTextfield.rightViewRect(forBounds: CGRect(x: 0, y: 0, width: 40, height: 45))
-//        priceTextfield.rightViewMode = .always
-//        let textLabel = UILabel.init(frame: CGRect(x: 0, y: 0, width: 40, height: priceTextfield.height))
-//        textLabel.text = "学币"
-//        textLabel.font = kFont28
-//        textLabel.textColor = kGaryColor(num: 117)
-//        priceTextfield.rightView = textLabel
         
         let text = priceTextfield.text
         print(text!)
         alert.show()
-        
     }
     
     
     func alertView(_ alertView: UIAlertView, clickedButtonAt buttonIndex: Int) {
         let buttonTitle = alertView.buttonTitle(at: buttonIndex)
         if buttonTitle == "确定" {
-            let model = UrlModel()
             
             let textfield1 = self.view.viewWithTag(100) as! UITextField
             let textfield2 = self.view.viewWithTag(101) as! UITextField
             if !isAnswer {
                 let textfield3 = self.view.viewWithTag(102) as! UITextField
-                model.period = textfield1.text
-                model.videoUrl = textfield3.text
-                model.describe = textfield2.text
-                if !UIApplication.shared.canOpenURL(StringToUTF_8InUrl(str: textfield3.text!)) {
+                
+                let flag = UIApplication.shared.canOpenURL(StringToUTF_8InUrl(str: textfield3.text!))
+                
+                if !flag {
                     setToast(str: "网址无效")
                     return
                 }
@@ -91,10 +83,41 @@ class UploadVideoViewController: BaseViewController ,UIAlertViewDelegate{
                     return
                 }
 
+                if priceTextfield.text?.count == 0 {
+                    setToast(str: "请设置学币")
+                    return
+                }
                 
+                let params1 =
+                    ["SESSIONID":SESSIONIDT,
+                     "mobileCode":mobileCodeT,
+                     "bookId":bookId,
+                     "title":textfield2.text!,
+                     "money":priceTextfield.text!,
+                     "answardRes":StringToUTF_8InUrl(str: textfield3.text!)
+                        ] as [String : Any]
+                if currentType == 1 {
+                    
+                    NetWorkTeacherGetTWorkUploadVideo(params: params1, callBack: { (flag) in
+                        if flag {
+                            if  self.addUrlBlock != nil {
+                                self.addUrlBlock!()
+                                setToast(str: "已提交")
+                                self.navigationController?.popViewController(animated: true)
+                            }
+                        }
+                    })
+                }else if currentType == 2 {
+                    
+                    
+                    
+                }else if currentType == 3 {
+                    
+                    
+                    
+                }
             }else{
-                model.videoUrl = textfield1.text
-                model.describe = textfield2.text
+
                 if !UIApplication.shared.canOpenURL(StringToUTF_8InUrl(str: textfield2.text!)) {
                     setToast(str: "网址无效")
                     return
@@ -104,24 +127,26 @@ class UploadVideoViewController: BaseViewController ,UIAlertViewDelegate{
                     setToast(str: "请填写视频描述")
                     return
                 }
-
+                
+                if currentType == 1 {
+                    
+//                    NetWorkTeacherGetTWorkUploadVideo(params: params1, callBack: { (flag) in
+//                    })
+                }else if currentType == 2 {
+                    
+                    
+                    
+                }else if currentType == 3 {
+                    
+                    
+                    
+                }
             }
-            
-            model.price = priceTextfield.text
-
-            if  addUrlBlock != nil {
-                addUrlBlock!(model)
-                setToast(str: "已提交")
-                self.navigationController?.popViewController(animated: true)
-            }
-            
         }else{
             setToast(str: "取消了")
         }
-        
     }
     
-
     
     override func configSubViews() {
         
@@ -130,7 +155,6 @@ class UploadVideoViewController: BaseViewController ,UIAlertViewDelegate{
         }else{
             titleArr = ["练习册章节","知识点简介","添加视频链接"]
         }
-
         
         let kWidth = kSCREEN_WIDTH-28*kSCREEN_SCALE*2
         let labelHeight = CGFloat(35)
@@ -160,17 +184,16 @@ class UploadVideoViewController: BaseViewController ,UIAlertViewDelegate{
             if isAnswer {
                 
                 if index == 1 {
+                    
                     textfield.text = "http://"
                     textfield.keyboardType = .URL
                 }
-                
             }else{
                 if index == 2 {
+                    
                     textfield.text = "http://"
                     textfield.keyboardType = .URL
-
                 }
-
             }
             
             self.view.addSubview(textfield)

@@ -246,7 +246,7 @@ class PeriodsDetailViewController: BaseViewController ,HBAlertPasswordViewDelega
         
         if currentIndex == 1 {
             let cell : ShowPeriodsCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable, for: indexPath) as! ShowPeriodsCell
-            cell.setValueForShowPeriodsCell(index: 10-indexPath.row)
+//            cell.setValueForShowPeriodsCell(index: 10-indexPath.row)
             return cell
         }else if currentIndex == 2 {
             if workState == 0 {

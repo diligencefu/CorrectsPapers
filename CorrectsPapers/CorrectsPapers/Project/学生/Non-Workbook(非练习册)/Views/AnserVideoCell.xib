@@ -20,25 +20,38 @@
                 <rect key="frame" x="0.0" y="0.0" width="317" height="43.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="第一章 某某某某" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="J2h-nj-G0t">
-                        <rect key="frame" x="23" y="12" width="278" height="21"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="第一章" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="J2h-nj-G0t">
+                        <rect key="frame" x="23" y="12" width="46" height="21"/>
                         <constraints>
+                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="20" id="Cj8-5b-GGV"/>
                             <constraint firstAttribute="height" constant="21" id="a96-ax-KZX"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                         <color key="textColor" red="0.364662766456604" green="0.36473065614700317" blue="0.36465850472450256" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="第一章" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7rP-cA-oCE">
+                        <rect key="frame" x="90" y="12" width="46" height="21"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="21" id="HoG-Zk-mEq"/>
+                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="20" id="RkN-6Y-5b3"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <color key="textColor" red="0.36466276650000001" green="0.36473065609999999" blue="0.3646585047" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                 </subviews>
                 <constraints>
-                    <constraint firstAttribute="trailingMargin" secondItem="J2h-nj-G0t" secondAttribute="trailing" id="ZTP-Rx-mKM"/>
+                    <constraint firstItem="7rP-cA-oCE" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="Y9M-Dc-8C3"/>
                     <constraint firstItem="J2h-nj-G0t" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="1" id="gxK-Rv-5dF"/>
+                    <constraint firstItem="7rP-cA-oCE" firstAttribute="leading" secondItem="J2h-nj-G0t" secondAttribute="trailing" constant="21" id="jnm-EI-B2P"/>
                     <constraint firstItem="J2h-nj-G0t" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="7" id="jwH-fQ-8y7"/>
                     <constraint firstItem="J2h-nj-G0t" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="mja-UE-Izv"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
+                <outlet property="videoDesc" destination="7rP-cA-oCE" id="9Hd-V7-aN8"/>
                 <outlet property="videoTitle" destination="J2h-nj-G0t" id="B2E-XW-8aq"/>
             </connections>
             <point key="canvasLocation" x="-30.5" y="47"/>

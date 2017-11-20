@@ -184,12 +184,24 @@
                         <color key="textColor" red="0.33721464870000001" green="0.33727809790000002" blue="0.33721065519999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rat-6z-W5K">
+                        <rect key="frame" x="284" y="523" width="60" height="27"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="60" id="JvF-Xq-cB2"/>
+                            <constraint firstAttribute="height" constant="27" id="xdS-4M-sNC"/>
+                        </constraints>
+                        <state key="normal" title="编辑">
+                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        </state>
+                    </button>
                 </subviews>
                 <constraints>
                     <constraint firstItem="ZE3-tz-v5Q" firstAttribute="top" secondItem="4q5-IE-ZSA" secondAttribute="bottom" constant="8" id="0zN-SY-TBx"/>
                     <constraint firstItem="Om2-ZC-Q4G" firstAttribute="leading" secondItem="5p0-gw-fkn" secondAttribute="leading" id="16y-rM-OZk"/>
+                    <constraint firstItem="rat-6z-W5K" firstAttribute="bottom" secondItem="H2p-sc-9uM" secondAttribute="bottomMargin" id="3Wh-KP-wac"/>
                     <constraint firstItem="4q5-IE-ZSA" firstAttribute="leading" secondItem="5p0-gw-fkn" secondAttribute="leading" id="7iK-4o-z3A"/>
                     <constraint firstItem="0GQ-MZ-4rt" firstAttribute="top" secondItem="2BD-zQ-vvQ" secondAttribute="bottom" constant="9.5" id="9Hf-Xs-h4x"/>
+                    <constraint firstItem="rat-6z-W5K" firstAttribute="trailing" secondItem="H2p-sc-9uM" secondAttribute="trailingMargin" id="9M7-dJ-iEW"/>
                     <constraint firstItem="vL6-tG-ghm" firstAttribute="leading" secondItem="ZhF-7X-VdY" secondAttribute="trailing" constant="2" id="CYb-b7-zHc"/>
                     <constraint firstItem="meX-2I-41N" firstAttribute="centerY" secondItem="5nn-Xj-2wr" secondAttribute="centerY" id="Cfo-aW-7VC"/>
                     <constraint firstItem="ZE3-tz-v5Q" firstAttribute="leading" secondItem="5p0-gw-fkn" secondAttribute="leading" id="Ci9-Oj-xgO"/>
@@ -230,6 +242,7 @@
                 <outlet property="classIcon" destination="2BD-zQ-vvQ" id="NAc-UH-f7Y"/>
                 <outlet property="className" destination="0GQ-MZ-4rt" id="0No-fZ-RWU"/>
                 <outlet property="classNum" destination="O9o-hV-fR5" id="sgB-Wr-ADx"/>
+                <outlet property="editBtn" destination="rat-6z-W5K" id="Xh5-iC-Yet"/>
                 <outlet property="finishDate" destination="7dG-Ya-IHc" id="Gx5-WE-Ayh"/>
                 <outlet property="mainTeacher" destination="meX-2I-41N" id="aB1-fI-DNW"/>
                 <outlet property="memCount" destination="vL6-tG-ghm" id="fy0-QH-eKs"/>

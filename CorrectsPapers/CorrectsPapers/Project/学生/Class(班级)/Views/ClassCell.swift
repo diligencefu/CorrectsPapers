@@ -81,14 +81,13 @@ class ClassCell: UITableViewCell {
 //        addClass.isHidden = !isSearch
 //    }
 //    
-
-    
     
     @IBAction func addClassAction(_ sender: UIButton) {
         
         if addClassBlock != nil {
             addClassBlock!("add")
         }
+//        UIApplication.shared.keyWindow?.rootViewController?.present(TClassViewController(), animated: true, completion: nil)
         
     }
     

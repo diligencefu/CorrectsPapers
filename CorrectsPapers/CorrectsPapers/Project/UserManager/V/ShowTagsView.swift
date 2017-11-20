@@ -33,6 +33,7 @@ class ShowTagsView: UIView ,UIPickerViewDelegate,UIPickerViewDataSource{
     var educArr = [String]()
     var workTimeArr = [String]()
     var reasonArr = [String]()
+    var teacherType = [String]()
 
     var currentCount = 1
 
@@ -50,6 +51,8 @@ class ShowTagsView: UIView ,UIPickerViewDelegate,UIPickerViewDataSource{
         educArr = ["武汉市","黄石市","襄樊市","十堰市","荆州市","宜昌市","荆门市","鄂州市","孝感市","黄冈市","咸宁市","恩施市","仙桃市","潜江市","天门市","神农架林区"]
         workTimeArr = ["14:00-18:00","18:00-22:00"]
         reasonArr = ["字迹不清","图片模糊","上传错误"]
+        teacherType = ["上课老师","助教老师"]
+
         _ = tagsView.subviews.map {
             $0.removeFromSuperview()
         }
@@ -131,8 +134,12 @@ class ShowTagsView: UIView ,UIPickerViewDelegate,UIPickerViewDataSource{
         }else if index == 1000{
             which = 4
             viewTitle.text = "退回理由"
-
-        }else{
+        }else if index == 10001{
+    
+            which = 5
+            viewTitle.text = "选择类型"
+        }
+        else{
             which = 3
             viewTitle.text = "选择工作时间"
         }
@@ -241,6 +248,10 @@ class ShowTagsView: UIView ,UIPickerViewDelegate,UIPickerViewDataSource{
             return reasonArr.count
         }
         
+        if currentCount == 10001 {
+            return teacherType.count
+        }
+        
         return workTimeArr.count
     }
     
@@ -255,6 +266,10 @@ class ShowTagsView: UIView ,UIPickerViewDelegate,UIPickerViewDataSource{
         if currentCount == 1000 {
             return reasonArr[row]
         }
+        
+        if currentCount == 10001 {
+            return teacherType[row]
+        }
 
         return workTimeArr[row]
     }
@@ -267,6 +282,12 @@ class ShowTagsView: UIView ,UIPickerViewDelegate,UIPickerViewDataSource{
             selectStr = educArr[row]
         }else if currentCount == 1000 {
             selectStr = reasonArr[row]
+        }else if currentCount == 10001 {
+            if teacherType[row] == "上课老师" {
+                selectStr = "1"
+            }else{
+                selectStr = "2"
+            }
         }else{
             selectStr = workTimeArr[row]
         }
@@ -304,8 +325,20 @@ class ShowTagsView: UIView ,UIPickerViewDelegate,UIPickerViewDataSource{
                 selectBlock!(selectStr,false)
                 
             case 4:
-                selectBlock!(selectStr,false)
+                if selectStr == "" {
+                    selectStr = "1"
+                }
 
+                selectBlock!(selectStr,false)
+                
+            case 5:
+                
+                if selectStr == "" {
+                    selectStr = "1"
+                }
+                
+                selectBlock!(selectStr,false)
+                
             default:
                 break
             }

@@ -42,28 +42,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CorrectsPapers/Expand/HttpTools/NetWorkTools.swift"
-            timestampString = "532609866.369989"
+            timestampString = "532692245.565242"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "463"
             endingLineNumber = "463"
             landmarkName = "NetWorkTeacherGetTPeriodAnswers(params:callBack:)"
-            landmarkType = "9">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "CorrectsPapers/Expand/HttpTools/NetWorkTools.swift"
-            timestampString = "532609866.370104"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1044"
-            endingLineNumber = "1044"
-            landmarkName = "NetWorkTeacherGobackWrokBook(params:callBack:)"
             landmarkType = "9">
          </BreakpointContent>
       </BreakpointProxy>
@@ -90,7 +74,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CorrectsPapers/Expand/HttpTools/NetWorkTools.swift"
-            timestampString = "532609866.370246"
+            timestampString = "532692245.565661"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "617"
@@ -106,13 +90,157 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CorrectsPapers/Project/&#x8001;&#x5e08;/&#x7ec3;&#x4e60;&#x518c;/Controllers/TBookDetailViewController.swift"
-            timestampString = "532609866.370337"
+            timestampString = "532670290.101255"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "178"
             endingLineNumber = "178"
             landmarkName = "refreshHeaderAction()"
             landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "CorrectsPapers/Project/&#x8001;&#x5e08;/&#x7ec3;&#x4e60;&#x518c;/Controllers/TShowBookViewController.swift"
+            timestampString = "532692245.565969"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "84"
+            endingLineNumber = "84"
+            landmarkName = "configSubViews()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.String, Swift.Bool) -&gt; () in CorrectsPapers.TShowBookViewController.configSubViews() -&gt; ()"
+                  moduleName = "CorrectsPapers"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/rongxingwangluo/Desktop/%E6%80%9D%E8%80%8C%E6%85%A7/CorrectsPapers/CorrectsPapers/Project/%E8%80%81%E5%B8%88/%E7%BB%83%E4%B9%A0%E5%86%8C/Controllers/TShowBookViewController.swift"
+                  timestampString = "532692245.644803"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "84"
+                  endingLineNumber = "84"
+                  offsetFromSymbolStart = "808">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Array&lt;Any&gt;) -&gt; () in closure #1 (Swift.String, Swift.Bool) -&gt; () in CorrectsPapers.TShowBookViewController.configSubViews() -&gt; ()"
+                  moduleName = "CorrectsPapers"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/rongxingwangluo/Desktop/%E6%80%9D%E8%80%8C%E6%85%A7/CorrectsPapers/CorrectsPapers/Project/%E8%80%81%E5%B8%88/%E7%BB%83%E4%B9%A0%E5%86%8C/Controllers/TShowBookViewController.swift"
+                  timestampString = "532692245.645992"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "86"
+                  endingLineNumber = "86"
+                  offsetFromSymbolStart = "16">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "CorrectsPapers/Project/&#x8001;&#x5e08;/&#x73ed;&#x7ea7;/Controllers/TShowClassWorkViewController.swift"
+            timestampString = "532692245.566024"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "136"
+            endingLineNumber = "136"
+            landmarkName = "certainCorrect()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "CorrectsPapers/Project/&#x8001;&#x5e08;/&#x73ed;&#x7ea7;/Controllers/TShowClassWorkViewController.swift"
+            timestampString = "532692245.566068"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "148"
+            endingLineNumber = "148"
+            landmarkName = "certainCorrect()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "CorrectsPapers/Expand/ImageEditTools/QQQEditorViewController.swift"
+            timestampString = "532692245.566112"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "307"
+            endingLineNumber = "307"
+            landmarkName = "changeToNextImage(_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "CorrectsPapers/Expand/HttpTools/NetWorkTools.swift"
+            timestampString = "532692245.566153"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "2533"
+            endingLineNumber = "2533"
+            landmarkName = "upLoadClassWorkImageRequest111(params:data:name:success:failture:)"
+            landmarkType = "9">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "CorrectsPapers/Expand/HttpTools/NetWorkTools.swift"
+            timestampString = "532692245.566425"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "2508"
+            endingLineNumber = "2508"
+            landmarkName = "upLoadClassWorkImageRequest111(params:data:name:success:failture:)"
+            landmarkType = "9">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "CorrectsPapers/Expand/HttpTools/NetWorkTools.swift"
+            timestampString = "532692245.5669"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "2391"
+            endingLineNumber = "2391"
+            landmarkName = "netWorkForMyClass(params:callBack:)"
+            landmarkType = "9">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

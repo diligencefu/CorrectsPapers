@@ -24,7 +24,8 @@ class MessgaeCenterViewController: BaseViewController {
             [
                 "SESSIONID":"1",
                 "mobileCode":"on",
-                "pageNo":pageNum
+//                "userTeacherid":"qe34324312434321432431243124",
+//                "pageNo":pageNum
                 ] as [String : Any]
 
         netWorkForGetMessages(params: params) { (datas) in

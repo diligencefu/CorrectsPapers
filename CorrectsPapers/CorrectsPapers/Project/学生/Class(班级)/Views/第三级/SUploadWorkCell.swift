@@ -32,6 +32,7 @@ class SUploadWorkCell: UITableViewCell,UICollectionViewDelegate,UICollectionView
     
     var addImageAction:((String)->())?  //声明闭包
     var deletImageAction:((Int)->())?  //声明闭包
+    var upLoadImagesAction:(()->())?  //声明闭包
 
     
     override func awakeFromNib() {
@@ -125,7 +126,6 @@ class SUploadWorkCell: UITableViewCell,UICollectionViewDelegate,UICollectionView
         }
         
     }
-
     
     
     //    collectionViewDelegate and Datasource
@@ -209,7 +209,11 @@ class SUploadWorkCell: UITableViewCell,UICollectionViewDelegate,UICollectionView
             return
         }
         
-        setToast(str: "No problem.")
+        if upLoadImagesAction != nil {
+            upLoadImagesAction!()
+        }
+        
+//        setToast(str: "No problem.")
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {

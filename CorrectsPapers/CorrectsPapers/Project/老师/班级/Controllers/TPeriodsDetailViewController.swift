@@ -374,11 +374,11 @@ class TPeriodsDetailViewController: BaseViewController,UITextFieldDelegate {
         if currentIndex == 1 {
             
             if !isSearching {
-                let viewC = TShowBookViewController()
+                let viewC = TShowClassWorkViewController()
                 let model = works[indexPath.row] as! TShowClassWorksModel
-//                viewC.model = model
+                viewC.model = model
                 
-//                self.navigationController?.pushViewController(viewC, animated: true)
+                self.navigationController?.pushViewController(viewC, animated: true)
             }
         }
         

@@ -230,7 +230,7 @@ class TClassDetailViewController: BaseViewController,UITextFieldDelegate {
             let params = [
                 "SESSIONID":SESSIONIDT,
                 "classes_id":classid,
-                "periods_id":periods_id,
+//                "periods_id":periods_id,
                 "mobileCode":mobileCodeT
             ]
             NetWorkTeacherGetClassMember(params: params, callBack: { (datas) in
@@ -354,10 +354,12 @@ class TClassDetailViewController: BaseViewController,UITextFieldDelegate {
             }
             
         }else if currentIndex == 3 {
-            let cell : TClassInfoCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable2, for: indexPath) as! TClassInfoCell
-            return cell
             
+            let cell : TClassInfoCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable2, for: indexPath) as! TClassInfoCell
+            cell.TClassInfoCellForTeacher()
+            return cell
         }else{
+            
             let cell : ClassGradeCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable3, for: indexPath) as! ClassGradeCell
             
             if indexPath.row == 0 {
@@ -412,6 +414,12 @@ class TClassDetailViewController: BaseViewController,UITextFieldDelegate {
                 BGiew.addSubview(searchTextfield)
                 
                 let textLabel = UILabel.init(frame: CGRect(x: 0, y: 39, width: kSCREEN_WIDTH, height: 48*kSCREEN_SCALE))
+                if resource.apply != nil{
+                    if resource.apply.teacherApply.count == 0 && resource.apply.studentApply.count == 0 {
+                        textLabel.text = "暂无加入班级申请"
+                    }
+                    
+                }
                 textLabel.text = "   申请加入"
                 textLabel.font = kFont24
                 textLabel.textColor = kGaryColor(num: 176)

@@ -253,6 +253,7 @@ class QQQEditorViewController: UIViewController {
             self.scrollView.isScrollEnabled = true
             self.pencilBtn?.isSelected = false
             drawBoardImageView?.brush = nil
+            self.typeLable.text = "拖动模式"
         }
     }
     //MARK: - 撤回

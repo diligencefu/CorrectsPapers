@@ -89,7 +89,7 @@ class TViewBookCell:  UITableViewCell {
             gradeImage.image = #imageLiteral(resourceName: "sanxing_icon_pressed")
         }else if model.scores == "4" {
             gradeImage.image = #imageLiteral(resourceName: "sixing_icon_pressed")
-        }else if model.scores == "4"{
+        }else if model.scores == "5"{
             gradeImage.image = #imageLiteral(resourceName: "wuxing_icon_pressed")
         }
         

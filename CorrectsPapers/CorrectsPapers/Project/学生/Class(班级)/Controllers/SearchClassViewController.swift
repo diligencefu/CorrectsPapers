@@ -215,8 +215,6 @@ class SearchClassViewController: BaseViewController ,UITextFieldDelegate,UIAlert
         let text = nameTextfield.text
         print(text!)
         alert.show()
-        
-        
     }
     
     func alertView(_ alertView: UIAlertView, clickedButtonAt buttonIndex: Int) {

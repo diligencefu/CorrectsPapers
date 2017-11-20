@@ -90,15 +90,7 @@ class TViewBookCell1: UITableViewCell {
         
         bookTitle.text = "model."
         
-        if model.state == "2" {
-            
-            workState.text = "未批改"
-            workState.textColor = kSetRGBColor(r: 255, g: 153, b: 0)
-        }else{
-            
-            workState.text = "退回-照片模糊"
-            workState.textColor = kSetRGBColor(r: 255, g: 78, b: 78)
-        }
+        workState.text = kGetStateFromString(str: model.state)
         workState.textColor = kGetColorFromString(str:model.state)
 
         image2.snp.updateConstraints({ (make) in

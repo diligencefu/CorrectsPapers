@@ -169,6 +169,15 @@
 		185981C01FB588980021EAD9 /* BoardInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185981BE1FB588980021EAD9 /* BoardInputView.swift */; };
 		185981C11FB588980021EAD9 /* CLWebProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185981BF1FB588980021EAD9 /* CLWebProgressView.swift */; };
 		185981C31FB588BE0021EAD9 /* AppConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185981C21FB588BD0021EAD9 /* AppConfig.swift */; };
+		185DA0041FBFD10500BF44B7 /* TShowClassWorkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185DA0031FBFD10500BF44B7 /* TShowClassWorkViewController.swift */; };
+		185DA0071FBFD40000BF44B7 /* TNotGoodWorkCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185DA0051FBFD40000BF44B7 /* TNotGoodWorkCell.swift */; };
+		185DA0081FBFD40000BF44B7 /* TNotGoodWorkCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 185DA0061FBFD40000BF44B7 /* TNotGoodWorkCell.xib */; };
+		185DA00B1FBFD5BD00BF44B7 /* TNotGoodWorkCell1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185DA0091FBFD5BD00BF44B7 /* TNotGoodWorkCell1.swift */; };
+		185DA00C1FBFD5BD00BF44B7 /* TNotGoodWorkCell1.xib in Resources */ = {isa = PBXBuildFile; fileRef = 185DA00A1FBFD5BD00BF44B7 /* TNotGoodWorkCell1.xib */; };
+		185DA00F1FBFD75100BF44B7 /* TGoodWorkCell1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185DA00D1FBFD75100BF44B7 /* TGoodWorkCell1.swift */; };
+		185DA0101FBFD75100BF44B7 /* TGoodWorkCell1.xib in Resources */ = {isa = PBXBuildFile; fileRef = 185DA00E1FBFD75100BF44B7 /* TGoodWorkCell1.xib */; };
+		185DA0121FBFF4FC00BF44B7 /* TGetAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185DA0111FBFF4FC00BF44B7 /* TGetAccountViewController.swift */; };
+		185DA0141FBFF9A900BF44B7 /* TMassageCenterModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185DA0131FBFF9A900BF44B7 /* TMassageCenterModel.swift */; };
 		1867C40E1F9DA0CB00831A23 /* SystemMsgViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1867C40D1F9DA0CB00831A23 /* SystemMsgViewController.swift */; };
 		1867C4101F9DC65C00831A23 /* TBookDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1867C40F1F9DC65C00831A23 /* TBookDetailViewController.swift */; };
 		1867C4121F9DC6BB00831A23 /* TBookHeadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1867C4111F9DC6BB00831A23 /* TBookHeadView.swift */; };
@@ -509,6 +518,15 @@
 		185981BE1FB588980021EAD9 /* BoardInputView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BoardInputView.swift; sourceTree = "<group>"; };
 		185981BF1FB588980021EAD9 /* CLWebProgressView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CLWebProgressView.swift; sourceTree = "<group>"; };
 		185981C21FB588BD0021EAD9 /* AppConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppConfig.swift; sourceTree = "<group>"; };
+		185DA0031FBFD10500BF44B7 /* TShowClassWorkViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TShowClassWorkViewController.swift; sourceTree = "<group>"; };
+		185DA0051FBFD40000BF44B7 /* TNotGoodWorkCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TNotGoodWorkCell.swift; sourceTree = "<group>"; };
+		185DA0061FBFD40000BF44B7 /* TNotGoodWorkCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TNotGoodWorkCell.xib; sourceTree = "<group>"; };
+		185DA0091FBFD5BD00BF44B7 /* TNotGoodWorkCell1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TNotGoodWorkCell1.swift; sourceTree = "<group>"; };
+		185DA00A1FBFD5BD00BF44B7 /* TNotGoodWorkCell1.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TNotGoodWorkCell1.xib; sourceTree = "<group>"; };
+		185DA00D1FBFD75100BF44B7 /* TGoodWorkCell1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TGoodWorkCell1.swift; sourceTree = "<group>"; };
+		185DA00E1FBFD75100BF44B7 /* TGoodWorkCell1.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TGoodWorkCell1.xib; sourceTree = "<group>"; };
+		185DA0111FBFF4FC00BF44B7 /* TGetAccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TGetAccountViewController.swift; sourceTree = "<group>"; };
+		185DA0131FBFF9A900BF44B7 /* TMassageCenterModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TMassageCenterModel.swift; sourceTree = "<group>"; };
 		1867C40D1F9DA0CB00831A23 /* SystemMsgViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemMsgViewController.swift; sourceTree = "<group>"; };
 		1867C40F1F9DC65C00831A23 /* TBookDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TBookDetailViewController.swift; sourceTree = "<group>"; };
 		1867C4111F9DC6BB00831A23 /* TBookHeadView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TBookHeadView.swift; sourceTree = "<group>"; };
@@ -1321,6 +1339,7 @@
 				18E854A81FB94D800029E81F /* TViewBookCell1.xib */,
 				184EC6861FB6E6A0007C6BDE /* TViewBookCell2.swift */,
 				184EC6871FB6E6A0007C6BDE /* TViewBookCell2.xib */,
+				1877A3521FBA977900F8C9A7 /* GiveMarkView.swift */,
 				18E854AB1FB958B80029E81F /* TViewBookCell3.swift */,
 				18E854AC1FB958B80029E81F /* TViewBookCell3.xib */,
 				182EB5C11F9ECD6D00B74F84 /* TUpLoadVideoCell.swift */,
@@ -1329,7 +1348,6 @@
 				182EB5C51F9ED38A00B74F84 /* TTipView.xib */,
 				18E854A31FB931370029E81F /* TShowDoneWorkCell.swift */,
 				18E854A41FB931370029E81F /* TShowDoneWorkCell.xib */,
-				1877A3521FBA977900F8C9A7 /* GiveMarkView.swift */,
 				1877A3541FBA978700F8C9A7 /* GiveMarkView.xib */,
 				1877A36A1FBAEF7400F8C9A7 /* TShowTheTipView.swift */,
 				1877A36C1FBAEF7C00F8C9A7 /* TShowTheTipView.xib */,
@@ -1391,6 +1409,7 @@
 				18749A0E1F99838400DEB777 /* TClassViewController.swift */,
 				1877A3601FBADD5500F8C9A7 /* TClassDetailViewController.swift */,
 				1842B7D71FBC0E5900BE6977 /* TPeriodsDetailViewController.swift */,
+				185DA0031FBFD10500BF44B7 /* TShowClassWorkViewController.swift */,
 				1842B7D11FBBEE7600BE6977 /* TShowClassMessageVC.swift */,
 				187977921F9ADA98009AC957 /* TCreateClassViewController.swift */,
 				18D343391F9B1469007CE166 /* TChooseMemberViewController.swift */,
@@ -1442,6 +1461,7 @@
 				18749A101F99839700DEB777 /* TPersonalViewController.swift */,
 				182181671FA829D800C2BE89 /* TEditInfoViewController.swift */,
 				186A28011F96035800FAA766 /* ComplaintRecordViewController.swift */,
+				185DA0111FBFF4FC00BF44B7 /* TGetAccountViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -1471,6 +1491,7 @@
 				1853BFDC1FB0632C00FF2FC5 /* MessageModel.swift */,
 				186D83471FBD27EA00F8E39C /* TComplaintModel.swift */,
 				186D83491FBD29C200F8E39C /* TComplaintDetailModel.swift */,
+				185DA0131FBFF9A900BF44B7 /* TMassageCenterModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1578,6 +1599,12 @@
 				188D0C601F99F4FB0010814C /* ShowImageCell.xib */,
 				188D0BF81F99CF6C0010814C /* TGoodWorkCell.swift */,
 				188D0BF91F99CF6C0010814C /* TGoodWorkCell.xib */,
+				185DA00D1FBFD75100BF44B7 /* TGoodWorkCell1.swift */,
+				185DA00E1FBFD75100BF44B7 /* TGoodWorkCell1.xib */,
+				185DA0051FBFD40000BF44B7 /* TNotGoodWorkCell.swift */,
+				185DA0061FBFD40000BF44B7 /* TNotGoodWorkCell.xib */,
+				185DA0091FBFD5BD00BF44B7 /* TNotGoodWorkCell1.swift */,
+				185DA00A1FBFD5BD00BF44B7 /* TNotGoodWorkCell1.xib */,
 			);
 			path = "第三级";
 			sourceTree = "<group>";
@@ -1726,10 +1753,12 @@
 				1842B7DC1FBC387300BE6977 /* ComplaintDetailcell.xib in Resources */,
 				187977971F9AE280009AC957 /* CreateClassCell.xib in Resources */,
 				184BBED41F9B4CE800EF65C4 /* EditHeadCell.xib in Resources */,
+				185DA00C1FBFD5BD00BF44B7 /* TNotGoodWorkCell1.xib in Resources */,
 				180D6B7C1F94A51E00480DEF /* CheckWorkCell.xib in Resources */,
 				18FDA6A91F998F7A003D61D8 /* TShowBookCell.xib in Resources */,
 				18E854AA1FB94D800029E81F /* TViewBookCell1.xib in Resources */,
 				1877A3651FBADE5A00F8C9A7 /* TApplyJoinClassCell.xib in Resources */,
+				185DA0101FBFD75100BF44B7 /* TGoodWorkCell1.xib in Resources */,
 				188D0BF31F99C4C50010814C /* ShowClassMemberCell.xib in Resources */,
 				184E6DF41F96197000C2C3DB /* IncomeHeadView.xib in Resources */,
 				180D6B741F94775500480DEF /* SystemMessageCell.xib in Resources */,
@@ -1748,6 +1777,7 @@
 				18E854B21FB975B40029E81F /* TViewBookCell0.xib in Resources */,
 				1877A3691FBAE14200F8C9A7 /* TClassStudentCell.xib in Resources */,
 				188D0BF71F99CB480010814C /* TClassInfoCell.xib in Resources */,
+				185DA0081FBFD40000BF44B7 /* TNotGoodWorkCell.xib in Resources */,
 				186F39341F921561009B8927 /* ClassCell.xib in Resources */,
 				184E6DF81F961BC100C2C3DB /* IncomeCell.xib in Resources */,
 				186F39231F91A9B1009B8927 /* ChooseImageCell.xib in Resources */,
@@ -1905,11 +1935,13 @@
 				1859819B1FB5663D0021EAD9 /* ShowWriteAnswerCell.swift in Sources */,
 				188D0C441F99D8210010814C /* UIButton+YYWebImage.h in Sources */,
 				185981BC1FB5885D0021EAD9 /* CTImageEditUtil.m in Sources */,
+				185DA0041FBFD10500BF44B7 /* TShowClassWorkViewController.swift in Sources */,
 				188D0C451F99D8210010814C /* UIButton+YYWebImage.m in Sources */,
 				188D0C461F99D8210010814C /* UIImage+YYWebImage.h in Sources */,
 				188D0C471F99D8210010814C /* UIImage+YYWebImage.m in Sources */,
 				188D0C481F99D8210010814C /* UIImageView+YYWebImage.h in Sources */,
 				184BBECF1F9B45E900EF65C4 /* EditInfoCell.swift in Sources */,
+				185DA0141FBFF9A900BF44B7 /* TMassageCenterModel.swift in Sources */,
 				188D0C491F99D8210010814C /* UIImageView+YYWebImage.m in Sources */,
 				188D0C4A1F99D8210010814C /* YYAnimatedImageView.h in Sources */,
 				188D0C4B1F99D8210010814C /* YYAnimatedImageView.m in Sources */,
@@ -2008,6 +2040,7 @@
 				187977931F9ADA98009AC957 /* TCreateClassViewController.swift in Sources */,
 				1877A35D1FBAD1DB00F8C9A7 /* TNotWorkPointsModel.swift in Sources */,
 				18749A131F99869300DEB777 /* TSearchClassViewController.swift in Sources */,
+				185DA00F1FBFD75100BF44B7 /* TGoodWorkCell1.swift in Sources */,
 				184D94821F97250200C79DBC /* CLPreviewCell.swift in Sources */,
 				187B9DAD1FBE93860096688A /* TClassWorkModel.swift in Sources */,
 				187B9DB31FBEBDCE0096688A /* TStudentModel.swift in Sources */,
@@ -2031,6 +2064,7 @@
 				188D0C5D1F99EA1A0010814C /* SUploadWorkCell.swift in Sources */,
 				18E854A21FB92BA20029E81F /* TShowGradeModel.swift in Sources */,
 				180D6B771F949A4400480DEF /* UpLoadWorkCell.swift in Sources */,
+				185DA0121FBFF4FC00BF44B7 /* TGetAccountViewController.swift in Sources */,
 				186F391B1F919EF3009B8927 /* CreateBookViewController.swift in Sources */,
 				184EC6881FB6E6A0007C6BDE /* TViewBookCell2.swift in Sources */,
 				184E6DFA1F961C5C00C2C3DB /* IncomeViewController.swift in Sources */,
@@ -2106,7 +2140,9 @@
 				184D941A1F97019E00C79DBC /* BookDetailViewController.swift in Sources */,
 				18B1E6611FB58DC500D1C6F3 /* DrawBoard.swift in Sources */,
 				1877A3531FBA977900F8C9A7 /* GiveMarkView.swift in Sources */,
+				185DA00B1FBFD5BD00BF44B7 /* TNotGoodWorkCell1.swift in Sources */,
 				187B9DB91FBEF7EC0096688A /* TClassApplyModel.swift in Sources */,
+				185DA0071FBFD40000BF44B7 /* TNotGoodWorkCell.swift in Sources */,
 				184E6DF01F96195D00C2C3DB /* IncomeHeadView.swift in Sources */,
 				184E6DF71F961BC100C2C3DB /* IncomeCell.swift in Sources */,
 				183C57781FA9AAE00038CA8B /* MyBookDetailViewController.swift in Sources */,

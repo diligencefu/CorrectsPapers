@@ -35,7 +35,7 @@ class ComplaintRecordViewController: BaseViewController {
             stateArr.append("0")
         }
         
-        mainTableView = UITableView.init(frame: CGRect(x: 0, y: 0, width: kSCREEN_WIDTH, height: kSCREEN_HEIGHT), style: .plain)
+        mainTableView = UITableView.init(frame: CGRect(x: 0, y: 0, width: kSCREEN_WIDTH, height: kSCREEN_HEIGHT-64), style: .plain)
         
         mainTableView.dataSource = self
         mainTableView.delegate = self

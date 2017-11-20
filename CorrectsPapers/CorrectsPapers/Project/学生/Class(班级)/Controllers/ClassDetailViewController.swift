@@ -159,6 +159,7 @@ class ClassDetailViewController: BaseViewController,UITextFieldDelegate {
 
         }else if currentIndex == 3 {
             let cell : TClassInfoCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable2, for: indexPath) as! TClassInfoCell
+            cell.TClassInfoCellForStudent()
             return cell
             
         }else{

@@ -58,14 +58,15 @@ class TViewBookCell0: UITableViewCell {
         
         bookState.textColor = kSetRGBColor(r: 255, g: 153, b: 0)
         
-        if model.type == "2" {
-            
-            bookState.text = "未批改"
-        }else{
-            
-            bookState.text = "错题未批改"
-        }
+//        if model.type == "2" {
+//
+//            bookState.text = "未批改"
+//        }else {
+//
+//            bookState.text = "错题未批改"
+//        }
         
+        bookState.text = kGetStateFromString(str: model.type)
         bookState.textColor = kGetColorFromString(str:bookState.text!)
     }
     

@@ -21,6 +21,7 @@ class TMyWorkDetailModel: NSObject {
     ///印刷版次图片
     var edition_photo : String!
     
+    
     class func setValueForTMyWorkDetailModel(json: JSON) -> TMyWorkDetailModel {
         
         let model = TMyWorkDetailModel()
@@ -29,7 +30,6 @@ class TMyWorkDetailModel: NSObject {
         model.count = json["count"].stringValue
         model.state1 = json["state1"].stringValue
         model.edition_photo = json["edition_photo"].stringValue
-        
         return model
     }
 }

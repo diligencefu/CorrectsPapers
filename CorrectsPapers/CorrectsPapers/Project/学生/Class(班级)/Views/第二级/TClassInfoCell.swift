@@ -24,11 +24,30 @@ class TClassInfoCell: UITableViewCell {
     @IBOutlet weak var classNum: UILabel!
     
     
+    @IBOutlet weak var editBtn: UIButton!
+    
+    
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        
+        editBtn.setBackgroundImage(getNavigationIMG(27, fromColor: kSetRGBColor(r: 0, g: 200, b: 255), toColor: kSetRGBColor(r: 0, g: 162, b: 255)), for: .normal)
+        editBtn.clipsToBounds = true
+        editBtn.layer.cornerRadius = 10*kSCREEN_SCALE
     }
 
+    
+    func TClassInfoCellForStudent() {
+        editBtn.isHidden = true
+    }
+    
+    
+    func TClassInfoCellForTeacher() {
+        editBtn.isHidden = false
+    }
+    
+
+    
+    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 

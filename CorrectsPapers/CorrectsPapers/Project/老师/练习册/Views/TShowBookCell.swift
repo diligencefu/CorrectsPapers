@@ -134,6 +134,8 @@ class TShowBookCell: UITableViewCell {
         if addWorkBlock != nil {
             addWorkBlock!()
         }
+        
+
     }
     
     

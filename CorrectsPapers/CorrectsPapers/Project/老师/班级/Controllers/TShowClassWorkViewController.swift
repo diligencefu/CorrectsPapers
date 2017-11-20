@@ -1,20 +1,23 @@
 //
-//  TShowBookViewController.swift
+//  TShowClassWorkViewController.swift
 //  CorrectsPapers
 //
-//  Created by RongXing on 2017/11/13.
+//  Created by RongXing on 2017/11/18.
 //  Copyright © 2017年 Fu Yaohui. All rights reserved.
 //
 
 import UIKit
 
-class TShowBookViewController: BaseViewController {
-    
-    var model = TShowStuWorksModel()
+class TShowClassWorkViewController: BaseViewController {
+
+    var model = TShowClassWorksModel()
     
     var reasonView = ShowTagsView()
     var BGView = UIView()
-
+    
+    
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
     }
@@ -27,13 +30,12 @@ class TShowBookViewController: BaseViewController {
         mainTableView.dataSource = self;
         mainTableView.delegate = self;
         mainTableView.estimatedRowHeight = 143 * kSCREEN_SCALE;
-        mainTableView.register(UINib(nibName: "TViewBookCell",     bundle: nil), forCellReuseIdentifier: identyfierTable)
-        mainTableView.register(UINib(nibName: "TViewBookCell1",    bundle: nil), forCellReuseIdentifier: identyfierTable1)
-        mainTableView.register(UINib(nibName: "TViewBookCell2",    bundle: nil), forCellReuseIdentifier: identyfierTable2)
-        mainTableView.register(UINib(nibName: "TViewBookCell3",    bundle: nil), forCellReuseIdentifier: identyfierTable3)
+        mainTableView.register(UINib(nibName: "TGoodWorkCell",     bundle: nil), forCellReuseIdentifier: identyfierTable)
+        mainTableView.register(UINib(nibName: "TNotGoodWorkCell",    bundle: nil), forCellReuseIdentifier: identyfierTable1)
+        mainTableView.register(UINib(nibName: "TNotGoodWorkCell1",    bundle: nil), forCellReuseIdentifier: identyfierTable2)
         mainTableView.tableFooterView = UIView()
         self.view.addSubview(mainTableView)
-
+        
         let footView = UIView.init(frame: CGRect(x: 0, y: 0, width: kSCREEN_WIDTH, height: 350*kSCREEN_SCALE))
         footView.backgroundColor = UIColor.clear
         let certain = UIButton.init(frame: CGRect(x: 60 * kSCREEN_SCALE, y: 72*kSCREEN_SCALE, width: kSCREEN_WIDTH - 120 * kSCREEN_SCALE, height: 86 * kSCREEN_SCALE))
@@ -76,14 +78,15 @@ class TShowBookViewController: BaseViewController {
         reasonView.selectBlock = {
             if !$1 {
                 print($0)
-                let params =
-                    ["SESSIONID":SESSIONIDT,
-                     "mobileCode":mobileCodeT,
-                     "book_details_id":self.model.book_details_id
-                ] as [String:Any]
-                NetWorkTeacherGobackWrokBook(params: params, callBack: { (flag) in
-                    
-                })
+//                let params =
+//                    ["SESSIONID":SESSIONIDT,
+//                     "mobileCode":mobileCodeT,
+//                     "book_details_id":self.model.class_book_id
+//                        ] as [String:Any]
+//
+//                NetWorkTeacherGobackWrokBook(params: params, callBack: { (flag) in
+//
+//                })
                 
                 
             }
@@ -122,51 +125,45 @@ class TShowBookViewController: BaseViewController {
             self.BGView.alpha = 1
         }
     }
-
+    
     
     @objc func certainCorrect() {
         
-        var imageArr = [UIImage]()
-        
-        if model.state == "2" {
-            let cell = mainTableView.cellForRow(at: IndexPath.init(row: 0, section: 0)) as! TViewBookCell1
-            imageArr.append(cell.image2.image!)
-            imageArr.append(cell.image3.image!)
+        if model.type == "2" {
+            let cell = mainTableView.cellForRow(at: IndexPath.init(row: 0, section: 0)) as! TNotGoodWorkCell1
             let editorVC = QQQEditorViewController(nibName: "QQQEditorViewController", bundle: nil)
-            editorVC.images = imageArr
+            editorVC.images = cell.editArr
             editorVC.theName = model.user_name
-            editorVC.theNum = "学号 "+model.user_num
-            editorVC.bookid = model.book_details_id
-            editorVC.bookState = model.state
-
+            editorVC.theNum = "学号 "+model.student_num
+            editorVC.bookid = model.class_book_id
+            editorVC.bookState = model.type
+            
             self.present(editorVC, animated: true, completion: nil)
-
+            
             
         }else{
-            let cell = mainTableView.cellForRow(at: IndexPath.init(row: 1, section: 0)) as! TViewBookCell3
-
-            imageArr.append(cell.image2.image!)
-            imageArr.append(cell.image3.image!)
+            let cell = mainTableView.cellForRow(at: IndexPath.init(row: 1, section: 0)) as! TNotGoodWorkCell
+            
             let editorVC = QQQEditorViewController(nibName: "QQQEditorViewController", bundle: nil)
-            editorVC.images = imageArr
+            editorVC.images = cell.editArr
             editorVC.theName = model.user_name
-            editorVC.theNum = "学号 "+model.user_num
-            editorVC.bookid = model.book_details_id
-            editorVC.bookState = model.state
-
+            editorVC.theNum = "学号 "+model.student_num
+            editorVC.bookid = model.class_book_id
+            editorVC.bookState = model.type
+            
             self.present(editorVC, animated: true, completion: nil)
         }
     }
-
+    
     
     @objc func sendBackAction() {
         showTheProjectTagsView()
     }
-
+    
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-       
-        if model.state == "2"  {
+        
+        if model.type == "2"  {
             return 1
         }else{
             return 2
@@ -181,21 +178,25 @@ class TShowBookViewController: BaseViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        if model.state == "2" {
-            let cell : TViewBookCell1 = tableView.dequeueReusableCell(withIdentifier: identyfierTable1, for: indexPath) as! TViewBookCell1
-            cell.TViewBookCellSetValuesForUndone(model: model)
+        if model.type == "2" {
+            let cell : TNotGoodWorkCell1 = tableView.dequeueReusableCell(withIdentifier: identyfierTable2, for: indexPath) as! TNotGoodWorkCell1
+            cell.TNotGoodWorkCell1SetValuesForFristCorrectedUndone(model: model)
+            cell.selectionStyle = .none
             return cell
         }else {
             
             if indexPath.row == 0 {
-                let cell : TViewBookCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable, for: indexPath) as! TViewBookCell
-                cell.TViewBookCellSetValuesForFirstCorrectDone(model: model)
+                let cell : TGoodWorkCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable, for: indexPath) as! TGoodWorkCell
+                cell.TGoodWorkCellSetValuesForFirstCorrectDone(model: model)
+                cell.selectionStyle = .none
                 return cell
             }else{
-                let cell : TViewBookCell3 = tableView.dequeueReusableCell(withIdentifier: identyfierTable3, for: indexPath) as! TViewBookCell3
-                cell.TViewBookCellSetValuesForUndone(model: model)
+                let cell : TNotGoodWorkCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable1, for: indexPath) as! TNotGoodWorkCell
+                cell.TNotGoodWorkCellSetValuesForCorrectUndone(model: model)
+                cell.selectionStyle = .none
                 return cell
             }
         }
     }
+    
 }

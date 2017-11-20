@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -20,7 +21,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="大后天就要亏咯是的撒奋斗的奋斗drydfjjvvhgvjhcfhkvjhlk" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="f3A-3h-DCW">
-                        <rect key="frame" x="116" y="10" width="388" height="36"/>
+                        <rect key="frame" x="124" y="10" width="388" height="36"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="36" id="V8k-xt-VBw"/>
                         </constraints>
@@ -29,7 +30,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="班主任：吴老师" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xQ8-Uv-gBR">
-                        <rect key="frame" x="116" y="50" width="100" height="14"/>
+                        <rect key="frame" x="124" y="50" width="100" height="14"/>
                         <constraints>
                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="50" id="Ql5-hn-Aor"/>
                             <constraint firstAttribute="height" constant="14" id="kzF-M6-wg4"/>
@@ -39,7 +40,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="班级人数：64人" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eq9-YC-55D">
-                        <rect key="frame" x="116" y="66" width="104" height="14"/>
+                        <rect key="frame" x="124" y="66" width="104" height="14"/>
                         <constraints>
                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="50" id="LyQ-ZV-L9O"/>
                             <constraint firstAttribute="height" constant="14" id="Rqz-Xb-udg"/>
@@ -49,7 +50,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="18:00-20:00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ys9-Sd-GSN">
-                        <rect key="frame" x="202" y="81" width="81.5" height="14"/>
+                        <rect key="frame" x="210" y="81" width="81.5" height="14"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="14" id="1Ul-k3-wdd"/>
                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="30" id="Zgc-jt-GJn"/>
@@ -59,7 +60,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="交作业时间：" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Sth-Wj-hcK">
-                        <rect key="frame" x="116" y="81" width="86" height="14"/>
+                        <rect key="frame" x="124" y="81" width="86" height="14"/>
                         <constraints>
                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="30" id="7a7-k0-wJP"/>
                             <constraint firstAttribute="height" constant="14" id="DMo-6n-orN"/>
@@ -69,7 +70,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="12/64" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aJu-Jg-ptI">
-                        <rect key="frame" x="202" y="96" width="37" height="16"/>
+                        <rect key="frame" x="210" y="96" width="37" height="16"/>
                         <constraints>
                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="10" id="adr-IO-RB8"/>
                             <constraint firstAttribute="height" constant="16" id="mu7-gd-RcJ"/>
@@ -79,7 +80,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="交作业情况：" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hgz-A3-apV">
-                        <rect key="frame" x="116" y="97" width="86" height="14"/>
+                        <rect key="frame" x="124" y="97" width="86" height="14"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="14" id="gX5-Yi-2L7"/>
                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="30" id="uVA-Aa-bQN"/>
@@ -89,7 +90,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="workBook" translatesAutoresizingMaskIntoConstraints="NO" id="Mmf-oH-yxI">
-                        <rect key="frame" x="8" y="10" width="100" height="100"/>
+                        <rect key="frame" x="16" y="10" width="100" height="100"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="100" id="DWG-jy-SOK"/>
                             <constraint firstAttribute="width" constant="100" id="pnx-j8-rRf"/>

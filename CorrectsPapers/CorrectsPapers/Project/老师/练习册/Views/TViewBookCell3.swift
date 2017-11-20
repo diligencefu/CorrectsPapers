@@ -66,16 +66,9 @@ class TViewBookCell3: UITableViewCell {
             images.append(imageDatas![index].stringValue)
         }
 
-        if model.state == "5" {
-            
-            bookState.textColor = kSetRGBColor(r: 255, g: 153, b: 0)
-            bookState.text = "未批改"
-        }else{
-            
-            bookState.text = "退回-照片模糊"
-            bookState.textColor = kSetRGBColor(r: 255, g: 78, b: 78)
-        }
-        bookState.textColor = kGetColorFromString(str:model.state)
+        bookState.text = kGetStateFromString(str: model.state)
+        
+        bookState.textColor = kGetColorFromString(str:bookState.text!)
 
         if images.count == 1 {
             

@@ -18,10 +18,14 @@ class TSearchClassViewController: BaseViewController,UITextFieldDelegate,UIAlert
     
     var nameTextfield = UITextField()
     
+    var class_id = ""
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         resetTitleView()
         addImageWhenEmpty()
+        addTagsView()
     }
     
     override func configSubViews() {
@@ -32,7 +36,6 @@ class TSearchClassViewController: BaseViewController,UITextFieldDelegate,UIAlert
         mainTableView.estimatedRowHeight = 143 * kSCREEN_SCALE;
         mainTableView.register(UINib(nibName: "ClassCell", bundle: nil), forCellReuseIdentifier: identyfierTable)
         self.view.addSubview(mainTableView)
-        
     }
     
     
@@ -132,8 +135,8 @@ class TSearchClassViewController: BaseViewController,UITextFieldDelegate,UIAlert
         cell.addClassBlock = {
             
             print($0)
-            self.addAlertTip()
-            
+            self.showTheChooseTypeView()
+            self.class_id = model.classes_id
         }
         return cell
     }
@@ -212,7 +215,6 @@ class TSearchClassViewController: BaseViewController,UITextFieldDelegate,UIAlert
         
     }
     
-    
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         
         searchBegin()
@@ -220,31 +222,80 @@ class TSearchClassViewController: BaseViewController,UITextFieldDelegate,UIAlert
     }
     
     
-    func addAlertTip() {
-        
-        let alert = UIAlertView.init(title: "真实姓名", message: "", delegate: self, cancelButtonTitle: cancelTitle, otherButtonTitles: certainTitle)
-        alert.alertViewStyle = .plainTextInput
-        
-        nameTextfield = alert.textField(at: 0)!
-        
-        let text = nameTextfield.text
-        print(text!)
-        alert.show()
-
+    
+    
+    var BGView = UIView()
+    var chooseType = ShowTagsView()
+    
+    
+    @objc func showChooseCondi(tap:UITapGestureRecognizer) -> Void {
+        if tap.view?.alpha == 1 {
+            
+            UIView.animate(withDuration: 0.5) {
+                tap.view?.alpha = 0
+                self.chooseType.transform = .identity
+            }
+        }
     }
     
-    
-    func alertView(_ alertView: UIAlertView, clickedButtonAt buttonIndex: Int) {
-        let buttonTitle = alertView.buttonTitle(at: buttonIndex)
-        if buttonTitle == certainTitle {
-            setToast(str: "真实姓名为 --------> " + nameTextfield.text!)
-        }else{
-            setToast(str: "取消了")
+    func hiddenViews() {
+        UIView.animate(withDuration: 0.5) {
+            self.BGView.alpha = 0
+            self.chooseType.transform = .identity
         }
         
-        
     }
     
+    
+    //    视图TagView
+    func addTagsView() {
+        //        弹出视图弹出来之后的背景蒙层
+        BGView = UIView.init(frame: self.view.frame)
+        BGView.backgroundColor = kSetRGBAColor(r: 5, g: 5, b: 5, a: 0.5)
+        BGView.alpha = 0
+        //        BGView.isHidden = true
+        
+        let tapGes1 = UITapGestureRecognizer.init(target: self, action: #selector(showChooseCondi(tap:)))
+        tapGes1.numberOfTouchesRequired = 1
+        BGView.addGestureRecognizer(tapGes1)
+        self.view.addSubview(BGView)
+        
+        
+        chooseType = UINib(nibName:"ShowTagsView",bundle:nil).instantiate(withOwner: self, options: nil).first as! ShowTagsView
+        chooseType.ShowTagsViewForChooseEdu(title: "", index: 10001)
+        chooseType.frame =  CGRect(x: 0, y: kSCREEN_HEIGHT, width: kSCREEN_WIDTH, height: 190+206*kSCREEN_SCALE)
+        chooseType.layer.cornerRadius = 24*kSCREEN_SCALE
+        chooseType.selectBlock = {
+            if !$1 {
+                let params = [
+                    "SESSIONID":SESSIONIDT,
+                    "classes_id":self.class_id,
+                    "type":$0,
+                    "mobileCode":mobileCodeT
+                    ] as [String : Any]
+                
+                NetWorkTeacherTeacherAddToClasses(params: params, callBack: { (flag) in
+                    
+                })
+
+            }
+            self.hiddenViews()
+        }
+        chooseType.clipsToBounds = true
+        self.view.addSubview(chooseType)
+    }
+    
+    
+    func showTheChooseTypeView() -> Void {
+        let y = 180+206*kSCREEN_SCALE
+        
+        UIView.animate(withDuration: 0.5) {
+            self.chooseType.transform = .init(translationX: 0, y: -y)
+            self.BGView.alpha = 1
+        }
+        
+    }
+
     
     override func viewWillDisappear(_ animated: Bool) {
         searchTextfield.endEditing(true)

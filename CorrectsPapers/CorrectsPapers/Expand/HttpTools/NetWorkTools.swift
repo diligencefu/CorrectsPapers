@@ -1121,7 +1121,7 @@ public func NetWorkTeacherDeleteMyclasses(params:[String:Any],callBack:((Bool)->
 public func NetWorkTeacherTeacherAddToClasses(params:[String:Any],callBack:((Bool)->())?) ->  Void {
     
     Alamofire.request(kTeacher_AddToClasses,
-                      method: .get, parameters: params,
+                      method: .post, parameters: params,
                       encoding: URLEncoding.default, headers: nil).responseJSON(queue:DispatchQueue.main, options: .allowFragments) { (response) in
                         print(response.result)
                         switch response.result {
@@ -1381,7 +1381,7 @@ public func netWorkForSuggestion(params:[String:Any],callBack:((String)->())?) -
     let mainQueue = DispatchQueue.main;
     
     Alamofire.request(kInsert_Suggestion,
-                      method: .get, parameters: params,
+                      method: .post, parameters: params,
                       encoding: URLEncoding.default, headers: nil).responseJSON(queue:mainQueue, options: .allowFragments) { (response) in
                         print(response.result)
                         switch response.result {
@@ -1398,7 +1398,7 @@ public func netWorkForSuggestion(params:[String:Any],callBack:((String)->())?) -
     
 }
 
-//MARK:消息中心
+//MARK:4-4消息中心
 public func netWorkForGetMessages(params:[String:Any],callBack:((Array<Any>)->())?) ->  Void {
     var dataArr = [MessageModel]()
     let mainQueue = DispatchQueue.main;
@@ -2450,6 +2450,98 @@ public func netWorkForJoinClass(params:[String:Any],callBack:((Bool)->())?) ->  
                         }
     }
 }
+
+
+func upLoadClassWorkImageRequest(
+                                   params:[String:String],
+                                   data: [UIImage],
+                                   name: [String],
+                                   success : @escaping (_ response : [String : AnyObject])->(),
+                                   failture : @escaping (_ error : Error)->()){
+    
+    let headers = ["content-type":"multipart/form-data"]
+    
+    Alamofire.upload(
+        multipartFormData: { multipartFormData in
+            
+            multipartFormData.append((params["SESSIONID"]!.data(using: String.Encoding.utf8)!),
+                                     withName: "SESSIONID")
+            multipartFormData.append((params["mobileCode"]!.data(using: String.Encoding.utf8)!),
+                                     withName: "mobileCode")
+            multipartFormData.append((params["periods_id"]!.data(using: String.Encoding.utf8)!),
+                                     withName: "periods_id")
+            multipartFormData.append((params["title"]!.data(using: String.Encoding.utf8)!),
+                                     withName: "title")
+            for i in 0 ..< data.count {
+                multipartFormData.append(UIImagePNGRepresentation(data[i])!, withName: "img\(i)", fileName: "head\(name[i]).png", mimeType: "image/png")
+            }
+    },
+        to: kBulid_ClassBook,
+        headers: headers,
+        encodingCompletion: { encodingResult in
+            switch encodingResult {
+            case .success(let upload, _, _):
+                upload.responseJSON { response in
+                    if let value = response.result.value as? [String: AnyObject]{
+                        success(value)
+                        let json = JSON(value)
+                        print(json)
+                    }
+                }
+            case .failure(let encodingError):
+                print(encodingError)
+                failture(encodingError)
+            }
+    })
+}
+
+
+//MARK:27(学生端  学生创建班级作业)接口
+func upLoadClassWorkImageRequest111(
+    params:[String:String]!,
+    data: [UIImage],
+    name: [String],
+    success : @escaping (_ response : [String : AnyObject])->(), failture : @escaping (_ error : Error)->()){
+    
+    //    let headers = ["content-type":"multipart/form-data"]
+    
+    Alamofire.upload(
+        multipartFormData: { multipartFormData in
+            
+            multipartFormData.append((params["SESSIONID"]!.data(using: String.Encoding.utf8)!),
+                                     withName: "SESSIONID")
+            multipartFormData.append((params["mobileCode"]!.data(using: String.Encoding.utf8)!),
+                                     withName: "mobileCode")
+            multipartFormData.append((params["periods_id"]!.data(using: String.Encoding.utf8)!),
+                                     withName: "periods_id")
+            multipartFormData.append((params["title"]!.data(using: String.Encoding.utf8)!),
+                                     withName: "title")
+            for i in 0..<data.count {
+                multipartFormData.append(UIImagePNGRepresentation(data[i])!, withName: "appPhoto\(i)", fileName: name[i], mimeType: "image/png")
+            }
+    },
+        to: kBulid_ClassBook,
+        headers: nil,
+        encodingCompletion: { encodingResult in
+            switch encodingResult {
+            case .success(let upload, _, _):
+                upload.responseJSON { response in
+                    if let value = response.result.value as? [String: AnyObject]{
+                        success(value)
+                    }
+                    
+                    if response.result.value == nil {
+                        success(["000":"000" as AnyObject])
+                    }
+                    
+                }
+            case .failure(let encodingError):
+                failture(encodingError)
+            }
+    }
+    )
+}
+
 
 
 //MARK:29(学生端  根据课时id查询我的课时作业)接口

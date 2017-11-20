@@ -180,6 +180,9 @@ let kInsert_Suggestion = kBaseUrl1 +  "mine/insertSuggestion"
 let kInsert_Friend = kBaseUrl1 +  "mine/insertFriend"
 
 
+
+
+
 //MARK:(老师端4-4消息中心)接口
 let kGet_Messages = kBaseUrl1 +  "mine/getMessages"
 
@@ -190,6 +193,13 @@ let kGet_Coins = kBaseUrl1 +  "mine/getCoins"
 
 //MARK:(老师端4-0我的))接口
 let kGet_Users = kBaseUrl1 +  "mine/getUsers"
+
+
+//MARK:(老师端 编辑资料)接))接口
+let kUpdate_Users = kBaseUrl1 +  "mine/updateUsers"
+
+
+
 
 //MARK: *****************学生端接口**************
 //MARK: *****************学生端接口**************
@@ -298,6 +308,11 @@ let kBulid_ClassBookNext = kBaseUrl2 +  "workBook/bulidClassBookNext"
 
 //MARK: 29  接口说明 ：   根据课时id查询我的课时作业
 let kGet_MyClassBookByPeriods = kBaseUrl2 +  "workBook/getMyClassBookByPeriods"
+
+//MARK: 30  接口说明 ：   计算每个学生的学分，降序排列
+let kGet_StudentScores = kBaseUrl2 +  "workBook/getStudentScores"
+
+
 
 
 class TheUrls: NSObject {

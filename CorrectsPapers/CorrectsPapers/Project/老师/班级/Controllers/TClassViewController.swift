@@ -184,6 +184,16 @@ class TClassViewController: BaseViewController {
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         
         if editingStyle == .delete {
+            let model = mainTableArr[indexPath.row] as! ClassModel
+            let params = [
+                "SESSIONID":SESSIONIDT,
+                "mobileCode":mobileCodeT,
+                "classes_id":model.classes_id
+            ] as [String:Any]
+            
+            NetWorkTeacherDeleteMyclasses(params: params, callBack: { (flag) in
+                
+            })
             
             mainTableArr.removeObject(at: indexPath.row)
             tableView.reloadData()

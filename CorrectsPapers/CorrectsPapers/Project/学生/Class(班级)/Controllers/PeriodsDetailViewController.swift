@@ -255,7 +255,36 @@ class PeriodsDetailViewController: BaseViewController ,HBAlertPasswordViewDelega
                 
                 cell.addImageAction = {
                     print($0)
+//                    if $0 == "Upload" {
+//                    }
                     self.setupPhoto1(count: 30)
+                }
+                
+                cell.upLoadImagesAction = {
+                    let params =
+                        [
+                            "SESSIONID":SESSIONID,
+                            "mobileCode":mobileCode,
+                            "periods_id":"2",
+                            "title":"哈哈哈",
+                            ]
+                    var nameArr = [String]()
+                    for index in 0..<self.images.count {
+                        nameArr.append("Class_WorkBook_Image\(index)")
+                    }
+                    nameArr.append("User_headImage")
+//                    upLoadClassWorkImageRequest(params: params, data: self.images as! [UIImage], name: nameArr, success: { (success) in
+//                        print(success)
+//                    }, failture: { (error) in
+//                        print(error)
+//                    })
+                    upLoadClassWorkImageRequest(params: params, data: self.images as! [UIImage], name: nameArr, success: { (success) in
+                        print(success)
+                    }, failture: { (error) in
+                        print(error)
+                    })
+                    
+                    
                 }
                 
                 cell.deletImageAction = {

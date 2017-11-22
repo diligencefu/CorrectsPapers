@@ -53,18 +53,11 @@ class EditInfoViewController: BaseViewController {
         nameArr.append("User_headImage")
         
         upLoadImageRequest(params: params, data: imgArr, name: nameArr, success: { (datas) in
-            
             self.navigationItem.rightBarButtonItem?.isEnabled = true
         }) { (error) in
-            
             print(error)
             self.navigationItem.rightBarButtonItem?.isEnabled = true
         }
-        
-//        netWorkForEditoData(params: params) { (dataArr) in
-//            self.navigationItem.rightBarButtonItem?.isEnabled = true
-//        }
-//
     }
     
     

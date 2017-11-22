@@ -181,7 +181,7 @@ class ClassDetailViewController: BaseViewController,UITextFieldDelegate {
         tableView.deselectRow(at: indexPath, animated: true)
         if currentIndex == 1 {
             let periodsVC = PeriodsDetailViewController()
-            periodsVC.workState = indexPath.row
+            periodsVC.workState = indexPath.row+1
             self.navigationController?.pushViewController(periodsVC, animated: true)
         }
     }

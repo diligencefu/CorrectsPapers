@@ -44,22 +44,29 @@ class ClassViewController: BaseViewController {
         mainTableView.delegate = self;
         mainTableView.estimatedRowHeight = 143 * kSCREEN_SCALE;
         mainTableView.register(UINib(nibName: "ClassCell", bundle: nil), forCellReuseIdentifier: identyfierTable)
+        mainTableView.tableFooterView = UIView()
         self.view.addSubview(mainTableView)
-        
-        addFooterRefresh()
+    }
+    
+    fileprivate func extractedFunc(_ params: [String : String]) {
+        netWorkForMyClass(params: params) { (datas) in
+            self.mainTableArr.removeAllObjects()
+            self.mainTableArr.addObjects(from: datas)
+            self.mainTableView.reloadData()
+        }
     }
     
     override func refreshHeaderAction() {
+        let params = [
+            "SESSIONID":SESSIONID,
+            "mobileCode":mobileCode
+        ]
+        extractedFunc(params)
+
         mainTableView.mj_header.endRefreshing()
         mainTableView.reloadData()
     }
-    
-    
-    override func refreshFooterAction() {
-        mainTableView.mj_footer.endRefreshing()
-        mainTableView.reloadData()
-    }
-    
+
     
     func rightBarButton() {
         

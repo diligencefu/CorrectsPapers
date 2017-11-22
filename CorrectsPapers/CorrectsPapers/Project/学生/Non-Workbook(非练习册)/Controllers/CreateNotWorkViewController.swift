@@ -13,7 +13,10 @@ class CreateNotWorkViewController: BaseViewController,UIPickerViewDelegate,UIPic
     var contents = [Array<String>]()
     var titles = [Array<String>]()
     var images = NSMutableArray()
-
+    
+    var bookState = 0
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         addBGViewAndPickerView()
@@ -82,8 +85,10 @@ class CreateNotWorkViewController: BaseViewController,UIPickerViewDelegate,UIPic
                     
                     self.uploadWorkImage()
                 }else{
-                    
-                    self.setupPhoto1(count: 2)
+                    if self.images.count < 2 {
+                    }
+                    self.setupPhoto1(count: 2, index: Int($0)!-1)
+
                 }
             }
             return cell
@@ -106,6 +111,11 @@ class CreateNotWorkViewController: BaseViewController,UIPickerViewDelegate,UIPic
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        
+        if indexPath.section == 0 {
+            return
+        }
+        
         if indexPath.section == 1 && indexPath.row == 1 {
             
             let chooseVC = ChooseTeacherCorrectVC()
@@ -404,12 +414,9 @@ class CreateNotWorkViewController: BaseViewController,UIPickerViewDelegate,UIPic
                 "SESSIONID":SESSIONID,
                 "mobileCode":mobileCode,
                 "non_exercise_name":cell2.workDescrip.text!,
-                //                "correct_way":contents[1][0],
-                //                "subject_id":contents[2][0],
-                //                "classes_id":contents[2][1],
-                "correct_way":"1",
-                "subject_id":"1",
-                "classes_id":"1",
+                "correct_way":contents[1][0],
+                "subject_id":contents[2][0],
+                "classes_id":contents[2][1],
                 "rewards":cell.titleTextField.text!,
                 "freind_id":"1"
         ]
@@ -421,20 +428,21 @@ class CreateNotWorkViewController: BaseViewController,UIPickerViewDelegate,UIPic
         imgArr.append(cell2.image2.image!)
         imgArr.append(cell2.image3.image!)
         
-        nameArr.append("User_headImage1")
-        nameArr.append("User_headImage2")
+        nameArr.append("pre_photos1")
+        nameArr.append("pre_photos2")
+        
         
         netWorkForBulidnon_exercise(params: params, data: imgArr, name: nameArr, success: { (datas) in
             
         }) { (error) in
-            
+                
         }
         
     }
     
     
     // 异步原图
-    private func setupPhoto1(count:NSInteger) {
+    private func setupPhoto1(count:NSInteger,index:NSInteger) {
         let imagePickTool = CLImagePickersTool()
         
         imagePickTool.isHiddenVideo = true
@@ -453,10 +461,14 @@ class CreateNotWorkViewController: BaseViewController,UIPickerViewDelegate,UIPic
             CLImagePickersTool.convertAssetArrToOriginImage(assetArr: assetArr, scale: 0.1, successClouse: {[weak self] (image,assetItem) in
                 imageArr.append(image)
                 
-                self?.images.add(image)
-                self?.dealImage(imageArr: imageArr, index: index)
-                self?.mainTableView.reloadData()
+                if (self?.images.count)! > 2 {
+                    self?.images[index] = image
+                }else{
+                    self?.images.add(image)
+                }
                 
+                self?.mainTableView.reloadData()
+                self?.dealImage(imageArr: imageArr, index: index)
                 }, failedClouse: { () in
                     index = index - 1
                     self.dealImage(imageArr: imageArr, index: index)
@@ -471,6 +483,11 @@ class CreateNotWorkViewController: BaseViewController,UIPickerViewDelegate,UIPic
             PopViewUtil.share.stopLoading()
         }
         // 图片显示出来以后可能还要上传到云端的服务器获取图片的url，这里不再细说了。
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        PopViewUtil.share.stopLoading()
     }
     
 }

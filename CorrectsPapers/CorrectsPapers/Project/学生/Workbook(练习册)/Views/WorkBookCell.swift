@@ -59,23 +59,10 @@ class WorkBookCell: UITableViewCell {
         
         bookImage.kf.setImage(with:  URL(string:model.cover_photo)!, placeholder: #imageLiteral(resourceName: "photos_image_default"), options: nil, progressBlock: nil, completionHandler: nil)
         
-        if model.subject_name == "生物" {
-            proName.layer.borderColor = kSetRGBColor(r: 102, g: 200, b: 205).cgColor
-            proName.setTitleColor(kSetRGBColor(r: 102, g: 200, b: 205), for: .normal)
-        }else if model.subject_name == "化学" {
-            proName.layer.borderColor = kSetRGBColor(r: 205, g: 112, b: 106).cgColor
-            proName.setTitleColor(kSetRGBColor(r: 205, g: 112, b: 106), for: .normal)
-        }else if model.subject_name == "英语" {
-            proName.layer.borderColor = kSetRGBColor(r: 255, g: 174, b: 102).cgColor
-            proName.setTitleColor(kSetRGBColor(r: 255, g: 174, b: 102), for: .normal)
-        }else if model.subject_name == "政治" {
-            proName.layer.borderColor = kSetRGBColor(r: 87, g: 138, b: 242).cgColor
-            proName.setTitleColor(kSetRGBColor(r: 87, g: 138, b: 242), for: .normal)
-        }else if model.subject_name == "物理" {
-            proName.layer.borderColor = kSetRGBColor(r: 87, g: 138, b: 242).cgColor
-            proName.setTitleColor(kSetRGBColor(r: 87, g: 138, b: 242), for: .normal)
-        }
         
+        proName.setTitleColor(kSetRGBColor(r: 255, g: 102, b: 116), for: .normal)
+        proName.layer.borderColor = kSetRGBColor(r: 255, g: 102, b: 116).cgColor
+        proName.layer.borderWidth = 1
     }
     
     

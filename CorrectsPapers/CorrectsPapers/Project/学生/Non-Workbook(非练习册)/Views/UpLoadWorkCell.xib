@@ -126,7 +126,7 @@
                 <outlet property="upLoad" destination="7f9-I1-Guo" id="bXl-up-f8W"/>
                 <outlet property="workDescrip" destination="YWT-qm-akp" id="CNb-xc-ky6"/>
             </connections>
-            <point key="canvasLocation" x="-43" y="126"/>
+            <point key="canvasLocation" x="-7" y="125"/>
         </tableViewCell>
     </objects>
     <resources>

@@ -121,8 +121,8 @@ class SUploadWorkCell: UITableViewCell,UICollectionViewDelegate,UICollectionView
             uploadBtn.backgroundColor = kGaryColor(num: 206)
             uploadBtn.isEnabled = false
             kTimer2.invalidate()
-            
             setToast(str: "对不起，你已超时")
+            countDown.text = "已超时"
         }
         
     }

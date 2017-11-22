@@ -299,6 +299,9 @@
 		188D0C5E1F99EA1A0010814C /* SUploadWorkCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 188D0C5C1F99EA1A0010814C /* SUploadWorkCell.xib */; };
 		188D0C611F99F4FB0010814C /* ShowImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188D0C5F1F99F4FB0010814C /* ShowImageCell.swift */; };
 		188D0C621F99F4FB0010814C /* ShowImageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 188D0C601F99F4FB0010814C /* ShowImageCell.xib */; };
+		18935EE11FC271AD00BF9651 /* ReloadNotWorkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18935EE01FC271AD00BF9651 /* ReloadNotWorkViewController.swift */; };
+		18935EE41FC2A71200BF9651 /* ShowWorkNotDone.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18935EE21FC2A71200BF9651 /* ShowWorkNotDone.swift */; };
+		18935EE51FC2A71200BF9651 /* ShowWorkNotDone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18935EE31FC2A71200BF9651 /* ShowWorkNotDone.xib */; };
 		1893785B1F943FA600393CB4 /* SearchClassViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1893785A1F943FA600393CB4 /* SearchClassViewController.swift */; };
 		1893785D1F944CCB00393CB4 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1893785C1F944CCB00393CB4 /* SettingViewController.swift */; };
 		1893785F1F944D6900393CB4 /* AboutUsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1893785E1F944D6900393CB4 /* AboutUsViewController.swift */; };
@@ -322,6 +325,7 @@
 		18B1E6651FB58EE000D1C6F3 /* UIView+Ext.h in Sources */ = {isa = PBXBuildFile; fileRef = 185981B01FB588330021EAD9 /* UIView+Ext.h */; };
 		18B1E66C1FB5B10F00D1C6F3 /* ChooseTeacherCorrectVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B1E66B1FB5B10F00D1C6F3 /* ChooseTeacherCorrectVC.swift */; };
 		18C3D2A81FAC1AE3001C295C /* AccountModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C3D2A71FAC1AE3001C295C /* AccountModel.swift */; };
+		18CDFA271FC2ED1400FF4C1C /* WorkPhotoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18CDFA261FC2ED1400FF4C1C /* WorkPhotoModel.swift */; };
 		18D343331F9AF646007CE166 /* CreateClassCell2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D343311F9AF646007CE166 /* CreateClassCell2.swift */; };
 		18D343341F9AF646007CE166 /* CreateClassCell2.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18D343321F9AF646007CE166 /* CreateClassCell2.xib */; };
 		18D343371F9AFC9E007CE166 /* CreateHeadCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D343351F9AFC9E007CE166 /* CreateHeadCell.swift */; };
@@ -648,6 +652,9 @@
 		188D0C5C1F99EA1A0010814C /* SUploadWorkCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SUploadWorkCell.xib; sourceTree = "<group>"; };
 		188D0C5F1F99F4FB0010814C /* ShowImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowImageCell.swift; sourceTree = "<group>"; };
 		188D0C601F99F4FB0010814C /* ShowImageCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ShowImageCell.xib; sourceTree = "<group>"; };
+		18935EE01FC271AD00BF9651 /* ReloadNotWorkViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReloadNotWorkViewController.swift; sourceTree = "<group>"; };
+		18935EE21FC2A71200BF9651 /* ShowWorkNotDone.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowWorkNotDone.swift; sourceTree = "<group>"; };
+		18935EE31FC2A71200BF9651 /* ShowWorkNotDone.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ShowWorkNotDone.xib; sourceTree = "<group>"; };
 		1893785A1F943FA600393CB4 /* SearchClassViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchClassViewController.swift; sourceTree = "<group>"; };
 		1893785C1F944CCB00393CB4 /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
 		1893785E1F944D6900393CB4 /* AboutUsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutUsViewController.swift; sourceTree = "<group>"; };
@@ -667,6 +674,7 @@
 		18B1E6601FB58DC500D1C6F3 /* DrawBoard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DrawBoard.swift; sourceTree = "<group>"; };
 		18B1E66B1FB5B10F00D1C6F3 /* ChooseTeacherCorrectVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseTeacherCorrectVC.swift; sourceTree = "<group>"; };
 		18C3D2A71FAC1AE3001C295C /* AccountModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountModel.swift; sourceTree = "<group>"; };
+		18CDFA261FC2ED1400FF4C1C /* WorkPhotoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkPhotoModel.swift; sourceTree = "<group>"; };
 		18D343311F9AF646007CE166 /* CreateClassCell2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateClassCell2.swift; sourceTree = "<group>"; };
 		18D343321F9AF646007CE166 /* CreateClassCell2.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CreateClassCell2.xib; sourceTree = "<group>"; };
 		18D343351F9AFC9E007CE166 /* CreateHeadCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateHeadCell.swift; sourceTree = "<group>"; };
@@ -981,7 +989,7 @@
 			isa = PBXGroup;
 			children = (
 				18520DCF1F8C5CC0004EAF99 /* Mian */,
-				187499F91F99813300DEB777 /* 老师 */,
+				185B76B21FC3B8EE000D9A44 /* 老师 */,
 				187499F81F99812B00DEB777 /* 学生 */,
 				18520DD01F8C5D61004EAF99 /* UserManager */,
 			);
@@ -1080,6 +1088,7 @@
 			children = (
 				18449C7C1FA9556500120FDA /* WorkBookModel.swift */,
 				18449C801FA9591F00120FDA /* BookDetailModel.swift */,
+				18CDFA261FC2ED1400FF4C1C /* WorkPhotoModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1149,6 +1158,7 @@
 				1893E29D1FBD65930020C6EB /* NotWorkDetailViewController.swift */,
 				18520DD31F8C5DBA004EAF99 /* Non-WorkBookViewController.swift */,
 				1893E29B1FBD65570020C6EB /* CreateNotWorkViewController.swift */,
+				18935EE01FC271AD00BF9651 /* ReloadNotWorkViewController.swift */,
 				186F392F1F920602009B8927 /* ComplaintViewController.swift */,
 				18B1E66B1FB5B10F00D1C6F3 /* ChooseTeacherCorrectVC.swift */,
 			);
@@ -1224,6 +1234,18 @@
 			path = CTImageEdit;
 			sourceTree = "<group>";
 		};
+		185B76B21FC3B8EE000D9A44 /* 老师 */ = {
+			isa = PBXGroup;
+			children = (
+				187499FD1F9982B500DEB777 /* 练习册 */,
+				187499FC1F9982B300DEB777 /* 非练习册 */,
+				187499FB1F9982B000DEB777 /* 班级 */,
+				187499FA1F9982AE00DEB777 /* 我的 */,
+			);
+			name = "老师";
+			path = "New Group";
+			sourceTree = "<group>";
+		};
 		186A27F91F95E45E00FAA766 /* others */ = {
 			isa = PBXGroup;
 			children = (
@@ -1256,17 +1278,6 @@
 				18520DCB1F8C5CB9004EAF99 /* Mine(我的) */,
 			);
 			path = "学生";
-			sourceTree = "<group>";
-		};
-		187499F91F99813300DEB777 /* 老师 */ = {
-			isa = PBXGroup;
-			children = (
-				187499FD1F9982B500DEB777 /* 练习册 */,
-				187499FC1F9982B300DEB777 /* 非练习册 */,
-				187499FB1F9982B000DEB777 /* 班级 */,
-				187499FA1F9982AE00DEB777 /* 我的 */,
-			);
-			path = "老师";
 			sourceTree = "<group>";
 		};
 		187499FA1F9982AE00DEB777 /* 我的 */ = {
@@ -1339,7 +1350,6 @@
 				18E854A81FB94D800029E81F /* TViewBookCell1.xib */,
 				184EC6861FB6E6A0007C6BDE /* TViewBookCell2.swift */,
 				184EC6871FB6E6A0007C6BDE /* TViewBookCell2.xib */,
-				1877A3521FBA977900F8C9A7 /* GiveMarkView.swift */,
 				18E854AB1FB958B80029E81F /* TViewBookCell3.swift */,
 				18E854AC1FB958B80029E81F /* TViewBookCell3.xib */,
 				182EB5C11F9ECD6D00B74F84 /* TUpLoadVideoCell.swift */,
@@ -1348,6 +1358,7 @@
 				182EB5C51F9ED38A00B74F84 /* TTipView.xib */,
 				18E854A31FB931370029E81F /* TShowDoneWorkCell.swift */,
 				18E854A41FB931370029E81F /* TShowDoneWorkCell.xib */,
+				1877A3521FBA977900F8C9A7 /* GiveMarkView.swift */,
 				1877A3541FBA978700F8C9A7 /* GiveMarkView.xib */,
 				1877A36A1FBAEF7400F8C9A7 /* TShowTheTipView.swift */,
 				1877A36C1FBAEF7C00F8C9A7 /* TShowTheTipView.xib */,
@@ -1595,6 +1606,8 @@
 				188D0C5C1F99EA1A0010814C /* SUploadWorkCell.xib */,
 				1894DFA41FB152D3003E99FF /* ShowWorkStateCell.swift */,
 				1894DFA51FB152D3003E99FF /* ShowWorkStateCell.xib */,
+				18935EE21FC2A71200BF9651 /* ShowWorkNotDone.swift */,
+				18935EE31FC2A71200BF9651 /* ShowWorkNotDone.xib */,
 				188D0C5F1F99F4FB0010814C /* ShowImageCell.swift */,
 				188D0C601F99F4FB0010814C /* ShowImageCell.xib */,
 				188D0BF81F99CF6C0010814C /* TGoodWorkCell.swift */,
@@ -1740,6 +1753,7 @@
 				184BBED01F9B45E900EF65C4 /* EditInfoCell.xib in Resources */,
 				188D0C621F99F4FB0010814C /* ShowImageCell.xib in Resources */,
 				180D6B781F949A4400480DEF /* UpLoadWorkCell.xib in Resources */,
+				18935EE51FC2A71200BF9651 /* ShowWorkNotDone.xib in Resources */,
 				182EB5C41F9ECD6D00B74F84 /* TUpLoadVideoCell.xib in Resources */,
 				18759A981F95CFE000B8E851 /* MyBookCell.xib in Resources */,
 				186A27FE1F96002E00FAA766 /* MessgesCell.xib in Resources */,
@@ -1925,6 +1939,7 @@
 				185981A41FB5718A0021EAD9 /* OCTools.m in Sources */,
 				188D0C3F1F99D8210010814C /* _YYWebImageSetter.m in Sources */,
 				18B1566F1FB2D3A300396653 /* CreditRankViewController.swift in Sources */,
+				18935EE11FC271AD00BF9651 /* ReloadNotWorkViewController.swift in Sources */,
 				1853BFDD1FB0632C00FF2FC5 /* MessageModel.swift in Sources */,
 				185981BD1FB5885D0021EAD9 /* UIImage+EditImageWithColor.m in Sources */,
 				182EB5C31F9ECD6D00B74F84 /* TUpLoadVideoCell.swift in Sources */,
@@ -2015,6 +2030,7 @@
 				18E854B11FB975B40029E81F /* TViewBookCell0.swift in Sources */,
 				184D94721F97250200C79DBC /* EditorViewController.swift in Sources */,
 				184D94731F97250200C79DBC /* EditorViewController.xib in Sources */,
+				18935EE41FC2A71200BF9651 /* ShowWorkNotDone.swift in Sources */,
 				184D94741F97250200C79DBC /* CLImagePickerPhotoModel.swift in Sources */,
 				184D94751F97250200C79DBC /* PreviewModel.swift in Sources */,
 				18B1E66C1FB5B10F00D1C6F3 /* ChooseTeacherCorrectVC.swift in Sources */,
@@ -2080,6 +2096,7 @@
 				18C3D2A81FAC1AE3001C295C /* AccountModel.swift in Sources */,
 				182181681FA829D800C2BE89 /* TEditInfoViewController.swift in Sources */,
 				187B9DAB1FBE92B40096688A /* TPeriodsModel.swift in Sources */,
+				18CDFA271FC2ED1400FF4C1C /* WorkPhotoModel.swift in Sources */,
 				186A28041F96037300FAA766 /* AddFriendViewController.swift in Sources */,
 				186F39331F921561009B8927 /* ClassCell.swift in Sources */,
 				18749A0B1F99834F00DEB777 /* TBookViewController.swift in Sources */,

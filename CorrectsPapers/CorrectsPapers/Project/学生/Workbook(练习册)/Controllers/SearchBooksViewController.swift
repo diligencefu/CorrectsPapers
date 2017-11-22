@@ -63,12 +63,19 @@ class SearchBooksViewController: BaseViewController ,UITextFieldDelegate{
                 ] as [String : Any]
         
         netWorkForSearchWorkBook(params: params) { (dataArr) in
-            
+            print(dataArr)
+            if dataArr.count > 0 {
+                
+                self.mainTableArr.addObjects(from: dataArr)
+                self.mainTableView.reloadData()
+                
+            }else{
+                setToast(str: "暂无相关数据")
+            }
         }
 
         isSearching = true
         mainTableView.reloadData()
-
     }
     
     
@@ -78,7 +85,7 @@ class SearchBooksViewController: BaseViewController ,UITextFieldDelegate{
         searchTextfield.frame = CGRect(x: 30, y: 150, width: kSCREEN_WIDTH - 110, height: 32)
         searchTextfield.borderStyle = .roundedRect
         searchTextfield.leftViewRect(forBounds: CGRect(x: 0, y: 0, width: 26, height: 17))
-        searchTextfield.placeholder = "搜索班级"
+        searchTextfield.placeholder = "搜索练习册"
         searchTextfield.leftViewMode = .always
         searchTextfield.returnKeyType = .search
         searchTextfield.delegate = self
@@ -149,16 +156,17 @@ class SearchBooksViewController: BaseViewController ,UITextFieldDelegate{
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
+        let model = mainTableArr[indexPath.row] as! WorkBookModel
+        
         let cell : WorkBookCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable, for: indexPath) as! WorkBookCell
         cell.selectionStyle = .default
-//        cell.workBookCellSetValue(index:indexPath.row)
+        cell.workBookCellSetValue(model: model)
         return cell
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         searchTextfield.endEditing(true)
-        mainTableArr = []
         tableView.reloadData()
     }
 
@@ -166,12 +174,15 @@ class SearchBooksViewController: BaseViewController ,UITextFieldDelegate{
         
         if section == 0 {
             if isSearching {
-                let showLabel = UILabel.init(frame: CGRect(x: 0, y: 0, width: kSCREEN_WIDTH, height: 19))
+                
+                let view = UIView.init(frame: CGRect(x: 0, y: 0, width: kSCREEN_WIDTH, height: 19))
+                let showLabel = UILabel.init(frame: CGRect(x: 0, y: 0, width: 80, height: 19))
+                view.backgroundColor = kGaryColor(num: 239)
                 showLabel.text = "  搜索结果"
                 showLabel.font = kFont26
                 showLabel.textColor = kGaryColor(num: 176)
                 
-                let result = UILabel.init(frame: CGRect(x: 80, y: 3, width: kSCREEN_WIDTH-80, height: 19))
+                let result = UILabel.init(frame: CGRect(x: 80, y: 0, width: view.width-80, height: 19))
                 result.text = "共找到\(mainTableArr.count)个班级  "
                 result.isAttributedContent = true
                 result.textColor = kGaryColor(num: 176)
@@ -184,18 +195,15 @@ class SearchBooksViewController: BaseViewController ,UITextFieldDelegate{
                 attributeText.addAttributes([NSAttributedStringKey.paragraphStyle: paragraphStyle], range: NSMakeRange(0, (result.text?.characters.count)!))
                 attributeText.addAttributes([NSAttributedStringKey.font:  kFont28], range: NSMakeRange(0, (result.text?.characters.count)!))
                 attributeText.addAttributes([NSAttributedStringKey.foregroundColor: kSetRGBColor(r: 255, g: 153, b: 0)], range: NSMakeRange(3,  count))
-                //                attributeText.addAttributes([NSAttributedStringKey.foregroundColor: UIColor.black], range: NSMakeRange(0, 5))
-                
-                //                result.centerY = showLabel.centerY
                 result.attributedText = attributeText
                 result.textAlignment = .right
                 result.font = kFont26
-                showLabel.addSubview(result)
                 showLabel.backgroundColor = UIColor.white
-                return showLabel
+                view.addSubview(showLabel)
+                view.addSubview(result)
+                return view
             }
         }
-        
         return UIView()
     }
     

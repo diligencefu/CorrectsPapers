@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SwiftyJSON
 
 class PeriodsDetailViewController: BaseViewController ,HBAlertPasswordViewDelegate{
     var typeArr = ["课程视频","我的作业","参考答案","五星作业"]
@@ -62,6 +63,7 @@ class PeriodsDetailViewController: BaseViewController ,HBAlertPasswordViewDelega
         mainTableView.register(UINib(nibName: "ShowWorkStateCell", bundle: nil), forCellReuseIdentifier: identyfierTable2)
         mainTableView.register(UINib(nibName: "TClassInfoCell", bundle: nil), forCellReuseIdentifier: identyfierTable3)
         mainTableView.register(UINib(nibName: "TGoodWorkCell", bundle: nil), forCellReuseIdentifier: identyfierTable4)
+        mainTableView.register(UINib(nibName: "ShowWorkNotDone", bundle: nil), forCellReuseIdentifier: identyfierTable5)
 
         self.view.addSubview(mainTableView)
         footView(titles: titleArr1)
@@ -111,10 +113,7 @@ class PeriodsDetailViewController: BaseViewController ,HBAlertPasswordViewDelega
         
         if currentIndex == 1 {
             
-            
-            
         }else{
-            
             
             
         }
@@ -222,10 +221,9 @@ class PeriodsDetailViewController: BaseViewController ,HBAlertPasswordViewDelega
         
         if currentIndex == 2 {
             
-            if workState == 0 {
+            if workState < 4 {
                 return 1
             }
-            
             return 2
         }
         
@@ -249,7 +247,7 @@ class PeriodsDetailViewController: BaseViewController ,HBAlertPasswordViewDelega
 //            cell.setValueForShowPeriodsCell(index: 10-indexPath.row)
             return cell
         }else if currentIndex == 2 {
-            if workState == 0 {
+            if workState == 1 {
                 let cell : SUploadWorkCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable1, for: indexPath) as! SUploadWorkCell
                 cell.SUploadWorkCellSetValues(images: images as! [UIImage])
                 
@@ -266,25 +264,28 @@ class PeriodsDetailViewController: BaseViewController ,HBAlertPasswordViewDelega
                             "SESSIONID":SESSIONID,
                             "mobileCode":mobileCode,
                             "periods_id":"2",
-                            "title":"哈哈哈",
+                            "title":cell.bookTitle.text!,
                             ]
                     var nameArr = [String]()
                     for index in 0..<self.images.count {
                         nameArr.append("Class_WorkBook_Image\(index)")
                     }
                     nameArr.append("User_headImage")
-//                    upLoadClassWorkImageRequest(params: params, data: self.images as! [UIImage], name: nameArr, success: { (success) in
-//                        print(success)
-//                    }, failture: { (error) in
-//                        print(error)
-//                    })
                     upLoadClassWorkImageRequest(params: params, data: self.images as! [UIImage], name: nameArr, success: { (success) in
                         print(success)
+                        let json = JSON(success)
+                        print(json)
+                        
+                        if json["code"] == "1" {
+                            setToast(str: "上传成功")
+                            
+                            
+                            
+                            
+                        }
                     }, failture: { (error) in
                         print(error)
                     })
-                    
-                    
                 }
                 
                 cell.deletImageAction = {
@@ -296,43 +297,118 @@ class PeriodsDetailViewController: BaseViewController ,HBAlertPasswordViewDelega
                 
             }else{
                 
-                let cell : ShowWorkStateCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable2, for: indexPath) as! ShowWorkStateCell
+                let cell : ShowWorkNotDone = tableView.dequeueReusableCell(withIdentifier: identyfierTable5, for: indexPath) as! ShowWorkNotDone
                 
-                if workState == 1 {
-                    cell.TGoodWorkCellSetValueForUndone(count: 10)
-                }else if workState == 2 {
+                if workState == 2 || workState == 3{
                     
-                    if indexPath.row == 1 {
-                        let cell : SUploadWorkCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable1, for: indexPath) as! SUploadWorkCell
-                        cell.SUploadWorkCellResubmit(images: images as! [UIImage])
+                    cell.ShowWorkNotDoneForState(state: String(workState), count: 14)
+                    cell.conplainOrreSubmit = {
                         
-                        cell.addImageAction = {
-                            print($0)
-                            self.setupPhoto1(count: 30)
+                        if $0 == "resubmit" {
+                            self.workState = 1
+                            self.mainTableView.reloadData()
+                        }else{
+                            let complainVC = ComplaintViewController()
+                            self.navigationController?.pushViewController(complainVC, animated: true)
                         }
+                    }
+                    return cell
+                    
+                }else if workState == 4 {
+                    
+                    if indexPath.row == 0 {
                         
-                        cell.deletImageAction = {
-                            self.images.removeObject(at: $0)
-                            tableView.reloadData()
-                        }
-                        cell.selectionStyle = .none
+                        let cell : ShowWorkStateCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable2, for: indexPath) as! ShowWorkStateCell
+                        cell.TGoodWorkCellSetValueForWaitCorrect(count: 13)
                         return cell
-
                     }
                     
-                    cell.TGoodWorkCellSetValueForWaitCorrect(count: 10)
+                    let cell : SUploadWorkCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable1, for: indexPath) as! SUploadWorkCell
+                    cell.SUploadWorkCellResubmit(images: images as! [UIImage])
+                    
+                    cell.addImageAction = {
+                        print($0)
+                        self.setupPhoto1(count: 30)
+                    }
+                    
+                    cell.upLoadImagesAction = {
+                        let params =
+                            [
+                                "SESSIONID":SESSIONID,
+                                "mobileCode":mobileCode,
+                                "classes_book_id":"2",
+                                ]
+                        var nameArr = [String]()
+                        for index in 0..<self.images.count {
+                            nameArr.append("Class_WorkBook_Image\(index)")
+                        }
+                        upLoadClassWorkImageRequestNext(params: params, data: self.images as! [UIImage], name: nameArr, success: { (success) in
+                            print(success)
+                            let json = JSON(success)
+                            print(json)
+                            
+                            if json["code"] == "1" {
+                                setToast(str: "上传成功")
+                            }
+
+                        }, failture: { (error) in
+                            print(error)
+                        })
+                    }
+                    
+                    cell.deletImageAction = {
+                        self.images.removeObject(at: $0)
+                        tableView.reloadData()
+                    }
+                    cell.selectionStyle = .none
+                    return cell
+
+                }else if workState == 5 {
+                    
+                    if indexPath.row == 0 {
+                        
+                        let cell : ShowWorkStateCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable2, for: indexPath) as! ShowWorkStateCell
+                        cell.TGoodWorkCellSetValueForWaitCorrect(count: 13)
+                        return cell
+                    }
+                    
+                    let cell : ShowWorkNotDone = tableView.dequeueReusableCell(withIdentifier: identyfierTable5, for: indexPath) as! ShowWorkNotDone
+                    cell.ShowWorkNotDoneForState(state: String(2), count: 14)
+                    return cell
+                }else if workState == 6 {
+                    
+                    if indexPath.row == 0 {
+                        
+                        let cell : ShowWorkStateCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable2, for: indexPath) as! ShowWorkStateCell
+                        cell.TGoodWorkCellSetValueForWaitCorrect(count: 13)
+                        return cell
+                    }
+                    
+                    let cell : ShowWorkNotDone = tableView.dequeueReusableCell(withIdentifier: identyfierTable5, for: indexPath) as! ShowWorkNotDone
+                    cell.ShowWorkNotDoneForState(state: String(3), count: 14)
+                    cell.conplainOrreSubmit = {
+                        
+                        if $0 == "resubmit" {
+                            self.workState = 4
+                            self.mainTableView.reloadData()
+                        }else{
+                            let complainVC = ComplaintViewController()
+                            self.navigationController?.pushViewController(complainVC, animated: true)
+                        }
+                    }
+
                     return cell
                 }else{
-                    
-                    if indexPath.row == 0{
-                        cell.TGoodWorkCellSetValueForWaitCorrect(count: 10)
+                    let cell : ShowWorkStateCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable2, for: indexPath) as! ShowWorkStateCell
+
+                    if indexPath.row == 0 {
+                        cell.TGoodWorkCellSetValueForWaitCorrect(count: 13)
+                        return cell
                     }else{
-                        cell.TGoodWorkCellSetValueForFinish(count: 10)
+                        cell.TGoodWorkCellSetValueForFinish(count: 15)
+                        return cell
                     }
                 }
-                
-                cell.selectionStyle = .none
-                return cell
             }
             
         }else if currentIndex == 3 {

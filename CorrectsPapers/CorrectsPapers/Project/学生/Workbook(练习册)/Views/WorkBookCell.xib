@@ -21,14 +21,14 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="workBook" translatesAutoresizingMaskIntoConstraints="NO" id="dlC-pQ-mpc">
-                        <rect key="frame" x="21" y="9" width="80" height="100"/>
+                        <rect key="frame" x="16" y="9" width="80" height="100"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="100" id="V99-68-tbr"/>
                             <constraint firstAttribute="width" constant="80" id="z5E-7F-VlJ"/>
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="练习册名称练习册名称练习册名 称练习册名称练习册名称练习..." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xZ0-pS-MAB">
-                        <rect key="frame" x="109" y="9" width="220" height="37.5"/>
+                        <rect key="frame" x="104" y="9" width="225" height="37.5"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="37" id="9eJ-SL-gZk"/>
                         </constraints>
@@ -37,7 +37,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bi7-We-b6A">
-                        <rect key="frame" x="109" y="49" width="30" height="18"/>
+                        <rect key="frame" x="104" y="49" width="30" height="18"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="18" id="BiP-0F-5bY"/>
@@ -49,7 +49,7 @@
                         </state>
                     </button>
                     <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kwF-4Q-azp">
-                        <rect key="frame" x="147" y="49" width="67" height="18"/>
+                        <rect key="frame" x="142" y="49" width="67" height="18"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="31" id="Tcn-qL-a9G"/>
@@ -86,7 +86,7 @@
                     <constraint firstItem="yUM-87-unk" firstAttribute="centerX" secondItem="aI3-H4-1Zy" secondAttribute="centerX" id="Hwy-YQ-GBC"/>
                     <constraint firstItem="aI3-H4-1Zy" firstAttribute="height" secondItem="yUM-87-unk" secondAttribute="height" id="O6B-9S-ABK"/>
                     <constraint firstItem="yUM-87-unk" firstAttribute="trailing" secondItem="H2p-sc-9uM" secondAttribute="trailingMargin" constant="5" id="QlP-bF-gEi"/>
-                    <constraint firstItem="dlC-pQ-mpc" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="5" id="Sw0-MA-pZx"/>
+                    <constraint firstItem="dlC-pQ-mpc" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="Sw0-MA-pZx"/>
                     <constraint firstItem="bi7-We-b6A" firstAttribute="leading" secondItem="xZ0-pS-MAB" secondAttribute="leading" id="VeY-Ld-z1w"/>
                     <constraint firstItem="xZ0-pS-MAB" firstAttribute="top" secondItem="dlC-pQ-mpc" secondAttribute="top" id="aCj-wG-2nb"/>
                     <constraint firstItem="dlC-pQ-mpc" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="amD-ze-fsI"/>

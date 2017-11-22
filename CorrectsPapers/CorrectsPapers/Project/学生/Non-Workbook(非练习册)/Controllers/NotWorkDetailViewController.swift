@@ -336,7 +336,6 @@ class NotWorkDetailViewController: BaseViewController,HBAlertPasswordViewDelegat
             
             let cell : AnserImageCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable, for: indexPath) as! AnserImageCell
             return cell
-            
         }
         
         let cell : ClassGradeCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable4, for: indexPath) as! ClassGradeCell
@@ -367,6 +366,46 @@ class NotWorkDetailViewController: BaseViewController,HBAlertPasswordViewDelegat
             } else {
                 // Fallback on earlier versions
             }
+            
+        }
+        
+        if currentIndex == 4 {
+            
+            
+            
+            
+            // 获得此程序的沙盒路径
+            let path = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
+            
+            var files = [String]()
+            let fileManager = FileManager.default
+            let enumerator: FileManager.DirectoryEnumerator = fileManager.enumerator(atPath: path.first!)!
+            while let element = enumerator.nextObject() as? String {
+                if element.hasSuffix(".doc") || element.hasSuffix(".xls") || element.hasSuffix(".ppt") || element.hasSuffix(".docx") || element.hasSuffix(".xlsx") || element.hasSuffix(".pptx") || element.hasSuffix(".pdf") {
+                    files.append(element)
+                }
+            }
+//            NSMutableDictionary *info = [[NSMutableDictionary alloc]init];
+//            NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask, YES);
+//            NSString *filePath = [[paths objectAtIndex:0] stringByAppendingPathComponent:[NSString stringWithFormat:@"pic_%d.png", conut_]];
+//
+            do {
+                if files.count > 0 {
+//                    let attr = try fileManager.attributesOfItem(atPath: files[0])
+//                    attr[FileAttributeKey.appendOnly]
+                    let doc = UIDocumentInteractionController.init(url: URL.init(string:"file://\(files[0])")!)
+                    doc.presentOpenInMenu(from: self.view.bounds, in: self.view, animated: true)
+
+                }
+                
+//                let size = attr[FileAttributeKey.size] as! Int64
+                
+
+            } catch  {
+                print("error :\(error)")
+            }
+            
+            
             
         }
         

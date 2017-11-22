@@ -9,7 +9,6 @@
 import UIKit
 
 class MyBookCell: UITableViewCell {
-
     
     @IBOutlet weak var bookImage: UIImageView!
     
@@ -63,54 +62,13 @@ class MyBookCell: UITableViewCell {
             make.width.equalTo(getLabWidth(labelStr: model.subject_name, font: kFont24, height: 18) + 20)
         }
         
-        let colors = [kGaryColor(num: 149),kSetRGBColor(r: 255, g: 157, b: 47),kSetRGBColor(r: 255, g: 92, b: 95),kSetRGBColor(r: 255, g: 157, b: 47),kSetRGBColor(r: 255, g: 78, b: 78),kSetRGBColor(r: 113, g: 207, b: 46)]
+        bookState.text = kGetStateFromString(str:model.correcting_states!)
+        bookState.textColor = kGetColorFromString(str: bookState.text!)
+        
+        objName.setTitleColor(kSetRGBColor(r: 255, g: 102, b: 116), for: .normal)
+        objName.layer.borderColor = kSetRGBColor(r: 255, g: 102, b: 116).cgColor
+        objName.layer.borderWidth = 1
 
-        var state = ""
-        if model.correct_state == 0 {
-            state = "未"
-            correctTeacher.text = "暂无"
-        }else if model.correct_state == 1 {
-            state = "未上传"
-        }else if model.correct_state == 2 {
-            state = "未批改"
-        }else if model.correct_state == 3 {
-            state = "退回-照片模糊改"
-        }else if model.correct_state == 4 {
-            state = "已批改"
-        }else if model.correct_state == 5 {
-            state = "错题 未批改"
-        }else if model.correct_state == 6 {
-            state = "错题 退回"
-        }else if model.correct_state == 7 {
-            state = "错题 已批改"
-        }
-        
-        bookState.text = state
-        bookState.textColor = colors[model.correct_state!]
-        
-        if model.subject_name == "数学" {
-            objName.layer.borderColor = kSetRGBColor(r: 102, g: 200, b: 205).cgColor
-            objName.setTitleColor(kSetRGBColor(r: 102, g: 200, b: 205), for: .normal)
-        }else if model.subject_name == "语文" {
-            objName.layer.borderColor = kSetRGBColor(r: 205, g: 112, b: 106).cgColor
-            objName.setTitleColor(kSetRGBColor(r: 205, g: 112, b: 106), for: .normal)
-        }else if model.subject_name == "英语" {
-            objName.layer.borderColor = kSetRGBColor(r: 255, g: 174, b: 102).cgColor
-            objName.setTitleColor(kSetRGBColor(r: 255, g: 174, b: 102), for: .normal)
-        }else if model.subject_name == "政治" {
-            objName.layer.borderColor = kSetRGBColor(r: 87, g: 138, b: 242).cgColor
-            objName.setTitleColor(kSetRGBColor(r: 87, g: 138, b: 242), for: .normal)
-        }else if model.subject_name == "物理" {
-            objName.layer.borderColor = kSetRGBColor(r: 87, g: 138, b: 242).cgColor
-            objName.setTitleColor(kSetRGBColor(r: 87, g: 138, b: 242), for: .normal)
-        }else if model.subject_name == "生物" {
-            objName.layer.borderColor = kSetRGBColor(r: 130, g: 20, b: 242).cgColor
-            objName.setTitleColor(kSetRGBColor(r: 130, g: 20, b: 242), for: .normal)
-        }else if model.subject_name == "化学" {
-            objName.layer.borderColor = kSetRGBColor(r: 246, g: 100, b: 168).cgColor
-            objName.setTitleColor(kSetRGBColor(r: 246, g: 100, b: 168), for: .normal)
-        }
-        
     }
     
     

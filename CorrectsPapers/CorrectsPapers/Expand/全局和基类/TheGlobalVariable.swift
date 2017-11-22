@@ -215,6 +215,10 @@ func StringToUTF_8InUrl(str:String) -> (URL){
 //MARK:获取状态
 func kGetStateFromString(str:String) -> (String){
     
+    if str == "1" {
+        return "未上传"
+    }
+    
     if str == "2" {
         return "未批改"
     }
@@ -244,6 +248,10 @@ func kGetStateFromString(str:String) -> (String){
 
 //MARK:获取颜色
 func kGetColorFromString(str:String) -> (UIColor){
+    
+    if str == "未上传" {
+        return kSetRGBColor(r: 95, g: 95, b: 95)
+    }
     
     if str == "未批改" {
         return kSetRGBColor(r: 255, g: 153, b: 0)

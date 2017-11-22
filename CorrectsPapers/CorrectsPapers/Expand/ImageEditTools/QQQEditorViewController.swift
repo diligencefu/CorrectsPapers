@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SwiftyJSON
 
 class QQQEditorViewController: UIViewController {
     
@@ -38,10 +39,11 @@ class QQQEditorViewController: UIViewController {
     
     @IBOutlet weak var editBtn: UIButton!
     
-    
     @IBOutlet weak var userName: UILabel!
     @IBOutlet weak var userNum: UILabel!
     @IBOutlet weak var backView: UIView!
+    
+    @IBOutlet weak var pageNum: UILabel!
     
     var images = [UIImage]()
     var currentIndex = 0
@@ -50,15 +52,13 @@ class QQQEditorViewController: UIViewController {
     var theNum = ""
     var bookid = ""
     var bookState = ""
+    var whereCome = 0
+    
     var doneImages = [UIImage]()
-    
-    
     
     var markView = GiveMarkView()
     var BGView = UIView()
 
-    
-    
     var lastScaleFactor : CGFloat! = 1  //放大、缩小
     
     lazy var choosePencilView: PencilChooseView = {
@@ -95,7 +95,7 @@ class QQQEditorViewController: UIViewController {
         typeLable.textColor = kMainColor()
         backView.clipsToBounds = true
         backView.layer.cornerRadius = 20
-        
+        pageNum.text = "1/" + String(images.count)
         userNum.text = theNum
         userName.text = theName
         
@@ -298,7 +298,17 @@ class QQQEditorViewController: UIViewController {
     
     
     @IBAction func popAction(_ sender: UIButton) {
-        self.dismiss(animated: true, completion: nil)
+        let alert = UIAlertController.init(title: "提示", message: "退出之后不会保存当前批改进度！确定要退出吗？", preferredStyle: .alert)
+        
+        let action1 = UIAlertAction.init(title: "确定退出", style: .destructive) { (alertAction) in
+            self.dismiss(animated: true, completion: nil)
+        }
+        let action2 = UIAlertAction.init(title: "取消", style: .cancel, handler: nil)
+        
+        alert.addAction(action1)
+        alert.addAction(action2)
+        
+        self.present(alert, animated: true, completion: nil)
     }
     
     
@@ -315,7 +325,7 @@ class QQQEditorViewController: UIViewController {
         if currentIndex < images.count {
             drawBoardImageView.removeFromSuperview()
 
-//            编辑后的图片
+//            编辑的图片
             editorImage = images[currentIndex]
             // 对长图压缩处理
             let scaleImage = UIImage.scaleImage(image: self.editorImage)
@@ -323,6 +333,7 @@ class QQQEditorViewController: UIViewController {
             drawBoardImageView.currentImage = scaleImage
             drawBoardImageView.masicImage = UIImage.trans(toMosaicImage: self.editorImage, blockLevel: 20)
             scrollView?.addSubview(drawBoardImageView)
+            
             drawBoardImageView.beginDraw = {[weak self]() in
                 self?.backBtn.isEnabled = true
             }
@@ -337,6 +348,9 @@ class QQQEditorViewController: UIViewController {
             
             self.drawBoardImageView?.retureAction()
             scrollView.zoomScale = 1
+            
+            pageNum.text = String(currentIndex+1) + "/" + String(images.count)
+
         }else{
             showTheMarkView()
             setToast(str: "This is the last one.")
@@ -362,15 +376,117 @@ class QQQEditorViewController: UIViewController {
         markView.layer.cornerRadius = 24*kSCREEN_SCALE
         markView.selectBlock = {
             if $1 {
-                print($0)
-                print($2)
-                
-                if self.bookState == "2" {
-//                    第一次
-                }else if self.bookState == "5" {
-//                    第二次
+                print($0)//评语
+                print($2)//分数
+//                doneImages
+ //    #MARK:  批改练习册
+                if self.whereCome == 1 {
+                    
+                    if self.bookState == "2" {
+                        //   第一次
+                        let params =
+                            ["SESSIONID":SESSIONIDT,
+                             "mobileCode":mobileCodeT,
+                             "book_details_id":self.bookid,
+                             "scores":$2,
+                             "comment":$0
+                                ] as [String:String]
+                        NetWorkTeacherCorrectWrokBookFrist(params: params, data: self.doneImages, success: { (success) in
+                            
+                            self.uploadSecssceDismiss(success: success)
+                        }, failture: { (erorr) in
+                            
+                        })
+                        
+                        
+                    }else if self.bookState == "5" {
+                        //   第二次
+                        let params =
+                            ["SESSIONID":SESSIONIDT,
+                             "mobileCode":mobileCodeT,
+                             "book_details_id":self.bookid,
+                             "scores_next":$2,
+                             "comment_next":$0
+                                ] as [String:String]
+                        NetWorkTeacherCorrectNextWrokBook(params: params, data: self.doneImages, success: { (success) in
+                            let json = JSON(success)
+                            print(json)
+                            
+                            self.uploadSecssceDismiss(success: success)
+                        }, failture: { (erorr) in
+                            
+                        })
+                    }
+ //   #MARK:  批改非练习册
+                }else if self.whereCome == 2 {
+                    
+                    if self.bookState == "2" {
+                        //   第一次
+                        let params =
+                            ["SESSIONID":SESSIONIDT,
+                             "mobileCode":mobileCodeT,
+                             "non_exercise_Id":self.bookid,
+                             "scores":$2,
+                             "comment":$0
+                                ] as [String:String]
+                        NetWorkTeacherNonExercise(params: params, data: self.doneImages, success: { (success) in
+                            let json = JSON(success)
+                            print(json)
+                            
+                            self.uploadSecssceDismiss(success: success)
+                        }, failture: { (erorr) in
+                            
+                        })
+                    }else if self.bookState == "5" {
+                        //   第二次
+                        let params =
+                            ["SESSIONID":SESSIONIDT,
+                             "mobileCode":mobileCodeT,
+                             "non_exercise_Id":self.bookid,
+                             "scores_next":$2,
+                             "comment_next":$0
+                                ] as [String:String]
+                        NetWorkTeacherNonExerciseNext(params: params, data: self.doneImages, success: { (success) in
+                            
+                            self.uploadSecssceDismiss(success: success)
+                        }, failture: { (erorr) in
+                            
+                        })
+                    }
+                } else{
+  //   #MARK:  批改班级作业
+                    if self.bookState == "2" {
+                        //   第一次
+                        let params =
+                            ["SESSIONID":SESSIONIDT,
+                             "mobileCode":mobileCodeT,
+                             "class_book_id":self.bookid,
+                             "scroes":$2,
+                             "comment":$0
+                                ] as [String:String]
+                        NetWorkTeacherCorrecClassBook(params: params, data: self.doneImages, success: { (success) in
+                            
+                            self.uploadSecssceDismiss(success: success)
+                        }, failture: { (erorr) in
+                            
+                        })
+                    }else if self.bookState == "5" {
+                        //   第二次
+                        let params =
+                            ["SESSIONID":SESSIONIDT,
+                             "mobileCode":mobileCodeT,
+                             "class_book_id":self.bookid,
+                             "scores_next":$2,
+                             "comment_next":$0
+                                ] as [String:String]
+                        NetWorkTeacherCorrectClassBookNext(params: params, data: self.doneImages, success: { (success) in
+                            
+                            self.uploadSecssceDismiss(success: success)
+                        }, failture: { (erorr) in
+                            
+                        })
+                    }
                 }
-                self.dismiss(animated: true, completion: nil)
             }
             self.hiddenViews()
         }
@@ -378,6 +494,17 @@ class QQQEditorViewController: UIViewController {
         self.view.addSubview(markView)
     }
     
+    
+    func uploadSecssceDismiss(success:[String:AnyObject]) {
+        let json = JSON(success)
+        print(json)
+        
+        if json["code"] == "1" {
+            setToast(str: "批改成功")
+            self.dismiss(animated: true, completion: nil)
+        }
+
+    }
     
     @objc func showChooseCondi(tap:UITapGestureRecognizer) -> Void {
         

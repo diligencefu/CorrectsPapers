@@ -66,8 +66,6 @@ class MyBookViewController: BaseViewController{
     
     
     //    当数据为空的时候，显示提示
-    
-   
     func addImageWhenEmpty() {
         
             emptyView = UIView.init(frame: CGRect(x: 0, y: 0, width: kSCREEN_WIDTH, height: kSCREEN_HEIGHT - 46))
@@ -119,7 +117,7 @@ class MyBookViewController: BaseViewController{
         let model = mainTableArr[indexPath.row] as! WorkBookModel
         let BookDetailVC = MyBookDetailViewController()
         BookDetailVC.model = model
-        BookDetailVC.workState = indexPath.row%8+1
+        BookDetailVC.workState = model.correcting_states!
         self.navigationController?.pushViewController(BookDetailVC, animated: true)
 
     }
@@ -141,10 +139,10 @@ class MyBookViewController: BaseViewController{
             
             let params =
                 [
-                    "workBookId":model.work_book_Id,
+                    "userWorkBookId":model.userWorkBookId!,
                     "SESSIONID":SESSIONID,
                     "mobileCode":mobileCode
-                    ]
+            ] as [String:Any]
             
             netWorkForDeleteMyWorkBook(params: params, callBack: { (done) in
                 
@@ -152,7 +150,6 @@ class MyBookViewController: BaseViewController{
                     self.mainTableArr.remove(model)
                     tableView.reloadData()
                     print("删除了---\(indexPath.section)分区-\(indexPath.row)行")
-                    
                 }else{
                     print("删除失败")
                 }

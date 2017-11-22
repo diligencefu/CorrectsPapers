@@ -16,12 +16,10 @@ let mobileCode = "sion"
 let SESSIONIDT = "12345689piosid"
 let mobileCodeT = "sam"
 
-
 //let header = [
 //    "SESSIONID":SESSIONID,
 //    "mobileCode":mobileCode
 //]
-
 
 let kBaseUrl = "http://192.168.1.191:8080/duties/m/rongxing/"
 
@@ -58,7 +56,6 @@ let kGet_TWorkDetail = kBaseUrl11 +  "teacher/getTWorkDetail"
 //MARK:(1-3 练习册详情 - 学生作业 》根据练习册id获取详情)接口
 let kGet_TStudentWork1 = kBaseUrl11 +  "teacher/getTStudentWork1"
 
-
 //MARK:(1-3 练习册详情 - 已批改 >> 根据练习册id获取详情)接口
 let kGet_TStudentWork2 = kBaseUrl11 +  "teacher/getTStudentWork2"
 
@@ -66,7 +63,7 @@ let kGet_TStudentWork2 = kBaseUrl11 +  "teacher/getTStudentWork2"
 let kGet_TStudentWork3 = kBaseUrl11 +  "teacher/getTStudentWork3"
 
 //MARK:(1-3 练习册 - 详情 - 参考答案
-let kGet_TStudentWork4 = kBaseUrl11 +  "teacher/getTStudentWork4"
+let kGet_TAllAnswersByWorkId = kBaseUrl11 +  "teacher/getAllAnswersByWorkId"
 
 //MARK:(1-3 练习册详情 - 成绩统计  》根据练习册id获取详情)接口
 let kGet_TStudentWork5 = kBaseUrl11 +  "teacher/getTStudentWork5"
@@ -74,8 +71,8 @@ let kGet_TStudentWork5 = kBaseUrl11 +  "teacher/getTStudentWork5"
 //MARK: 1-3-1  练习册 - 上传视频
 let kGet_TWorkVideo = kBaseUrl11 +  "teacher/getTWorkVideo"
 
-////MARK:
-//let kGet_TStudentWork4 = kBaseUrl11 +  "teacher/getTStudentWork4"
+////MARK:  1-3-2 \ 2-2-2     （练习册 ，非练习册-上传图片）
+let kAdd_TPic = kBaseUrl11 +  "teacher/addTPic"
 
 //MARK:1-3-3  练习册  - 手动填写答案
 let kAdd_TWorkContent = kBaseUrl11 +  "teacher/addTWorkContent"
@@ -138,9 +135,6 @@ let kCorrect_NonExercise = kBaseUrl +  "teacher/correctNonExercise"
 //
 //MARK:接口说明 ：11  老师再次批改非练习册
 let kCorrect_NonExerciseNext = kBaseUrl +  "teacher/correctNonExerciseNext"
-
-
-
 
 //MARK:12  接口说明 ：    我的班级
 let kMy_Classes = kBaseUrl2 +  "teacher/Myclasses"

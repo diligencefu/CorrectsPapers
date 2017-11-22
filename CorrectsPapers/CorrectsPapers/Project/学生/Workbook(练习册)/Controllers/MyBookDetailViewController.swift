@@ -7,15 +7,16 @@
 //
 
 import UIKit
+import SwiftyJSON
 
-class MyBookDetailViewController: BaseViewController {
+class MyBookDetailViewController: BaseViewController,HBAlertPasswordViewDelegate {
     var typeArr = NSMutableArray()
     var headView = UIView()
     var underLine = UIView()
     
     var currentIndex = 1
     
-    var workState = 0
+    var workState = ""
     
     var images = NSMutableArray()
     
@@ -24,7 +25,18 @@ class MyBookDetailViewController: BaseViewController {
     var dateBtn = UIButton()
     
     var model = WorkBookModel()
+    var theModel = BookDetailModel()
 
+    var footBtnView = UIView()
+    var titleArr1 = ["本节课课程视频","本节课讲义下载","本节课作业下载"]
+    var titleArr3 = ["作业视频讲解","作业答案文档下载","文字版答案"]
+    var currentTitle1 = ""
+    var currentTitle2 = ""
+
+    var selectDate = ""
+    
+    var timeArr = [String]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         addTimeSelector()
@@ -35,33 +47,73 @@ class MyBookDetailViewController: BaseViewController {
         
         let params =
             [
-                "userWorkBookId":model.userWorkBookId,
+                "userWorkBookId":model.userWorkBookId!,
                 "SESSIONID":SESSIONID,
                 "mobileCode":mobileCode
-        ]
+        ] as [String:Any]
         
         netWorkForGetWorkBookByTime(params: params) { (dataArr) in
-            
+            if dataArr.count > 0{
+                self.theModel = dataArr[0] as! BookDetailModel
+                self.workState = self.theModel.correcting_states
+                if self.workState == "" {
+                    self.workState = "1"
+                }
+                self.mainTableView.reloadData()
+            }
             print(dataArr)
         }
         
-        let params1 =
-            [
-                "userWorkBookId":model.userWorkBookId,
-                "SESSIONID":SESSIONID,
-                "mobileCode":mobileCode
-        ]
+        netWorkForGetWorkBookTime(params: params) { (datas) in
+            self.timeArr = datas as! [String]
+//            self.mainTableView.reloadData()
+        }
+    }
+    
+    
+    override func refreshHeaderAction() {
         
-        netWorkForGetWorkBookTime(params: params1) { (datas) in
+        if currentIndex == 1 {
+            let params =
+                [
+                    "userWorkBookId":model.userWorkBookId!,
+                    "SESSIONID":SESSIONID,
+                    "mobileCode":mobileCode
+                    ] as [String:Any]
+            
+            netWorkForGetWorkBookByTime(params: params) { (dataArr) in
+                if dataArr.count > 0{
+                    self.theModel = dataArr[0] as! BookDetailModel
+                    self.workState = self.theModel.correcting_states
+                    if self.workState == "" {
+                        self.workState = "1"
+                    }
+                    self.mainTableView.mj_header.endRefreshing()
+                    self.mainTableView.reloadData()
+                }
+                print(dataArr)
+            }
+
+        }else if currentIndex == 2 {
+            
+        }else if currentIndex == 3 {
+            
+        }else if currentIndex == 4 {
             
         }
-
         
     }
     
     override func configSubViews() {
         
         self.navigationItem.title = "非练习册"
+        
+        let date = NSDate.init()
+        let formatter = DateFormatter()
+        //日期样式
+        formatter.dateFormat = "yyyy/MM/dd"
+        
+        selectDate = formatter.string(from: date as Date)
         
         typeArr = ["我的作业","知识点讲解","参考答案","成绩统计"]
         let kHeight = CGFloat(44)
@@ -107,7 +159,6 @@ class MyBookDetailViewController: BaseViewController {
         underLine.clipsToBounds = true
         underLine.center.x = view.center.x
         headView.addSubview(underLine)
-        
         headView.backgroundColor = UIColor.white
         self.view.addSubview(headView)
         
@@ -117,7 +168,6 @@ class MyBookDetailViewController: BaseViewController {
         mainTableView.estimatedRowHeight = 342
         mainTableView.tableFooterView = UIView.init()
         
-        //        mainTableView.register(AnserImageCell.self, forCellReuseIdentifier: identyfierTable)
         mainTableView.register(UINib(nibName: "AnserImageCell", bundle: nil), forCellReuseIdentifier: identyfierTable)
         mainTableView.register(UINib(nibName: "UpLoadWorkCell", bundle: nil), forCellReuseIdentifier: identyfierTable1)
         mainTableView.register(UINib(nibName: "CheckWorkCell", bundle: nil), forCellReuseIdentifier: identyfierTable2)
@@ -153,15 +203,95 @@ class MyBookDetailViewController: BaseViewController {
         
         currentIndex = sender.tag - 130
         
-        if currentIndex > 2 {
-            mainTableArr = []
+//        判断是否要显示下面的下载按钮
+        if currentIndex == 2 {
+            footView(titles: titleArr1)
+        }else if currentIndex == 3 {
+            footView(titles: titleArr3)
+        }else{
+            footBtnView.removeFromSuperview()
         }
         
-        mainTableArr = ["性别","年龄","地区","积分","身高","体重"]
-        
+        self.mainTableView.mj_header.endRefreshing()
         mainTableView.reloadData()
     }
     
+    
+    func footView(titles:[String]) {
+        footBtnView.removeFromSuperview()
+        _ = footBtnView.subviews.map {
+            $0.removeFromSuperview()
+        }
+        
+        let kHeight = CGFloat(72 * kSCREEN_SCALE)
+        let kWidth = CGFloat(435*kSCREEN_SCALE)
+        let kSpace = 53*kSCREEN_SCALE
+        
+        var viewHeight = CGFloat(titles.count)*kHeight+CGFloat(titles.count+1)*kSpace
+        
+        if titles.count == 0 {
+            viewHeight = 0
+        }
+        
+        footBtnView = UIView.init(frame: CGRect(x: 0, y: 0, width: KScreenWidth, height: viewHeight))
+        for index in 0..<titles.count {
+            
+            let markBtn = UIButton.init(frame: CGRect(x: (kSCREEN_WIDTH-kWidth)/2 , y: kSpace+(kSpace+kHeight)*CGFloat(index), width: kWidth, height: kHeight))
+            markBtn.setTitle(titles[index], for: .normal)
+            markBtn.setTitleColor(kGaryColor(num: 117), for: .normal)
+            markBtn.titleLabel?.font = kFont28
+            markBtn.setBackgroundImage(getNavigationIMG(27, fromColor: kSetRGBColor(r: 0, g: 200, b: 255), toColor: kSetRGBColor(r: 0, g: 162, b: 255)), for: .normal)
+            markBtn.addTarget(self, action: #selector(showDownloadBtn(sender:)), for: .touchUpInside)
+            markBtn.layer.cornerRadius = 10*kSCREEN_SCALE
+            markBtn.clipsToBounds = true
+            markBtn.setTitleColor(UIColor.white, for: .normal)
+            markBtn.tag = 181 + index
+            footBtnView.addSubview(markBtn)
+        }
+        mainTableView.tableFooterView = footBtnView
+    }
+    
+    
+    //MARK:下载视频点击事件
+    @objc func showDownloadBtn(sender:UIButton) {
+        
+        let passwd = HBAlertPasswordView.init(frame: self.view.bounds)
+        passwd.delegate = self
+        
+        if currentIndex == 1 {
+            
+        }else{
+            
+        }
+        
+        passwd.titleLabel.text = "五哈哈哈哈"
+        self.view.addSubview(passwd)
+        
+        if currentIndex == 2 {
+            currentTitle1 = (sender.titleLabel?.text)!
+        }else{
+            currentTitle2 = (sender.titleLabel?.text)!
+        }
+    }
+    
+    
+    //    HBAlertPasswordViewDelegate 密码弹框代理
+    func sureAction(with alertPasswordView: HBAlertPasswordView!, password: String!) {
+        alertPasswordView.removeFromSuperview()
+        setToast(str: "输入的密码为:"+password)
+        if currentIndex == 2 {
+            
+            titleArr1.remove(at: titleArr1.index(of: currentTitle1)!)
+            footView(titles: titleArr1)
+            mainTableView.reloadData()
+        }else{
+            
+            titleArr3.remove(at: titleArr3.index(of: currentTitle2)!)
+            footView(titles: titleArr3)
+            mainTableView.reloadData()
+        }
+    }
+
     
     //MARK:  ******代理 ：UITableViewDataSource,UITableViewDelegate
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -170,47 +300,84 @@ class MyBookDetailViewController: BaseViewController {
             return 20
         }
         
+        if currentIndex == 3 {
+            return 3-titleArr3.count
+        }
+        
+        if currentIndex == 2 {
+            return 3-titleArr1.count
+        }
         
         if currentIndex == 1 {
             
-            if workState > 3 {
+            if theModel.scores == "5" {
+                return 1
+            }
+            
+            if workState == "" {
+                workState = "1"
+            }
+            if Int(workState)! > 3 {
                 return 2
             }
         }
-        
         return 1
     }
+    
     
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        
-        if currentIndex == 1 && workState == 1 && indexPath.row == 0{
+        if currentIndex == 1 && workState == "1" && indexPath.row == 0{
             let cell : UpLoadWorkCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable1, for: indexPath) as! UpLoadWorkCell
             
             cell.upLoadImagesForWorkBook(images: images as! Array<UIImage>)
-            
             
             cell.chooseImagesAction = {
 
                 if $0 == "uploadAction" {
                     let params =
                         [
-                            "workBookId":self.model.work_book_Id,
                             "SESSIONID":SESSIONID,
-                            "mobileCode":mobileCode
-                    ]
+                            "mobileCode":mobileCode,
+                            "result":cell.workDescrip.text!,
+                            "userWorkBookId":self.model.userWorkBookId
+                            ] as! [String : String]
                     
                     var nameArr = [String]()
-                    
                     for index in 0..<self.images.count {
                         nameArr.append("image\(index)")
                     }
-                    
-                    netWorkForUploadWorkBook(params: params, data: self.images as! [UIImage], name: nameArr, success: { (datas) in
+                    netWorkForUploadWorkBook(params: params , data: self.images as! [UIImage], name: nameArr, success: { (datas) in
+                        let json = JSON(datas)
+                        print(json)
+                        
+                        if json["code"] == "1" {
+                            
+                            setToast(str: "上传成功")
+                            let params =
+                                [
+                                    "userWorkBookId":self.model.userWorkBookId!,
+                                    "SESSIONID":SESSIONID,
+                                    "mobileCode":mobileCode
+                                    ] as [String:Any]
+                            
+                            netWorkForGetWorkBookByTime(params: params) { (dataArr) in
+                                if datas.count > 0{
+                                    self.theModel = dataArr[0] as! BookDetailModel
+                                    self.workState = self.theModel.correcting_states
+                                    if self.workState == "" {
+                                        self.workState = "1"
+                                    }
+                                    self.mainTableView.reloadData()
+                                }
+                                print(dataArr)
+                            }
+                        }
                         print(datas)
                     }, failture: { (error) in
                         print(error)
@@ -222,24 +389,22 @@ class MyBookDetailViewController: BaseViewController {
             }
             
             return cell
-            
         }
         
-        if currentIndex == 1 && workState == 2 && indexPath.row == 0{
+        if currentIndex == 1 && workState == "2" && indexPath.row == 0{
             let cell : CheckWorkCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable2, for: indexPath) as! CheckWorkCell
             
-            cell.checkWorkCellSetValues1()
+            cell.checkWorkCellSetValues1(model:theModel)
             return cell
-            
         }
         
-        if currentIndex == 1 && workState == 3 {
+        if currentIndex == 1 && workState == "3" {
             
             if indexPath.row == 0 {
                 let cell : CheckWorkCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable2, for: indexPath) as! CheckWorkCell
-                cell.checkWorkCellSetValues2()
+                cell.checkWorkCellSetValues2(model:theModel)
                 cell.resubmitAction = {
-                    self.workState = 0
+                    self.workState = "0"
                     tableView.reloadData()
                 }
                 cell.complainAction = {
@@ -250,11 +415,11 @@ class MyBookDetailViewController: BaseViewController {
             }
         }
         
-        if currentIndex == 1 && workState == 4 {
+        if currentIndex == 1 && workState == "4" {
             
             if  indexPath.row == 0 {
                 let cell : CheckWorkCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable2, for: indexPath) as! CheckWorkCell
-                cell.checkWorkCellSetValues3()
+                cell.checkWorkCellSetValues3(model:theModel)
                 cell.complainAction = {
                     let complianVC = ComplaintViewController()
                     self.navigationController?.pushViewController(complianVC, animated: true)
@@ -274,103 +439,84 @@ class MyBookDetailViewController: BaseViewController {
                             "SESSIONID":SESSIONID,
                             "mobileCode":mobileCode
                     ]
-                    
                     var nameArr = [String]()
                     
                     for index in 0..<self.images.count {
                         nameArr.append("image\(index)")
                     }
-                    
-                    netWorkForUploadWorkBook(params: params, data: self.images as! [UIImage], name: nameArr, success: { (datas) in
+                    netWorkForUploadWorkBookNext(params: params, data: self.images as! [UIImage], name: nameArr, success: { (datas) in
                         print(datas)
+                        let json = JSON(datas)
+                        print(json)
                         
-//                        if datas["000"] == "000" {
-//                            setToast(str: "defeat")
-//                        }
-                        
+                        if json["code"] == "1" {
+                            
+                            setToast(str: "上传成功")
+                        }
                     }, failture: { (error) in
                         print(error)
                     })
-                    
                 }else{
                     self.setupPhoto1(count: 2)
                 }
-                
             }
-            
             return cell
-            
         }
         
-        if currentIndex == 1 && workState == 5 {
+        if currentIndex == 1 && workState == "5" {
+            
+            let cell : CheckWorkCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable2, for: indexPath) as! CheckWorkCell
+            if  indexPath.row == 0 {
+                
+                cell.checkWorkCellSetValues3(model:theModel)
+                return cell
+            }
+            cell.checkWorkCellSetValues1(model:theModel)
+            return cell
+        }
+        
+        if currentIndex == 1 && workState == "6" {
             let cell : CheckWorkCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable2, for: indexPath) as! CheckWorkCell
 
             if  indexPath.row == 0 {
                 
-                cell.checkWorkCellSetValues3()
+                cell.checkWorkCellSetValues3(model:theModel)
                 return cell
-                
             }
             
-            cell.checkWorkCellSetValues1()
+            cell.checkWorkCellSetValues2(model:theModel)
             return cell
-            
-        }
-        
-        if currentIndex == 1 && workState == 6 {
-            let cell : CheckWorkCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable2, for: indexPath) as! CheckWorkCell
-
-            if  indexPath.row == 0 {
-                
-                cell.checkWorkCellSetValues3()
-                return cell
-                
-            }
-            
-            cell.checkWorkCellSetValues2()
-            return cell
-            
         }
 
-        if currentIndex == 1 && workState == 7 {
+        if currentIndex == 1 && workState == "7" {
             
             if  indexPath.row == 0 {
                 
                 let cell : CheckWorkCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable2, for: indexPath) as! CheckWorkCell
-                
-                cell.checkWorkCellSetValues3()
+                cell.checkWorkCellSetValues3(model:theModel)
                 return cell
             }
-            
             let cell : CheckWorkCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable2, for: indexPath) as! CheckWorkCell
-            
-            cell.checkWorkCellSetValues4()
+            cell.checkWorkCellSetValues4(model: theModel)
             return cell
-            
         }
-
         
         if currentIndex == 2 {
             
             let cell : AnserVideoCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable3, for: indexPath) as! AnserVideoCell
             return cell
-            
         }else if currentIndex == 3 {
             
             let cell : AnserImageCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable, for: indexPath) as! AnserImageCell
             return cell
-            
         }
         
-        
         let cell : showGradeCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable4, for: indexPath) as! showGradeCell
-        
         if indexPath.row == 0 {
             cell.showGrade(isTitle: true)
         }else{
             cell.showGrade(isTitle: false)
         }
-        
         return cell
     }
     
@@ -400,27 +546,23 @@ class MyBookDetailViewController: BaseViewController {
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
-        if section == 0 && currentIndex == 1{
+        if section == 0 && currentIndex == 1 {
             dateBtn = UIButton.init(frame: CGRect(x: 0, y: 44 , width: kSCREEN_WIDTH, height: 40))
             dateBtn.backgroundColor = UIColor.white
-            dateBtn.setTitle("2017/10/15", for: .normal)
             dateBtn.titleLabel?.font = kFont30
             dateBtn.setTitleColor(kGaryColor(num: 164), for: .normal)
             dateBtn.setImage(#imageLiteral(resourceName: "xiala_icon_default"), for: .normal)
             dateBtn.titleEdgeInsets = UIEdgeInsetsMake(0, -35, 0, 0)
             dateBtn.imageEdgeInsets = UIEdgeInsetsMake(0, 145, 0, 0)
-            
+            dateBtn.setTitle(selectDate, for: .normal)
             dateBtn.addTarget(self, action: #selector(chooseDateAction(sender:)), for: .touchUpInside)
             
             let line2 = UIView.init(frame: CGRect(x: 0, y: 43 , width: kSCREEN_WIDTH, height: 1))
             line2.backgroundColor = kGaryColor(num: 223)
             dateBtn.addSubview(line2)
-            
             return dateBtn
         }
-        
         return UIView()
-        
     }
     
     override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
@@ -504,7 +646,7 @@ class MyBookDetailViewController: BaseViewController {
         
         //MARK:  把datapicker的背景设为透明，这个selecView可以模拟选择栏
         let selectView = UIView.init(frame: CGRect(x: 0, y: DateHeight/2-17, width: kSCREEN_WIDTH, height: 34))
-        selectView.backgroundColor = kSetRGBColor(r: 255, g: 138, b: 146)
+        selectView.backgroundColor = kMainColor()
         //        selectView.center = datePickerView.center
         datePickerView.addSubview(selectView)
         
@@ -595,17 +737,46 @@ class MyBookDetailViewController: BaseViewController {
     }
     
     @objc func containAction(sender:UIButton) {
+        
+        let formatter = DateFormatter()
+        //日期样式
+        formatter.dateFormat = "yyyy/MM/dd"
+        print(formatter.string(from: self.datePicker.date))
+        self.selectDate = formatter.string(from: self.datePicker.date)
+        
+        if !timeArr.contains(selectDate) {
+            setToast(str: "你在"+selectDate+"没有相关作业！")
+            return
+        }
+        
+        self.dateBtn.setTitle(formatter.string(from: self.datePicker.date), for: .normal)
+        
         UIView.animate(withDuration: 0.5) {
             self.datePickerView.transform = .identity
             self.BGView.alpha = 0
-            
-            let formatter = DateFormatter()
-            //日期样式
-            formatter.dateFormat = "yyyy/MM/dd"
-            print(formatter.string(from: self.datePicker.date))
-            self.dateBtn.setTitle(formatter.string(from: self.datePicker.date), for: .normal)
+        }
+        
+        let params =
+            [
+                "userWorkBookId":self.model.userWorkBookId!,
+                "time":formatter.string(from: self.datePicker.date),
+                "SESSIONID":SESSIONID,
+                "mobileCode":mobileCode
+                ] as [String:Any]
+        
+        netWorkForGetWorkBookByTime(params: params) { (dataArr) in
+            if dataArr.count > 0{
+                self.theModel = dataArr[0] as! BookDetailModel
+                self.workState = self.theModel.correcting_states
+                if self.workState == "" {
+                    self.workState = "1"
+                }
+                self.mainTableView.reloadData()
+            }
+            print(dataArr)
         }
     }
+    
     
     //MARK:   弹出视图DatePicker的出现事件
     func showDatePickerView() -> Void {

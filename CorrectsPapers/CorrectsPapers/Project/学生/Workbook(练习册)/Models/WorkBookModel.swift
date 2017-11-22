@@ -26,11 +26,8 @@ class WorkBookModel: BaseModel {
     var subject_name : String!
     
     ///是否已添加标签
-    var isFollow : Bool!
+    var isFollow : String!
     
-    ///批改状态
-    var correct_state : NSInteger?
-
     ///批改老师
     var teacherName : String?
     
@@ -56,7 +53,9 @@ class WorkBookModel: BaseModel {
     
     ///交作业人数
     var state2 : String?
-
+    
+    ///批改状态:1、未上传；2、未批改；3、退回；4已批改 5:错题 未批改 6错题退回 7错题已批改
+    var correcting_states : String?
     
     class func setValueForWorkBookModel(json: JSON) -> WorkBookModel {
         
@@ -66,8 +65,7 @@ class WorkBookModel: BaseModel {
         model.cover_photo = json["cover_photo"].stringValue
         model.class_name = json["class_name"].stringValue
         model.subject_name = json["subject_name"].stringValue
-        model.isFollow = json["isFollow"].boolValue
-        model.correct_state = json["correct_state"].intValue
+        model.isFollow = json["isFollow"].stringValue
         model.teacherName = json["teacherName"].stringValue
         model.userWorkBookId = json["userWorkBookId"].stringValue
         model.count = json["count"].stringValue
@@ -77,6 +75,7 @@ class WorkBookModel: BaseModel {
         model.id = json["id"].stringValue
         model.state2 = json["state2"].stringValue
         model.state1 = json["state1"].stringValue
+        model.correcting_states = json["correcting_states"].stringValue
 
         return model
     }

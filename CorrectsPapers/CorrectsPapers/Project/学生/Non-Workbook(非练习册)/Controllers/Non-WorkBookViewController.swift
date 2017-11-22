@@ -326,7 +326,7 @@ class Non_WorkBookViewController: BaseViewController ,UIPickerViewDelegate,UIPic
         if currentIndex == 1 && workState == 1 && indexPath.row == 0{
             let cell : CheckWorkCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable2, for: indexPath) as! CheckWorkCell
             
-            cell.checkWorkCellSetValues1()
+//            cell.checkWorkCellSetValues1()
             return cell
             
         }
@@ -335,7 +335,7 @@ class Non_WorkBookViewController: BaseViewController ,UIPickerViewDelegate,UIPic
             
             if indexPath.row == 0 {
                 let cell : CheckWorkCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable2, for: indexPath) as! CheckWorkCell
-                cell.checkWorkCellSetValues2()
+//                cell.checkWorkCellSetValues2()
                 return cell
                 
             }
@@ -346,7 +346,7 @@ class Non_WorkBookViewController: BaseViewController ,UIPickerViewDelegate,UIPic
             
             if  indexPath.row == 0 {
                 let cell : CheckWorkCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable2, for: indexPath) as! CheckWorkCell
-                cell.checkWorkCellSetValues3()
+//                cell.checkWorkCellSetValues3()
                 return cell
                 
             }
@@ -368,14 +368,14 @@ class Non_WorkBookViewController: BaseViewController ,UIPickerViewDelegate,UIPic
             if  indexPath.row == 0 {
                 let cell : CheckWorkCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable2, for: indexPath) as! CheckWorkCell
                 
-                cell.checkWorkCellSetValues3()
+//                cell.checkWorkCellSetValues3()
                 return cell
                 
             }
             
             let cell : CheckWorkCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable2, for: indexPath) as! CheckWorkCell
             
-            cell.checkWorkCellSetValues4()
+//            cell.checkWorkCellSetValues4(model: )
             return cell
         }
         

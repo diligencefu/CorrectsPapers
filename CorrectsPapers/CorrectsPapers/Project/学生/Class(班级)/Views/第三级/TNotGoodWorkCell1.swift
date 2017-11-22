@@ -70,7 +70,10 @@ class TNotGoodWorkCell1: UITableViewCell {
             let row =  CGFloat(index%lines)
             
             let imageV = UIImageView.init(frame: CGRect(x:(kWidth + kSpace) * row, y:(kSpace+kHeight)*CGFloat(index/lines), width: kWidth, height: kHeight))
-            imageV.kf.setImage(with: URL(string:typeArr[index] as! String)!, placeholder: #imageLiteral(resourceName: "workBook"), options: nil, progressBlock: nil, completionHandler: nil)
+            imageV.kf.setImage(with: URL(string:typeArr[index] as! String)!, placeholder: #imageLiteral(resourceName: "workBook"), options: nil, progressBlock: nil, completionHandler: {(image, error, type, url) in
+                self.editArr.append(imageV.image!)
+            })
+
             imageV.contentMode = .scaleAspectFill
             imageV.clipsToBounds = true
             
@@ -80,7 +83,6 @@ class TNotGoodWorkCell1: UITableViewCell {
             imageV.addGestureRecognizer(singleTap)
             imageV.tag = 170 + index
             workImages.addSubview(imageV)
-            editArr.append(imageV.image!)
 //            print(imageV.frame)
         }
         

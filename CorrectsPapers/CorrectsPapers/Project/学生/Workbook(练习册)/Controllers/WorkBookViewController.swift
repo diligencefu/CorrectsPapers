@@ -76,20 +76,7 @@ class WorkBookViewController: BaseViewController ,UISearchBarDelegate{
         searchBar.barTintColor = UIColor.red
         searchBar.tintColor = UIColor.black
         
-//        for view:UIView in searchBar.subviews[0].subviews {
-//
-//            print(view.superclass ?? "nimabi")
-//
-////            if view.superclass = searchbarb {
-////                view.removeFromSuperview()
-////            }
-//
-//        }
-        
-//        let searchView = UITextField.init(frame: CGRect(x: 0, y: 0, width: kSCREEN_WIDTH, height: 50))
-//        searchView.backgroundColor = kGaryColor(num: 239)
-//        searchView.placeholder = "创优100分/黄冈密卷"
-        
+//        搜索按钮
         let searchBtn = UIButton.init(frame: CGRect(x: 10, y: 10, width: kSCREEN_WIDTH - 20, height: 30))
         searchBtn.center = searchBar.center
         searchBtn.layer.cornerRadius = 3
@@ -102,8 +89,7 @@ class WorkBookViewController: BaseViewController ,UISearchBarDelegate{
         searchBtn.addTarget(self, action: #selector(pushToSearchBook(sender:)), for: .touchUpInside)
         searchBar.addSubview(searchBtn)
         
-//        self.navigationController?.navigationItem.titleView = searchBar
-        
+//        tableview
         mainTableView = UITableView.init(frame: CGRect(x: 0, y: 0, width: kSCREEN_WIDTH, height: kSCREEN_HEIGHT - 64 ), style: .plain)
         mainTableView.dataSource = self
         mainTableView.delegate = self
@@ -212,9 +198,19 @@ class WorkBookViewController: BaseViewController ,UISearchBarDelegate{
             netWorkForAddWorkBookToMe(params: params, callBack: { (flag) in
                 
                 if flag {
-                    
+                    netWorkForGetAllWorkBook { (dataArr) in
+                        
+                        print(dataArr)
+                        if dataArr.count > 0 {
+                            self.mainTableArr.removeAllObjects()
+                            self.mainTableArr.addObjects(from: dataArr)
+                            self.mainTableView.reloadData()
+                            
+                        }else{
+                            setToast(str: "返回数据为空")
+                        }
+                    }
                 }
-                
             })
             
         }
@@ -225,60 +221,11 @@ class WorkBookViewController: BaseViewController ,UISearchBarDelegate{
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         searchBar.endEditing(true)
         tableView.deselectRow(at: indexPath, animated: true)
-        let model = mainTableArr[indexPath.row] as! WorkBookModel
-        let BookDetailVC = BookDetailViewController()
-        BookDetailVC.model = model
-        self.navigationController?.pushViewController(BookDetailVC, animated: true)
+//        let model = mainTableArr[indexPath.row] as! WorkBookModel
+//        let BookDetailVC = BookDetailViewController()
+//        BookDetailVC.model = model
+//        self.navigationController?.pushViewController(BookDetailVC, animated: true)
 
-    }
-    
-    
-    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        
-        return true
-    }
-    
-    
-    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {
-        return .delete
-    }
-    
-    
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        
-        let model = mainTableArr[indexPath.row] as! WorkBookModel
-
-        
-        if editingStyle == .delete {
-            
-            let params =
-                [
-                    "workBookId":model.work_book_Id,
-                    "SESSIONID":SESSIONID,
-                    "mobileCode":mobileCode
-            ]
-            
-            netWorkForDeleteMyWorkBook(params: params, callBack: { (done) in
-                
-                if done == "done" {
-                    self.mainTableArr.remove(model)
-                    tableView.reloadData()
-                    print("删除了---\(indexPath.section)分区-\(indexPath.row)行")
-
-                }else{
-                     print("删除失败")
-                }
-
-            })
-            
-        }
-        
-    }
-    
-    
-    func tableView(_ tableView: UITableView, titleForDeleteConfirmationButtonForRowAt indexPath: IndexPath) -> String? {
-        
-        return "删除练习册"
     }
 
     

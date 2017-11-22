@@ -34,7 +34,7 @@ class BookDetailViewController: BaseViewController {
                 "userWorkBookId":model.userWorkBookId,
                 "SESSIONID":SESSIONID,
                 "mobileCode":mobileCode
-        ]
+        ] as [String:Any]
         
         netWorkForGetWorkBookByTime(params: params) { (dataArr) in
             print(dataArr)
@@ -59,7 +59,6 @@ class BookDetailViewController: BaseViewController {
             
             let kWidth = getLabWidth(labelStr: typeArr[index] as! String, font: kFont32, height: kHeight) + 10
             totalWidth += kWidth
-            
         }
         
         let kSpace = CGFloat(kSCREEN_WIDTH - totalWidth)/3

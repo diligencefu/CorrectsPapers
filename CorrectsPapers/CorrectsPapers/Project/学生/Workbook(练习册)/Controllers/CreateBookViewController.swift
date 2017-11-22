@@ -24,6 +24,11 @@ class CreateBookViewController: BaseViewController ,UIPickerViewDelegate,UIPicke
 
     var successfulView = UIView()
 
+    var cover_photo = #imageLiteral(resourceName: "Upload-photos_fengmian")
+    var edition_photo = #imageLiteral(resourceName: "Upload-photos_yinshuabanci")
+
+    var images = [UIImage]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         rightBarButton()
@@ -37,33 +42,44 @@ class CreateBookViewController: BaseViewController ,UIPickerViewDelegate,UIPicke
     
     @objc func pushSearchClass(sender:UIBarButtonItem) {
         
-        
+        let cell1 = mainTableView.cellForRow(at: IndexPath.init(row: 0, section: 0)) as! CreateBookCell
+
         let params = [
             "SESSIONID":SESSIONID,
             "mobileCode":mobileCode,
-            "work_book_name":"2",
+            "work_book_name":cell1.titleTextField.text!,
             "subject_id":mainTableArr[0],
             "classes_id":mainTableArr[1],
             "edition_id":mainTableArr[2],
-            "cover_photo":"2",
-            "edition_photo":"2",
-        ]
+        ] as! [String : String]
         
-        netWorkForBulidWrokBook(params: params) { (result) in
-            if result {
-                self.createSeccsessful()
-            }
+        var nameArr = [String]()
+        
+        nameArr.append("cover_photo_1_image")
+        nameArr.append("edition_photo_2_image")
+        
+        netWorkForBulidWrokBook(params: params, data: images, name: nameArr, success: { (success) in
+//            if success["code"] as! String == "1" {
+//                setToast(str: "创建成功")
+//            }
+            setToast(str: "创建成功")
+            self.navigationController?.popViewController(animated: true)
+            
+        }) { (error) in
+            
         }
     }
 
         
     override func configSubViews() {
         
+        images.append(cover_photo)
+        images.append(edition_photo)
+
         self.navigationItem.title = "创建练习册"
         
         dataArr =  [["练习册名字"],["练习册科目","适用年级","教材版本"],[]]
         mainTableArr = ["语文","六年级 下册","第一版"]
-        
         
         proArr = ["语文","数学","英语"]
         gradeArr = ["八年级","七年级","六年级"]
@@ -78,7 +94,6 @@ class CreateBookViewController: BaseViewController ,UIPickerViewDelegate,UIPicke
         mainTableView.register(UINib(nibName: "ChooseImageCell", bundle: nil), forCellReuseIdentifier: identyfierTable1)
         mainTableView.tableFooterView = UIView.init()
         self.view.addSubview(mainTableView)
-        
     }
     
     
@@ -116,7 +131,6 @@ class CreateBookViewController: BaseViewController ,UIPickerViewDelegate,UIPicke
     
     @objc func createBookDoneAction(sender:UIButton) {
         self.navigationController?.popToViewController((self.navigationController?.childViewControllers[0])!, animated: true)
-        
     }
     
     
@@ -137,12 +151,16 @@ class CreateBookViewController: BaseViewController ,UIPickerViewDelegate,UIPicke
             let cell : ChooseImageCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable1, for: indexPath) as! ChooseImageCell
             
             cell.selectionStyle = .none
-//            cell.chooseImageAction = {
-//                
-//                
-//                
-//            }
+            cell.chooseImagesAction = {
+                
+                if $0 == "111" {
+                    self.setupPhoto1(count: 1, indexImage: 1)
+                }else{
+                    self.setupPhoto1(count: 1, indexImage: 0)
+                }
+            }
             
+            cell.ChooseImageCellSetImage(image1: images[0] as! UIImage, image2: images[1] as! UIImage)
             return cell
 
         }else{
@@ -207,8 +225,6 @@ class CreateBookViewController: BaseViewController ,UIPickerViewDelegate,UIPicke
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 19
     }
-    
-    
     
     
     var datePickerView = UIView()
@@ -413,8 +429,6 @@ class CreateBookViewController: BaseViewController ,UIPickerViewDelegate,UIPicke
         print(component)
         print(row)
     }
-
-
     
 //    //设置列宽
 //    func pickerView(_ pickerView: UIPickerView, widthForComponent component: Int) -> CGFloat {
@@ -442,5 +456,50 @@ class CreateBookViewController: BaseViewController ,UIPickerViewDelegate,UIPicke
 //        return imageView
 //    }
 //
+    // 异步原图
+    private func setupPhoto1(count:NSInteger,indexImage:NSInteger) {
+        let imagePickTool = CLImagePickersTool()
+        
+        imagePickTool.isHiddenVideo = true
+        
+        imagePickTool.setupImagePickerWith(MaxImagesCount: count, superVC: self) { (assetArr,cutImage) in
+            print("返回的asset数组是\(assetArr)")
+            
+            PopViewUtil.share.showLoading()
+            
+            var imageArr = [UIImage]()
+            var index = assetArr.count // 标记失败的次数
+            
+            // 获取原图，异步
+            // scale 指定压缩比
+            // 内部提供的方法可以异步获取图片，同步获取的话时间比较长，不建议！，如果是iCloud中的照片就直接从icloud中下载，下载完成后返回图片,同时也提供了下载失败的方法
+            CLImagePickersTool.convertAssetArrToOriginImage(assetArr: assetArr, scale: 0.1, successClouse: {[weak self] (image,assetItem) in
+                imageArr.append(image)
+                
+                if indexImage == 1 {
+                    self?.images[0] = image
+                }else{
+                    self?.images[1] = image
+                }
+                self?.mainTableView.reloadData()
+                
+                self?.dealImage(imageArr: imageArr, index: index)
+                
+                }, failedClouse: { () in
+                    index = index - 1
+                    self.dealImage(imageArr: imageArr, index: index)
+            })
+            
+        }
+    }
     
+    @objc func dealImage(imageArr:[UIImage],index:Int) {
+        // 图片下载完成后再去掉我们的转转转控件，这里没有考虑assetArr中含有视频文件的情况
+        if imageArr.count == index {
+            PopViewUtil.share.stopLoading()
+        }
+        // 图片显示出来以后可能还要上传到云端的服务器获取图片的url，这里不再细说了。
+    }
+    
+
 }

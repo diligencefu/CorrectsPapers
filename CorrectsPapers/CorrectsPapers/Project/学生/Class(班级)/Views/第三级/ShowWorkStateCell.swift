@@ -11,8 +11,6 @@ import UIKit
 class ShowWorkStateCell: UITableViewCell {
 
     
-    @IBOutlet weak var workState: UILabel!
-    
     @IBOutlet weak var gradeLabel: UILabel!
     @IBOutlet weak var gradeImage: UIImageView!
     
@@ -55,7 +53,6 @@ class ShowWorkStateCell: UITableViewCell {
 //    未批改
     func TGoodWorkCellSetValueForUndone(count:NSInteger) {
         
-        workState.isHidden = false
         gradeLabel.isHidden = true
         gradeImage.isHidden = true
         doneMark.isHidden = true
@@ -72,7 +69,7 @@ class ShowWorkStateCell: UITableViewCell {
         let kSpace = CGFloat(7)
         var kWidth = CGFloat()
         
-        kWidth = (workImages.frame.size.width-kSpace*3)/4
+        kWidth = (kSCREEN_WIDTH-30-kSpace*3)/4
         
         let kHeight = CGFloat(176*kSCREEN_SCALE)
         let lines = 4
@@ -114,7 +111,6 @@ class ShowWorkStateCell: UITableViewCell {
     
 //    批改待修正
     func TGoodWorkCellSetValueForWaitCorrect(count:NSInteger) {
-        workState.isHidden = true
         gradeLabel.isHidden = false
         gradeImage.isHidden = false
         doneMark.isHidden = true
@@ -122,10 +118,6 @@ class ShowWorkStateCell: UITableViewCell {
         workTeacher.isHidden = false
         doLabel.isHidden = false
         teacherRemark.isHidden = false
-
-        workState.snp.updateConstraints { (make) in
-            make.width.equalTo(0)
-        }
         
         theCount = count
         _ = workImages.subviews.map {
@@ -135,8 +127,8 @@ class ShowWorkStateCell: UITableViewCell {
         let kSpace = CGFloat(7)
         var kWidth = CGFloat()
         
-        kWidth = (workImages.frame.size.width-kSpace*3)/4
-        
+        kWidth = (kSCREEN_WIDTH-30-kSpace*3)/4
+
         let kHeight = CGFloat(176*kSCREEN_SCALE)
         let lines = 4
         
@@ -177,16 +169,11 @@ class ShowWorkStateCell: UITableViewCell {
     
 //    全部完成结束
     func TGoodWorkCellSetValueForFinish(count:NSInteger) {
-        
-        workState.snp.updateConstraints { (make) in
-            make.width.equalTo(0)
-        }
 
         conplainBtn.snp.updateConstraints { (make) in
             make.width.equalTo(0)
         }
 
-        workState.isHidden = true
         gradeLabel.isHidden = false
         gradeImage.isHidden = false
         doneMark.isHidden = false
@@ -203,8 +190,8 @@ class ShowWorkStateCell: UITableViewCell {
         let kSpace = CGFloat(7)
         var kWidth = CGFloat()
         
-        kWidth = (workImages.frame.size.width-kSpace*3)/4
-        
+        kWidth = (kSCREEN_WIDTH-30-kSpace*3)/4
+
         let kHeight = CGFloat(176*kSCREEN_SCALE)
         let lines = 4
         

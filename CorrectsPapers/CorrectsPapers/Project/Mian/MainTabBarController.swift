@@ -27,8 +27,6 @@ class MainTabBarController: UITabBarController {
 
     
 func addChildCOntrollers() {
-    
-    
     //
     
     if Defaults[userIdentity] == kTeacher {
@@ -102,7 +100,6 @@ func addChildCOntrollers() {
         let Nav3 = XCNavigationController.init(rootViewController: personVC)
 
         self.viewControllers = [Nav0,Nav1,Nav2,Nav3]
-        
     }
     
     self.selectedIndex = 0

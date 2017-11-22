@@ -134,7 +134,13 @@ class UpLoadWorkCell: UITableViewCell {
     
     
     @IBAction func uploadAction(_ sender: UIButton) {
-        setToast(str: "上传作业")
+//        setToast(str: "上传作业")
+        
+        if workDescrip.text?.count == 0 {
+            setToast(str: "请输入作业描述")
+            workDescrip.becomeFirstResponder()
+            return
+        }
         
         if chooseImagesAction != nil {
             chooseImagesAction!("uploadAction")

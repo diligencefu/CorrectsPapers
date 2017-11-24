@@ -226,14 +226,14 @@ class PersonnalViewController: BaseViewController {
                 self.navigationController?.pushViewController(incomeVC, animated: true)
                 break
             case 1:
+                
                 let rankVC = CreditRankViewController()
                 self.navigationController?.pushViewController(rankVC, animated: true)
-
                 break
             case 2:
+                
                 let friendsVC = MyFriendViewController()
                 self.navigationController?.pushViewController(friendsVC, animated: true)
-
                 break
             case 3:
                 let dic = ["SESSIONID":"1","mobileCode":"on"]

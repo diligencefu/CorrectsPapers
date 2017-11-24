@@ -29,10 +29,14 @@ class NotWorkViewController: BaseViewController ,QLPreviewControllerDelegate,QLP
                 "mobileCode":mobileCode,
                 "pageNo":"1",
                 ]
-        NetWorkTeacherGetExerciseList(params: param) { (datas) in
-            self.mainTableArr.removeAllObjects()
-            self.mainTableArr.addObjects(from: datas)
-            self.mainTableView.reloadData()
+        self.view.beginLoading()
+        NetWorkTeacherGetExerciseList(params: param) { (datas,flag) in
+            if flag {
+                self.mainTableArr.removeAllObjects()
+                self.mainTableArr.addObjects(from: datas)
+                self.mainTableView.reloadData()
+            }
+            self.view.endLoading()
         }
     }
     
@@ -45,12 +49,15 @@ class NotWorkViewController: BaseViewController ,QLPreviewControllerDelegate,QLP
                 "mobileCode":mobileCode,
                 "pageNo":"1",
                 ]
-        NetWorkTeacherGetExerciseList(params: param) { (datas) in
-            self.mainTableArr.removeAllObjects()
-            self.mainTableArr.addObjects(from: datas)
+        self.view.beginLoading()
+        NetWorkTeacherGetExerciseList(params: param) { (datas,flag) in
+            if flag {
+                self.mainTableArr.removeAllObjects()
+                self.mainTableArr.addObjects(from: datas)
+                self.mainTableView.reloadData()
+            }
+            self.view.endLoading()
             self.mainTableView.mj_header.endRefreshing()
-            self.mainTableView.mj_footer.resetNoMoreData()
-            self.mainTableView.reloadData()
         }
     }
     
@@ -62,14 +69,17 @@ class NotWorkViewController: BaseViewController ,QLPreviewControllerDelegate,QLP
                 "mobileCode":mobileCode,
                 "pageNo":String(pageNum),
                 ]
-        NetWorkTeacherGetExerciseList(params: param) { (datas) in
-            if datas.count > 0{
-                self.mainTableArr.addObjects(from: datas)
-                self.mainTableView.mj_footer.endRefreshing()
-            }else{
-                self.mainTableView.mj_footer.endRefreshingWithNoMoreData()
+        NetWorkTeacherGetExerciseList(params: param) { (datas,flag) in
+            if flag {
+                if datas.count > 0{
+                    self.mainTableArr.addObjects(from: datas)
+                    self.mainTableView.mj_footer.endRefreshing()
+                }else{
+                    self.mainTableView.mj_footer.endRefreshingWithNoMoreData()
+                }
+                self.mainTableView.reloadData()
             }
-            self.mainTableView.reloadData()
+            self.mainTableView.mj_footer.endRefreshing()
         }
 
     }

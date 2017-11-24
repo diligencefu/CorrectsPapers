@@ -66,36 +66,8 @@
                         <color key="textColor" red="0.39603209495544434" green="0.39610502123832703" blue="0.39602747559547424" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <button opaque="NO" tag="221" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Mtb-BX-Qlm">
-                        <rect key="frame" x="21.5" y="83" width="160" height="200"/>
-                        <color key="backgroundColor" red="0.2469582172" green="0.15145021989999999" blue="0.4236965674" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="200" id="YaL-ZX-mLX"/>
-                            <constraint firstAttribute="width" constant="160" id="hh4-a1-Fij"/>
-                        </constraints>
-                        <state key="normal" image="workBook">
-                            <color key="titleColor" red="0.4236965674" green="0.4236965674" blue="0.4236965674" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        </state>
-                        <connections>
-                            <action selector="viewTheBigImage:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="prI-l0-PYv"/>
-                        </connections>
-                    </button>
-                    <button opaque="NO" tag="222" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3TM-7x-eaR">
-                        <rect key="frame" x="189.5" y="83" width="160" height="200"/>
-                        <color key="backgroundColor" red="0.2469582172" green="0.15145021989999999" blue="0.4236965674" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <constraints>
-                            <constraint firstAttribute="width" constant="160" id="3ZI-Zo-h2u"/>
-                            <constraint firstAttribute="height" constant="200" id="9fX-pc-PwJ"/>
-                        </constraints>
-                        <state key="normal" image="workBook">
-                            <color key="titleColor" red="0.4236965674" green="0.4236965674" blue="0.4236965674" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        </state>
-                        <connections>
-                            <action selector="viewTheBigImage:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="qNb-u3-Bgb"/>
-                        </connections>
-                    </button>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="工号156" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jWH-qF-STI">
-                        <rect key="frame" x="16" y="287" width="45.5" height="15"/>
+                        <rect key="frame" x="16" y="286" width="45.5" height="15"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="15" id="9ZB-fm-2ra"/>
                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="42" id="mzD-Ar-csR"/>
@@ -135,7 +107,7 @@
                         </connections>
                     </button>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="老师已批改你的作业" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="y1H-gW-M3s">
-                        <rect key="frame" x="61.5" y="287" width="129" height="15"/>
+                        <rect key="frame" x="61.5" y="286" width="129" height="15"/>
                         <constraints>
                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="42" id="2Wy-Xa-E2E"/>
                             <constraint firstAttribute="width" constant="129" id="2cU-PP-V6t"/>
@@ -145,8 +117,14 @@
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="错题已更正" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qmb-fu-d4l">
-                        <rect key="frame" x="212" y="10" width="87" height="24"/>
+                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" text="老师评语：那你含棒棒哦。" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="jbt-Jc-I2Q">
+                        <rect key="frame" x="16" y="303" width="347" height="31.5"/>
+                        <color key="backgroundColor" red="0.89402025938034058" green="0.89417368173599243" blue="0.89401060342788696" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                    </textView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="错题已更正" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qmb-fu-d4l">
+                        <rect key="frame" x="268.5" y="13" width="76.5" height="24"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="24" id="HXa-xP-yo1"/>
                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="30" id="Og1-Wx-V2v"/>
@@ -155,23 +133,27 @@
                         <color key="textColor" red="0.38434287905693054" green="0.80774170160293579" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" text="老师评语：那你含棒棒哦。" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="jbt-Jc-I2Q">
-                        <rect key="frame" x="16" y="304" width="347" height="30"/>
-                        <color key="backgroundColor" red="0.89402025938034058" green="0.89417368173599243" blue="0.89401060342788696" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <imageView clipsSubviews="YES" tag="222" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="cJV-gs-Gla">
+                        <rect key="frame" x="189.5" y="83" width="160" height="200"/>
                         <constraints>
-                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="21" id="Vys-3q-ebM"/>
+                            <constraint firstAttribute="width" constant="160" id="Wvk-Us-qXy"/>
+                            <constraint firstAttribute="height" constant="200" id="Zsz-th-IzK"/>
                         </constraints>
-                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                    </textView>
+                    </imageView>
+                    <imageView clipsSubviews="YES" tag="221" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="HSt-SJ-Rbb">
+                        <rect key="frame" x="21" y="83" width="160" height="200"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="160" id="pWb-Ph-1hC"/>
+                            <constraint firstAttribute="height" constant="200" id="yRZ-Us-Aie"/>
+                        </constraints>
+                    </imageView>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="3TM-7x-eaR" firstAttribute="top" secondItem="Mtb-BX-Qlm" secondAttribute="top" id="2h7-wg-Bbm"/>
+                    <constraint firstItem="HSt-SJ-Rbb" firstAttribute="top" secondItem="FAe-VC-OAE" secondAttribute="bottom" constant="5" id="3bA-LG-xDr"/>
                     <constraint firstItem="XCp-W0-AkN" firstAttribute="trailing" secondItem="H2p-sc-9uM" secondAttribute="trailingMargin" constant="5" id="4dV-fO-e2q"/>
                     <constraint firstItem="Qmb-fu-d4l" firstAttribute="centerY" secondItem="UT0-gI-E6y" secondAttribute="centerY" id="4lq-Dv-Fb9"/>
-                    <constraint firstItem="jWH-qF-STI" firstAttribute="top" secondItem="Mtb-BX-Qlm" secondAttribute="bottom" constant="4" id="B4X-rS-dZR"/>
+                    <constraint firstItem="cJV-gs-Gla" firstAttribute="top" secondItem="HSt-SJ-Rbb" secondAttribute="top" id="6yu-98-71S"/>
                     <constraint firstAttribute="trailing" secondItem="jbt-Jc-I2Q" secondAttribute="trailing" constant="8" id="ByD-ix-ZsI"/>
-                    <constraint firstItem="3TM-7x-eaR" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" constant="84" id="C5x-Ud-xLl"/>
                     <constraint firstItem="jbt-Jc-I2Q" firstAttribute="top" secondItem="jWH-qF-STI" secondAttribute="bottom" constant="2" id="CiI-bL-TyF"/>
                     <constraint firstItem="Xms-v5-G0t" firstAttribute="leading" secondItem="yoV-ek-gHp" secondAttribute="trailing" constant="5" id="Du5-UL-ufv"/>
                     <constraint firstItem="y1H-gW-M3s" firstAttribute="centerY" secondItem="jWH-qF-STI" secondAttribute="centerY" id="Hlb-Mk-uL4"/>
@@ -189,10 +171,11 @@
                     <constraint firstItem="FAe-VC-OAE" firstAttribute="top" secondItem="R5a-ei-PGN" secondAttribute="bottom" constant="5" id="ZZu-fH-gNe"/>
                     <constraint firstItem="Xms-v5-G0t" firstAttribute="centerY" secondItem="yoV-ek-gHp" secondAttribute="centerY" id="aBd-QO-smN"/>
                     <constraint firstAttribute="bottom" secondItem="jbt-Jc-I2Q" secondAttribute="bottom" constant="5" id="aHf-Zb-13Z"/>
+                    <constraint firstItem="HSt-SJ-Rbb" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" constant="-84" id="eRU-jF-vvv"/>
+                    <constraint firstItem="jWH-qF-STI" firstAttribute="top" secondItem="HSt-SJ-Rbb" secondAttribute="bottom" constant="3" id="j6A-9q-lpF"/>
                     <constraint firstItem="yoV-ek-gHp" firstAttribute="leading" secondItem="UT0-gI-E6y" secondAttribute="trailing" id="lju-73-PDT"/>
-                    <constraint firstItem="Mtb-BX-Qlm" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" constant="-84" id="lyz-yo-kcg"/>
                     <constraint firstItem="yoV-ek-gHp" firstAttribute="centerY" secondItem="UT0-gI-E6y" secondAttribute="centerY" id="mSG-bB-AIv"/>
-                    <constraint firstItem="Mtb-BX-Qlm" firstAttribute="top" secondItem="FAe-VC-OAE" secondAttribute="bottom" constant="5" id="ndL-Tj-tu5"/>
+                    <constraint firstItem="cJV-gs-Gla" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" constant="84" id="nAg-Au-w8d"/>
                     <constraint firstItem="UT0-gI-E6y" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="5" id="rCb-Gg-Ge7"/>
                     <constraint firstAttribute="trailingMargin" secondItem="FAe-VC-OAE" secondAttribute="trailing" constant="10" id="zyz-MN-wkJ"/>
                 </constraints>
@@ -210,14 +193,13 @@
                 <outlet property="scoreImage" destination="Xms-v5-G0t" id="qz1-CS-uyj"/>
                 <outlet property="teachermark" destination="jWH-qF-STI" id="nyA-UU-Ogm"/>
                 <outlet property="workDescrip" destination="FAe-VC-OAE" id="N8X-pB-HxS"/>
-                <outlet property="workImage1" destination="Mtb-BX-Qlm" id="t4b-fr-BSz"/>
-                <outlet property="workImage2" destination="3TM-7x-eaR" id="qdH-zo-TWh"/>
+                <outlet property="workImage1" destination="HSt-SJ-Rbb" id="NiN-83-Vv7"/>
+                <outlet property="workImage2" destination="cJV-gs-Gla" id="t9J-R7-fp9"/>
             </connections>
             <point key="canvasLocation" x="359.5" y="129"/>
         </tableViewCell>
     </objects>
     <resources>
         <image name="sixing_icon_pressed" width="72" height="12"/>
-        <image name="workBook" width="160" height="200"/>
     </resources>
 </document>

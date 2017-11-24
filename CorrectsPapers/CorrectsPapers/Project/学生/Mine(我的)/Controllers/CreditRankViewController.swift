@@ -8,17 +8,129 @@
 
 import UIKit
 import MJRefresh
+import SwiftyUserDefaults
 
 class CreditRankViewController: BaseViewController {
 
     var ruleImage = UIImageView()
+    var BGView = UIView()
+    var shareView = ShareView()
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         showRule()
         rightBarButton()
+        addShareView()
     }
+    
+    func addShareView()  {
+        //        弹出视图弹出来之后的背景蒙层
+        BGView = UIView.init(frame: self.view.frame)
+        BGView.backgroundColor = kSetRGBAColor(r: 5, g: 5, b: 5, a: 0.5)
+        BGView.alpha = 0
+        //        BGView.isHidden = true
+        
+        let tapGes1 = UITapGestureRecognizer.init(target: self, action: #selector(showChooseCondi(tap:)))
+        tapGes1.numberOfTouchesRequired = 1
+        BGView.addGestureRecognizer(tapGes1)
+        self.view.addSubview(BGView)
+
+        shareView = UINib(nibName:"ShareView",bundle:nil).instantiate(withOwner: self, options: nil).first as! ShareView
+        shareView.frame =  CGRect(x: 0, y: kSCREEN_HEIGHT, width: kSCREEN_WIDTH, height: 278)
+        shareView.layer.cornerRadius = 30*kSCREEN_SCALE
+        shareView.clipsToBounds = true
+        shareView.chooseShareTypeAction = {
+            
+            // 1.创建分享参数
+            let shareParames = NSMutableDictionary()
+            shareParames.ssdkSetupShareParams(byText: "关于"+Defaults[username]!+"成绩分享",
+                                              images : UIImage(named: "workBook.png"),
+                                              url : NSURL(string:"https://github.com/diligencefu/CorrectsPapers/commits/master") as URL!,
+                                              title : "总排行第十名",
+                                              type : SSDKContentType.auto)
+            
+            switch $0 {
+            case .ShareTypeWechat:
+                //2.进行分享
+                ShareSDK.share(SSDKPlatformType.subTypeWechatSession, parameters: shareParames) { (state : SSDKResponseState, nil, entity : SSDKContentEntity?, error :Error?) in
+                    
+                    switch state{
+                    case SSDKResponseState.success: setToast(str: "分享成功")
+                    case SSDKResponseState.fail:    setToast(str: "分享失败")
+                    case SSDKResponseState.cancel:  setToast(str: "取消分享")
+                    default:
+                        break
+                    }
+                }
+
+                break
+            case .ShareTypeQQ:
+                //2.进行分享
+                ShareSDK.share(SSDKPlatformType.subTypeQQFriend, parameters: shareParames) { (state : SSDKResponseState, nil, entity : SSDKContentEntity?, error :Error?) in
+                    
+                    switch state{
+                    case SSDKResponseState.success: setToast(str: "分享成功")
+                    case SSDKResponseState.fail:    setToast(str: "分享失败")
+                    case SSDKResponseState.cancel:  setToast(str: "取消分享")
+                    default:
+                        break
+                    }
+                }
+
+                break
+            case .ShareTypeQQZone:
+                //2.进行分享
+                ShareSDK.share(SSDKPlatformType.subTypeQZone, parameters: shareParames) { (state : SSDKResponseState, nil, entity : SSDKContentEntity?, error :Error?) in
+                    
+                    switch state{
+                    case SSDKResponseState.success: setToast(str: "分享成功")
+                    case SSDKResponseState.fail:    setToast(str: "分享失败")
+                    case SSDKResponseState.cancel:  setToast(str: "取消分享")
+                    default:
+                        break
+                    }
+                }
+                break
+            default:
+                break
+            }
+            self.hiddenViews()
+        }
+        self.view.addSubview(shareView)
+
+    }
+    
+    
+    @objc func showChooseCondi(tap:UITapGestureRecognizer) -> Void {
+        if tap.view?.alpha == 1 {
+            
+            UIView.animate(withDuration: 0.5) {
+                tap.view?.alpha = 0
+                self.shareView.transform = .identity
+            }
+        }
+    }
+
+    
+    func showShareView() -> Void {
+        let y = 235
+        
+        UIView.animate(withDuration: 0.5) {
+            self.shareView.transform = .init(translationX: 0, y: CGFloat(-y))
+            self.BGView.alpha = 1
+        }
+    }
+    
+    
+    func hiddenViews() {
+        
+        UIView.animate(withDuration: 0.5) {
+            self.BGView.alpha = 0
+            self.shareView.transform = .identity
+        }
+    }
+    
     
     override func requestData() {
 
@@ -34,36 +146,11 @@ class CreditRankViewController: BaseViewController {
     
     
     @objc func shareRank(sender:UIBarButtonItem) {
-//        let shareParames = NSMutableDictionary()
         
         
-//        if  WXApi.isWXAppInstalled() == false{
-//            debugPrint("微信还未安装");
-//            let alert = UIAlertView(title: "温馨提示", message: "您还没有安装微信,请安装后再分享！", delegate: nil, cancelButtonTitle: "我知道了")
-//            alert.show()
-//            return
-//        }
-//
-//        shareParames.ssdkSetupShareParams(byText: "分享内容",
-//                                          images : #imageLiteral(resourceName: "share_icon"),
-//                                          url : NSURL(string:"http://mob.com") as URL!,
-//                                          title : "分享标题",
-//                                          type : SSDKContentType.text)
-//
-////        2.进行分享
-//        ShareSDK.share(SSDKPlatformType.subTypeQQFriend, parameters: shareParames) { (state : SSDKResponseState, nil, entity : SSDKContentEntity?, error :Error?) in
-//
-//            switch state{
-//
-//            case SSDKResponseState.success: print("分享成功")
-//            case SSDKResponseState.fail:    print("授权失败,错误描述:\(String(describing: error))")
-//            case SSDKResponseState.cancel:  print("操作取消")
-//
-//            default:
-//                break
-//            }
-//
-//        }
+        showShareView()
+        
+        
         
     }
     

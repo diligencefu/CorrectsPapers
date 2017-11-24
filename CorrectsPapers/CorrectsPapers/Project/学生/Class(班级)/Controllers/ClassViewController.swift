@@ -30,13 +30,12 @@ class ClassViewController: BaseViewController {
         self.view.beginLoading()
         netWorkForMyClass(params: params) { (datas,flag) in
             if flag {
+                
                 self.mainTableArr.removeAllObjects()
                 self.mainTableArr.addObjects(from: datas)
                 self.mainTableView.reloadData()
-
             }
             self.view.endLoading()
-
         }
     }
     
@@ -73,10 +72,18 @@ class ClassViewController: BaseViewController {
             "SESSIONID":SESSIONID,
             "mobileCode":mobileCode
         ]
-        extractedFunc(params)
+        self.view.beginLoading()
+        netWorkForMyClass(params: params) { (datas,flag) in
+            
+            if flag {
+                self.mainTableArr.removeAllObjects()
+                self.mainTableArr.addObjects(from: datas)
+                self.mainTableView.reloadData()
+            }
+            self.view.endLoading()
+            self.mainTableView.mj_header.endRefreshing()
+        }
 
-        mainTableView.mj_header.endRefreshing()
-        mainTableView.reloadData()
     }
 
     

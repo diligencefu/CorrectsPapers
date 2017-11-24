@@ -60,43 +60,47 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
         setKeyBoard()
         
         
-////        分享
-//        ShareSDK.registerActivePlatforms(
-//            [
-//                SSDKPlatformType.typeSinaWeibo.rawValue,
-//                SSDKPlatformType.typeWechat.rawValue,
-//                SSDKPlatformType.typeQQ.rawValue
-//            ],
-//            onImport: {(platform : SSDKPlatformType) -> Void in
-//                switch platform
-//                {
-//                case SSDKPlatformType.typeWechat:
-//                    ShareSDKConnector.connectWeChat(WXApi.classForCoder())
-//                case SSDKPlatformType.typeQQ:
-//                    ShareSDKConnector.connectQQ(QQApiInterface.classForCoder(), tencentOAuthClass: TencentOAuth.classForCoder())
-//                default:
-//                    break
-//                }
-//        },
-//            onConfiguration: {(platform : SSDKPlatformType , appInfo : NSMutableDictionary?) -> Void in
-//                switch platform
-//                {
-//
-//                case SSDKPlatformType.typeWechat:
-//                    //设置微信应用信息
-//                    appInfo?.ssdkSetupWeChat(byAppId: "wxae03b49be2ba4978",
-//                                             appSecret: "2952ea621d3634b858ab31c494801b53")
-//                case SSDKPlatformType.typeQQ:
-//                    //设置QQ应用信息
-//                    appInfo?.ssdkSetupQQ(byAppId: "1105754153",
-//                                         appKey: "PHeOk3wLbH6xFk2I",
-//                                         authType: SSDKAuthTypeWeb)
-//                default:
-//                    break
-//                }
-//        })
-//
+        /**
+         *  初始化ShareSDK应用
+         *
+         *  @param activePlatforms          使用的分享平台集合，如:@[@(SSDKPlatformTypeSinaWeibo), @(SSDKPlatformTypeTencentWeibo)];
+         *  @param importHandler           导入回调处理，当某个平台的功能需要依赖原平台提供的SDK支持时，需要在此方法中对原平台SDK进行导入操作。具体的导入方式可以参考ShareSDKConnector.framework中所提供的方法。
+         *  @param configurationHandler     配置回调处理，在此方法中根据设置的platformType来填充应用配置信息
+         */
         
+        ShareSDK.registerActivePlatforms(
+            [SSDKPlatformType.typeQQ.rawValue,
+             SSDKPlatformType.typeWechat.rawValue],
+            // onImport 里的代码,需要连接社交平台SDK时触发
+            onImport: {(platform : SSDKPlatformType) -> Void in
+                switch platform
+                {
+                    
+                case SSDKPlatformType.typeWechat:
+                    ShareSDKConnector.connectWeChat(WXApi.classForCoder())
+                case SSDKPlatformType.typeQQ:
+                    ShareSDKConnector.connectQQ(QQApiInterface.classForCoder(), tencentOAuthClass: TencentOAuth.classForCoder())
+                default:
+                    break
+                }
+        },
+            onConfiguration: {(platform : SSDKPlatformType , appInfo : NSMutableDictionary?) -> Void in
+                switch platform
+                {
+                    
+                case SSDKPlatformType.typeWechat:
+                    //设置微信应用信息
+                    appInfo?.ssdkSetupWeChat(byAppId: "wxce535119b08f7256",
+                                             appSecret: "c4ec2c48ba3ae176e47bf57ade3192ec")
+                case SSDKPlatformType.typeQQ:
+                    //设置QQ应用信息
+                    appInfo?.ssdkSetupQQ(byAppId: "1106479137",
+                                         appKey: "WMZGYIqmTAZMda3x",
+                                         authType: SSDKAuthTypeWeb)
+                default:
+                    break
+                }
+        })
         return true
     }
 

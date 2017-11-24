@@ -3099,7 +3099,7 @@ public func netWorkForGetMyClassBookByPeriods(params:[String:Any],callBack:((Boo
 
 
 //MARK: 31  接口说明 ： 非练习册列表展示（每页6条显示）
-public func NetWorkTeacherGetExerciseList(params:[String:Any],callBack:((Array<Any>)->())?) ->  Void {
+public func NetWorkTeacherGetExerciseList(params:[String:Any],callBack:((Array<Any>,Bool)->())?) ->  Void {
     
     var dataArr = [SNotWorkModel]()
     Alamofire.request(kGet_ExerciseList,
@@ -3113,6 +3113,7 @@ public func NetWorkTeacherGetExerciseList(params:[String:Any],callBack:((Array<A
                                 let JSOnDictory = JSON(j)
                                 let code =  JSOnDictory["code"].stringValue
                                 if code == "0" {
+                                    callBack!(dataArr,false)
                                     setToast(str: "获取非练习册失败")
                                 }
                                 
@@ -3123,11 +3124,12 @@ public func NetWorkTeacherGetExerciseList(params:[String:Any],callBack:((Array<A
                                     let model  = SNotWorkModel.setValueForSNotWorkModel(json: json)
                                     dataArr.append(model)
                                 }
-                                callBack!(dataArr)
+                                callBack!(dataArr,true)
                             }
                             break
                         case .failure(let error):
                             print(error)
+                            callBack!(dataArr,false)
                             setToast(str: "获取非练习册失败")
                         }
     }

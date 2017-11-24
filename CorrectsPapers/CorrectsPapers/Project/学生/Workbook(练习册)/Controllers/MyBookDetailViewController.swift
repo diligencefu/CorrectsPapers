@@ -44,8 +44,36 @@ class MyBookDetailViewController: BaseViewController,HBAlertPasswordViewDelegate
     override func viewDidLoad() {
         super.viewDidLoad()
         addTimeSelector()
+        rightBarButton()
 //        workState = model.correct_state!
     }
+    
+    //    右键
+    func rightBarButton() {
+        
+        let date = NSDate.init()
+        let formatter = DateFormatter()
+        //日期样式
+        formatter.dateFormat = "yyyy/MM/dd"
+        selectDate = formatter.string(from: date as Date)
+        
+        dateBtn = UIButton.init(frame: CGRect(x: 10, y: 0 , width: kSCREEN_WIDTH/3, height: 38))
+        dateBtn.backgroundColor = UIColor.clear
+        dateBtn.titleLabel?.font = kFont30
+        dateBtn.setTitleColor(UIColor.white, for: .normal)
+        dateBtn.setImage(#imageLiteral(resourceName: "date_dropdown-arrow_icon"), for: .normal)
+        dateBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 12)
+        dateBtn.imageEdgeInsets = UIEdgeInsetsMake(0, 103, 0, 0)
+        dateBtn.setTitle(selectDate, for: .normal)
+        dateBtn.addTarget(self, action: #selector(chooseDateAction(sender:)), for: .touchUpInside)
+//        self.navigationItem.rightBarButtonItem?.customView = dateBtn
+
+        
+//        self.navigationItem.rightBarButtonItem?.tintColor = UIColor.white
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(customView: dateBtn)
+        
+    }
+    
     
     override func requestData() {
         
@@ -98,11 +126,11 @@ class MyBookDetailViewController: BaseViewController,HBAlertPasswordViewDelegate
                         if self.workState == "" {
                             self.workState = "1"
                         }
-                        self.mainTableView.mj_header.endRefreshing()
                         self.mainTableView.reloadData()
                     }
                     print(dataArr)
                 }
+                self.mainTableView.mj_header.endRefreshing()
                 self.view.endLoading()
             }
 
@@ -119,13 +147,6 @@ class MyBookDetailViewController: BaseViewController,HBAlertPasswordViewDelegate
     override func configSubViews() {
         
         self.navigationItem.title = "非练习册"
-        
-        let date = NSDate.init()
-        let formatter = DateFormatter()
-        //日期样式
-        formatter.dateFormat = "yyyy/MM/dd"
-        
-        selectDate = formatter.string(from: date as Date)
         
         typeArr = ["我的作业","知识点讲解","参考答案","成绩统计"]
         let kHeight = CGFloat(44)
@@ -192,6 +213,9 @@ class MyBookDetailViewController: BaseViewController,HBAlertPasswordViewDelegate
     
     @objc func chooseDateAction(sender:UIButton) {
         //        print(NSDate())
+        if currentIndex == 4 {
+            return
+        }
         showDatePickerView()
     }
     
@@ -593,22 +617,22 @@ class MyBookDetailViewController: BaseViewController,HBAlertPasswordViewDelegate
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
-        if section == 0 && currentIndex == 1 {
-            dateBtn = UIButton.init(frame: CGRect(x: 0, y: 44 , width: kSCREEN_WIDTH, height: 40))
-            dateBtn.backgroundColor = UIColor.white
-            dateBtn.titleLabel?.font = kFont30
-            dateBtn.setTitleColor(kGaryColor(num: 164), for: .normal)
-            dateBtn.setImage(#imageLiteral(resourceName: "xiala_icon_default"), for: .normal)
-            dateBtn.titleEdgeInsets = UIEdgeInsetsMake(0, -35, 0, 0)
-            dateBtn.imageEdgeInsets = UIEdgeInsetsMake(0, 145, 0, 0)
-            dateBtn.setTitle(selectDate, for: .normal)
-            dateBtn.addTarget(self, action: #selector(chooseDateAction(sender:)), for: .touchUpInside)
-            
-            let line2 = UIView.init(frame: CGRect(x: 0, y: 43 , width: kSCREEN_WIDTH, height: 1))
-            line2.backgroundColor = kGaryColor(num: 223)
-            dateBtn.addSubview(line2)
-            return dateBtn
-        }
+//        if section == 0 && currentIndex == 1 {
+//            dateBtn = UIButton.init(frame: CGRect(x: 0, y: 44 , width: kSCREEN_WIDTH, height: 40))
+//            dateBtn.backgroundColor = UIColor.white
+//            dateBtn.titleLabel?.font = kFont30
+//            dateBtn.setTitleColor(kGaryColor(num: 164), for: .normal)
+//            dateBtn.setImage(#imageLiteral(resourceName: "xiala_icon_default"), for: .normal)
+//            dateBtn.titleEdgeInsets = UIEdgeInsetsMake(0, -35, 0, 0)
+//            dateBtn.imageEdgeInsets = UIEdgeInsetsMake(0, 145, 0, 0)
+//            dateBtn.setTitle(selectDate, for: .normal)
+//            dateBtn.addTarget(self, action: #selector(chooseDateAction(sender:)), for: .touchUpInside)
+//
+//            let line2 = UIView.init(frame: CGRect(x: 0, y: 43 , width: kSCREEN_WIDTH, height: 1))
+//            line2.backgroundColor = kGaryColor(num: 223)
+//            dateBtn.addSubview(line2)
+//            return dateBtn
+//        }
         return UIView()
     }
     
@@ -618,10 +642,10 @@ class MyBookDetailViewController: BaseViewController,HBAlertPasswordViewDelegate
     
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         
-        if section == 0 && currentIndex == 1 {
-            return 44
-        }
-        
+//        if section == 0 && currentIndex == 1 {
+//            return 44
+//        }
+//
         return 0
     }
     
@@ -760,7 +784,7 @@ class MyBookDetailViewController: BaseViewController,HBAlertPasswordViewDelegate
             UIView.animate(withDuration: 0.5) {
                 tap.view?.alpha = 0
                 self.datePickerView.transform = .identity
-                
+                self.dateBtn.setImage(#imageLiteral(resourceName: "date_dropdown-arrow_icon"), for: .normal)
             }
         }
     }
@@ -778,6 +802,7 @@ class MyBookDetailViewController: BaseViewController,HBAlertPasswordViewDelegate
     //MARK:      取消事件
     @objc func cancelAction(sender:UIButton) {
         UIView.animate(withDuration: 0.5) {
+            self.dateBtn.setImage(#imageLiteral(resourceName: "date_dropdown-arrow_icon"), for: .normal)
             self.datePickerView.transform = .identity
             self.BGView.alpha = 0
         }
@@ -795,35 +820,43 @@ class MyBookDetailViewController: BaseViewController,HBAlertPasswordViewDelegate
             setToast(str: "你在"+selectDate+"没有相关作业！")
             return
         }
-        
+
+        selectDate = formatter.string(from: self.datePicker.date as Date)
+//        self.navigationItem.rightBarButtonItem?.title = selectDate
         self.dateBtn.setTitle(formatter.string(from: self.datePicker.date), for: .normal)
-        
+        if currentIndex == 1 {
+            
+            let params =
+                [
+                    "userWorkBookId":self.model.userWorkBookId!,
+                    "time":formatter.string(from: self.datePicker.date),
+                    "SESSIONID":SESSIONID,
+                    "mobileCode":mobileCode
+                    ] as [String:Any]
+            self.view.beginLoading()
+            netWorkForGetWorkBookByTime(params: params) { (dataArr,flag) in
+                if flag {
+                    if dataArr.count > 0{
+                        self.theModel = dataArr[0] as! BookDetailModel
+                        self.workState = self.theModel.correcting_states
+                        if self.workState == "" {
+                            self.workState = "1"
+                        }
+                        self.mainTableView.reloadData()
+                    }
+                    print(dataArr)
+                }
+                self.view.endLoading()
+            }
+
+        }else{
+            
+            
+        }
         UIView.animate(withDuration: 0.5) {
+            self.dateBtn.setImage(#imageLiteral(resourceName: "date_dropdown-arrow_icon"), for: .normal)
             self.datePickerView.transform = .identity
             self.BGView.alpha = 0
-        }
-        
-        let params =
-            [
-                "userWorkBookId":self.model.userWorkBookId!,
-                "time":formatter.string(from: self.datePicker.date),
-                "SESSIONID":SESSIONID,
-                "mobileCode":mobileCode
-                ] as [String:Any]
-        self.view.beginLoading()
-        netWorkForGetWorkBookByTime(params: params) { (dataArr,flag) in
-            if flag {
-                if dataArr.count > 0{
-                    self.theModel = dataArr[0] as! BookDetailModel
-                    self.workState = self.theModel.correcting_states
-                    if self.workState == "" {
-                        self.workState = "1"
-                    }
-                    self.mainTableView.reloadData()
-                }
-                print(dataArr)
-            }
-            self.view.endLoading()
         }
     }
     
@@ -832,8 +865,9 @@ class MyBookDetailViewController: BaseViewController,HBAlertPasswordViewDelegate
     func showDatePickerView() -> Void {
         
         let y = DateHeight - 80 * kSCREEN_SCALE
-        
+
         UIView.animate(withDuration: 0.5) {
+            self.dateBtn.setImage(#imageLiteral(resourceName: "date_up-arrow_icon"), for: .normal)
             self.datePickerView.transform = .init(translationX: 0, y: -y)
             self.BGView.alpha = 1
         }

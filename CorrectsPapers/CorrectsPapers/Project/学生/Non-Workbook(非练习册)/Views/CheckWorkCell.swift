@@ -27,8 +27,8 @@ class CheckWorkCell: UITableViewCell {
     @IBOutlet weak var workDescrip: UILabel!
     
     
-    @IBOutlet weak var workImage1: UIButton!
-    @IBOutlet weak var workImage2: UIButton!
+    @IBOutlet weak var workImage1: UIImageView!
+    @IBOutlet weak var workImage2: UIImageView!
     
     @IBOutlet weak var teachermark: UILabel!
     
@@ -60,6 +60,14 @@ class CheckWorkCell: UITableViewCell {
         resubmit.setBackgroundImage(getNavigationIMG(64, fromColor: kSetRGBColor(r: 0, g: 200, b: 255), toColor: kSetRGBColor(r: 0, g: 160, b: 255)), for: .normal)
         workImage1.contentMode = .scaleAspectFill
         workImage2.contentMode = .scaleAspectFill
+        
+        let tapGes1 = UITapGestureRecognizer.init(target: self, action: #selector(viewTheBigImage(sender:)))
+        tapGes1.numberOfTouchesRequired = 1
+        let tapGes2 = UITapGestureRecognizer.init(target: self, action: #selector(viewTheBigImage(sender:)))
+        tapGes1.numberOfTouchesRequired = 1
+        workImage1.addGestureRecognizer(tapGes1)
+        workImage2.addGestureRecognizer(tapGes2)        
+
     }
     
     
@@ -82,17 +90,17 @@ class CheckWorkCell: UITableViewCell {
         
         if model.correcting_states == "2" {
             if model.photo != nil {
-                workImage1.kf.setImage(with:  URL(string:model.photo[0])!, for: .normal, placeholder: #imageLiteral(resourceName: "UserHead_128_default"), options: nil, progressBlock: nil, completionHandler: nil)
+                workImage1.kf.setImage(with:  URL(string:model.photo[0])!, placeholder: #imageLiteral(resourceName: "UserHead_128_default"), options: nil, progressBlock: nil, completionHandler: nil)
                 if model.photo.count==2 {
-                    workImage2.kf.setImage(with:  URL(string:model.photo[1])!, for: .normal, placeholder: #imageLiteral(resourceName: "UserHead_128_default"), options: nil, progressBlock: nil, completionHandler: nil)
+                    workImage2.kf.setImage(with:  URL(string:model.photo[1])!, placeholder: #imageLiteral(resourceName: "UserHead_128_default"), options: nil, progressBlock: nil, completionHandler: nil)
                 }
             }
 
         }else if model.correcting_states == "5" {
             if model.photo != nil {
-                workImage1.kf.setImage(with:  URL(string:model.corrected_error_photo[0])!, for: .normal, placeholder: #imageLiteral(resourceName: "UserHead_128_default"), options: nil, progressBlock: nil, completionHandler: nil)
+                workImage1.kf.setImage(with:  URL(string:model.corrected_error_photo[0])!, placeholder: #imageLiteral(resourceName: "UserHead_128_default"), options: nil, progressBlock: nil, completionHandler: nil)
                 if model.photo.count==2 {
-                    workImage2.kf.setImage(with:  URL(string:model.corrected_error_photo[1])!, for: .normal, placeholder: #imageLiteral(resourceName: "UserHead_128_default"), options: nil, progressBlock: nil, completionHandler: nil)
+                    workImage2.kf.setImage(with:  URL(string:model.corrected_error_photo[1])!, placeholder: #imageLiteral(resourceName: "UserHead_128_default"), options: nil, progressBlock: nil, completionHandler: nil)
                 }
             }
         }
@@ -117,17 +125,17 @@ class CheckWorkCell: UITableViewCell {
         no_check.textColor = kSetRGBColor(r: 255, g: 78, b: 78)
         if model.correcting_states == "3" {
             if model.photo != nil {
-                workImage1.kf.setImage(with:  URL(string:model.photo[0])!, for: .normal, placeholder: #imageLiteral(resourceName: "UserHead_128_default"), options: nil, progressBlock: nil, completionHandler: nil)
+                workImage1.kf.setImage(with:  URL(string:model.photo[0])!, placeholder: #imageLiteral(resourceName: "UserHead_128_default"), options: nil, progressBlock: nil, completionHandler: nil)
                 if model.photo.count==2 {
-                    workImage2.kf.setImage(with:  URL(string:model.photo[1])!, for: .normal, placeholder: #imageLiteral(resourceName: "UserHead_128_default"), options: nil, progressBlock: nil, completionHandler: nil)
+                    workImage2.kf.setImage(with:  URL(string:model.photo[1])!, placeholder: #imageLiteral(resourceName: "UserHead_128_default"), options: nil, progressBlock: nil, completionHandler: nil)
                 }
             }
             
         }else if model.correcting_states == "6" {
             if model.photo != nil {
-                workImage1.kf.setImage(with:  URL(string:model.corrected_error_photo[0])!, for: .normal, placeholder: #imageLiteral(resourceName: "UserHead_128_default"), options: nil, progressBlock: nil, completionHandler: nil)
+                workImage1.kf.setImage(with:  URL(string:model.corrected_error_photo[0])!, placeholder: #imageLiteral(resourceName: "UserHead_128_default"), options: nil, progressBlock: nil, completionHandler: nil)
                 if model.photo.count==2 {
-                    workImage2.kf.setImage(with:  URL(string:model.corrected_error_photo[1])!, for: .normal, placeholder: #imageLiteral(resourceName: "UserHead_128_default"), options: nil, progressBlock: nil, completionHandler: nil)
+                    workImage2.kf.setImage(with:  URL(string:model.corrected_error_photo[1])!, placeholder: #imageLiteral(resourceName: "UserHead_128_default"), options: nil, progressBlock: nil, completionHandler: nil)
                 }
             }
         }
@@ -167,9 +175,9 @@ class CheckWorkCell: UITableViewCell {
         }
 
         if model.photo != nil {
-            workImage1.kf.setImage(with:  URL(string:model.photo[0])!, for: .normal, placeholder: #imageLiteral(resourceName: "UserHead_128_default"), options: nil, progressBlock: nil, completionHandler: nil)
+            workImage1.kf.setImage(with:  URL(string:model.photo[0])!, placeholder: #imageLiteral(resourceName: "UserHead_128_default"), options: nil, progressBlock: nil, completionHandler: nil)
             if model.photo.count==2 {
-                workImage2.kf.setImage(with:  URL(string:model.photo[1])!, for: .normal, placeholder: #imageLiteral(resourceName: "UserHead_128_default"), options: nil, progressBlock: nil, completionHandler: nil)
+                workImage2.kf.setImage(with:  URL(string:model.photo[1])!, placeholder: #imageLiteral(resourceName: "UserHead_128_default"), options: nil, progressBlock: nil, completionHandler: nil)
             }
         }
 
@@ -190,9 +198,9 @@ class CheckWorkCell: UITableViewCell {
             make.width.equalTo(0)
         }
         if model.photo != nil {
-            workImage1.kf.setImage(with:  URL(string:model.corrected_error_photo[0])!, for: .normal, placeholder: #imageLiteral(resourceName: "UserHead_128_default"), options: nil, progressBlock: nil, completionHandler: nil)
+            workImage1.kf.setImage(with:  URL(string:model.corrected_error_photo[0])!, placeholder: #imageLiteral(resourceName: "UserHead_128_default"), options: nil, progressBlock: nil, completionHandler: nil)
             if model.photo.count==2 {
-                workImage2.kf.setImage(with:  URL(string:model.corrected_error_photo[1])!, for: .normal, placeholder: #imageLiteral(resourceName: "UserHead_128_default"), options: nil, progressBlock: nil, completionHandler: nil)
+                workImage2.kf.setImage(with:  URL(string:model.corrected_error_photo[1])!, placeholder: #imageLiteral(resourceName: "UserHead_128_default"), options: nil, progressBlock: nil, completionHandler: nil)
             }
         }
         
@@ -227,30 +235,30 @@ class CheckWorkCell: UITableViewCell {
     }
     
     
-    @IBAction func viewTheBigImage(_ sender: UIButton) {
+    @objc func viewTheBigImage(sender: UITapGestureRecognizer) {
         
         var images = [KSPhotoItem]()
         
         if Int(theModel.correcting_states)! > 4 {
             
-            let watchIMGItem = KSPhotoItem.init(sourceView: workImage1.imageView, image: workImage1.imageView?.image)
+            let watchIMGItem = KSPhotoItem.init(sourceView: workImage1, image: workImage1.image)
             images.append(watchIMGItem!)
             if theModel.corrected_error_photo.count == 2 {
-                let watchIMGItem = KSPhotoItem.init(sourceView: workImage2.imageView, image: workImage2.imageView?.image)
+                let watchIMGItem = KSPhotoItem.init(sourceView: workImage2, image: workImage2.image)
                 images.append(watchIMGItem!)
             }
         }else{
             
-            let watchIMGItem = KSPhotoItem.init(sourceView: workImage1.imageView, image: workImage1.imageView?.image)
+            let watchIMGItem = KSPhotoItem.init(sourceView: workImage1, image: workImage1.image)
             images.append(watchIMGItem!)
             if theModel.photo.count == 2 {
-                let watchIMGItem = KSPhotoItem.init(sourceView: workImage2.imageView, image: workImage2.imageView?.image)
+                let watchIMGItem = KSPhotoItem.init(sourceView: workImage2, image: workImage2.image)
                 images.append(watchIMGItem!)
             }
         }
         
         let watchIMGView = KSPhotoBrowser.init(photoItems: images,
-                                               selectedIndex:UInt((sender.tag)-221))
+                                               selectedIndex:UInt((sender.view?.tag)!-221))
         watchIMGView?.dismissalStyle = .scale
         watchIMGView?.backgroundStyle = .blurPhoto
         watchIMGView?.loadingStyle = .indeterminate

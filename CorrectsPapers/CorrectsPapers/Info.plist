@@ -24,22 +24,32 @@
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
 			<key>CFBundleURLIconFile</key>
-			<string>wx_icon</string>
+			<string></string>
 			<key>CFBundleURLName</key>
 			<string>weixin</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>wxae03b49be2ba4978</string>
+				<string>wxce535119b08f7256</string>
 			</array>
 		</dict>
 		<dict>
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
 			<key>CFBundleURLName</key>
-			<string>QQ</string>
+			<string>CorrectsPapers</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>QQ105754153</string>
+				<string>CorrectsPapers</string>
+			</array>
+		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLName</key>
+			<string>mqzone</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>QQ41F38821</string>
 			</array>
 		</dict>
 	</array>
@@ -54,10 +64,25 @@
 		<key>NSIncludesSubdomains</key>
 		<true/>
 	</dict>
-	<key>LSApplictionnQueriesSchemes</key>
+	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>weixin</string>
-		<string>QQ</string>
+		<string>wechat</string>
+		<string>mqqapi</string>
+		<string>mqq</string>
+		<string>mqzone</string>
+		<string>mqqOpensdkSSoLogin</string>
+		<string>mqqopensdkapiV2</string>
+		<string>mqqopensdkapiV3</string>
+		<string>wtloginmqq2</string>
+		<string>timapi</string>
+		<string>mqzoneopensdk</string>
+		<string>mqzoneopensdkapi</string>
+		<string>mqzoneopensdkapiV2</string>
+		<string>mqzoneopensdkapi19</string>
+		<string>wtloginmqq2</string>
+		<string>mqqwpa</string>
+		<string>mqqopensdkapiV4</string>
 	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
@@ -87,8 +112,8 @@
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
-		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
+		<string>UIInterfaceOrientationLandscapeLeft</string>
 	</array>
 	<key>UISupportedInterfaceOrientations~ipad</key>
 	<array>

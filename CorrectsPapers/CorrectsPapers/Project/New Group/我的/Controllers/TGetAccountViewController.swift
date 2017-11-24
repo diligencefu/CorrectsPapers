@@ -18,19 +18,28 @@ class TGetAccountViewController: BaseViewController {
     
     override func requestData() {
         
-        netWorkForMyCoin { (datas) in
-            self.mainTableArr.addObjects(from: datas)
-            self.mainTableView.reloadData()
+        self.view.beginLoading()
+        netWorkForMyCoin { (datas,flag) in
+            if flag {
+                self.mainTableArr.removeAllObjects()
+                self.mainTableArr.addObjects(from: datas)
+                self.mainTableView.reloadData()
+            }
+            self.view.endLoading()
         }
     }
     
     
     override func refreshHeaderAction() {
-        netWorkForMyCoin { (datas) in
-            self.mainTableArr.removeAllObjects()
-            self.mainTableArr.addObjects(from: datas)
-            self.mainTableView.mj_header.endRefreshing()
-            self.mainTableView.reloadData()
+        self.view.beginLoading()
+        netWorkForMyCoin { (datas,flag) in
+            if flag {
+                self.mainTableArr.removeAllObjects()
+                self.mainTableArr.addObjects(from: datas)
+                self.mainTableView.mj_header.endRefreshing()
+                self.mainTableView.reloadData()
+            }
+            self.view.endLoading()
         }
     }
     

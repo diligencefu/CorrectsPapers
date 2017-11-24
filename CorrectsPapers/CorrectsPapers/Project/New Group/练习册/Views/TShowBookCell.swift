@@ -62,6 +62,9 @@ class TShowBookCell: UITableViewCell {
         
         
         gradeMark.setTitle(model.grade, for: .normal)
+        
+        
+        
         studentCount.text = model.count! + "人"
         
         proMark.setTitle(model.subject_name, for: .normal)

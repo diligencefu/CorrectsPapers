@@ -26,34 +26,41 @@ class WorkBookViewController: BaseViewController ,UISearchBarDelegate{
     
     override func requestData() {
         
-        netWorkForGetAllWorkBook { (dataArr) in
-
-            print(dataArr)
-            if dataArr.count > 0 {
-                
-                self.mainTableArr.addObjects(from: dataArr)
-                self.mainTableView.reloadData()
-
-            }else{
-                setToast(str: "返回数据为空")
+        self.view.beginLoading()
+        netWorkForGetAllWorkBook { (dataArr,flag) in
+            
+            if flag {
+                if dataArr.count > 0 {
+                    
+                    self.mainTableArr.addObjects(from: dataArr)
+                    self.mainTableView.reloadData()
+                    
+                }else{
+                    setToast(str: "返回数据为空")
+                }
             }
+            self.view.endLoading()
         }
     }
     
     override func refreshHeaderAction() {
-    
-        netWorkForGetAllWorkBook { (dataArr) in
-            self.mainTableArr.removeAllObjects()
-            self.mainTableView.mj_header.endRefreshing()
-            print(dataArr)
+        self.view.beginLoading()
+
+        netWorkForGetAllWorkBook { (dataArr,flag) in
             
-            if dataArr.count > 0 {
-                
-                self.mainTableArr.addObjects(from: dataArr)
-                self.mainTableView.reloadData()
-            }else{
-                setToast(str: "返回数据为空")
+            if flag {
+                self.mainTableArr.removeAllObjects()
+                self.mainTableView.mj_header.endRefreshing()
+                print(dataArr)
+                if dataArr.count > 0 {
+                    
+                    self.mainTableArr.addObjects(from: dataArr)
+                    self.mainTableView.reloadData()
+                }else{
+                    setToast(str: "返回数据为空")
+                }
             }
+            self.view.endLoading()
         }
     }
     
@@ -194,25 +201,27 @@ class WorkBookViewController: BaseViewController ,UISearchBarDelegate{
                  "mobileCode":mobileCode,
                  "workBookId":model.work_book_Id
             ]
-            
+            self.view.beginLoading()
             netWorkForAddWorkBookToMe(params: params, callBack: { (flag) in
                 
                 if flag {
-                    netWorkForGetAllWorkBook { (dataArr) in
-                        
-                        print(dataArr)
-                        if dataArr.count > 0 {
-                            self.mainTableArr.removeAllObjects()
-                            self.mainTableArr.addObjects(from: dataArr)
-                            self.mainTableView.reloadData()
-                            
-                        }else{
-                            setToast(str: "返回数据为空")
+                    netWorkForGetAllWorkBook { (dataArr ,flag) in
+                        if flag {
+                            print(dataArr)
+                            if dataArr.count > 0 {
+                                
+                                self.mainTableArr.removeAllObjects()
+                                self.mainTableArr.addObjects(from: dataArr)
+                                self.mainTableView.reloadData()
+                            }else{
+                                setToast(str: "返回数据为空")
+                            }
                         }
+                        self.view.endLoading()
                     }
                 }
+                self.view.endLoading()
             })
-            
         }
         return cell
     }

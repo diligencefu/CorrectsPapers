@@ -61,17 +61,20 @@ class SearchBooksViewController: BaseViewController ,UITextFieldDelegate{
                 "SESSIONID":SESSIONID,
                 "mobileCode":mobileCode
                 ] as [String : Any]
-        
-        netWorkForSearchWorkBook(params: params) { (dataArr) in
-            print(dataArr)
-            if dataArr.count > 0 {
-                
-                self.mainTableArr.addObjects(from: dataArr)
-                self.mainTableView.reloadData()
-                
-            }else{
-                setToast(str: "暂无相关数据")
+        self.view.endLoading()
+        netWorkForSearchWorkBook(params: params) { (dataArr,flag) in
+            
+            if flag {
+                if dataArr.count > 0 {
+                    
+                    self.mainTableArr.addObjects(from: dataArr)
+                    self.mainTableView.reloadData()
+                    
+                }else{
+                    setToast(str: "暂无相关数据")
+                }
             }
+            self.view.endLoading()
         }
 
         isSearching = true

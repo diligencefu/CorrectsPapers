@@ -66,7 +66,7 @@ class AddFriendViewController: BaseViewController {
     }
     
     @objc func searchFriendAction(sender:UIButton) {
-        
+        self.view.beginLoading()
         mainTableArr.removeAllObjects()
         if searchView.text != "" {
             
@@ -90,17 +90,22 @@ class AddFriendViewController: BaseViewController {
                 ]
             }
             
-            netWorkForGetSpecifiedUser(params: params, callBack: { (datas) in
-                print(datas)
-                self.mainTableArr.addObjects(from: datas)
-                self.mainTableView.reloadData()
+            netWorkForGetSpecifiedUser(params: params, callBack: { (datas,flag) in
+                
+                if flag {
+                    self.mainTableArr.addObjects(from: datas)
+                    self.mainTableView.reloadData()
+                }
+                self.view.endLoading()
             })
             
         }else{
-            netWorkForGetAllPeope(callBack: { (datas) in
-                print(datas)
-                self.mainTableArr.addObjects(from: datas)
-                self.mainTableView.reloadData()
+            netWorkForGetAllPeope(callBack: { (datas,flag) in
+                if flag {
+                    self.mainTableArr.addObjects(from: datas)
+                    self.mainTableView.reloadData()
+                }
+                self.view.endLoading()
             })
             
         }

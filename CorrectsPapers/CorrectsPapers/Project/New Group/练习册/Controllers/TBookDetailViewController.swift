@@ -60,12 +60,17 @@ class TBookDetailViewController: BaseViewController,UITextFieldDelegate {
              "mobileCode":mobileCodeT,
              "id":book_id
              ]
-        NetWorkTeacherGetTWorkDetail(params: params) { (datas) in
-            if datas.count > 0 {
-                let model = datas[0] as! TMyWorkDetailModel
-                self.infoView.setValues(model: model)
-                self.navigationItem.title = model.work_book_name
+        self.view.beginLoading()
+        NetWorkTeacherGetTWorkDetail(params: params) { (datas,flag) in
+            
+            if flag {
+                if datas.count > 0 {
+                    let model = datas[0] as! TMyWorkDetailModel
+                    self.infoView.setValues(model: model)
+                    self.navigationItem.title = model.work_book_name
+                }
             }
+            self.view.endLoading()
         }
         
         let params1 =
@@ -74,10 +79,13 @@ class TBookDetailViewController: BaseViewController,UITextFieldDelegate {
              "id":book_id
         ]
         
-        NetWorkTeacherGetTStudentWorkList(params: params1) { (datas) in
-            self.works.removeAllObjects()
-            self.works.addObjects(from: datas)
-            self.mainTableView.reloadData()
+        NetWorkTeacherGetTStudentWorkList(params: params1) { (datas,flag) in
+            if flag {
+                self.works.removeAllObjects()
+                self.works.addObjects(from: datas)
+                self.mainTableView.reloadData()
+            }
+            self.view.endLoading()
         }
     }
     
@@ -176,48 +184,65 @@ class TBookDetailViewController: BaseViewController,UITextFieldDelegate {
         }else{
             footBtnView.removeFromSuperview()
         }
-        
+        self.view.beginLoading()
         if currentIndex == 1 {
             
-            NetWorkTeacherGetTStudentWorkList(params: params) { (datas) in
-                self.works.removeAllObjects()
-                self.works.addObjects(from: datas)
-                self.mainTableView.reloadData()
+            NetWorkTeacherGetTStudentWorkList(params: params) { (datas,flag) in
+                
+                if flag {
+                    self.works.removeAllObjects()
+                    self.works.addObjects(from: datas)
+                    self.mainTableView.reloadData()
+                }
+                self.view.endLoading()
             }
         }else if currentIndex == 2 {
             
-            NetWorkTeacherGetTStudentCorrected(params: params) { (datas) in
-                self.doneWorks.removeAllObjects()
-                self.doneWorks.addObjects(from: datas)
-                self.mainTableView.reloadData()
+            NetWorkTeacherGetTStudentCorrected(params: params) { (datas,flag) in
+                if flag {
+                    self.doneWorks.removeAllObjects()
+                    self.doneWorks.addObjects(from: datas)
+                    self.mainTableView.reloadData()
+                }
+                self.view.endLoading()
             }
         }else if currentIndex == 3 {
             
-            NetWorkTeacherGetTPeriodPoint(params: params) { (datas) in
-                self.videoArr.removeAll()
-                
-                for index in 0..<datas.count {
-                    let model = datas[index] as! UrlModel
-                    self.videoArr.append(model)
+            NetWorkTeacherGetTPeriodPoint(params: params) { (datas,flag) in
+                if flag {
+                    self.videoArr.removeAll()
+                    
+                    for index in 0..<datas.count {
+                        let model = datas[index] as! UrlModel
+                        self.videoArr.append(model)
+                    }
+                    self.mainTableView.reloadData()
                 }
-                self.mainTableView.reloadData()
+                self.view.endLoading()
             }
         }else if currentIndex == 4{
             
-            NetWorkTeacherGetTPeriodAnswers(params: params) { (datas) in
-                self.answerArr.removeAll()
-                for index in 0..<datas.count {
-                    let model = datas[index] as! UrlModel
-                    self.answerArr.append(model)
+            NetWorkTeacherGetTPeriodAnswers(params: params) { (datas,flag) in
+                
+                if flag {
+                    self.answerArr.removeAll()
+                    for index in 0..<datas.count {
+                        let model = datas[index] as! UrlModel
+                        self.answerArr.append(model)
+                    }
+                    self.mainTableView.reloadData()
                 }
-                self.mainTableView.reloadData()
+                self.view.endLoading()
             }
         }else{
             
-            NetWorkTeacherGetTStudentGrades(params: params) { (datas) in
-                self.grades.removeAllObjects()
-                self.grades.addObjects(from: datas)
-                self.mainTableView.reloadData()
+            NetWorkTeacherGetTStudentGrades(params: params) { (datas,flag) in
+                if flag {
+                    self.grades.removeAllObjects()
+                    self.grades.addObjects(from: datas)
+                    self.mainTableView.reloadData()
+                }
+                self.view.endLoading()
             }
         }
     }
@@ -266,20 +291,27 @@ class TBookDetailViewController: BaseViewController,UITextFieldDelegate {
         }else{
             footBtnView.removeFromSuperview()
         }
-
+        
+        self.view.beginLoading()
         if currentIndex == 1 {
             
-            NetWorkTeacherGetTStudentWorkList(params: params) { (datas) in
-                self.works.removeAllObjects()
-                self.works.addObjects(from: datas)
-                self.mainTableView.reloadData()
+            NetWorkTeacherGetTStudentWorkList(params: params) { (datas,flag) in
+                if flag {
+                    self.works.removeAllObjects()
+                    self.works.addObjects(from: datas)
+                    self.mainTableView.reloadData()
+                }
+                self.view.endLoading()
             }
         }else if currentIndex == 2 {
 
-            NetWorkTeacherGetTStudentCorrected(params: params) { (datas) in
-                self.doneWorks.removeAllObjects()
-                self.doneWorks.addObjects(from: datas)
-                self.mainTableView.reloadData()
+            NetWorkTeacherGetTStudentCorrected(params: params) { (datas,flag) in
+                if flag {
+                    self.doneWorks.removeAllObjects()
+                    self.doneWorks.addObjects(from: datas)
+                    self.mainTableView.reloadData()
+                }
+                self.view.endLoading()
             }
         }else if currentIndex == 3 {
             
@@ -288,15 +320,18 @@ class TBookDetailViewController: BaseViewController,UITextFieldDelegate {
                  "mobileCode":mobileCodeT,
                  "workBookId":book_id
             ]
-            NetWorkTeacherGetTPeriodPoint(params: params1) { (datas) in
-                self.videoArr.removeAll()
-                
-                for index in 0..<datas.count {
-                    let model = datas[index] as! UrlModel
-                    self.videoArr.append(model)
+            NetWorkTeacherGetTPeriodPoint(params: params1) { (datas,flag) in
+                if flag {
+                    self.videoArr.removeAll()
+                    
+                    for index in 0..<datas.count {
+                        let model = datas[index] as! UrlModel
+                        self.videoArr.append(model)
+                    }
+                    self.mainTableView.reloadData()
                 }
-                self.mainTableView.reloadData()
-            }            
+                self.view.endLoading()
+            }
         }else if currentIndex == 4{
 
 //            NetWorkTeacherGetTPeriodAnswers(params: params) { (datas) in
@@ -306,10 +341,13 @@ class TBookDetailViewController: BaseViewController,UITextFieldDelegate {
 //            }
         }else{
             
-            NetWorkTeacherGetTStudentGrades(params: params) { (datas) in
-                self.grades.removeAllObjects()
-                self.grades.addObjects(from: datas)
-                self.mainTableView.reloadData()
+            NetWorkTeacherGetTStudentGrades(params: params) { (datas,flag) in
+                if flag {
+                    self.grades.removeAllObjects()
+                    self.grades.addObjects(from: datas)
+                    self.mainTableView.reloadData()
+                }
+                self.view.endLoading()
             }
         }
         isSearching = false
@@ -652,12 +690,16 @@ class TBookDetailViewController: BaseViewController,UITextFieldDelegate {
              "mobileCode":mobileCodeT,
              "id":book_id
         ]
-        
-        NetWorkTeacherGetTStudentWorkList(params: params1) { (datas) in
-            self.works.removeAllObjects()
-            self.works.addObjects(from: datas)
-            self.isSearching = true
-            self.mainTableView.reloadData()
+        self.view.beginLoading()
+        NetWorkTeacherGetTStudentWorkList(params: params1) { (datas,flag) in
+            
+            if flag {
+                self.works.removeAllObjects()
+                self.works.addObjects(from: datas)
+                self.isSearching = true
+                self.mainTableView.reloadData()
+            }
+            self.view.endLoading()
         }
         return true
     }

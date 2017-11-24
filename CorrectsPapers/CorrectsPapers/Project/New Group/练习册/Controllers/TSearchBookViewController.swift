@@ -60,11 +60,16 @@ class TSearchBookViewController: BaseViewController,UITextFieldDelegate{
              "workName":searchTextfield.text!,
              ] as [String : Any]
         
-        NetWorkTeacherGetTAllWorkList(params: params) { (datas) in
-            self.isSearching = true
-            self.mainTableArr.removeAllObjects()
-            self.mainTableArr.addObjects(from: datas)
-            self.mainTableView.reloadData()
+        self.view.beginLoading()
+        NetWorkTeacherGetTAllWorkList(params: params) { (datas,flag) in
+            if flag {
+                
+                self.isSearching = true
+                self.mainTableArr.removeAllObjects()
+                self.mainTableArr.addObjects(from: datas)
+                self.mainTableView.reloadData()
+            }
+            self.view.endLoading()
         }
         
     }

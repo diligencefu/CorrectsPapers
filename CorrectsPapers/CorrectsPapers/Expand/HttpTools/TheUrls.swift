@@ -166,6 +166,8 @@ let kCorrec_ClassBookNext = kBaseUrl +  "teacher/correcClassBookNext"
 //MARK: 21 接口说明 ：  获取班级成员
 let kGet_ClassMember = kBaseUrl +  "teacher/getClassMember"
 
+
+
 //MARK:(学生端4-6、老师端4-7意见和建议)接口
 let kInsert_Suggestion = kBaseUrl1 +  "mine/insertSuggestion"
 
@@ -305,6 +307,15 @@ let kGet_MyClassBookByPeriods = kBaseUrl2 +  "workBook/getMyClassBookByPeriods"
 
 //MARK: 30  接口说明 ：   计算每个学生的学分，降序排列
 let kGet_StudentScores = kBaseUrl2 +  "workBook/getStudentScores"
+
+//MARK: 31接口说明 ： 非练习册列表展示（每页6条显示）
+let kGet_ExerciseList = kBaseUrl +  "workBook/exerciseList"
+
+//MARK: 32接口说明 ： 根据练习册或者非练习册id获取相对应的知识点
+let kGet_KnowledgePoint = kBaseUrl +  "workBook/getKnowledgePoint"
+
+//MARK: 33接口说明 ：参考答案下载的学币事物处理通用方法，或者学币充值
+let kUp_DownAnswrs = kBaseUrl +  "workBook/updownAnswrs"
 
 
 

@@ -29,19 +29,44 @@ class NotWorkCellCell: UITableViewCell {
     }
 
     
-    func setDataWithModel() {
+    func setDataWithModel(model:SNotWorkModel) {
         
-        if "type" == "1" {
-            money.text = "悬赏学币：80学币"
+        bookImage.kf.setImage(with:  URL(string:model.pre_photos)!, placeholder: #imageLiteral(resourceName: "photos_image_default"), options: nil, progressBlock: nil, completionHandler: nil)
+        bookState.text = kGetStateFromString(str: model.correct_states)
+        bookState.textColor = kGetColorFromString(str: bookState.text!)
+        
+        bookTitle.text = model.non_exercise_name
+        
+        gradeMark.layer.borderColor = kGaryColor(num: 176).cgColor
+        gradeMark.setTitleColor(kGaryColor(num: 176), for: .normal)
+        gradeMark.layer.borderWidth = 1
+        gradeMark.layer.cornerRadius = 9
+        gradeMark.clipsToBounds = true
+
+        proMark.setTitleColor(kSetRGBColor(r: 255, g: 102, b: 116), for: .normal)
+        proMark.layer.borderColor = kSetRGBColor(r: 255, g: 102, b: 116).cgColor
+        proMark.clipsToBounds = true
+        proMark.layer.cornerRadius = 9
+        proMark.layer.borderWidth = 1
+
+        gradeMark.snp.updateConstraints { (make) in
+            make.width.equalTo(getLabWidth(labelStr: model.classes_id, font: kFont24, height: 18) + 20)
+        }
+        gradeMark.setTitle(model.classes_id, for: .normal)
+        proMark.snp.updateConstraints { (make) in
+            make.width.equalTo(getLabWidth(labelStr: model.subject_id, font: kFont24, height: 18) + 20)
+        }
+        proMark.setTitle(model.subject_id, for: .normal)
+
+        if model.correct_way == "2" {
+            money.text = model.rewards + "学币"
             theTeacher.text = ""
             label.text = ""
         }else{
             money.text = "邀请"
-            theTeacher.text = "王老师"
+            theTeacher.text = model.teacher_name
             label.text = "来批改"
         }
-        
-        
         
     }
     

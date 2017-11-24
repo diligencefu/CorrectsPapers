@@ -36,12 +36,14 @@ class TMyBookViewController: BaseViewController {
             ["SESSIONID":SESSIONIDT,
              "mobileCode":mobileCodeT,
              ]
-
-        NetWorkTeacherGetMyWorkList(params: params) { (datas) in
-            
-            self.mainTableArr.removeAllObjects()
-            self.mainTableArr.addObjects(from: datas)
-            self.mainTableView.reloadData()
+        self.view.beginLoading()
+        NetWorkTeacherGetMyWorkList(params: params) { (datas,flag) in
+            if flag {
+                self.mainTableArr.removeAllObjects()
+                self.mainTableArr.addObjects(from: datas)
+                self.mainTableView.reloadData()
+            }
+            self.view.endLoading()
         }
     }
     
@@ -50,13 +52,18 @@ class TMyBookViewController: BaseViewController {
             ["SESSIONID":SESSIONIDT,
              "mobileCode":mobileCodeT,
              ]
-        
-        NetWorkTeacherGetMyWorkList(params: params) { (datas) in
+        self.view.beginLoading()
+        NetWorkTeacherGetMyWorkList(params: params) { (datas,flag) in
             
-            self.mainTableArr.removeAllObjects()
-            self.mainTableArr.addObjects(from: datas)
-            self.mainTableView.reloadData()
-            self.mainTableView.mj_header.endRefreshing()
+            if flag {
+                self.mainTableArr.removeAllObjects()
+                self.mainTableArr.addObjects(from: datas)
+                self.mainTableView.reloadData()
+                self.mainTableView.mj_header.endRefreshing()
+
+            }
+            self.view.endLoading()
+
         }
     }
     
@@ -156,7 +163,7 @@ class TMyBookViewController: BaseViewController {
                  "mobileCode":mobileCodeT,
                  "workId":model.id
                     ] as! [String:String]
-
+            self.view.beginLoading()
             NetWorkTeacherDelMyWork(params: params, callBack: { (flag) in
                 
                 if flag {
@@ -164,14 +171,17 @@ class TMyBookViewController: BaseViewController {
                         ["SESSIONID":SESSIONIDT,
                          "mobileCode":mobileCodeT,
                          ]
-                    NetWorkTeacherGetMyWorkList(params: params) { (datas) in
+                    NetWorkTeacherGetMyWorkList(params: params) { (datas,flag) in
                         
-                        self.mainTableArr.removeAllObjects()
-                        self.mainTableArr.addObjects(from: datas)
-                        self.mainTableView.reloadData()
+                        if flag {
+                            self.mainTableArr.removeAllObjects()
+                            self.mainTableArr.addObjects(from: datas)
+                            self.mainTableView.reloadData()
+                        }
+                        self.view.endLoading()
                     }
                 }
-                
+                self.view.endLoading()
             })
         }
     }

@@ -27,10 +27,16 @@ class ClassViewController: BaseViewController {
             "SESSIONID":SESSIONID,
             "mobileCode":mobileCode
         ]
-        netWorkForMyClass(params: params) { (datas) in
-            self.mainTableArr.removeAllObjects()
-            self.mainTableArr.addObjects(from: datas)
-            self.mainTableView.reloadData()
+        self.view.beginLoading()
+        netWorkForMyClass(params: params) { (datas,flag) in
+            if flag {
+                self.mainTableArr.removeAllObjects()
+                self.mainTableArr.addObjects(from: datas)
+                self.mainTableView.reloadData()
+
+            }
+            self.view.endLoading()
+
         }
     }
     
@@ -49,10 +55,16 @@ class ClassViewController: BaseViewController {
     }
     
     fileprivate func extractedFunc(_ params: [String : String]) {
-        netWorkForMyClass(params: params) { (datas) in
-            self.mainTableArr.removeAllObjects()
-            self.mainTableArr.addObjects(from: datas)
-            self.mainTableView.reloadData()
+        
+        self.view.beginLoading()
+        netWorkForMyClass(params: params) { (datas,flag) in
+            
+            if flag {
+                self.mainTableArr.removeAllObjects()
+                self.mainTableArr.addObjects(from: datas)
+                self.mainTableView.reloadData()
+            }
+            self.view.endLoading()
         }
     }
     

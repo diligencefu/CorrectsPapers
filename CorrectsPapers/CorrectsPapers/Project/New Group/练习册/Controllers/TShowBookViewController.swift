@@ -81,8 +81,9 @@ class TShowBookViewController: BaseViewController {
                      "mobileCode":mobileCodeT,
                      "book_details_id":self.model.book_details_id
                 ] as [String:Any]
+                self.view.beginLoading()
                 NetWorkTeacherGobackWrokBook(params: params, callBack: { (flag) in
-                    
+                    self.view.endLoading()
                 })
                 
                 

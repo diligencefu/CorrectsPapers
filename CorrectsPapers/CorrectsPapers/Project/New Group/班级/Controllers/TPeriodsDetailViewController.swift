@@ -73,11 +73,14 @@ class TPeriodsDetailViewController: BaseViewController,UITextFieldDelegate {
              "mobileCode":mobileCodeT,
              "periods_id":"1"
         ] as [String:Any]
-        
-        NetWorkTeacherSelectClassBook(params: params, callBack: { (datas) in
-            self.works.removeAllObjects()
-            self.works.addObjects(from: datas)
-            self.mainTableView.reloadData()
+        self.view.beginLoading()
+        NetWorkTeacherSelectClassBook(params: params, callBack: { (datas,flag) in
+            if flag {
+                self.works.removeAllObjects()
+                self.works.addObjects(from: datas)
+                self.mainTableView.reloadData()
+            }
+            self.view.endLoading()
         })
         
     }
@@ -200,13 +203,16 @@ class TPeriodsDetailViewController: BaseViewController,UITextFieldDelegate {
              "mobileCode":mobileCodeT,
              "periods_id":periods_id
         ]
-
+        self.view.beginLoading()
         if currentIndex == 1 {
             
-            NetWorkTeacherSelectClassBook(params: params, callBack: { (datas) in
-                self.works.removeAllObjects()
-                self.works.addObjects(from: datas)
-                self.mainTableView.reloadData()
+            NetWorkTeacherSelectClassBook(params: params, callBack: { (datas,flag) in
+                if flag {
+                    self.works.removeAllObjects()
+                    self.works.addObjects(from: datas)
+                    self.mainTableView.reloadData()
+                }
+                self.view.endLoading()
             })
             
         }else if currentIndex == 2 {
@@ -261,12 +267,14 @@ class TPeriodsDetailViewController: BaseViewController,UITextFieldDelegate {
              "mobileCode":mobileCodeT,
              "periods_id":periods_id
         ]
-        
+        self.view.beginLoading()
         if currentIndex == 1 {
             
-            NetWorkTeacherSelectClassBook(params: params, callBack: { (datas) in
-                
+            NetWorkTeacherSelectClassBook(params: params, callBack: { (datas,flag) in
+            
+                self.view.endLoading()
             })
+            
         }else if currentIndex == 2 {
         }else if currentIndex == 3 {
         }else if currentIndex == 4{

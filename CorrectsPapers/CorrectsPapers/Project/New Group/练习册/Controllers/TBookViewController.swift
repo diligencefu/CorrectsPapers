@@ -41,12 +41,16 @@ class TBookViewController: BaseViewController {
             ["SESSIONID":SESSIONIDT,
              "mobileCode":mobileCodeT,
              ]
-
-        NetWorkTeacherGetTAllWorkList(params: params) { (datas) in
+        
+        self.view.beginLoading()
+        NetWorkTeacherGetTAllWorkList(params: params) { (datas,flag) in
             
-            self.mainTableArr.removeAllObjects()
-            self.mainTableArr.addObjects(from: datas)
-            self.mainTableView.reloadData()
+            if flag {
+                self.mainTableArr.removeAllObjects()
+                self.mainTableArr.addObjects(from: datas)
+                self.mainTableView.reloadData()
+            }
+            self.view.endLoading()
         }
     }
     
@@ -57,14 +61,18 @@ class TBookViewController: BaseViewController {
              "mobileCode":mobileCodeT,
              ]
 
-        NetWorkTeacherGetTAllWorkList(params: params) { (datas) in
+        self.view.beginLoading()
+        NetWorkTeacherGetTAllWorkList(params: params) { (datas,flag) in
             
-            self.mainTableArr.removeAllObjects()
-            self.mainTableArr.addObjects(from: datas)
-            self.mainTableView.reloadData()
-            self.mainTableView.mj_header.endRefreshing()
-
+            if flag {
+                self.mainTableArr.removeAllObjects()
+                self.mainTableArr.addObjects(from: datas)
+                self.mainTableView.reloadData()
+                self.mainTableView.mj_header.endRefreshing()
+            }
+            self.view.endLoading()
         }
+
     }
     
     

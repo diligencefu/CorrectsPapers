@@ -47,8 +47,12 @@ class BaseViewController: UIViewController,UITableViewDataSource,UITableViewDele
     
     
     func refreshHeaderAction() {
-        setToast(str: "刷新")
-        mainTableView.mj_header.endRefreshing()
+//        self.view.beginLoading()
+//        let time: TimeInterval = 10.0
+//        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now()+time) {
+//            self.view.endLoading()
+//        }
+
     }
     
     func addFooterRefresh() {
@@ -59,8 +63,11 @@ class BaseViewController: UIViewController,UITableViewDataSource,UITableViewDele
     }
     
     func refreshFooterAction() {
-        setToast(str: "刷新")
-        mainTableView.mj_header.endRefreshing()
+        self.view.beginLoading()
+        let time: TimeInterval = 10.0
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now()+time) {
+            self.view.endLoading()
+        }
     }
 
     
@@ -96,7 +103,11 @@ class BaseViewController: UIViewController,UITableViewDataSource,UITableViewDele
     
     
     func requestData() -> Void {
-        
+//        self.view.beginLoading()
+//        let time: TimeInterval = 10.0
+//        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now()+time) {
+//            self.view.endLoading()
+//        }
         
     }
 
@@ -160,6 +171,7 @@ class BaseViewController: UIViewController,UITableViewDataSource,UITableViewDele
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.view.endEditing(true)
+         self.view.endLoading()
     }
     
     override func viewWillAppear(_ animated: Bool) {

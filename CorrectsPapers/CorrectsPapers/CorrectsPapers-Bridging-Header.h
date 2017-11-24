@@ -13,6 +13,7 @@
 #import "HBAlertPasswordView.h"         //密码弹框
 #import "CTImageEditUtil.h"
 #import "UIImage+EditImageWithColor.h"
-
+#import "UIBadgeView.h"
+#import "UIView+Common.h"
 
 #endif /* CorrectsPapers_Bridging_Header_h */

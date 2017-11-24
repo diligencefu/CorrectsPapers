@@ -26,16 +26,20 @@ class MyBookDetailViewController: BaseViewController,HBAlertPasswordViewDelegate
     
     var model = WorkBookModel()
     var theModel = BookDetailModel()
-
+    
     var footBtnView = UIView()
-    var titleArr1 = ["本节课课程视频","本节课讲义下载","本节课作业下载"]
     var titleArr3 = ["作业视频讲解","作业答案文档下载","文字版答案"]
-    var currentTitle1 = ""
     var currentTitle2 = ""
 
     var selectDate = ""
     
     var timeArr = [String]()
+    
+    
+    var pointArr = NSMutableArray()
+    var answerArr = NSMutableArray()
+    var gradeArr = NSMutableArray()
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -51,22 +55,27 @@ class MyBookDetailViewController: BaseViewController,HBAlertPasswordViewDelegate
                 "SESSIONID":SESSIONID,
                 "mobileCode":mobileCode
         ] as [String:Any]
-        
-        netWorkForGetWorkBookByTime(params: params) { (dataArr) in
-            if dataArr.count > 0{
-                self.theModel = dataArr[0] as! BookDetailModel
-                self.workState = self.theModel.correcting_states
-                if self.workState == "" {
-                    self.workState = "1"
+        self.view.beginLoading()
+        netWorkForGetWorkBookByTime(params: params) { (dataArr,flag) in
+            if flag {
+                if dataArr.count > 0{
+                    self.theModel = dataArr[0] as! BookDetailModel
+                    self.workState = self.theModel.correcting_states
+                    if self.workState == "" {
+                        self.workState = "1"
+                    }
+                    self.mainTableView.reloadData()
                 }
-                self.mainTableView.reloadData()
+                print(dataArr)
             }
-            print(dataArr)
+            self.view.endLoading()
         }
         
-        netWorkForGetWorkBookTime(params: params) { (datas) in
-            self.timeArr = datas as! [String]
-//            self.mainTableView.reloadData()
+        netWorkForGetWorkBookTime(params: params) { (datas,flag) in
+            if flag {
+                self.timeArr = datas as! [String]
+            }
+            self.view.endLoading()
         }
     }
     
@@ -80,18 +89,21 @@ class MyBookDetailViewController: BaseViewController,HBAlertPasswordViewDelegate
                     "SESSIONID":SESSIONID,
                     "mobileCode":mobileCode
                     ] as [String:Any]
-            
-            netWorkForGetWorkBookByTime(params: params) { (dataArr) in
-                if dataArr.count > 0{
-                    self.theModel = dataArr[0] as! BookDetailModel
-                    self.workState = self.theModel.correcting_states
-                    if self.workState == "" {
-                        self.workState = "1"
+            self.view.beginLoading()
+            netWorkForGetWorkBookByTime(params: params) { (dataArr,flag) in
+                if flag {
+                    if dataArr.count > 0{
+                        self.theModel = dataArr[0] as! BookDetailModel
+                        self.workState = self.theModel.correcting_states
+                        if self.workState == "" {
+                            self.workState = "1"
+                        }
+                        self.mainTableView.mj_header.endRefreshing()
+                        self.mainTableView.reloadData()
                     }
-                    self.mainTableView.mj_header.endRefreshing()
-                    self.mainTableView.reloadData()
+                    print(dataArr)
                 }
-                print(dataArr)
+                self.view.endLoading()
             }
 
         }else if currentIndex == 2 {
@@ -204,12 +216,57 @@ class MyBookDetailViewController: BaseViewController,HBAlertPasswordViewDelegate
         currentIndex = sender.tag - 130
         
 //        判断是否要显示下面的下载按钮
-        if currentIndex == 2 {
-            footView(titles: titleArr1)
-        }else if currentIndex == 3 {
+      
+        if currentIndex == 3 {
             footView(titles: titleArr3)
         }else{
             footBtnView.removeFromSuperview()
+        }
+        
+        if currentIndex == 1 {
+            let params =
+                [
+                    "userWorkBookId":model.userWorkBookId!,
+                    "SESSIONID":SESSIONID,
+                    "mobileCode":mobileCode
+                    ] as [String:Any]
+            self.view.beginLoading()
+            netWorkForGetWorkBookByTime(params: params) { (dataArr,flag) in
+                if flag {
+                    if dataArr.count > 0{
+                        self.theModel = dataArr[0] as! BookDetailModel
+                        self.workState = self.theModel.correcting_states
+                        if self.workState == "" {
+                            self.workState = "1"
+                        }
+                        self.mainTableView.mj_header.endRefreshing()
+                        self.mainTableView.reloadData()
+                    }
+                    print(dataArr)
+                }
+                self.view.endLoading()
+            }
+        }else if currentIndex == 2 {
+            
+            let params =
+                [
+                    "workBookId":model.work_book_Id,
+                    "SESSIONID":SESSIONID,
+                    "mobileCode":mobileCode
+                    ] as [String:Any]
+            self.view.beginLoading()
+            NetWorkStudentGetKnowledgePoint(params: params, callBack: { (datas, flag) in
+                if flag {
+                    self.pointArr.removeAllObjects()
+                    self.pointArr.addObjects(from: datas)
+                    self.mainTableView.reloadData()
+                }
+                self.view.endLoading()
+            })
+        }else if currentIndex == 3 {
+            
+        }else if currentIndex == 4 {
+            
         }
         
         self.mainTableView.mj_header.endRefreshing()
@@ -258,18 +315,10 @@ class MyBookDetailViewController: BaseViewController,HBAlertPasswordViewDelegate
         let passwd = HBAlertPasswordView.init(frame: self.view.bounds)
         passwd.delegate = self
         
-        if currentIndex == 1 {
-            
-        }else{
-            
-        }
-        
         passwd.titleLabel.text = "五哈哈哈哈"
         self.view.addSubview(passwd)
         
-        if currentIndex == 2 {
-            currentTitle1 = (sender.titleLabel?.text)!
-        }else{
+        if currentIndex == 3 {
             currentTitle2 = (sender.titleLabel?.text)!
         }
     }
@@ -279,17 +328,9 @@ class MyBookDetailViewController: BaseViewController,HBAlertPasswordViewDelegate
     func sureAction(with alertPasswordView: HBAlertPasswordView!, password: String!) {
         alertPasswordView.removeFromSuperview()
         setToast(str: "输入的密码为:"+password)
-        if currentIndex == 2 {
-            
-            titleArr1.remove(at: titleArr1.index(of: currentTitle1)!)
-            footView(titles: titleArr1)
-            mainTableView.reloadData()
-        }else{
-            
-            titleArr3.remove(at: titleArr3.index(of: currentTitle2)!)
-            footView(titles: titleArr3)
-            mainTableView.reloadData()
-        }
+        titleArr3.remove(at: titleArr3.index(of: currentTitle2)!)
+        footView(titles: titleArr3)
+        mainTableView.reloadData()
     }
 
     
@@ -301,11 +342,11 @@ class MyBookDetailViewController: BaseViewController,HBAlertPasswordViewDelegate
         }
         
         if currentIndex == 3 {
-            return 3-titleArr3.count
+            return pointArr.count
         }
         
         if currentIndex == 2 {
-            return 3-titleArr1.count
+            return pointArr.count
         }
         
         if currentIndex == 1 {
@@ -355,9 +396,9 @@ class MyBookDetailViewController: BaseViewController,HBAlertPasswordViewDelegate
                     netWorkForUploadWorkBook(params: params , data: self.images as! [UIImage], name: nameArr, success: { (datas) in
                         let json = JSON(datas)
                         print(json)
+//
+//                        if json["code"] == "1" {
                         
-                        if json["code"] == "1" {
-                            
                             setToast(str: "上传成功")
                             let params =
                                 [
@@ -365,19 +406,22 @@ class MyBookDetailViewController: BaseViewController,HBAlertPasswordViewDelegate
                                     "SESSIONID":SESSIONID,
                                     "mobileCode":mobileCode
                                     ] as [String:Any]
-                            
-                            netWorkForGetWorkBookByTime(params: params) { (dataArr) in
-                                if datas.count > 0{
-                                    self.theModel = dataArr[0] as! BookDetailModel
-                                    self.workState = self.theModel.correcting_states
-                                    if self.workState == "" {
-                                        self.workState = "1"
+                            self.view.beginLoading()
+                            netWorkForGetWorkBookByTime(params: params) { (dataArr,flag) in
+                                if flag {
+                                    if datas.count > 0{
+                                        self.theModel = dataArr[0] as! BookDetailModel
+                                        self.workState = self.theModel.correcting_states
+                                        if self.workState == "" {
+                                            self.workState = "1"
+                                        }
+                                        self.mainTableView.reloadData()
                                     }
-                                    self.mainTableView.reloadData()
+                                    print(dataArr)
                                 }
-                                print(dataArr)
+                                self.view.endLoading()
                             }
-                        }
+//                        }
                         print(datas)
                     }, failture: { (error) in
                         print(error)
@@ -503,7 +547,10 @@ class MyBookDetailViewController: BaseViewController,HBAlertPasswordViewDelegate
         
         if currentIndex == 2 {
             
+            let model = pointArr[indexPath.row] as! UrlModel
+            
             let cell : AnserVideoCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable3, for: indexPath) as! AnserVideoCell
+            cell.AnserVideoCellSetValues(model: model)
             return cell
         }else if currentIndex == 3 {
             
@@ -763,17 +810,20 @@ class MyBookDetailViewController: BaseViewController,HBAlertPasswordViewDelegate
                 "SESSIONID":SESSIONID,
                 "mobileCode":mobileCode
                 ] as [String:Any]
-        
-        netWorkForGetWorkBookByTime(params: params) { (dataArr) in
-            if dataArr.count > 0{
-                self.theModel = dataArr[0] as! BookDetailModel
-                self.workState = self.theModel.correcting_states
-                if self.workState == "" {
-                    self.workState = "1"
+        self.view.beginLoading()
+        netWorkForGetWorkBookByTime(params: params) { (dataArr,flag) in
+            if flag {
+                if dataArr.count > 0{
+                    self.theModel = dataArr[0] as! BookDetailModel
+                    self.workState = self.theModel.correcting_states
+                    if self.workState == "" {
+                        self.workState = "1"
+                    }
+                    self.mainTableView.reloadData()
                 }
-                self.mainTableView.reloadData()
+                print(dataArr)
             }
-            print(dataArr)
+            self.view.endLoading()
         }
     }
     

@@ -29,39 +29,46 @@ class PersonnalViewController: BaseViewController {
     
     override func requestData() {
         
-        netWorkForMyData { (dataArr) in
+        self.view.beginLoading()
+        netWorkForMyData { (dataArr,flag) in
             
-            if dataArr.count > 0{
-                self.model = dataArr[0] as! PersonalModel
-                self.infoArr = [[""],[self.model.coin_count!+"学币","100学分",self.model.friendCount+"人",""],[self.model.num,"",""]]
-                
-                Defaults[username] = self.model.user_name
-                Defaults[userArea] = self.model.user_area
-                Defaults[userId] = self.model.user_num
-//                Defaults[userGrade]! = self.model.user_fit_class
-                Defaults[userAccount] = self.model.coin_count
-                
+            if flag {
+                if dataArr.count > 0{
+                    self.model = dataArr[0] as! PersonalModel
+                    self.infoArr = [[""],[self.model.coin_count!+"学币","100学分",self.model.friendCount+"人",""],[self.model.num,"",""]]
+                    
+                    Defaults[username] = self.model.user_name
+                    Defaults[userArea] = self.model.user_area
+                    Defaults[userId] = self.model.user_num
+                    //                Defaults[userGrade]! = self.model.user_fit_class
+                    Defaults[userAccount] = self.model.coin_count
+                    
+                }
+                self.mainTableView.reloadData()
             }
-            self.mainTableView.reloadData()
+            self.view.endLoading()
         }
     }
     
     override func refreshHeaderAction() {
-        netWorkForMyData { (dataArr) in
-            
-            if dataArr.count > 0{
-                self.model = dataArr[0] as! PersonalModel
-                self.infoArr = [[""],[self.model.coin_count!+"学币","100学分",self.model.friendCount+"人",""],[self.model.num,"",""]]
-                
-                Defaults[username] = self.model.user_name
-                Defaults[userArea] = self.model.user_area
-                Defaults[userId] = self.model.user_num
-                Defaults[userAccount] = self.model.coin_count
 
-            }
+        self.view.beginLoading()
+        netWorkForMyData { (dataArr,flag) in
             
-            self.mainTableView.mj_header.endRefreshing()
-            self.mainTableView.reloadData()
+            if flag {
+                if dataArr.count > 0{
+                    self.model = dataArr[0] as! PersonalModel
+                    self.infoArr = [[""],[self.model.coin_count!+"学币","100学分",self.model.friendCount+"人",""],[self.model.num,"",""]]
+                    
+                    Defaults[username] = self.model.user_name
+                    Defaults[userArea] = self.model.user_area
+                    Defaults[userId] = self.model.user_num
+                    Defaults[userAccount] = self.model.coin_count
+                }
+                self.mainTableView.mj_header.endRefreshing()
+                self.mainTableView.reloadData()
+            }
+            self.view.endLoading()
         }
     }
     

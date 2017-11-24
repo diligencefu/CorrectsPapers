@@ -15,9 +15,18 @@ class CreateClassCell: UITableViewCell {
     
     @IBOutlet weak var className: UILabel!
     
+    var userInfo = ["姓名":"张迅","年龄":"38"]
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        
+//        直接这样写就行
+//        如果字典里面有这个键名，那他就会把对应键名的值改为你刚赋的值
+//        如果没有的话，就会直接添加一个键值对。
+        userInfo["身高"] = "180mm"
+        userInfo["年龄"] = "21"
+        print(userInfo)
+        
     }
 
     

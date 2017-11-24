@@ -60,12 +60,17 @@ class TDetailBookViewController: BaseViewController {
              "workId":model1.id
         ] as [String:Any]
         
-        NetWorkTeacherGetTMyNotWorkDatails(params: params1) { (datas) in
-            if datas.count>0{
-                self.model = datas[0] as! TNotWorkDetailModel
+        self.view.beginLoading()
+        NetWorkTeacherGetTMyNotWorkDatails(params: params1) { (datas,flag) in
+            
+            if flag {
+                if datas.count>0{
+                    self.model = datas[0] as! TNotWorkDetailModel
+                }
+                self.mainTableArr.addObjects(from: datas)
+                self.mainTableView.reloadData()
             }
-            self.mainTableArr.addObjects(from: datas)
-            self.mainTableView.reloadData()
+            self.view.endLoading()
         }
     }
     
@@ -232,18 +237,18 @@ class TDetailBookViewController: BaseViewController {
             ["SESSIONID":SESSIONIDT,
              "mobileCode":mobileCodeT,
              "id":model1.id
-        ]
-
+        ] as! [String:Any]
+ 
         if currentIndex == 1 {
             
-            NetWorkTeacherGetTStudentWorkList(params: params) { (datas) in
+            NetWorkTeacherGetTStudentWorkList(params: params) { (datas,flag) in
 //                self.works.removeAllObjects()
 //                self.works.addObjects(from: datas)
 //                self.mainTableView.reloadData()
             }
         }else if currentIndex == 2 {
             
-            NetWorkTeacherGetTMyNotWorkDatailPoints(params: params) { (datas) in
+            NetWorkTeacherGetTMyNotWorkDatailPoints(params: params) { (datas,flag) in
                 self.pointArr.removeAllObjects()
                 self.pointArr.addObjects(from: datas)
                 self.mainTableView.reloadData()
@@ -260,7 +265,7 @@ class TDetailBookViewController: BaseViewController {
 //            }
         }else if currentIndex == 4{
             
-            NetWorkTeacherGetTMyNotWorkDatailGrades(params: params) { (datas) in
+            NetWorkTeacherGetTMyNotWorkDatailGrades(params: params) { (datas,flag) in
                 self.answerArr.removeAll()
                 // #MARK:待处理
                 self.mainTableView.reloadData()

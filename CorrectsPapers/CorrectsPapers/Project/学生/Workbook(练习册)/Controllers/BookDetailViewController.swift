@@ -31,13 +31,15 @@ class BookDetailViewController: BaseViewController {
         
         let params =
             [
-                "userWorkBookId":model.userWorkBookId,
+                "userWorkBookId":model.userWorkBookId!,
                 "SESSIONID":SESSIONID,
                 "mobileCode":mobileCode
         ] as [String:Any]
         
-        netWorkForGetWorkBookByTime(params: params) { (dataArr) in
+        self.view.beginLoading()
+        netWorkForGetWorkBookByTime(params: params) { (dataArr,flag) in
             print(dataArr)
+            self.view.endLoading()
         }
         
     }

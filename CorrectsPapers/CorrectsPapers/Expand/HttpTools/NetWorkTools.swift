@@ -82,7 +82,7 @@ public func netWorkForRegistAccount(params:[String:Any],callBack:((String)->())?
 
 
 //MARK:  老师端4-5被投诉记录
-public func NetWorkTeacherGetComplaintRecord(callBack:((Array<Any>)->())?) ->  Void {
+public func NetWorkTeacherGetComplaintRecord(callBack:((Array<Any>,Bool)->())?) ->  Void {
     
     let params =
         ["SESSIONID":"1",
@@ -105,9 +105,7 @@ public func NetWorkTeacherGetComplaintRecord(callBack:((Array<Any>)->())?) ->  V
                                 let code =  JSOnDictory["code"].stringValue
                                 if code == "0" {
                                     setToast(str: "上传成功返回失败")
-//                                    callBack!(false)
-                                }else{
-//                                    callBack!(true)
+                                    callBack!(dataArr,false)
                                 }
 
                                 let datas =  JSOnDictory["data"].arrayValue
@@ -118,14 +116,14 @@ public func NetWorkTeacherGetComplaintRecord(callBack:((Array<Any>)->())?) ->  V
                                     let model  = TComplaintModel.setValueForTComplaintModel(json: json)
                                     dataArr.append(model)
                                 }
-                                callBack!(dataArr)
+                                callBack!(dataArr,true)
                             }
                             
                             break
                         case .failure(let error):
                             print(error)
                             
-                            callBack!(dataArr)
+                            callBack!(dataArr,false)
                             setToast(str: "获取被投诉记录")
                         }
     }
@@ -133,7 +131,7 @@ public func NetWorkTeacherGetComplaintRecord(callBack:((Array<Any>)->())?) ->  V
 
 
 //MARK: 1  1-0 和 1-2  获取所有的练习册
-public func NetWorkTeacherGetTAllWorkList(params:[String:Any],callBack:((Array<Any>)->())?) ->  Void {
+public func NetWorkTeacherGetTAllWorkList(params:[String:Any],callBack:((Array<Any>,Bool)->())?) ->  Void {
     
     var dataArr = [WorkBookModel]()
     Alamofire.request(kGet_TAllWorkList,
@@ -142,12 +140,16 @@ public func NetWorkTeacherGetTAllWorkList(params:[String:Any],callBack:((Array<A
                         print(response.result)
                         switch response.result {
                         case .success:
-                            
-                            setToast(str: "完成")
-                            
+
                             if let j = response.result.value {
                                 //SwiftyJSON解析数据
                                 let JSOnDictory = JSON(j)
+                                let code =  JSOnDictory["code"].stringValue
+                                if code == "0" {
+                                    setToast(str: "上传成功返回失败")
+                                    callBack!(dataArr,false)
+                                }
+
                                 let datas =  JSOnDictory["data"].arrayValue
                                 
                                 for index in 0..<datas.count {
@@ -156,15 +158,13 @@ public func NetWorkTeacherGetTAllWorkList(params:[String:Any],callBack:((Array<A
                                     let model  = WorkBookModel.setValueForWorkBookModel(json: json)
                                     dataArr.append(model)
                                 }
-                                callBack!(dataArr)
+                                callBack!(dataArr,true)
                             }
                             
                             break
                         case .failure(let error):
                             print(error)
-                            
-                            callBack!(dataArr)
-                            setToast(str: "获取所有的练习册失败")
+                            callBack!(dataArr,false)
                         }
     }
 }
@@ -203,7 +203,7 @@ public func NetWorkTeacherAddMyWork(params:[String:Any],callBack:((Bool)->())?) 
 
 
 //MARK:2 1-1 我的练习册
-public func NetWorkTeacherGetMyWorkList(params:[String:Any],callBack:((Array<Any>)->())?) ->  Void {
+public func NetWorkTeacherGetMyWorkList(params:[String:Any],callBack:((Array<Any>,Bool)->())?) ->  Void {
     var dataArr = [WorkBookModel]()
     let mainQueue = DispatchQueue.main;
     
@@ -220,19 +220,23 @@ public func NetWorkTeacherGetMyWorkList(params:[String:Any],callBack:((Array<Any
                                 //SwiftyJSON解析数据
                                 let JSOnDictory = JSON(j)
                                 let datas =  JSOnDictory["data"].arrayValue
-                                
+                                let code =  JSOnDictory["code"].stringValue
+                                if code == "0" {
+                                    callBack!(dataArr,false)
+                                }
                                 for index in 0..<datas.count {
                                     
                                     let json = datas[index]
                                     let model  = WorkBookModel.setValueForWorkBookModel(json: json)
                                     dataArr.append(model)
                                 }
-                                callBack!(dataArr)
+                                callBack!(dataArr,true)
                             }
                             
                             break
                         case .failure(let error):
-                            print(error)
+                            
+                            callBack!(dataArr,false)
                             setToast(str: "获取我的练习册失败")
                         }
     }
@@ -257,6 +261,7 @@ public func NetWorkTeacherDelMyWork(params:[String:String],callBack:((Bool)->())
                                 let JSOnDictory = JSON(j)
                                 let code =  JSOnDictory["code"].stringValue
                                 if code == "0" {
+                                    callBack!(false)
                                     setToast(str: "删除练习册失败")
                                 }else{
                                     callBack!(true)
@@ -265,7 +270,7 @@ public func NetWorkTeacherDelMyWork(params:[String:String],callBack:((Bool)->())
                             }
                             break
                         case .failure(let error):
-                            print(error)
+                            callBack!(false)
                             setToast(str: "删除练习册失败")
                         }
     }
@@ -273,7 +278,7 @@ public func NetWorkTeacherDelMyWork(params:[String:String],callBack:((Bool)->())
 
 
 //MARK:4  1-3 练习册详情 根据练习册id获取详情
-public func NetWorkTeacherGetTWorkDetail(params:[String:Any],callBack:((Array<Any>)->())?) ->  Void {
+public func NetWorkTeacherGetTWorkDetail(params:[String:Any],callBack:((Array<Any>,Bool)->())?) ->  Void {
    
     var dataArr = [TMyWorkDetailModel]()
     let mainQueue = DispatchQueue.main;
@@ -289,6 +294,7 @@ public func NetWorkTeacherGetTWorkDetail(params:[String:Any],callBack:((Array<An
                                 let JSOnDictory = JSON(j)
                                 let code =  JSOnDictory["code"].stringValue
                                 if code == "0" {
+                                    callBack!(dataArr,false)
                                     setToast(str: "上传成功返回失败")
                                 }
                                 
@@ -300,13 +306,13 @@ public func NetWorkTeacherGetTWorkDetail(params:[String:Any],callBack:((Array<An
                                     let model  = TMyWorkDetailModel.setValueForTMyWorkDetailModel(json: json)
                                     dataArr.append(model)
                                 }
-                                callBack!(dataArr)
+                                callBack!(dataArr,true)
                             }
                             
                             break
                         case .failure(let error):
                             print(error)
-                            
+                            callBack!(dataArr,false)
                             setToast(str: "获取练习册详情失败")
                         }
     }
@@ -315,7 +321,7 @@ public func NetWorkTeacherGetTWorkDetail(params:[String:Any],callBack:((Array<An
 
 
 //MARK:5  1-3 练习册详情 - 学生作业 》根据练习册id获取详情
-public func NetWorkTeacherGetTStudentWorkList(params:[String:Any],callBack:((Array<Any>)->())?) ->  Void {
+public func NetWorkTeacherGetTStudentWorkList(params:[String:Any],callBack:((Array<Any>,Bool)->())?) ->  Void {
     
     var dataArr = [TShowStuWorksModel]()
     let mainQueue = DispatchQueue.main;
@@ -331,6 +337,7 @@ public func NetWorkTeacherGetTStudentWorkList(params:[String:Any],callBack:((Arr
                                 
                                 let code =  JSOnDictory["code"].stringValue
                                 if code == "0" {
+                                    callBack!(dataArr,false)
                                     setToast(str: "上传成功返回失败")
                                 }
                                 
@@ -342,12 +349,12 @@ public func NetWorkTeacherGetTStudentWorkList(params:[String:Any],callBack:((Arr
                                     let model  = TShowStuWorksModel.setValueForTShowStuWorksModel(json: json)
                                     dataArr.append(model)
                                 }
-                                callBack!(dataArr)
+                                callBack!(dataArr,true)
                             }
                             break
                         case .failure(let error):
                             print(error)
-                            
+                            callBack!(dataArr,false)
                             setToast(str: "获取练习册学生作业失败")
                         }
     }
@@ -356,7 +363,7 @@ public func NetWorkTeacherGetTStudentWorkList(params:[String:Any],callBack:((Arr
 
 
 //MARK:6  1-3 练习册详情 - 已批改 >> 根据练习册id获取详情
-public func NetWorkTeacherGetTStudentCorrected(params:[String:Any],callBack:((Array<Any>)->())?) ->  Void {
+public func NetWorkTeacherGetTStudentCorrected(params:[String:Any],callBack:((Array<Any>,Bool)->())?) ->  Void {
     
     var dataArr = [TShowGradeModel]()
     Alamofire.request(kGet_TStudentWork2,
@@ -371,6 +378,7 @@ public func NetWorkTeacherGetTStudentCorrected(params:[String:Any],callBack:((Ar
                                 
                                 let code =  JSOnDictory["code"].stringValue
                                 if code == "0" {
+                                    callBack!(dataArr,false)
                                     setToast(str: "上传成功返回失败")
                                 }
                                 
@@ -382,11 +390,12 @@ public func NetWorkTeacherGetTStudentCorrected(params:[String:Any],callBack:((Ar
                                     let model  = TShowGradeModel.setValueForTMyWorkTShowGradeModel(json: json)
                                     dataArr.append(model)
                                 }
-                                callBack!(dataArr)
+                                callBack!(dataArr,true)
                             }
                             break
                         case .failure(let error):
                             print(error)
+                            callBack!(dataArr,false)
                             setToast(str: "获取已批改作业失败")
                         }
     }
@@ -395,7 +404,7 @@ public func NetWorkTeacherGetTStudentCorrected(params:[String:Any],callBack:((Ar
 
 
 //MARK:7   1-3 练习册 - 详情 - 知识点讲解
-public func NetWorkTeacherGetTPeriodPoint(params:[String:Any],callBack:((Array<Any>)->())?) ->  Void {
+public func NetWorkTeacherGetTPeriodPoint(params:[String:Any],callBack:((Array<Any>,Bool)->())?) ->  Void {
     
     var dataArr = [UrlModel]()
     Alamofire.request(kGet_TStudentWork3,
@@ -410,6 +419,7 @@ public func NetWorkTeacherGetTPeriodPoint(params:[String:Any],callBack:((Array<A
                                 
                                 let code =  JSOnDictory["code"].stringValue
                                 if code == "0" {
+                                    callBack!(dataArr,false)
                                     setToast(str: "上传成功返回失败")
                                 }
                                 
@@ -421,11 +431,12 @@ public func NetWorkTeacherGetTPeriodPoint(params:[String:Any],callBack:((Array<A
                                     let model  = UrlModel.setValueForUrlModel(json: json)
                                     dataArr.append(model)
                                 }
-                                callBack!(dataArr)
+                                callBack!(dataArr,true)
                             }
                             break
                         case .failure(let error):
                             print(error)
+                            callBack!(dataArr,false)
                             setToast(str: "获取练习册知识点失败")
                         }
     }
@@ -433,7 +444,7 @@ public func NetWorkTeacherGetTPeriodPoint(params:[String:Any],callBack:((Array<A
 
 
 //MARK:8   1-3 练习册 - 详情 - 参考答案
-public func NetWorkTeacherGetTPeriodAnswers(params:[String:Any],callBack:((Array<Any>)->())?) ->  Void {
+public func NetWorkTeacherGetTPeriodAnswers(params:[String:Any],callBack:((Array<Any>,Bool)->())?) ->  Void {
     
     var dataArr = [UrlModel]()
     Alamofire.request(kGet_TAllAnswersByWorkId,
@@ -448,6 +459,7 @@ public func NetWorkTeacherGetTPeriodAnswers(params:[String:Any],callBack:((Array
                                 
                                 let code =  JSOnDictory["code"].stringValue
                                 if code == "0" {
+                                    callBack!(dataArr,false)
                                     setToast(str: "上传成功返回失败")
                                 }
                                 
@@ -459,11 +471,12 @@ public func NetWorkTeacherGetTPeriodAnswers(params:[String:Any],callBack:((Array
                                     let model  = UrlModel.setValueForUrlModel(json: json)
                                     dataArr.append(model)
                                 }
-                                callBack!(dataArr)
+                                callBack!(dataArr,true)
                             }
                             break
                         case .failure(let error):
                             print(error)
+                            callBack!(dataArr,false)
                             setToast(str: "获取详情 - 参考答案失败")
                         }
     }
@@ -471,7 +484,7 @@ public func NetWorkTeacherGetTPeriodAnswers(params:[String:Any],callBack:((Array
 }
 
 //MARK:9  1-3 练习册详情  - 成绩统计  >> 根据练习册id获取详情
-public func NetWorkTeacherGetTStudentGrades(params:[String:Any],callBack:((Array<Any>)->())?) ->  Void {
+public func NetWorkTeacherGetTStudentGrades(params:[String:Any],callBack:((Array<Any>,Bool)->())?) ->  Void {
 
     var dataArr = [TShowGradeModel]()
     Alamofire.request(kGet_TStudentWork5,
@@ -486,6 +499,7 @@ public func NetWorkTeacherGetTStudentGrades(params:[String:Any],callBack:((Array
                                 
                                 let code =  JSOnDictory["code"].stringValue
                                 if code == "0" {
+                                    callBack!(dataArr,false)
                                     setToast(str: "上传成功返回失败")
                                 }
                                 
@@ -497,12 +511,12 @@ public func NetWorkTeacherGetTStudentGrades(params:[String:Any],callBack:((Array
                                     let model  = TShowGradeModel.setValueForTMyWorkTShowGradeModel(json: json)
                                     dataArr.append(model)
                                 }
-                                callBack!(dataArr)
+                                callBack!(dataArr,true)
                             }
                             break
                         case .failure(let error):
                             print(error)
-                            
+                            callBack!(dataArr,false)
                             setToast(str: "获取详情 - 成绩统计失败")
                         }
     }
@@ -616,7 +630,7 @@ public func NetWorkTeacherAddTWorkUploadContent(params:[String:Any],callBack:((B
                             break
                         case .failure(let error):
                             print(error)
-                            
+                            callBack!(false)
                             setToast(str: "手动填写上传失败")
                         }
     }
@@ -649,7 +663,7 @@ public func NetWorkTeacherAddTWorkUploadUploadPoints(params:[String:Any],callBac
                             break
                         case .failure(let error):
                             print(error)
-                            
+                            callBack!(false)
                             setToast(str: "上传知识点讲解失败")
                         }
     }
@@ -657,7 +671,7 @@ public func NetWorkTeacherAddTWorkUploadUploadPoints(params:[String:Any],callBac
 
 
 //MARK: 14    1-3-5 练习册 - 学生往期成绩
-public func NetWorkTeacherGetTScoresByStudentId(params:[String:Any],callBack:((Array<Any>)->())?) ->  Void {
+public func NetWorkTeacherGetTScoresByStudentId(params:[String:Any],callBack:((Array<Any>,Bool)->())?) ->  Void {
 
     var dataArr = [TShowGradeModel]()
     Alamofire.request(kGet_TScoresByStudentId,
@@ -673,6 +687,7 @@ public func NetWorkTeacherGetTScoresByStudentId(params:[String:Any],callBack:((A
                                 
                                 let code =  JSOnDictory["code"].stringValue
                                 if code == "0" {
+                                    callBack!(dataArr,false)
                                     setToast(str: "上传成功返回失败")
                                 }
                                 
@@ -684,12 +699,12 @@ public func NetWorkTeacherGetTScoresByStudentId(params:[String:Any],callBack:((A
                                     let model  = TShowGradeModel.setValueForTMyWorkTShowGradeModel(json: json)
                                     dataArr.append(model)
                                 }
-                                callBack!(dataArr)
+                                callBack!(dataArr,true)
                             }
                             break
                         case .failure(let error):
                             print(error)
-                            
+                            callBack!(dataArr,false)
                             setToast(str: "学生往期成绩失败")
                         }
     }
@@ -698,7 +713,7 @@ public func NetWorkTeacherGetTScoresByStudentId(params:[String:Any],callBack:((A
 
 
 //MARK: 15  2-0 查询所有非练习册数据 (没有老师批改过的所有fei练习册)
-public func NetWorkTeacherGetTAllNotWork(callBack:((Array<Any>)->())?) ->  Void {
+public func NetWorkTeacherGetTAllNotWork(callBack:((Array<Any>,Bool)->())?) ->  Void {
     let params =
         ["SESSIONID":SESSIONIDT,
          "mobileCode":mobileCodeT,
@@ -717,6 +732,7 @@ public func NetWorkTeacherGetTAllNotWork(callBack:((Array<Any>)->())?) ->  Void 
                                 
                                 let code =  JSOnDictory["code"].stringValue
                                 if code == "0" {
+                                    callBack!(dataArr,false)
                                     setToast(str: "上传成功返回失败")
                                 }
                                 
@@ -728,12 +744,12 @@ public func NetWorkTeacherGetTAllNotWork(callBack:((Array<Any>)->())?) ->  Void 
                                     let model  = TNotWorkModel.setValueForTNotWorkModel(json: json)
                                     dataArr.append(model)
                                 }
-                                callBack!(dataArr)
+                                callBack!(dataArr,true)
                             }
                             break
                         case .failure(let error):
                             print(error)
-                            
+                            callBack!(dataArr,false)
                             setToast(str: "教师端获取所有fei练习册失败")
                         }
     }
@@ -741,7 +757,7 @@ public func NetWorkTeacherGetTAllNotWork(callBack:((Array<Any>)->())?) ->  Void 
 
 
 //MARK:16  2-1 查询所有非练习册数据 (属于自己的所有fei练习册，所有状态)
-public func NetWorkTeacherGetTMyAllNotWork(callBack:((Array<Any>)->())?) ->  Void {
+public func NetWorkTeacherGetTMyAllNotWork(callBack:((Array<Any>,Bool)->())?) ->  Void {
     
     let params =
         ["SESSIONID":SESSIONIDT,
@@ -760,6 +776,7 @@ public func NetWorkTeacherGetTMyAllNotWork(callBack:((Array<Any>)->())?) ->  Voi
                                 
                                 let code =  JSOnDictory["code"].stringValue
                                 if code == "0" {
+                                    callBack!(dataArr,false)
                                     setToast(str: "上传成功返回失败")
                                 }
                                 
@@ -771,12 +788,12 @@ public func NetWorkTeacherGetTMyAllNotWork(callBack:((Array<Any>)->())?) ->  Voi
                                     let model  = TNotWorkModel.setValueForTNotWorkModel(json: json)
                                     dataArr.append(model)
                                 }
-                                callBack!(dataArr)
+                                callBack!(dataArr,true)
                             }
                             break
                         case .failure(let error):
                             print(error)
-                            
+                            callBack!(dataArr,false)
                             setToast(str: "属于自己的所有fei练习册失败")
                         }
     }
@@ -785,7 +802,7 @@ public func NetWorkTeacherGetTMyAllNotWork(callBack:((Array<Any>)->())?) ->  Voi
 
 
 //MARK:17  2-2 非练习册-详情 - 作业
-public func NetWorkTeacherGetTMyNotWorkDatails(params:[String:Any],callBack:((Array<Any>)->())?) ->  Void {
+public func NetWorkTeacherGetTMyNotWorkDatails(params:[String:Any],callBack:((Array<Any>,Bool)->())?) ->  Void {
     
     var dataArr = [TNotWorkDetailModel]()
     Alamofire.request(kGet_TMyNotWorkDatail,
@@ -800,6 +817,7 @@ public func NetWorkTeacherGetTMyNotWorkDatails(params:[String:Any],callBack:((Ar
                                 
                                 let code =  JSOnDictory["code"].stringValue
                                 if code == "0" {
+                                    callBack!(dataArr,false)
                                     setToast(str: "上传成功返回失败")
                                 }
                                 
@@ -811,12 +829,12 @@ public func NetWorkTeacherGetTMyNotWorkDatails(params:[String:Any],callBack:((Ar
                                     let model  = TNotWorkDetailModel.setValueForTNotWorkDetailModel(json: json)
                                     dataArr.append(model)
                                 }
-                                callBack!(dataArr)
+                                callBack!(dataArr,true)
                             }
                             break
                         case .failure(let error):
                             print(error)
-                            
+                            callBack!(dataArr,false)
                             setToast(str: "非练习册-详情失败")
                         }
     }
@@ -825,7 +843,7 @@ public func NetWorkTeacherGetTMyNotWorkDatails(params:[String:Any],callBack:((Ar
 
 
 //MARK:18  2-2    非练习册-详情-知识点讲解
-public func NetWorkTeacherGetTMyNotWorkDatailPoints(params:[String:Any],callBack:((Array<Any>)->())?) ->  Void {
+public func NetWorkTeacherGetTMyNotWorkDatailPoints(params:[String:Any],callBack:((Array<Any>,Bool)->())?) ->  Void {
     
     var dataArr = [UrlModel]()
     Alamofire.request(kGet_TMyNotWorkDatail2,
@@ -840,6 +858,7 @@ public func NetWorkTeacherGetTMyNotWorkDatailPoints(params:[String:Any],callBack
                                 
                                 let code =  JSOnDictory["code"].stringValue
                                 if code == "0" {
+                                    callBack!(dataArr,false)
                                     setToast(str: "上传成功返回失败")
                                 }
                                 
@@ -851,12 +870,12 @@ public func NetWorkTeacherGetTMyNotWorkDatailPoints(params:[String:Any],callBack
                                     let model  = UrlModel.setValueForUrlModel(json: json)
                                     dataArr.append(model)
                                 }
-                                callBack!(dataArr)
+                                callBack!(dataArr,true)
                             }
                             break
                         case .failure(let error):
                             print(error)
-                            
+                            callBack!(dataArr,false)
                             setToast(str: "非练习册-知识点讲解失败")
                         }
     }
@@ -864,7 +883,7 @@ public func NetWorkTeacherGetTMyNotWorkDatailPoints(params:[String:Any],callBack
 }
 
 //MARK:19  2-2-1    非练习册-详情-参考答案
-public func NetWorkTeacherGetTMyNotWorkDatailAnswers(params:[String:Any],callBack:((Array<Any>)->())?) ->  Void {
+public func NetWorkTeacherGetTMyNotWorkDatailAnswers(params:[String:Any],callBack:((Array<Any>,Bool)->())?) ->  Void {
 
     
     var dataArr = [TNotWorkModel]()
@@ -880,6 +899,7 @@ public func NetWorkTeacherGetTMyNotWorkDatailAnswers(params:[String:Any],callBac
                                 
                                 let code =  JSOnDictory["code"].stringValue
                                 if code == "0" {
+                                    callBack!(dataArr,false)
                                     setToast(str: "上传成功返回失败")
                                 }
                                 
@@ -891,11 +911,12 @@ public func NetWorkTeacherGetTMyNotWorkDatailAnswers(params:[String:Any],callBac
                                     let model  = TNotWorkModel.setValueForTNotWorkModel(json: json)
                                     dataArr.append(model)
                                 }
-                                callBack!(dataArr)
+                                callBack!(dataArr,true)
                             }
-                            break                        case .failure(let error):
+                            break
+                        case .failure(let error):
                                 print(error)
-                                
+                                callBack!(dataArr,false)
                                 setToast(str: "非练习册参考答案失败")
                         }
     }
@@ -904,7 +925,7 @@ public func NetWorkTeacherGetTMyNotWorkDatailAnswers(params:[String:Any],callBac
 
 
 //MARK:20  2-2   非练习册-详情-成绩统计
-public func NetWorkTeacherGetTMyNotWorkDatailGrades(params:[String:Any],callBack:((Array<Any>)->())?) ->  Void {
+public func NetWorkTeacherGetTMyNotWorkDatailGrades(params:[String:Any],callBack:((Array<Any>,Bool)->())?) ->  Void {
     
     var dataArr = [TNotWorkModel]()
     Alamofire.request(kGet_TMyNotWorkDatail4,
@@ -919,6 +940,7 @@ public func NetWorkTeacherGetTMyNotWorkDatailGrades(params:[String:Any],callBack
                                 
                                 let code =  JSOnDictory["code"].stringValue
                                 if code == "0" {
+                                    callBack!(dataArr,false)
                                     setToast(str: "上传成功返回失败")
                                 }
                                 
@@ -930,12 +952,12 @@ public func NetWorkTeacherGetTMyNotWorkDatailGrades(params:[String:Any],callBack
                                     let model  = TNotWorkModel.setValueForTNotWorkModel(json: json)
                                     dataArr.append(model)
                                 }
-                                callBack!(dataArr)
+                                callBack!(dataArr,true)
                             }
                             break
                         case .failure(let error):
                                 print(error)
-                                
+                                callBack!(dataArr,false)
                                 setToast(str: "非练习册-成绩统计失败")
                         }
     }
@@ -944,7 +966,7 @@ public func NetWorkTeacherGetTMyNotWorkDatailGrades(params:[String:Any],callBack
 
 
 //MARK:21  2-2-1    非练习册-详情-上传视频
-public func NetWorkTeacherAddTNotWorkUploadVideo(params:[String:Any],callBack:((Array<Any>)->())?) ->  Void {
+public func NetWorkTeacherAddTNotWorkUploadVideo(params:[String:Any],callBack:((Bool)->())?) ->  Void {
     
     Alamofire.request(kAdd_TNotWorkVideo,
                       method: .get, parameters: params,
@@ -952,11 +974,23 @@ public func NetWorkTeacherAddTNotWorkUploadVideo(params:[String:Any],callBack:((
                         print(response.result)
                         switch response.result {
                         case .success:
+                            if let j = response.result.value {
+                                let JSOnDictory = JSON(j)
+                                
+                                let code =  JSOnDictory["code"].stringValue
+                                if code == "0" {
+                                    callBack!(false)
+                                    setToast(str: "上传视频失败")
+                                }else{
+                                    callBack!(true)
+                                    setToast(str: "上传视频成功")
+                                }
+                            }
                             break
                         case .failure(let error):
                             print(error)
-                            
-                            setToast(str: "非练习册-详情上传视频失败")
+                            callBack!(false)
+                            setToast(str: "上传视频失败")
                         }
     }
     
@@ -965,7 +999,7 @@ public func NetWorkTeacherAddTNotWorkUploadVideo(params:[String:Any],callBack:((
 
 //MARK:未完成
 //MARK:22  2-2-2    非练习册-详情-上传文件
-public func NetWorkTeacherAddTNotWorkUploadFile(params:[String:Any],callBack:((Array<Any>)->())?) ->  Void {
+public func NetWorkTeacherAddTNotWorkUploadFile(params:[String:Any],callBack:((Bool)->())?) ->  Void {
     
     Alamofire.request(kAdd_TNotWorkFile,
                       method: .get, parameters: params,
@@ -973,13 +1007,23 @@ public func NetWorkTeacherAddTNotWorkUploadFile(params:[String:Any],callBack:((A
                         print(response.result)
                         switch response.result {
                         case .success:
-                            
-                            setToast(str: "完成")
+                            if let j = response.result.value {
+                                let JSOnDictory = JSON(j)
+                                
+                                let code =  JSOnDictory["code"].stringValue
+                                if code == "0" {
+                                    callBack!(false)
+                                    setToast(str: "上传文件失败")
+                                }else{
+                                    callBack!(true)
+                                    setToast(str: "上传文件成功")
+                                }
+                            }
                             break
                         case .failure(let error):
                             print(error)
                             
-                            setToast(str: "非练习册-详情失败")
+                            setToast(str: "上传文件失败")
                         }
     }
     
@@ -987,7 +1031,7 @@ public func NetWorkTeacherAddTNotWorkUploadFile(params:[String:Any],callBack:((A
 
 
 //MARK:23  2-2-3    非练习册-手动填写
-public func NetWorkTeacherAddTNotWorkUploadContent(params:[String:Any],callBack:((Array<Any>)->())?) ->  Void {
+public func NetWorkTeacherAddTNotWorkUploadContent(params:[String:Any],callBack:((Bool)->())?) ->  Void {
     
     Alamofire.request(kAdd_TNotWorkContent,
                       method: .post, parameters: params,
@@ -995,13 +1039,23 @@ public func NetWorkTeacherAddTNotWorkUploadContent(params:[String:Any],callBack:
                         print(response.result)
                         switch response.result {
                         case .success:
-                            
-                            setToast(str: "完成")
+                            if let j = response.result.value {
+                                let JSOnDictory = JSON(j)
+                                
+                                let code =  JSOnDictory["code"].stringValue
+                                if code == "0" {
+                                    callBack!(false)
+                                    setToast(str: "上传答案失败")
+                                }else{
+                                    callBack!(true)
+                                    setToast(str: "上传答案成功")
+                                }
+                            }
                             break
                         case .failure(let error):
                             print(error)
-                            
-                            setToast(str: "非练习册-详情手动填写失败")
+                            callBack!(false)
+                            setToast(str: "上传答案失败")
                         }
     }
     
@@ -1009,7 +1063,7 @@ public func NetWorkTeacherAddTNotWorkUploadContent(params:[String:Any],callBack:
 
 
 //MARK:24  2-2-3    非练习册-上传知识点
-public func NetWorkTeacherAddTNotWorkTheUploadPoints(params:[String:Any],callBack:((Array<Any>)->())?) ->  Void {
+public func NetWorkTeacherAddTNotWorkTheUploadPoints(params:[String:Any],callBack:((Bool)->())?) ->  Void {
     
     Alamofire.request(kAdd_TNotWorkChapter,
                       method: .post, parameters: params,
@@ -1017,13 +1071,23 @@ public func NetWorkTeacherAddTNotWorkTheUploadPoints(params:[String:Any],callBac
                         print(response.result)
                         switch response.result {
                         case .success:
-                            
-                            setToast(str: "完成")
+                            if let j = response.result.value {
+                                let JSOnDictory = JSON(j)
+                                
+                                let code =  JSOnDictory["code"].stringValue
+                                if code == "0" {
+                                    callBack!(false)
+                                    setToast(str: "上传答案失败")
+                                }else{
+                                    callBack!(true)
+                                    setToast(str: "上传答案成功")
+                                }
+                            }
                             break
                         case .failure(let error):
                             print(error)
-                            
-                            setToast(str: "非练习册-上传知识点失败")
+                            callBack!(false)
+                            setToast(str: "上传答案失败")
                         }
     }
     
@@ -1095,7 +1159,7 @@ func NetWorkTeacherCorrectWrokBookFrist(
 
 
 //MARK:5      照片模糊退回状态
-public func NetWorkTeacherGobackWrokBook(params:[String:Any],callBack:((Array<Any>)->())?) ->  Void {
+public func NetWorkTeacherGobackWrokBook(params:[String:Any],callBack:((Bool)->())?) ->  Void {
     
     Alamofire.request(kgoback_WrokBook,
                       method: .put, parameters: params,
@@ -1109,7 +1173,9 @@ public func NetWorkTeacherGobackWrokBook(params:[String:Any],callBack:((Array<An
                                 let code =  JSOnDictory["code"].stringValue
                                 if code == "0" {
                                     setToast(str: "练习册退回失败")
+                                    callBack!(false)
                                 }else{
+                                    callBack!(true)
                                     setToast(str: "练习册退回成功")
                                 }
                             }
@@ -1117,7 +1183,7 @@ public func NetWorkTeacherGobackWrokBook(params:[String:Any],callBack:((Array<An
                             break
                         case .failure(let error):
                             print(error)
-                            
+                            callBack!(false)
                             setToast(str: "练习册退回失败")
                         }
     }
@@ -1299,16 +1365,18 @@ public func NetWorkTeacherDeleteMyclasses(params:[String:Any],callBack:((Bool)->
                                 let JSOnDictory = JSON(j)
                                 let code =  JSOnDictory["code"].stringValue
                                 if code == "0" {
-                                    setToast(str: "上传成功返回失败")
+                                    callBack!(false)
+                                    setToast(str: "解散班级失败")
                                 }else{
+                                    callBack!(true)
                                     setToast(str: "解散班级成功")
                                 }
                             }
                             break
                         case .failure(let error):
                             print(error)
-                            
-                            setToast(str: "解散班级上传失败")
+                            callBack!(false)
+                            setToast(str: "解散班级失败")
                         }
     }
 }
@@ -1328,16 +1396,18 @@ public func NetWorkTeacherTeacherAddToClasses(params:[String:Any],callBack:((Boo
                                 let JSOnDictory = JSON(j)
                                 let code =  JSOnDictory["code"].stringValue
                                 if code == "0" {
-                                    setToast(str: "上传成功返回失败")
+                                    callBack!(false)
+                                    setToast(str: "申请失败")
                                 }else{
-                                    setToast(str: "老师申请加入班级成功")
+                                    callBack!(true)
+                                    setToast(str: "申请成功")
                                 }
                             }
                             break
                         case .failure(let error):
                             print(error)
-                            
-                            setToast(str: "老师申请加入班级上传失败")
+                            callBack!(false)
+                            setToast(str: "申请失败")
                         }
     }
 }
@@ -1357,23 +1427,25 @@ public func NetWorkTeacherTeacherBulidClasses(params:[String:Any],callBack:((Boo
                                 let JSOnDictory = JSON(j)
                                 let code =  JSOnDictory["code"].stringValue
                                 if code == "0" {
-                                    setToast(str: "上传成功返回失败")
+                                    callBack!(false)
+                                    setToast(str: "创建失败")
                                 }else{
-                                    setToast(str: "创建班级成功")
+                                    callBack!(true)
+                                    setToast(str: "创建成功")
                                 }
                             }
                             break
                         case .failure(let error):
                             print(error)
-                            
-                            setToast(str: "创建班级上传失败")
+                            callBack!(false)
+                            setToast(str: "创建失败")
                         }
     }
 }
 
 
 //MARK:16      查询每个班级的课时目录
-public func NetWorkTeacherTeacherSelectAllPeriods(params:[String:Any],callBack:((Array<Any>)->())?) ->  Void {
+public func NetWorkTeacherTeacherSelectAllPeriods(params:[String:Any],callBack:((Array<Any>,Bool)->())?) ->  Void {
     
     var dataArr = [TPeriodsModel]()
     Alamofire.request(kSelect_AllPeriods,
@@ -1387,9 +1459,8 @@ public func NetWorkTeacherTeacherSelectAllPeriods(params:[String:Any],callBack:(
                                 let JSOnDictory = JSON(j)
                                 let code =  JSOnDictory["code"].stringValue
                                 if code == "0" {
-                                    setToast(str: "上传成功返回失败")
-                                }else{
-                                    setToast(str: "查询每个班级的课时目录成功")
+                                    setToast(str: "获取失败")
+                                    callBack!(dataArr,false)
                                 }
                                 let datas =  JSOnDictory["data"].arrayValue
                                 for index in 0..<datas.count {
@@ -1398,13 +1469,13 @@ public func NetWorkTeacherTeacherSelectAllPeriods(params:[String:Any],callBack:(
                                     let model  = TPeriodsModel.setValueForTPeriodsModel(json: json)
                                     dataArr.append(model)
                                 }
-                                callBack!(dataArr)
+                                callBack!(dataArr,true)
                             }
                             break
                         case .failure(let error):
                             print(error)
-                            
-                            setToast(str: "查询每个班级的课时目录上传失败")
+                            callBack!(dataArr,false)
+                            setToast(str: "获取失败")
                         }
     }
 }
@@ -1424,23 +1495,25 @@ public func NetWorkTeacherTeacherBulidperiods(params:[String:Any],callBack:((Boo
                                 let JSOnDictory = JSON(j)
                                 let code =  JSOnDictory["code"].stringValue
                                 if code == "0" {
-                                    setToast(str: "上传成功返回失败")
+                                    setToast(str: "上传失败")
+                                    callBack!(false)
                                 }else{
-                                    setToast(str: "兴建课时名称成功")
+                                    setToast(str: "上传成功")
+                                    callBack!(true)
                                 }
                             }
                             break
                         case .failure(let error):
                             print(error)
-                            
-                            setToast(str: "兴建课时名称上传失败")
+                            setToast(str: "上传失败")
+                            callBack!(false)
                         }
     }
 }
 
 
 //MARK:18      查询班级作业
-public func NetWorkTeacherSelectClassBook(params:[String:Any],callBack:((Array<Any>)->())?) ->  Void {
+public func NetWorkTeacherSelectClassBook(params:[String:Any],callBack:((Array<Any>,Bool)->())?) ->  Void {
     
     var dataArr = [TShowClassWorksModel]()
     Alamofire.request(kSelect_ClassBook,
@@ -1454,9 +1527,8 @@ public func NetWorkTeacherSelectClassBook(params:[String:Any],callBack:((Array<A
                                 let JSOnDictory = JSON(j)
                                 let code =  JSOnDictory["code"].stringValue
                                 if code == "0" {
-                                    setToast(str: "上传成功返回失败")
-                                }else{
-                                    setToast(str: "查询班级作业成功")
+                                    callBack!(dataArr,false)
+                                    setToast(str: "获取失败")
                                 }
                                 
                                 let datas =  JSOnDictory["data"].arrayValue
@@ -1466,14 +1538,14 @@ public func NetWorkTeacherSelectClassBook(params:[String:Any],callBack:((Array<A
                                     let model  = TShowClassWorksModel.setValueForTShowClassWorksModel(json: json)
                                     dataArr.append(model)
                                 }
-                                callBack!(dataArr)
+                                callBack!(dataArr,true)
 
                             }
                             break
                         case .failure(let error):
                             print(error)
-                            
-                            setToast(str: "查询班级作业上传失败")
+                            callBack!(dataArr,false)
+                            setToast(str: "获取失败")
                         }
     }
 }
@@ -1587,7 +1659,7 @@ func NetWorkTeacherCorrectClassBookNext(
 
 
 //MARK:21     获取班级成员
-public func NetWorkTeacherGetClassMember(params:[String:Any],callBack:((Array<Any>)->())?) ->  Void {
+public func NetWorkTeacherGetClassMember(params:[String:Any],callBack:((Array<Any>,Bool)->())?) ->  Void {
     
     var dataArr = [TClassMemberModel]()
     Alamofire.request(kGet_ClassMember,
@@ -1602,27 +1674,27 @@ public func NetWorkTeacherGetClassMember(params:[String:Any],callBack:((Array<An
                                 let JSOnDictory = JSON(j)
                                 let code =  JSOnDictory["code"].stringValue
                                 if code == "0" {
-                                    setToast(str: "上传成功返回失败")
-                                }else{
-                                    setToast(str: "获取班级成员成功")
+                                    callBack!(dataArr,false)
+                                    setToast(str: "获取失败")
                                 }
                                 
                                 let datas =  JSOnDictory["data"]
                                 let model  = TClassMemberModel.setValueForTClassMemberModel(json: datas)
                                 dataArr.append(model)
-                                callBack!(dataArr)
+                                callBack!(dataArr,true)
                             }
                             break
                         case .failure(let error):
                             print(error)
-                            setToast(str: "获取班级成员失败")
+                            callBack!(dataArr,false)
+                            setToast(str: "获取失败")
                         }
     }
 }
 
 
 //MARK:意见和建议
-public func netWorkForSuggestion(params:[String:Any],callBack:((String)->())?) ->  Void {
+public func netWorkForSuggestion(params:[String:Any],callBack:((Bool)->())?) ->  Void {
     //    let dataArr = NSMutableArraRy()
     let mainQueue = DispatchQueue.main;
     
@@ -1632,20 +1704,32 @@ public func netWorkForSuggestion(params:[String:Any],callBack:((String)->())?) -
                         print(response.result)
                         switch response.result {
                         case .success:
+                            if let j = response.result.value {
+                                
+                                //SwiftyJSON解析数据
+                                let JSOnDictory = JSON(j)
+                                let code =  JSOnDictory["code"].stringValue
+                                if code == "0" {
+                                    callBack!(false)
+                                    setToast(str: "上传失败")
+                                }else{
+                                    callBack!(true)
+                                    setToast(str: "上传成功")
+                                }
+                            }
                             
-                            setToast(str: "完成")
                             break
                         case .failure(let error):
                             print(error)
-
-                            setToast(str: "反馈意见和建议失败")
+                            callBack!(false)
+                            setToast(str: "上传失败")
                         }
     }
     
 }
 
 //MARK:4-4消息中心
-public func netWorkForGetMessages(params:[String:Any],callBack:((Array<Any>)->())?) ->  Void {
+public func netWorkForGetMessages(params:[String:Any],callBack:((Array<Any>,Bool)->())?) ->  Void {
     var dataArr = [MessageModel]()
     let mainQueue = DispatchQueue.main;
     
@@ -1659,21 +1743,24 @@ public func netWorkForGetMessages(params:[String:Any],callBack:((Array<Any>)->()
                             if let j = response.result.value {
                                 //SwiftyJSON解析数据
                                 let JSOnDictory = JSON(j)
+                                let code =  JSOnDictory["code"].stringValue
+                                if code == "0" {
+                                    callBack!(dataArr,false)
+                                    setToast(str: "获取失败")
+                                }
                                 let datas =  JSOnDictory["data"].arrayValue
-                                
                                 for index in 0..<datas.count {
                                     
                                     let json = datas[index]
                                     let model  = MessageModel.setValueForMessageModel(json: json)
                                     dataArr.append(model)
                                 }
-                                callBack!(dataArr)
+                                callBack!(dataArr,true)
                             }
                             break
                         case .failure(let error):
-                            print(error)
-                            
-                            setToast(str: "消息中心数据获取失败")
+                            callBack!(dataArr,false)
+                            setToast(str: "获取失败")
                         }
     }
     
@@ -1681,7 +1768,7 @@ public func netWorkForGetMessages(params:[String:Any],callBack:((Array<Any>)->()
 
 
 //MARK:(老师端3-3创建班级)接口
-public func netWorkForInsertClasses(params:[String:Any],callBack:((String)->())?) ->  Void {
+public func netWorkForInsertClasses(params:[String:Any],callBack:((Bool)->())?) ->  Void {
     //    let dataArr = NSMutableArraRy()
 
     Alamofire.request("kInsert_Classes",
@@ -1695,14 +1782,23 @@ public func netWorkForInsertClasses(params:[String:Any],callBack:((String)->())?
                         print(response.result)
                         switch response.result {
                         case .success:
-                            setToast(str: "完成")
-                            
-                            
+                            if let j = response.result.value {
+                                //SwiftyJSON解析数据
+                                let JSOnDictory = JSON(j)
+                                let code =  JSOnDictory["code"].stringValue
+                                if code == "0" {
+                                    callBack!(false)
+                                    setToast(str: "获取失败")
+                                }else{
+                                    callBack!(true)
+                                    setToast(str: "创建成功")
+                                }
+                            }
                             break
                         case .failure(let error):
                             print(error)
-
-                            setToast(str: "创建班级失败")
+                            callBack!(false)
+                            setToast(str: "获取失败")
                         }
     }
     
@@ -1710,7 +1806,7 @@ public func netWorkForInsertClasses(params:[String:Any],callBack:((String)->())?
 
 
 //MARK:(老师端4-3-1添加好友)接口
-public func netWorkForInsertFriends(params:[String:Any],callBack:((String)->())?) ->  Void {
+public func netWorkForInsertFriends(params:[String:Any],callBack:((Bool)->())?) ->  Void {
     //    let dataArr = NSMutableArraRy()
     
     Alamofire.request(kInsert_Friend,
@@ -1719,15 +1815,23 @@ public func netWorkForInsertFriends(params:[String:Any],callBack:((String)->())?
                         print(response.result)
                         switch response.result {
                         case .success:
-                            
-                            setToast(str: "完成")
-                            
-                            
+                            if let j = response.result.value {
+                                //SwiftyJSON解析数据
+                                let JSOnDictory = JSON(j)
+                                let code =  JSOnDictory["code"].stringValue
+                                if code == "0" {
+                                    callBack!(false)
+                                    setToast(str: "发送请求失败")
+                                }else{
+                                    callBack!(true)
+                                    setToast(str: "发送请求成功")
+                                }
+                            }
                             break
                         case .failure(let error):
                             print(error)
-
-                            setToast(str: "添加好友失败")
+                            callBack!(false)
+                            setToast(str: "发送请求失败")
                         }
     }
 }
@@ -1744,7 +1848,7 @@ public func netWorkForInsertFriends(params:[String:Any],callBack:((String)->())?
 
 
 //MARK:(学生端获取所有的练习册)接口
-public func netWorkForGetAllWorkBook(callBack:((Array<Any>)->())?) -> Void {
+public func netWorkForGetAllWorkBook(callBack:((Array<Any>,Bool)->())?) -> Void {
     
     var dataArr = [WorkBookModel]()
     let params =
@@ -1760,6 +1864,11 @@ public func netWorkForGetAllWorkBook(callBack:((Array<Any>)->())?) -> Void {
                             if let j = response.result.value {
                                 //SwiftyJSON解析数据
                                 let JSOnDictory = JSON(j)
+                                let code =  JSOnDictory["code"].stringValue
+                                if code == "0" {
+                                    callBack!(dataArr,false)
+                                    setToast(str: "获取失败")
+                                }
                                 let datas =  JSOnDictory["data"].arrayValue
                                 
                                 for index in 0..<datas.count {
@@ -1770,20 +1879,21 @@ public func netWorkForGetAllWorkBook(callBack:((Array<Any>)->())?) -> Void {
                                         dataArr.append(model)
                                     }
                                 }
-                                callBack!(dataArr)
+                                callBack!(dataArr,true)
                             }
 
                             break
                         case .failure(let error):
                             print(error)
                             setToast(str: "获取所有的练习册失败")
+                            callBack!(dataArr,false)
                         }
     }
     
 }
 
 //MARK:(学生端搜索练习册)接口
-public func netWorkForSearchWorkBook(params:[String:Any],callBack:((Array<Any>)->())?) ->  Void {
+public func netWorkForSearchWorkBook(params:[String:Any],callBack:((Array<Any>,Bool)->())?) ->  Void {
     //    let dataArr = NSMutableArraRy()
     var dataArr = [WorkBookModel]()
     Alamofire.request(kGet_AllWorkBook,
@@ -1797,19 +1907,25 @@ public func netWorkForSearchWorkBook(params:[String:Any],callBack:((Array<Any>)-
                                 //SwiftyJSON解析数据
                                 let JSOnDictory = JSON(j)
                                 let datas =  JSOnDictory["data"].arrayValue
-                                
+                                let code =  JSOnDictory["code"].stringValue
+                                if code == "0" {
+                                    callBack!(dataArr,false)
+                                    setToast(str: "搜索失败")
+                                }
+
                                 for index in 0..<datas.count {
                                     
                                     let json = datas[index]
                                     let model  = WorkBookModel.setValueForWorkBookModel(json: json)
                                     dataArr.append(model)
                                 }
-                                callBack!(dataArr)
+                                callBack!(dataArr,true)
                             }
                             break
                         case .failure(let error):
                             print(error)
-                            setToast(str: "搜索练习册失败")
+                            callBack!(dataArr,false)
+                            setToast(str: "搜索失败")
                         }
     }
     
@@ -1831,8 +1947,10 @@ public func netWorkForAddWorkBookToMe(params:[String:Any],callBack:((Bool)->())?
                                 let JSOnDictory = JSON(j)
                                 let code =  JSOnDictory["code"].stringValue
                                 if code == "0" {
+                                    callBack!(false)
                                     setToast(str: "添加练习册失败")
                                 }else{
+                                    callBack!(true)
                                     setToast(str: "添加作业成功")
                                 }
                             }
@@ -1849,7 +1967,7 @@ public func netWorkForAddWorkBookToMe(params:[String:Any],callBack:((Bool)->())?
 
 
 //MARK:(学生端  我的练习册)接口
-public func netWorkForMyWorkBook(callBack:((Array<Any>)->())?) ->  Void {
+public func netWorkForMyWorkBook(callBack:((Array<Any>,Bool)->())?) ->  Void {
     
     var dataArr = [WorkBookModel]()
     let dic = ["SESSIONID":SESSIONID,"mobileCode":mobileCode]
@@ -1864,6 +1982,11 @@ public func netWorkForMyWorkBook(callBack:((Array<Any>)->())?) ->  Void {
                                 //SwiftyJSON解析数据
                                 let JSOnDictory = JSON(j)
                                 let datas =  JSOnDictory["data"].arrayValue
+                                let code =  JSOnDictory["code"].stringValue
+                                if code == "0" {
+                                    callBack!(dataArr,false)
+                                    setToast(str: "获取失败")
+                                }
                                 
                                 for index in 0..<datas.count {
                                     
@@ -1873,14 +1996,14 @@ public func netWorkForMyWorkBook(callBack:((Array<Any>)->())?) ->  Void {
                                     dataArr.append(model)
                                 }
                                 
-                                callBack!(dataArr)
+                                callBack!(dataArr,true)
                             }
                             
                             break
                         case .failure(let error):
                             print(error)
-
-                            setToast(str: "我的练习册失败")
+                            callBack!(dataArr,false)
+                            setToast(str: "获取失败")
                         }
     }
     
@@ -1888,7 +2011,7 @@ public func netWorkForMyWorkBook(callBack:((Array<Any>)->())?) ->  Void {
 
 
 //MARK:(学生端  删除我的练习册)接口
-public func netWorkForDeleteMyWorkBook(params:[String:Any],callBack:((String)->())?) ->  Void {
+public func netWorkForDeleteMyWorkBook(params:[String:Any],callBack:((Bool)->())?) ->  Void {
     //    let dataArr = NSMutableArraRy()
     
     Alamofire.request(kDelete_MyWorkBook,
@@ -1897,12 +2020,22 @@ public func netWorkForDeleteMyWorkBook(params:[String:Any],callBack:((String)->(
                         print(response.result)
                         switch response.result {
                         case .success:
-                            setToast(str: "完成")
-                            callBack!("done")
+                            if let j = response.result.value {
+                                //SwiftyJSON解析数据
+                                let JSOnDictory = JSON(j)
+                                let code =  JSOnDictory["code"].stringValue
+                                if code == "0" {
+                                    callBack!(false)
+                                    setToast(str: "删除失败")
+                                }else{
+                                    callBack!(true)
+                                    setToast(str: "删除成功")
+                                }
+                            }
                             break
                         case .failure(let error):
-                            print(error)
-                            setToast(str: "删除我的练习册失败")
+                            callBack!(false)
+                            setToast(str: "删除失败")
                         }
     }
     
@@ -2012,7 +2145,7 @@ func netWorkForUploadWorkBookNext(
 }
 
 //MARK:(学生端  获取用户练习册详情)接口
-public func netWorkForGetWorkBookByTime(params:[String:Any],callBack:((Array<Any>)->())?) ->  Void {
+public func netWorkForGetWorkBookByTime(params:[String:Any],callBack:((Array<Any>,Bool)->())?) ->  Void {
     
     var dataArr = [BookDetailModel]()
     
@@ -2025,18 +2158,22 @@ public func netWorkForGetWorkBookByTime(params:[String:Any],callBack:((Array<Any
                             if let j = response.result.value {
                                 //SwiftyJSON解析数据
                                 let JSOnDictory = JSON(j)
-                                
+                                let code =  JSOnDictory["code"].stringValue
+                                if code == "0" {
+                                    callBack!(dataArr,false)
+                                    setToast(str: "获取失败")
+                                }
+
                                 let model  = BookDetailModel.setValueForBookDetailModel(json: JSOnDictory["data"])
                                     dataArr.append(model)
                                 
-                                callBack!(dataArr)
+                                callBack!(dataArr,true)
                             }
-                            setToast(str: "用户根据时间查询成功")
                             break
                         case .failure(let error):
                             print(error)
-
-                            setToast(str: "用户根据时间查询失败")
+                            callBack!(dataArr,false)
+                            setToast(str: "获取失败")
                         }
     }
     
@@ -2044,7 +2181,7 @@ public func netWorkForGetWorkBookByTime(params:[String:Any],callBack:((Array<Any
 
 
 //MARK:(学生端  用户根据时间查询该练习册详情的日期)接口
-public func netWorkForGetWorkBookTime(params:[String:Any],callBack:((Array<Any>)->())?) ->  Void {
+public func netWorkForGetWorkBookTime(params:[String:Any],callBack:((Array<Any>,Bool)->())?) ->  Void {
     
     var dataArr = [String]()
     Alamofire.request(kGetWork_BookTime,
@@ -2057,6 +2194,12 @@ public func netWorkForGetWorkBookTime(params:[String:Any],callBack:((Array<Any>)
                             if let j = response.result.value {
                                 //SwiftyJSON解析数据
                                 let JSOnDictory = JSON(j)
+                                let code =  JSOnDictory["code"].stringValue
+                                if code == "0" {
+                                    callBack!(dataArr,false)
+                                    setToast(str: "获取日期失败")
+                                }
+
                                 let datas =  JSOnDictory["data"].arrayValue
 
                                 for index in 0..<datas.count {
@@ -2064,12 +2207,13 @@ public func netWorkForGetWorkBookTime(params:[String:Any],callBack:((Array<Any>)
                                     let str = json.stringValue
                                     dataArr.append(str)
                                 }
-                                callBack!(dataArr)
+                                callBack!(dataArr,true)
                             }
                             break
                         case .failure(let error):
                             print(error)
-                            setToast(str: "用户根据时间查询失败")
+                            callBack!(dataArr,false)
+                            setToast(str: "获取日期失败")
                         }
     }
     
@@ -2086,12 +2230,22 @@ public func netWorkForBulidComplaint(params:[String:Any],callBack:((Bool)->())?)
                         print(response.result)
                         switch response.result {
                         case .success:
-                            
-                            callBack!(true)
+                            if let j = response.result.value {
+                                //SwiftyJSON解析数据
+                                let JSOnDictory = JSON(j)
+                                let code =  JSOnDictory["code"].stringValue
+                                if code == "0" {
+                                    callBack!(false)
+                                    setToast(str: "投诉失败")
+                                }else{
+                                    callBack!(true)
+                                    setToast(str: "投诉成功")
+                                }
+                            }
                             break
                         case .failure(let error):
                             print(error)
-
+                            callBack!(false)
                             setToast(str: " 投诉失败")
                             callBack!(false)
                         }
@@ -2161,7 +2315,7 @@ func netWorkForBulidWrokBook(
 
 
 //MARK:(学生端  我的资料)接口
-public func netWorkForMyData(callBack:((Array<Any>)->())?) ->  Void {
+public func netWorkForMyData(callBack:((Array<Any>,Bool)->())?) ->  Void {
 
     var dataArr = [PersonalModel]()
     let params = [
@@ -2178,7 +2332,12 @@ public func netWorkForMyData(callBack:((Array<Any>)->())?) ->  Void {
                                 //SwiftyJSON解析数据
                                 let JSOnDictory = JSON(j)
                                 let datas =  JSOnDictory["data"].arrayValue
-                                
+                                let code =  JSOnDictory["code"].stringValue
+                                if code == "0" {
+                                    callBack!(dataArr,false)
+                                    setToast(str: "获取资料失败")
+                                }
+
                                 for index in 0..<datas.count {
                                     
                                     let json = datas[index]
@@ -2187,13 +2346,13 @@ public func netWorkForMyData(callBack:((Array<Any>)->())?) ->  Void {
                                     dataArr.append(model)
                                 }
                                 
-                                callBack!(dataArr)
+                                callBack!(dataArr,true)
                             }
                                 break
                         case .failure(let error):
                             print(error)
-
-                            setToast(str: "我的资料失败")
+                            callBack!(dataArr,false)
+                            setToast(str: "获取资料失败")
                         }
     }
     
@@ -2263,7 +2422,7 @@ func upLoadImageRequest(
 
 
 //MARK:(学生端 查询我的学币使用)接口
-public func netWorkForMyCoin(callBack:((Array<Any>)->())?) ->  Void {
+public func netWorkForMyCoin(callBack:((Array<Any>,Bool)->())?) ->  Void {
     
     var dataArr = [AccountModel]()
     let params = [
@@ -2283,7 +2442,12 @@ public func netWorkForMyCoin(callBack:((Array<Any>)->())?) ->  Void {
                                 //SwiftyJSON解析数据
                                 let JSOnDictory = JSON(j)
                                 let datas =  JSOnDictory["data"].arrayValue
-                                
+                                let code =  JSOnDictory["code"].stringValue
+                                if code == "0" {
+                                    callBack!(dataArr,false)
+                                    setToast(str: "获取学币失败")
+                                }
+
                                 for index in 0..<datas.count {
                                     
                                     let json = datas[index]
@@ -2292,14 +2456,14 @@ public func netWorkForMyCoin(callBack:((Array<Any>)->())?) ->  Void {
                                     dataArr.append(model)
                                 }
                                 
-                                callBack!(dataArr)
+                                callBack!(dataArr,true)
                             }
                             
                             break
                         case .failure(let error):
                             print(error)
-
-                            setToast(str: "查询我的学币使用失败")
+                            callBack!(dataArr,false)
+                            setToast(str: "获取学币失败")
                         }
     }
     
@@ -2307,7 +2471,7 @@ public func netWorkForMyCoin(callBack:((Array<Any>)->())?) ->  Void {
 
 
 //MARK:(学生端  查询指定)接口
-public func netWorkForGetSpecifiedUser(params:[String:String],callBack:((Array<Any>)->())?) ->  Void {
+public func netWorkForGetSpecifiedUser(params:[String:String],callBack:((Array<Any>,Bool)->())?) ->  Void {
     
     var dataArr = [FriendsModel]()
     Alamofire.request(kGet_AllPeope,
@@ -2321,7 +2485,11 @@ public func netWorkForGetSpecifiedUser(params:[String:String],callBack:((Array<A
                                 //SwiftyJSON解析数据
                                 let JSOnDictory = JSON(j)
                                 let datas =  JSOnDictory["data"]["AllPeope"].arrayValue
-
+                                let code =  JSOnDictory["code"].stringValue
+                                if code == "0" {
+                                    callBack!(dataArr,false)
+                                    setToast(str: "查找失败")
+                                }
                                 for index in 0..<datas.count {
                                     
                                     let json = datas[index]
@@ -2332,19 +2500,19 @@ public func netWorkForGetSpecifiedUser(params:[String:String],callBack:((Array<A
                                 if dataArr.count == 0 {
                                      setToast(str: "未找到该用户")
                                 }
-                                callBack!(dataArr)
+                                callBack!(dataArr,true)
                             }
                             break
                         case .failure(let error):
                             print(error)
-                            setToast(str: "查询指定用户失败")
-                            callBack!(dataArr)
+                            setToast(str: "查找失败")
+                            callBack!(dataArr,false)
                         }
     }
 }
 
 //MARK:(学生端  查询所有用户)接口
-public func netWorkForGetAllPeope(callBack:((Array<Any>)->())?) ->  Void {
+public func netWorkForGetAllPeope(callBack:((Array<Any>,Bool)->())?) ->  Void {
     
     var dataArr = [FriendsModel]()
     let params = [
@@ -2362,7 +2530,11 @@ public func netWorkForGetAllPeope(callBack:((Array<Any>)->())?) ->  Void {
                                 //SwiftyJSON解析数据
                                 let JSOnDictory = JSON(j)
                                 let datas =  JSOnDictory["data"]["AllPeope"].arrayValue
-                                
+                                let code =  JSOnDictory["code"].stringValue
+                                if code == "0" {
+                                    callBack!(dataArr,false)
+                                    setToast(str: "查找失败")
+                                }
                                 for index in 0..<datas.count {
                                     
                                     let json = datas[index]
@@ -2371,13 +2543,13 @@ public func netWorkForGetAllPeope(callBack:((Array<Any>)->())?) ->  Void {
                                     dataArr.append(model)
                                 }
                                 
-                                callBack!(dataArr)
+                                callBack!(dataArr,true)
                             }
                             break
                         case .failure(let error):
                             print(error)
-                            setToast(str: "查询所有用户失败")
-                            callBack!(dataArr)
+                            callBack!(dataArr,false)
+                            setToast(str: "查找失败")
                         }
     }
 }
@@ -2392,13 +2564,23 @@ public func netWorkForApplyFriend(params:[String:String],callBack:((Bool)->())?)
                         print(response.result)
                         switch response.result {
                         case .success:
-                            
-                            callBack!(true)
+                            if let j = response.result.value {
+                                //SwiftyJSON解析数据
+                                let JSOnDictory = JSON(j)
+                                let code =  JSOnDictory["code"].stringValue
+                                if code == "0" {
+                                    callBack!(false)
+                                    setToast(str: "发送申请失败")
+                                }else{
+                                    setToast(str: "发送申请成功")
+                                    callBack!(true)
+                                }
+                            }
                             break
                         case .failure(let error):
                             print(error)
                             
-                            setToast(str: "申请成为好友失败")
+                            setToast(str: "发送申请失败")
                             callBack!(false)
                         }
     }
@@ -2424,7 +2606,12 @@ public func netWorkForApplyList(callBack:((Array<Any>,Bool)->())?) {
                                 //SwiftyJSON解析数据
                                 let JSOnDictory = JSON(j)
                                 let datas =  JSOnDictory["data"].arrayValue
-                                
+                                let code =  JSOnDictory["code"].stringValue
+                                if code == "0" {
+                                    callBack!(dataArr,false)
+                                    setToast(str: "请求失败")
+                                }
+
                                 for index in 0..<datas.count {
                                     
                                     let json = datas[index]
@@ -2444,9 +2631,8 @@ public func netWorkForApplyList(callBack:((Array<Any>,Bool)->())?) {
                             break
                         case .failure(let error):
                             print(error)
-                            
-                            setToast(str: "查看好友申请表失败")
                             callBack!(dataArr,false)
+                            setToast(str: "请求失败")
                         }
     }
 }
@@ -2462,13 +2648,24 @@ public func netWorkForDoAllow(params:[String:Any],callBack:((Bool)->())?) ->  Vo
                         print(response.result)
                         switch response.result {
                         case .success:
-                            
-                            callBack!(true)
+                            if let j = response.result.value {
+                                //SwiftyJSON解析数据
+                                let JSOnDictory = JSON(j)
+                                let code =  JSOnDictory["code"].stringValue
+                                if code == "0" {
+                                    callBack!(false)
+                                    setToast(str: "请求失败")
+                                }else{
+                                    setToast(str: "请求成功")
+                                    callBack!(true)
+                                }
+
+                            }
                             break
                         case .failure(let error):
                             print(error)
-                            
-                            setToast(str: "对请求进行操作失败")
+                            callBack!(false)
+                            setToast(str: "请求失败")
                             callBack!(false)
                         }
     }
@@ -2492,7 +2689,11 @@ public func netWorkForMyFriend(callBack:((Array<Any>,Bool)->())?) ->  Void {
                                 //SwiftyJSON解析数据
                                 let JSOnDictory = JSON(j)
                                 let datas =  JSOnDictory["data"].arrayValue
-                                
+                                let code =  JSOnDictory["code"].stringValue
+                                if code == "0" {
+                                    callBack!(dataArr,false)
+                                    setToast(str: "请求失败")
+                                }
                                 for index in 0..<datas.count {
                                     
                                     let json = datas[index]
@@ -2501,14 +2702,13 @@ public func netWorkForMyFriend(callBack:((Array<Any>,Bool)->())?) ->  Void {
                                     dataArr.append(model)
                                 }
                                 
-                                callBack!(dataArr, true)
+                                callBack!(dataArr,true)
                             }
                             break
                         case .failure(let error):
                             print(error)
-                            
-                            setToast(str: "查看好友申请表失败")
                             callBack!(dataArr,false)
+                            setToast(str: "请求失败")
                         }
     }
 }
@@ -2530,7 +2730,11 @@ public func netWorkForDelMyFriend(params:[String:Any],callBack:((Bool)->())?) ->
                                 let JSOnDictory = JSON(j)
                                 let datas =  JSOnDictory["code"].stringValue
                                 if datas == "0" {
-                                    setToast(str: "删除好友上传成功返回失败")
+                                    callBack!(false)
+                                    setToast(str: "删除好友失败")
+                                }else{
+                                    callBack!(false)
+                                    setToast(str: "删除成功")
                                 }
                             }
                             
@@ -2538,7 +2742,6 @@ public func netWorkForDelMyFriend(params:[String:Any],callBack:((Bool)->())?) ->
                             break
                         case .failure(let error):
                             print(error)
-                            
                             setToast(str: "删除好友失败")
                             callBack!(false)
                         }
@@ -2701,7 +2904,7 @@ public func netWorkForAddNonExerciseNext(
 
 
 //MARK:24(学生端 我的班级)接口
-public func netWorkForMyClass(params:[String:Any],callBack:((Array<Any>)->())?) ->  Void {
+public func netWorkForMyClass(params:[String:Any],callBack:((Array<Any>,Bool)->())?) ->  Void {
     
     var dataArr = [ClassModel]()
     Alamofire.request(kMy_Classes,
@@ -2714,7 +2917,11 @@ public func netWorkForMyClass(params:[String:Any],callBack:((Array<Any>)->())?) 
                                 //SwiftyJSON解析数据
                                 let JSOnDictory = JSON(j)
                                 let datas =  JSOnDictory["data"].arrayValue
-                                
+                                let code =  JSOnDictory["code"].stringValue
+                                if code == "0" {
+                                    setToast(str: "请求失败")
+                                    callBack!(dataArr,false)
+                                }
                                 for index in 0..<datas.count {
                                     
                                     let json = datas[index]
@@ -2722,12 +2929,13 @@ public func netWorkForMyClass(params:[String:Any],callBack:((Array<Any>)->())?) 
                                     let model  = ClassModel.setValueForClassModel(json: json)
                                     dataArr.append(model)
                                 }
-                                callBack!(dataArr)
+                                callBack!(dataArr,true)
                             }
                             break
                         case .failure(let error):
                             print(error)
-                            setToast(str: "我的班级失败")
+                            callBack!(dataArr,false)
+                            setToast(str: "请求失败")
                         }
     }
 }
@@ -2889,6 +3097,83 @@ public func netWorkForGetMyClassBookByPeriods(params:[String:Any],callBack:((Boo
 }
 
 
+
+//MARK: 31  接口说明 ： 非练习册列表展示（每页6条显示）
+public func NetWorkTeacherGetExerciseList(params:[String:Any],callBack:((Array<Any>)->())?) ->  Void {
+    
+    var dataArr = [SNotWorkModel]()
+    Alamofire.request(kGet_ExerciseList,
+                      method: .get, parameters: params,
+                      encoding: URLEncoding.default, headers: nil).responseJSON(queue:DispatchQueue.main, options: .allowFragments) { (response) in
+                        print(response.result)
+                        switch response.result {
+                        case .success:
+                            if let j = response.result.value {
+                                //SwiftyJSON解析数据
+                                let JSOnDictory = JSON(j)
+                                let code =  JSOnDictory["code"].stringValue
+                                if code == "0" {
+                                    setToast(str: "获取非练习册失败")
+                                }
+                                
+                                let datas =  JSOnDictory["data"]
+                                
+                                for index in 0..<datas.count {
+                                    let json = datas[index]
+                                    let model  = SNotWorkModel.setValueForSNotWorkModel(json: json)
+                                    dataArr.append(model)
+                                }
+                                callBack!(dataArr)
+                            }
+                            break
+                        case .failure(let error):
+                            print(error)
+                            setToast(str: "获取非练习册失败")
+                        }
+    }
+}
+
+
+//MARK:32   接口说明 ： 根据练习册或者非练习册id获取相对应的知识点
+public func NetWorkStudentGetKnowledgePoint(params:[String:Any],callBack:((Array<Any>,Bool)->())?) ->  Void {
+    
+    var dataArr = [UrlModel]()
+    Alamofire.request(kGet_KnowledgePoint,
+                      method: .get, parameters: params,
+                      encoding: URLEncoding.default, headers: nil).responseJSON(queue:DispatchQueue.main, options: .allowFragments) { (response) in
+                        print(response.result)
+                        switch response.result {
+                        case .success:
+                            if let j = response.result.value {
+                                //SwiftyJSON解析数据
+                                let JSOnDictory = JSON(j)
+                                
+                                let code =  JSOnDictory["code"].stringValue
+                                if code == "0" {
+                                    callBack!(dataArr,false)
+                                    setToast(str: "获取失败")
+                                }
+                                
+                                let datas =  JSOnDictory["data"].arrayValue
+                                
+                                for index in 0..<datas.count {
+                                    
+                                    let json = datas[index]
+                                    let model  = UrlModel.setValueForUrlModel(json: json)
+                                    dataArr.append(model)
+                                }
+                                callBack!(dataArr,true)
+                            }
+                            break
+                        case .failure(let error):
+                            print(error)
+                            callBack!(dataArr,false)
+                            setToast(str: "获取练习册知识点失败")
+                        }
+    }
+}
+
+
 ////MARK:(学生端 对请求进行操作)接口
 //public func netWorkForGetWorkBookTime(callBack:@escaping (Bool)->()?) ->  Void {
 //    //    let dataArr = NSMutableArraRy()
@@ -2930,7 +3215,7 @@ public func requestData(params:Any,callBack:((String)->())?) ->  Void {
                                 
                                 let product_list = translation["product_list"].arrayValue
                                 
-                                for index in 0...product_list.count-1 {
+                                for index in 0..<product_list.count {
                                     
                                     let json = product_list[index]
                                     print(json)

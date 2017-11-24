@@ -10,18 +10,14 @@ import UIKit
 
 class NotWorkDetailViewController: BaseViewController,HBAlertPasswordViewDelegate{
     
-    
     var typeArr = NSMutableArray()
     var headView = UIView()
     var underLine = UIView()
     var footBtnView = UIView()
 
     var currentIndex = 1
-    
     var images = NSMutableArray()
-    
     var showDateView = UIView()
-    
     var dateBtn = UIButton()
     
     var titleArr1 = ["本节课课程视频","本节课讲义下载","本节课作业下载"]
@@ -34,8 +30,14 @@ class NotWorkDetailViewController: BaseViewController,HBAlertPasswordViewDelegat
     let identyfierTable10 = "identyfierTable10"
     let identyfierTable11 = "identyfierTable11"
     
-    var state = 0
+    var model = SNotWorkModel()
     
+    
+    var state = ""
+    var pointArr = NSMutableArray()
+    var answerArr = NSMutableArray()
+    var gradeArr = NSMutableArray()
+
     override func viewDidLoad() {
         super.viewDidLoad()
     }
@@ -148,12 +150,38 @@ class NotWorkDetailViewController: BaseViewController,HBAlertPasswordViewDelegat
         
         currentIndex = sender.tag - 130
         
-        if currentIndex == 2 {
-            footView(titles: titleArr1)
-        }else if currentIndex == 3 {
+      
+        if currentIndex == 3 {
             footView(titles: titleArr3)
         }else{
             footBtnView.removeFromSuperview()
+        }
+        
+        if currentIndex == 1 {
+            
+        }else if currentIndex == 2 {
+            let params =
+                [
+                    "NonExcrcise_id":model.non_exercise_id,
+                    "SESSIONID":SESSIONID,
+                    "mobileCode":mobileCode
+                    ] as [String:Any]
+            self.view.beginLoading()
+            NetWorkStudentGetKnowledgePoint(params: params, callBack: { (datas, flag) in
+                if flag {
+                    self.pointArr.removeAllObjects()
+                    self.pointArr.addObjects(from: datas)
+                    self.mainTableView.reloadData()
+                }
+                self.view.endLoading()
+            })
+
+        }else if currentIndex == 3 {
+            
+            
+        }else if currentIndex == 4 {
+            
+            
         }
 
         mainTableView.reloadData()
@@ -245,7 +273,7 @@ class NotWorkDetailViewController: BaseViewController,HBAlertPasswordViewDelegat
         
         if currentIndex == 1 {
             
-            if state < 5 {
+            if Int(state)! < 5 {
                 return 1
             }
             
@@ -268,23 +296,23 @@ class NotWorkDetailViewController: BaseViewController,HBAlertPasswordViewDelegat
         
         if currentIndex == 1 {
             
-            if state == 2 {
-                let cell : TViewBookCell1 = tableView.dequeueReusableCell(withIdentifier: identyfierTable9, for: indexPath) as! TViewBookCell1
-//                cell.TViewBookCellSetValuesForUndone(model: model)
-                return cell
-            }else  if state == 3 {
-                let cell : TViewBookCell1 = tableView.dequeueReusableCell(withIdentifier: identyfierTable9, for: indexPath) as! TViewBookCell1
-//                cell.TViewBookCellSetValuesForUndone(model: model)
-                return cell
+            if state == "2" {
                 
-            }
-            else  if state == 4 {
+                let cell : TViewBookCell1 = tableView.dequeueReusableCell(withIdentifier: identyfierTable9, for: indexPath) as! TViewBookCell1
+//                cell.TViewBookCellSetValuesForUndone(model: model)
+                return cell
+            }else  if state == "3" {
+                
+                let cell : TViewBookCell1 = tableView.dequeueReusableCell(withIdentifier: identyfierTable9, for: indexPath) as! TViewBookCell1
+//                cell.TViewBookCellSetValuesForUndone(model: model)
+                return cell
+            }else  if state == "4" {
                 
                 let cell : TViewBookCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable6, for: indexPath) as! TViewBookCell
 //                cell.TViewBookCellSetValuesForFirstCorrectDone(model: model)
                 return cell
             }
-            else  if state == 5 {
+            else  if state == "5" {
                 
                 if indexPath.row == 0 {
                     let cell : TViewBookCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable6, for: indexPath) as! TViewBookCell
@@ -296,7 +324,7 @@ class NotWorkDetailViewController: BaseViewController,HBAlertPasswordViewDelegat
                     return cell
                 }
             }
-            else  if state == 6 {
+            else  if state == "6" {
                 
                 if indexPath.row == 0 {
                     
@@ -354,7 +382,7 @@ class NotWorkDetailViewController: BaseViewController,HBAlertPasswordViewDelegat
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         
-        if currentIndex == 1 {
+        if currentIndex == 2 {
             
             let url = NSURL.init(string: "http://m.youku.com/video/id_XMzA4MDYxNzQ2OA==.html?spm=a2hww.20022069.m_215416.5~5%212~5~5%212~A&source=http%3A%2F%2Fyouku.com%2Fu%2F13656654646%3Fscreen%3Dphone")
             
@@ -372,40 +400,40 @@ class NotWorkDetailViewController: BaseViewController,HBAlertPasswordViewDelegat
         if currentIndex == 4 {
             
             
-            
-            
-            // 获得此程序的沙盒路径
-            let path = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
-            
-            var files = [String]()
-            let fileManager = FileManager.default
-            let enumerator: FileManager.DirectoryEnumerator = fileManager.enumerator(atPath: path.first!)!
-            while let element = enumerator.nextObject() as? String {
-                if element.hasSuffix(".doc") || element.hasSuffix(".xls") || element.hasSuffix(".ppt") || element.hasSuffix(".docx") || element.hasSuffix(".xlsx") || element.hasSuffix(".pptx") || element.hasSuffix(".pdf") {
-                    files.append(element)
-                }
-            }
-//            NSMutableDictionary *info = [[NSMutableDictionary alloc]init];
-//            NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask, YES);
-//            NSString *filePath = [[paths objectAtIndex:0] stringByAppendingPathComponent:[NSString stringWithFormat:@"pic_%d.png", conut_]];
 //
-            do {
-                if files.count > 0 {
-//                    let attr = try fileManager.attributesOfItem(atPath: files[0])
-//                    attr[FileAttributeKey.appendOnly]
-                    let doc = UIDocumentInteractionController.init(url: URL.init(string:"file://\(files[0])")!)
-                    doc.presentOpenInMenu(from: self.view.bounds, in: self.view, animated: true)
-
-                }
-                
-//                let size = attr[FileAttributeKey.size] as! Int64
-                
-
-            } catch  {
-                print("error :\(error)")
-            }
+//
+//            // 获得此程序的沙盒路径
+//            let path = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
+//
+//            var files = [String]()
+//            let fileManager = FileManager.default
+//            let enumerator: FileManager.DirectoryEnumerator = fileManager.enumerator(atPath: path.first!)!
+//            while let element = enumerator.nextObject() as? String {
+//                if element.hasSuffix(".doc") || element.hasSuffix(".xls") || element.hasSuffix(".ppt") || element.hasSuffix(".docx") || element.hasSuffix(".xlsx") || element.hasSuffix(".pptx") || element.hasSuffix(".pdf") {
+//                    files.append(element)
+//                }
+//            }
+//
+//            do {
+//                if files.count > 0 {
+//            
             
             
+//                }
+//
+//            } catch  {
+//                print("error :\(error)")
+//            }
+//
+//            //复制文件（重命名）
+//            NSString *copyPath = [NSHomeDirectory() stringByAppendingPathComponent:@"备份/Old Testament.txt"];                              [fileManager createDirectoryAtPath:[toPath stringByDeletingLastPathComponent] withIntermediateDirectories:YES attributes:nil error:nil]
+//
+//
+//
+//            let fileData = Data.init(contentsOf:NSURL.init(string: Bundle.main.path(forResource: "批改作业接口 1107(1)", ofType: "docx")!)! as URL)
+//
+//            fileData.write(to: NSURL.init(fileURLWithPath: path[0]) as URL)
+//
             
         }
         

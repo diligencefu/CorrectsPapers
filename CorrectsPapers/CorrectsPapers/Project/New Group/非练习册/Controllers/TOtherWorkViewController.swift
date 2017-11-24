@@ -23,19 +23,29 @@ class TOtherWorkViewController: BaseViewController {
     
     override func requestData() {
         
-        NetWorkTeacherGetTAllNotWork { (datas) in
-            self.mainTableArr.removeAllObjects()
-            self.mainTableArr.addObjects(from: datas)
-            self.mainTableView.reloadData()
+        self.view.beginLoading()
+        NetWorkTeacherGetTAllNotWork { (datas,flag) in
+            if flag {
+                self.mainTableArr.removeAllObjects()
+                self.mainTableArr.addObjects(from: datas)
+                self.mainTableView.reloadData()
+            }
+            self.view.endLoading()
         }
+
     }
     
     override func refreshHeaderAction() {
-        NetWorkTeacherGetTAllNotWork { (datas) in
-            self.mainTableArr.removeAllObjects()
-            self.mainTableArr.addObjects(from: datas)
-            self.mainTableView.reloadData()
-            self.mainTableView.mj_header.endRefreshing()
+        
+        self.view.beginLoading()
+        NetWorkTeacherGetTAllNotWork { (datas,flag) in
+            if flag {
+                self.mainTableArr.removeAllObjects()
+                self.mainTableArr.addObjects(from: datas)
+                self.mainTableView.reloadData()
+                self.mainTableView.mj_header.endRefreshing()
+            }
+            self.view.endLoading()
         }
     }
 

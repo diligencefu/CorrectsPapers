@@ -59,16 +59,20 @@ class TClassDetailViewController: BaseViewController,UITextFieldDelegate {
             "mobileCode":mobileCodeT
             ] as [String:Any]
         
-        NetWorkTeacherTeacherSelectAllPeriods(params: params) { (datas) in
+        self.view.beginLoading()
+        NetWorkTeacherTeacherSelectAllPeriods(params: params) { (datas,flag) in
             
-            if datas.count > 0{
-                let model = datas[0] as! TPeriodsModel
-                self.periods_id = model.periods_id
+            if flag {
+                if datas.count > 0{
+                    let model = datas[0] as! TPeriodsModel
+                    self.periods_id = model.periods_id
+                }
+                
+                self.Periods.removeAllObjects()
+                self.Periods.addObjects(from: datas)
+                self.mainTableView.reloadData()
             }
-            
-            self.Periods.removeAllObjects()
-            self.Periods.addObjects(from: datas)
-            self.mainTableView.reloadData()
+            self.view.endLoading()
         }
     }
     
@@ -219,12 +223,17 @@ class TClassDetailViewController: BaseViewController,UITextFieldDelegate {
             "classes_id":classid,
             "mobileCode":mobileCodeT
         ]
+        self.view.beginLoading()
         if currentIndex == 1 {
             
-            NetWorkTeacherTeacherSelectAllPeriods(params: params) { (datas) in
-                self.Periods.removeAllObjects()
-                self.Periods.addObjects(from: datas)
-                self.mainTableView.reloadData()
+            NetWorkTeacherTeacherSelectAllPeriods(params: params) { (datas,flag) in
+                
+                if flag {
+                    self.Periods.removeAllObjects()
+                    self.Periods.addObjects(from: datas)
+                    self.mainTableView.reloadData()
+                }
+                self.view.endLoading()
             }
         }else if currentIndex == 2 {
             let params = [
@@ -233,14 +242,16 @@ class TClassDetailViewController: BaseViewController,UITextFieldDelegate {
 //                "periods_id":periods_id,
                 "mobileCode":mobileCodeT
             ]
-            NetWorkTeacherGetClassMember(params: params, callBack: { (datas) in
+            NetWorkTeacherGetClassMember(params: params, callBack: { (datas,flag) in
                 
-                if datas.count > 0{
-                    
-                    self.resource = datas[0] as! TClassMemberModel
+                if flag {
+                    if datas.count > 0{
+                        
+                        self.resource = datas[0] as! TClassMemberModel
+                    }
+                    self.mainTableView.reloadData()
                 }
-                
-                self.mainTableView.reloadData()
+                self.view.endLoading()
             })
         }else if currentIndex == 3 {
             
@@ -254,7 +265,7 @@ class TClassDetailViewController: BaseViewController,UITextFieldDelegate {
             //            }
         }else if currentIndex == 4{
             
-            NetWorkTeacherGetTMyNotWorkDatailGrades(params: params) { (datas) in
+            NetWorkTeacherGetTMyNotWorkDatailGrades(params: params) { (datas,flag) in
 //                self.answerArr.removeAll()
                 // #MARK:待处理
                 self.mainTableView.reloadData()

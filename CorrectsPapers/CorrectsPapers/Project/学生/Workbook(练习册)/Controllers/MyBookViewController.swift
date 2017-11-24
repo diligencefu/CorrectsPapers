@@ -19,34 +19,33 @@ class MyBookViewController: BaseViewController{
     
     override func requestData() {
         
-        netWorkForMyWorkBook { (dataArr) in
+        self.view.beginLoading()
+        netWorkForMyWorkBook { (dataArr,flag) in
             print(dataArr)
             if dataArr.count > 0 {
                 
                 self.mainTableArr.addObjects(from: dataArr)
                 self.mainTableView.reloadData()
-                
-            }else{
-                setToast(str: "返回数据为空")
             }
+            self.view.endLoading()
         }
     }
     
     
     override func refreshHeaderAction() {
-        
-        netWorkForMyWorkBook { (dataArr) in
-            self.mainTableArr.removeAllObjects()
-            self.mainTableView.mj_header.endRefreshing()
-            
+        self.view.beginLoading()
+        netWorkForMyWorkBook { (dataArr,flag) in
+            print(dataArr)
             if dataArr.count > 0 {
-                
+                self.mainTableArr.removeAllObjects()
                 self.mainTableArr.addObjects(from: dataArr)
                 self.mainTableView.reloadData()
-            }else{
-                setToast(str: "返回数据为空")
             }
+            self.view.endLoading()
+            self.mainTableView.mj_header.endRefreshing()
+
         }
+        
     }
     
     
@@ -146,7 +145,7 @@ class MyBookViewController: BaseViewController{
             
             netWorkForDeleteMyWorkBook(params: params, callBack: { (done) in
                 
-                if done == "done" {
+                if done {
                     self.mainTableArr.remove(model)
                     tableView.reloadData()
                     print("删除了---\(indexPath.section)分区-\(indexPath.row)行")

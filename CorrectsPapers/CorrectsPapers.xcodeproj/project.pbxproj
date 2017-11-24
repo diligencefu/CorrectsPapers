@@ -133,6 +133,13 @@
 		184EC6851FB6D2E9007C6BDE /* TShowStuWorksModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184EC6841FB6D2E9007C6BDE /* TShowStuWorksModel.swift */; };
 		184EC6881FB6E6A0007C6BDE /* TViewBookCell2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184EC6861FB6E6A0007C6BDE /* TViewBookCell2.swift */; };
 		184EC6891FB6E6A0007C6BDE /* TViewBookCell2.xib in Resources */ = {isa = PBXBuildFile; fileRef = 184EC6871FB6E6A0007C6BDE /* TViewBookCell2.xib */; };
+		184EFC211FC65C1100DFF6B2 /* UIView+Common.m in Sources */ = {isa = PBXBuildFile; fileRef = 184EFC1D1FC65C1000DFF6B2 /* UIView+Common.m */; };
+		184EFC221FC65C1100DFF6B2 /* UIBadgeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 184EFC201FC65C1100DFF6B2 /* UIBadgeView.m */; };
+		184EFC281FC65C9B00DFF6B2 /* UIView+Frames.m in Sources */ = {isa = PBXBuildFile; fileRef = 184EFC271FC65C9B00DFF6B2 /* UIView+Frames.m */; };
+		184EFC2B1FC6603B00DFF6B2 /* NSString+Expland.m in Sources */ = {isa = PBXBuildFile; fileRef = 184EFC2A1FC6603B00DFF6B2 /* NSString+Expland.m */; };
+		184EFC2E1FC6608000DFF6B2 /* UIColor+Expland.m in Sources */ = {isa = PBXBuildFile; fileRef = 184EFC2D1FC6608000DFF6B2 /* UIColor+Expland.m */; };
+		18504F1C1FC55E7E00A7252A /* SNotWorkModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18504F1B1FC55E7E00A7252A /* SNotWorkModel.swift */; };
+		18504F1E1FC5706B00A7252A /* 批改作业接口 1107(1).docx in Resources */ = {isa = PBXBuildFile; fileRef = 18504F1D1FC5706B00A7252A /* 批改作业接口 1107(1).docx */; };
 		18520DB61F8C5BAE004EAF99 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18520DB51F8C5BAE004EAF99 /* AppDelegate.swift */; };
 		18520DBB1F8C5BAE004EAF99 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 18520DB91F8C5BAE004EAF99 /* Main.storyboard */; };
 		18520DBD1F8C5BAE004EAF99 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 18520DBC1F8C5BAE004EAF99 /* Assets.xcassets */; };
@@ -479,6 +486,18 @@
 		184EC6841FB6D2E9007C6BDE /* TShowStuWorksModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TShowStuWorksModel.swift; sourceTree = "<group>"; };
 		184EC6861FB6E6A0007C6BDE /* TViewBookCell2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TViewBookCell2.swift; sourceTree = "<group>"; };
 		184EC6871FB6E6A0007C6BDE /* TViewBookCell2.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TViewBookCell2.xib; sourceTree = "<group>"; };
+		184EFC1D1FC65C1000DFF6B2 /* UIView+Common.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Common.m"; sourceTree = "<group>"; };
+		184EFC1E1FC65C1000DFF6B2 /* UIView+Common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Common.h"; sourceTree = "<group>"; };
+		184EFC1F1FC65C1000DFF6B2 /* UIBadgeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIBadgeView.h; sourceTree = "<group>"; };
+		184EFC201FC65C1100DFF6B2 /* UIBadgeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIBadgeView.m; sourceTree = "<group>"; };
+		184EFC261FC65C9B00DFF6B2 /* UIView+Frames.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIView+Frames.h"; sourceTree = "<group>"; };
+		184EFC271FC65C9B00DFF6B2 /* UIView+Frames.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIView+Frames.m"; sourceTree = "<group>"; };
+		184EFC291FC6603B00DFF6B2 /* NSString+Expland.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSString+Expland.h"; sourceTree = "<group>"; };
+		184EFC2A1FC6603B00DFF6B2 /* NSString+Expland.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSString+Expland.m"; sourceTree = "<group>"; };
+		184EFC2C1FC6608000DFF6B2 /* UIColor+Expland.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIColor+Expland.h"; sourceTree = "<group>"; };
+		184EFC2D1FC6608000DFF6B2 /* UIColor+Expland.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Expland.m"; sourceTree = "<group>"; };
+		18504F1B1FC55E7E00A7252A /* SNotWorkModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SNotWorkModel.swift; sourceTree = "<group>"; };
+		18504F1D1FC5706B00A7252A /* 批改作业接口 1107(1).docx */ = {isa = PBXFileReference; lastKnownFileType = file; path = "批改作业接口 1107(1).docx"; sourceTree = "<group>"; };
 		18509A4D1FAAC023008ACD4F /* CorrectsPapers.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CorrectsPapers.entitlements; sourceTree = "<group>"; };
 		18520DB21F8C5BAE004EAF99 /* CorrectsPapers.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CorrectsPapers.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		18520DB51F8C5BAE004EAF99 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -919,6 +938,23 @@
 			path = en.lproj;
 			sourceTree = "<group>";
 		};
+		184EFC1C1FC65BF200DFF6B2 /* 加载动画 */ = {
+			isa = PBXGroup;
+			children = (
+				184EFC1F1FC65C1000DFF6B2 /* UIBadgeView.h */,
+				184EFC201FC65C1100DFF6B2 /* UIBadgeView.m */,
+				184EFC1E1FC65C1000DFF6B2 /* UIView+Common.h */,
+				184EFC1D1FC65C1000DFF6B2 /* UIView+Common.m */,
+				184EFC261FC65C9B00DFF6B2 /* UIView+Frames.h */,
+				184EFC271FC65C9B00DFF6B2 /* UIView+Frames.m */,
+				184EFC291FC6603B00DFF6B2 /* NSString+Expland.h */,
+				184EFC2A1FC6603B00DFF6B2 /* NSString+Expland.m */,
+				184EFC2C1FC6608000DFF6B2 /* UIColor+Expland.h */,
+				184EFC2D1FC6608000DFF6B2 /* UIColor+Expland.m */,
+			);
+			path = "加载动画";
+			sourceTree = "<group>";
+		};
 		18520DA91F8C5BAE004EAF99 = {
 			isa = PBXGroup;
 			children = (
@@ -959,6 +995,7 @@
 		18520DC71F8C5C64004EAF99 /* Vander */ = {
 			isa = PBXGroup;
 			children = (
+				184EFC1C1FC65BF200DFF6B2 /* 加载动画 */,
 				1894DFA81FB1B438003E99FF /* 密码弹框 */,
 				188D0C0D1F99D80A0010814C /* YYWebImage */,
 				188D0BFC1F99D6210010814C /* KSPhotoBrowser */,
@@ -969,6 +1006,7 @@
 		18520DC81F8C5C66004EAF99 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				18504F1D1FC5706B00A7252A /* 批改作业接口 1107(1).docx */,
 			);
 			path = Resource;
 			sourceTree = "<group>";
@@ -1189,6 +1227,7 @@
 		18520DEA1F8C6830004EAF99 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				18504F1B1FC55E7E00A7252A /* SNotWorkModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1726,6 +1765,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				18504F1E1FC5706B00A7252A /* 批改作业接口 1107(1).docx in Resources */,
 				1877A36D1FBAEF7C00F8C9A7 /* TShowTheTipView.xib in Resources */,
 				181F3CFF1FA8744500C484D6 /* TViewBookCell.xib in Resources */,
 				181F3D001FA8744500C484D6 /* TClassCell.xib in Resources */,
@@ -1903,6 +1943,7 @@
 				18B1E6621FB58EE000D1C6F3 /* OCTools.h in Sources */,
 				18B1E6631FB58EE000D1C6F3 /* CTImageEditUtil.h in Sources */,
 				18B1E6641FB58EE000D1C6F3 /* UIImage+EditImageWithColor.h in Sources */,
+				184EFC2E1FC6608000DFF6B2 /* UIColor+Expland.m in Sources */,
 				18B1E6651FB58EE000D1C6F3 /* UIView+Ext.h in Sources */,
 				1894DFAC1FB1B45D003E99FF /* HBAlertPasswordView.h in Sources */,
 				1821816B1FA82A3100C2BE89 /* TeacherInfoCell1.swift in Sources */,
@@ -1965,6 +2006,7 @@
 				1859818E1FB546C70021EAD9 /* UploadVideoViewController.swift in Sources */,
 				188D0C4E1F99D8210010814C /* YYImage.h in Sources */,
 				188D0C4F1F99D8210010814C /* YYImage.m in Sources */,
+				184EFC221FC65C1100DFF6B2 /* UIBadgeView.m in Sources */,
 				188D0C501F99D8210010814C /* YYImageCoder.h in Sources */,
 				184EC6801FB69EA9007C6BDE /* ShowFileCell.swift in Sources */,
 				1867C40E1F9DA0CB00831A23 /* SystemMsgViewController.swift in Sources */,
@@ -2069,6 +2111,7 @@
 				184D94861F97250200C79DBC /* CustomNavgationView.swift in Sources */,
 				185981B51FB588330021EAD9 /* String.swift in Sources */,
 				18749A0D1F99837800DEB777 /* TOtherWorkViewController.swift in Sources */,
+				184EFC2B1FC6603B00DFF6B2 /* NSString+Expland.m in Sources */,
 				184D94871F97250200C79DBC /* ImagePickerChooseImageCell.swift in Sources */,
 				184D94881F97250200C79DBC /* ImagePickerChooseImageCell.xib in Sources */,
 				18449C831FA95AB400120FDA /* PersonalModel.swift in Sources */,
@@ -2080,6 +2123,7 @@
 				188D0C5D1F99EA1A0010814C /* SUploadWorkCell.swift in Sources */,
 				18E854A21FB92BA20029E81F /* TShowGradeModel.swift in Sources */,
 				180D6B771F949A4400480DEF /* UpLoadWorkCell.swift in Sources */,
+				184EFC211FC65C1100DFF6B2 /* UIView+Common.m in Sources */,
 				185DA0121FBFF4FC00BF44B7 /* TGetAccountViewController.swift in Sources */,
 				186F391B1F919EF3009B8927 /* CreateBookViewController.swift in Sources */,
 				184EC6881FB6E6A0007C6BDE /* TViewBookCell2.swift in Sources */,
@@ -2106,6 +2150,7 @@
 				18520DD21F8C5D9D004EAF99 /* WorkBookViewController.swift in Sources */,
 				18520DD81F8C5DD7004EAF99 /* PersonnalViewController.swift in Sources */,
 				186A28001F96016000FAA766 /* MessgaeCenterViewController.swift in Sources */,
+				18504F1C1FC55E7E00A7252A /* SNotWorkModel.swift in Sources */,
 				18520DDF1F8C630A004EAF99 /* MainTabBarController.swift in Sources */,
 				18FDA6AE1F9995D0003D61D8 /* TMYBooksCell.swift in Sources */,
 				18749A111F99839700DEB777 /* TPersonalViewController.swift in Sources */,
@@ -2116,6 +2161,7 @@
 				18520DB61F8C5BAE004EAF99 /* AppDelegate.swift in Sources */,
 				1877A35B1FBAD07900F8C9A7 /* TNotWorkDetailModel.swift in Sources */,
 				187B9DA91FBE7C650096688A /* TClassModel.swift in Sources */,
+				184EFC281FC65C9B00DFF6B2 /* UIView+Frames.m in Sources */,
 				18FDA6A51F998E8C003D61D8 /* TDetailBookViewController.swift in Sources */,
 				185981C31FB588BE0021EAD9 /* AppConfig.swift in Sources */,
 				18759A971F95CFE000B8E851 /* MyBookCell.swift in Sources */,

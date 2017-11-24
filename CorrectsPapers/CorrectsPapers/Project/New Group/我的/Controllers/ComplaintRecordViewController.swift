@@ -19,10 +19,14 @@ class ComplaintRecordViewController: BaseViewController {
     }
     
     override func requestData() {
-        NetWorkTeacherGetComplaintRecord { (datas) in
-            self.mainTableArr.removeAllObjects()
-            self.mainTableArr.addObjects(from: datas)
-            self.mainTableView.reloadData()
+        self.view.beginLoading()
+        NetWorkTeacherGetComplaintRecord { (datas,flag) in
+            if flag {
+                self.mainTableArr.removeAllObjects()
+                self.mainTableArr.addObjects(from: datas)
+                self.mainTableView.reloadData()
+            }
+            self.view.endLoading()
         }
     }
     

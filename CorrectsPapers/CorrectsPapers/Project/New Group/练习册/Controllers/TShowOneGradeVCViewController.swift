@@ -25,15 +25,19 @@ class TShowOneGradeVCViewController: BaseViewController {
              "mobileCode":mobileCodeT,
              "studentId":user_num
         ]
-        NetWorkTeacherGetTScoresByStudentId(params: params) { (datas) in
+        self.view.beginLoading()
+        NetWorkTeacherGetTScoresByStudentId(params: params) { (datas,flag) in
             self.mainTableArr.removeAllObjects()
-            
-            if datas.count == 0 {
-                setToast(str: "暂无数据")
+            self.view.endLoading()
+            if flag {
+                if datas.count == 0 {
+                    setToast(str: "暂无数据")
+                }
+                
+                self.mainTableArr.addObjects(from: datas)
+                self.mainTableView.reloadData()
+
             }
-            
-            self.mainTableArr.addObjects(from: datas)
-            self.mainTableView.reloadData()
         }
     }
     

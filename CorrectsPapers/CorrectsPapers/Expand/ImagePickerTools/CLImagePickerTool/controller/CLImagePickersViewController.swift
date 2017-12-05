@@ -76,7 +76,7 @@ class CLImagePickersViewController: UINavigationController {
     }
     
     deinit {
-        print("CLImagePickersViewController释放")
+        deBugPrint(item: "CLImagePickersViewController释放")
         CLNotificationCenter.removeObserver(self)
     }
     
@@ -145,7 +145,7 @@ class CLImageAlbumPickerController: CLBaseImagePickerViewController {
     }
     
     deinit {
-        print("CLImageAlbumPickerController释放")        
+        deBugPrint(item: "CLImageAlbumPickerController释放")        
     }
 }
 

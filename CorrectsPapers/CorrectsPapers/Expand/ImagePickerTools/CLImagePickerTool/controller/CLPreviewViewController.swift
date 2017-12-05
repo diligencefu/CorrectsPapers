@@ -104,7 +104,7 @@ class CLPreviewViewController: CLBaseImagePickerViewController {
     }
     
     deinit {
-        print("CLPreviewViewController销毁")
+        deBugPrint(item: "CLPreviewViewController销毁")
     }
 }
 

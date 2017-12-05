@@ -6,10 +6,15 @@
 //  Copyright © 2017年 陈亮陈亮. All rights reserved.
 // 参考：http://blog.csdn.net/zhangao0086/article/details/43836789
 
+let HiddenKeyBoardNotificationCenter = "HiddenKeyBoardNotificationCenter"
+
+
 import UIKit
 import RxCocoa
 import RxSwift
 import IQKeyboardManagerSwift
+
+
 
 // 开始编辑就改变撤销按钮的状态，让其可以点击
 typealias beginDrawClouse = () -> ()
@@ -205,7 +210,9 @@ class DrawBoard: UIImageView {
             self.drawIputView.textView.becomeFirstResponder()
             self.addSubview(lable)
             self.currentLable = lable
-            self.lableArray.append(lable)
+//            if lable.text != nil {
+                self.lableArray.append(lable)
+//            }
         } else {  // 说明是要编辑某一个label
             
         }
@@ -281,9 +288,6 @@ class DrawBoard: UIImageView {
             }
         }
     }
-        
-    
-    
     // 前进
     func redo() {
         if self.canRedo == false {
@@ -329,12 +333,24 @@ extension DrawBoard {
         //图形重绘
         self.draw(self.bounds)
         //水印文字属性
-        var att = [String : Any]()
+        var att: [NSAttributedStringKey : Any] = [:]
         for lable in self.lableArray {
-//            att = [NSForegroundColorAttributeName:lable.textColor,NSFontAttributeName:self.textFont,NSBackgroundColorAttributeName:UIColor.clear] as? [NSAttributedStringKey : Any]            //水印文字大小
-//            let text = NSString(string: lable.text!)
+            
+            print(lable)
+
+            att[NSAttributedStringKey.foregroundColor] = lable.textColor
+            att[NSAttributedStringKey.font] = self.textFont
+            att[NSAttributedStringKey.backgroundColor] = UIColor.init(white: 1, alpha: 0)
+            
+            //水印文字大小
+            print(lable)
+            if lable.text == nil {
+                lable.text = ""
+            }
+            print(lable.text!)
+            let text = NSString(string: lable.text!)
             //绘制文字 ,文字显示的位置，要在textview的适当位置
-//            text.draw(in: lable.frame, withAttributes: att)
+            text.draw(in: lable.frame, withAttributes: att)
         }
         
         //从当前上下文获取图片
@@ -417,7 +433,7 @@ extension DrawBoard {
     /// 点击完成
     @objc func clickDoneBtn() {
         self.drawIputView.textView.endEditing(true)
-        
+        self.endEditing(true)
         self.currentLable.text = self.drawIputView.textView.text
         self.currentLable.cl_width = KScreenWidth-30
         self.currentLable.textColor = self.drawIputView.textView.textColor
@@ -443,7 +459,7 @@ extension DrawBoard {
                 weakSelf?.drawIputView.cl_height = textH+20+0.5+40
                 weakSelf?.drawIputView.cl_y = KScreenHeight-(weakSelf?.kBoardH)!-(weakSelf?.drawIputView.cl_height)!
             }
-        }).addDisposableTo(disposBag)
+        }).disposed(by: disposBag)
     }
     
     //键盘的出现
@@ -460,13 +476,6 @@ extension DrawBoard {
         UIView.animate(withDuration: duration) {
             self.drawIputView.cl_y = KScreenHeight-self.kBoardH-self.drawIputView.cl_height
         }
-        
-        if kHiddenTextView != 11111 {
-            self.drawIputView.isHidden = true
-        }else{
-            self.drawIputView.isHidden = false
-        }
-        
     }
     
     //键盘的隐藏
@@ -477,6 +486,9 @@ extension DrawBoard {
         UIView.animate(withDuration: duration) {
             self.drawIputView.cl_y = KScreenHeight
         }
+//        self.superview?.transform = .identity
+        NotificationCenter.default.post(name: Notification.Name(rawValue: HiddenKeyBoardNotificationCenter), object: self, userInfo: ["refresh":"begin"])
+
+        
     }
 }
-

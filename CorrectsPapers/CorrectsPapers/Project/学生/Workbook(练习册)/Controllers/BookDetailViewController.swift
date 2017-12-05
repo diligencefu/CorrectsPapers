@@ -38,7 +38,7 @@ class BookDetailViewController: BaseViewController {
         
         self.view.beginLoading()
         netWorkForGetWorkBookByTime(params: params) { (dataArr,flag) in
-            print(dataArr)
+            deBugPrint(item: dataArr)
             self.view.endLoading()
         }
         
@@ -204,7 +204,7 @@ class BookDetailViewController: BaseViewController {
         imagePickTool.isHiddenVideo = true
         
         imagePickTool.setupImagePickerWith(MaxImagesCount: count, superVC: self) { (assetArr,cutImage) in
-            print("返回的asset数组是\(assetArr)")
+            deBugPrint(item: "返回的asset数组是\(assetArr)")
             
             PopViewUtil.share.showLoading()
             

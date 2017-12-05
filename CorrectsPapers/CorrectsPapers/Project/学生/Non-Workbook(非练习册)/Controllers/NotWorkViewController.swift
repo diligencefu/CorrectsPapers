@@ -9,7 +9,8 @@
 import UIKit
 import QuickLook
 
-class NotWorkViewController: BaseViewController ,QLPreviewControllerDelegate,QLPreviewControllerDataSource{
+class NotWorkViewController: BaseViewController ,QLPreviewControllerDelegate,QLPreviewControllerDataSource,refreshDelegate{
+    
     let viewFile = QLPreviewController()
     
     var pageNum = 1
@@ -91,8 +92,9 @@ class NotWorkViewController: BaseViewController ,QLPreviewControllerDelegate,QLP
     
     override func configSubViews() {
         
-        self.navigationItem.title = "非练习册"        
-        mainTableView = UITableView.init(frame: CGRect(x: 0, y: 0, width: kSCREEN_WIDTH, height: kSCREEN_HEIGHT - 64 ), style: .plain)
+        self.navigationItem.title = "非练习册"
+
+        mainTableView = UITableView.init(frame: CGRect(x: 0, y: 0, width: kSCREEN_WIDTH, height: kSCREEN_HEIGHT - 64 - 49), style: .plain)
         mainTableView.dataSource = self;
         mainTableView.delegate = self;
         mainTableView.estimatedRowHeight = 143 * kSCREEN_SCALE;
@@ -110,8 +112,16 @@ class NotWorkViewController: BaseViewController ,QLPreviewControllerDelegate,QLP
     @objc func createNotWork(sender:UIBarButtonItem) {
 
         let bookVc = CreateNotWorkViewController()
+        bookVc.delegate = self
         self.navigationController?.pushViewController(bookVc, animated: true)
     }
+    
+    
+//    refreshDelegate
+    func beginRefresh() {
+        self.mainTableView.mj_header.beginRefreshing()
+    }
+    
     
     //MARK:  ******代理 ：UITableViewDataSource,UITableViewDelegate
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -119,9 +129,11 @@ class NotWorkViewController: BaseViewController ,QLPreviewControllerDelegate,QLP
         return mainTableArr.count
     }
     
+    
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
+    
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
@@ -135,20 +147,20 @@ class NotWorkViewController: BaseViewController ,QLPreviewControllerDelegate,QLP
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         tableView.deselectRow(at: indexPath, animated: true)
-        if indexPath.row == 0 {
+        if indexPath.row == 100 {
+            
             viewFile.delegate = self
             viewFile.dataSource = self
             viewFile.currentPreviewItemIndex = 1
             self.navigationController?.pushViewController(viewFile, animated: true)
-            
         }else{
+            
             tableView.deselectRow(at: indexPath, animated: true)
             let model = mainTableArr[indexPath.row] as! SNotWorkModel
             let detailVC = NotWorkDetailViewController()
             detailVC.state = model.correct_states
             detailVC.model = model
             self.navigationController?.pushViewController(detailVC, animated: true)
-
         }
     }
 
@@ -157,6 +169,7 @@ class NotWorkViewController: BaseViewController ,QLPreviewControllerDelegate,QLP
     func numberOfPreviewItems(in controller: QLPreviewController) -> Int {
         return 2
     }
+    
     
     func previewController(_ controller: QLPreviewController, previewItemAt index: Int) -> QLPreviewItem {
         return NSURL.fileURL(withPath: Bundle.main.path(forResource: "批改作业接口 1107(1)", ofType: "docx")!) as QLPreviewItem

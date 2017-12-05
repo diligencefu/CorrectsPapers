@@ -21,7 +21,7 @@ class MyBookViewController: BaseViewController{
         
         self.view.beginLoading()
         netWorkForMyWorkBook { (dataArr,flag) in
-            print(dataArr)
+            deBugPrint(item: dataArr)
             if dataArr.count > 0 {
                 
                 self.mainTableArr.addObjects(from: dataArr)
@@ -35,7 +35,7 @@ class MyBookViewController: BaseViewController{
     override func refreshHeaderAction() {
         self.view.beginLoading()
         netWorkForMyWorkBook { (dataArr,flag) in
-            print(dataArr)
+            deBugPrint(item: dataArr)
             if dataArr.count > 0 {
                 self.mainTableArr.removeAllObjects()
                 self.mainTableArr.addObjects(from: dataArr)
@@ -148,9 +148,9 @@ class MyBookViewController: BaseViewController{
                 if done {
                     self.mainTableArr.remove(model)
                     tableView.reloadData()
-                    print("删除了---\(indexPath.section)分区-\(indexPath.row)行")
+                   deBugPrint(item: "删除了---\(indexPath.section)分区-\(indexPath.row)行")
                 }else{
-                    print("删除失败")
+                    deBugPrint(item: "删除失败")
                 }
             })
         }

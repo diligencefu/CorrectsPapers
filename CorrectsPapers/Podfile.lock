@@ -13,6 +13,7 @@ PODS:
     - Reachability
   - ASIHTTPRequest/S3 (1.8.2):
     - ASIHTTPRequest/Core
+  - IQKeyboardManager (5.0.6)
   - IQKeyboardManagerSwift (5.0.6)
   - Kingfisher (4.2.0)
   - Masonry (1.1.0)
@@ -34,6 +35,7 @@ PODS:
 
 DEPENDENCIES:
   - Alamofire
+  - IQKeyboardManager
   - IQKeyboardManagerSwift
   - Kingfisher
   - Masonry
@@ -51,6 +53,7 @@ DEPENDENCIES:
 SPEC CHECKSUMS:
   Alamofire: 2d95912bf4c34f164fdfc335872e8c312acaea4a
   ASIHTTPRequest: ec013992946676b7978dcbde6396d57312d21db4
+  IQKeyboardManager: 077b7f691dfa9d69db9cff66f2bed68ebfc02d9b
   IQKeyboardManagerSwift: 02bfbb0dff71c66d0ab77d80d25dfce0c3717735
   Kingfisher: 9ee7e788d8ba07c3f21ce0d43f33cec310a4f781
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
@@ -66,6 +69,6 @@ SPEC CHECKSUMS:
   Toast: 14a93686d6c8bfe2727afd342414e35660a8a1f3
   ZFDownload: a52f94ebb080833b8a8ceb19a409f2941343fe7f
 
-PODFILE CHECKSUM: 1ee9568189b372ba2fcc2971665b81b0ee56d87a
+PODFILE CHECKSUM: 3e3d5d62356e6dc3d0eb75dc91dab63785fc8c7b
 
 COCOAPODS: 1.4.0.beta.1

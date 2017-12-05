@@ -61,6 +61,9 @@ class QQQEditorViewController: UIViewController {
 
     var lastScaleFactor : CGFloat! = 1  //放大、缩小
     
+    var correctDoneBlock:(()->())?  //声明闭包
+
+    
     lazy var choosePencilView: PencilChooseView = {
         let chooseView = PencilChooseView.init(frame: CGRect(x: 0, y: KScreenHeight, width: KScreenWidth, height: 40))
         chooseView.clickPencilImage = {[weak self] (img:UIImage) in
@@ -101,8 +104,17 @@ class QQQEditorViewController: UIViewController {
         
         initView()
         addMarkView()
+        
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(receiveNitification(nitofication:)), name: NSNotification.Name(rawValue: HiddenKeyBoardNotificationCenter), object: nil)
+
     }
-    
+    @objc func receiveNitification(nitofication:Notification) {
+        
+        self.view.y = 0
+        
+    }
+
     
     func initView() {
         pencilBtn.setTitleColor(kMainColor(), for: .selected)
@@ -319,7 +331,7 @@ class QQQEditorViewController: UIViewController {
         if currentIndex < images.count+1 {
             let doneImage = self.drawBoardImageView.takeImage()
             self.doneImages.append(doneImage)
-            print(doneImage)
+            deBugPrint(item: doneImage)
         }
         
         if currentIndex < images.count {
@@ -334,6 +346,13 @@ class QQQEditorViewController: UIViewController {
             drawBoardImageView.masicImage = UIImage.trans(toMosaicImage: self.editorImage, blockLevel: 20)
             scrollView?.addSubview(drawBoardImageView)
             
+            for label in drawBoardImageView.subviews {
+                label.removeFromSuperview()
+            }
+            
+            
+            drawBoardImageView.lableArray.removeAll()
+
             drawBoardImageView.beginDraw = {[weak self]() in
                 self?.backBtn.isEnabled = true
             }
@@ -376,8 +395,8 @@ class QQQEditorViewController: UIViewController {
         markView.layer.cornerRadius = 24*kSCREEN_SCALE
         markView.selectBlock = {
             if $1 {
-                print($0)//评语
-                print($2)//分数
+                deBugPrint(item: $0)//评语
+                deBugPrint(item: $2)//分数
 //                doneImages
  //    #MARK:  批改练习册
                 if self.whereCome == 1 {
@@ -408,9 +427,9 @@ class QQQEditorViewController: UIViewController {
                              "scores_next":$2,
                              "comment_next":$0
                                 ] as [String:String]
-                        NetWorkTeacherCorrectNextWrokBook(params: params, data: self.doneImages, success: { (success) in
+                        NetWorkTeacherCorrectNextWrokBook(params: params, data: self.doneImages, vc: self, success: { (success) in
                             let json = JSON(success)
-                            print(json)
+                            deBugPrint(item: json)
                             
                             self.uploadSecssceDismiss(success: success)
                         }, failture: { (erorr) in
@@ -429,9 +448,9 @@ class QQQEditorViewController: UIViewController {
                              "scores":$2,
                              "comment":$0
                                 ] as [String:String]
-                        NetWorkTeacherNonExercise(params: params, data: self.doneImages, success: { (success) in
+                        NetWorkTeacherNonExercise(params: params, data: self.doneImages,vc: self, success: { (success) in
                             let json = JSON(success)
-                            print(json)
+                            deBugPrint(item: json)
                             
                             self.uploadSecssceDismiss(success: success)
                         }, failture: { (erorr) in
@@ -446,7 +465,7 @@ class QQQEditorViewController: UIViewController {
                              "scores_next":$2,
                              "comment_next":$0
                                 ] as [String:String]
-                        NetWorkTeacherNonExerciseNext(params: params, data: self.doneImages, success: { (success) in
+                        NetWorkTeacherNonExerciseNext(params: params, data: self.doneImages, vc: self, success: { (success) in
                             
                             self.uploadSecssceDismiss(success: success)
                         }, failture: { (erorr) in
@@ -497,11 +516,18 @@ class QQQEditorViewController: UIViewController {
     
     func uploadSecssceDismiss(success:[String:AnyObject]) {
         let json = JSON(success)
-        print(json)
+        deBugPrint(item: json)
         
-        if json["code"] == "1" {
+        if json["code"].stringValue == "1" {
             setToast(str: "批改成功")
+            
+            if self.correctDoneBlock != nil {
+                self.correctDoneBlock!()
+            }
+            
             self.dismiss(animated: true, completion: nil)
+        }else{
+            setToast(str: "上传失败")
         }
 
     }

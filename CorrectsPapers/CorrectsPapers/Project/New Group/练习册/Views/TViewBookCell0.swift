@@ -37,10 +37,10 @@ class TViewBookCell0: UITableViewCell {
         
         bookState.textColor = kSetRGBColor(r: 255, g: 153, b: 0)
 
-        if model.state == "2" {
+        if model.correcting_states == "2" {
             
             bookState.text = "未批改"
-        }else if model.state == "5"{
+        }else if model.correcting_states == "5"{
             
             bookState.text = "错题未批改"
         }

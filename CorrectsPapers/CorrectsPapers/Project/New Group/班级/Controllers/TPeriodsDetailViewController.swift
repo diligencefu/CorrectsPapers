@@ -342,7 +342,7 @@ class TPeriodsDetailViewController: BaseViewController,UITextFieldDelegate {
             }else{
                 model = works[indexPath.row] as! TShowClassWorksModel
             }
-            print(model.type)
+            deBugPrint(item: model.type)
             
             let cell : TViewBookCell0 = tableView.dequeueReusableCell(withIdentifier: identyfierTable10, for: indexPath) as! TViewBookCell0
             cell.TViewBookCell0SetValuesForShowClassWork(model: model)
@@ -537,7 +537,7 @@ class TPeriodsDetailViewController: BaseViewController,UITextFieldDelegate {
     //MARK:上传答案点击事件
     @objc func showUploadBtn(sender:UIButton) {
         
-        print(sender.tag)
+        deBugPrint(item: sender.tag)
         
         if sender.tag == 181 {
             
@@ -582,7 +582,7 @@ class TPeriodsDetailViewController: BaseViewController,UITextFieldDelegate {
         imagePickTool.isHiddenVideo = true
         
         imagePickTool.setupImagePickerWith(MaxImagesCount: count, superVC: self) { (assetArr,cutImage) in
-            print("返回的asset数组是\(assetArr)")
+            deBugPrint(item: "返回的asset数组是\(assetArr)")
             
             PopViewUtil.share.showLoading()
             

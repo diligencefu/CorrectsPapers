@@ -56,7 +56,7 @@ extension UIView {
         
         self.layer.render(in: context!)
         
-        print("\(pixel[0])--\(pixel.advanced(by: 1).pointee)--\(pixel[2])--\(pixel[3])")
+        deBugPrint(item: "\(pixel[0])--\(pixel.advanced(by: 1).pointee)--\(pixel[2])--\(pixel[3])")
 
 //        print("\(pixel[0])--\(pixel[1])--\(pixel[2])--\(pixel[3])")
         

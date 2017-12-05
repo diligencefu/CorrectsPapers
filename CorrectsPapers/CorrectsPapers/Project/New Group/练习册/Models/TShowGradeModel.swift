@@ -18,6 +18,10 @@ class TShowGradeModel: NSObject {
     var scores : String!
     ///改正成绩 ： 没有返回空字符串
     var scores_next : String!
+    ///批改成绩）
+    var pre_score : String!
+    ///改正成绩 ： 没有返回空字符串
+    var upd_score : String!
     ///照片
     var user_photo : String?
     ///作业状态
@@ -32,7 +36,9 @@ class TShowGradeModel: NSObject {
         model.studentId = json["studentId"].stringValue
         model.user_name = json["user_name"].stringValue
         model.scores = json["scores"].stringValue
+        model.pre_score = json["pre_score"].stringValue
         model.scores_next = json["scores_next"].stringValue
+        model.upd_score = json["upd_score"].stringValue
         model.user_photo = json["user_photo"].stringValue
         model.user_num = json["user_num"].stringValue
         return model

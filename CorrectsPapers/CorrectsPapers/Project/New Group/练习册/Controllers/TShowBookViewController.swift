@@ -75,7 +75,7 @@ class TShowBookViewController: BaseViewController {
         reasonView.layer.cornerRadius = 24*kSCREEN_SCALE
         reasonView.selectBlock = {
             if !$1 {
-                print($0)
+                deBugPrint(item: $0)
                 let params =
                     ["SESSIONID":SESSIONIDT,
                      "mobileCode":mobileCodeT,
@@ -129,7 +129,7 @@ class TShowBookViewController: BaseViewController {
         
         var imageArr = [UIImage]()
         
-        if model.state == "2" {
+        if model.correcting_states == "2" {
             let cell = mainTableView.cellForRow(at: IndexPath.init(row: 0, section: 0)) as! TViewBookCell1
             imageArr.append(cell.image2.image!)
             imageArr.append(cell.image3.image!)
@@ -138,7 +138,7 @@ class TShowBookViewController: BaseViewController {
             editorVC.theName = model.user_name
             editorVC.theNum = "学号 "+model.user_num
             editorVC.bookid = model.book_details_id
-            editorVC.bookState = model.state
+            editorVC.bookState = model.correcting_states
             editorVC.whereCome = 1
             self.present(editorVC, animated: true, completion: nil)
 
@@ -154,7 +154,7 @@ class TShowBookViewController: BaseViewController {
             editorVC.theName = model.user_name
             editorVC.theNum = "学号 "+model.user_num
             editorVC.bookid = model.book_details_id
-            editorVC.bookState = model.state
+            editorVC.bookState = model.correcting_states
             editorVC.whereCome = 1
             self.present(editorVC, animated: true, completion: nil)
         }
@@ -168,7 +168,7 @@ class TShowBookViewController: BaseViewController {
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
        
-        if model.state == "2"  {
+        if model.correcting_states == "2"  {
             return 1
         }else{
             return 2
@@ -183,7 +183,7 @@ class TShowBookViewController: BaseViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        if model.state == "2" {
+        if model.correcting_states == "2" {
             let cell : TViewBookCell1 = tableView.dequeueReusableCell(withIdentifier: identyfierTable1, for: indexPath) as! TViewBookCell1
             cell.TViewBookCellSetValuesForUndone(model: model)
             return cell

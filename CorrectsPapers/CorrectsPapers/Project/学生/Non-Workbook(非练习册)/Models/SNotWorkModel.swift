@@ -28,8 +28,10 @@ class SNotWorkModel: NSObject {
     var rewards : String!
     ///总页码数）
     var sumPage : String!
-    ///总页码数）
+    ///id）
     var non_exercise_id : String!
+    ///退回原因
+    var reason : String!
 
     
     class func setValueForSNotWorkModel(json: JSON) -> SNotWorkModel {
@@ -45,6 +47,7 @@ class SNotWorkModel: NSObject {
         model.rewards = json["rewards"].stringValue
         model.sumPage = json["sumPage"].stringValue
         model.non_exercise_id = json["non_exercise_id"].stringValue
+        model.reason = json["reason"].stringValue
         return model
     }
 

@@ -32,7 +32,17 @@ class NotWorkCellCell: UITableViewCell {
     func setDataWithModel(model:SNotWorkModel) {
         
         bookImage.kf.setImage(with:  URL(string:model.pre_photos)!, placeholder: #imageLiteral(resourceName: "photos_image_default"), options: nil, progressBlock: nil, completionHandler: nil)
-        bookState.text = kGetStateFromString(str: model.correct_states)
+        
+        if model.correct_states == "3" || model.correct_states == "6" {
+            
+            var symbol = ""
+            if model.reason.count > 0{
+                symbol = "-"
+            }
+            bookState.text = kGetStateFromString(str: model.correct_states)+symbol+model.reason
+        }else{
+            bookState.text = kGetStateFromString(str: model.correct_states)
+        }
         bookState.textColor = kGetColorFromString(str: bookState.text!)
         
         bookTitle.text = model.non_exercise_name
@@ -59,7 +69,7 @@ class NotWorkCellCell: UITableViewCell {
         proMark.setTitle(model.subject_id, for: .normal)
 
         if model.correct_way == "2" {
-            money.text = model.rewards + "学币"
+            money.text = "悬赏学币："+model.rewards + "学币"
             theTeacher.text = ""
             label.text = ""
         }else{

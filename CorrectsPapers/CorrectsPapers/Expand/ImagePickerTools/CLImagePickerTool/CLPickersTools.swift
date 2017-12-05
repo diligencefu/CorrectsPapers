@@ -48,7 +48,7 @@ class CLPickersTools {
     //1、列出系统所有的相册，并获取每一个相册中的PHAsset对象
     fileprivate func fetchAllSystemAblum() -> Void {
         let smartAlbums:PHFetchResult = PHAssetCollection.fetchAssetCollections(with: .smartAlbum, subtype: .albumRegular, options: nil)
-        print("智能\(smartAlbums.count)个")
+        deBugPrint(item: "智能\(smartAlbums.count)个")
         
         //smartAlbums中保存的是各个智能相册对应的PHAssetCollection
         for i in 0..<smartAlbums.count {
@@ -64,7 +64,7 @@ class CLPickersTools {
                 //从每一个智能相册获取到的PHFetchResult中包含的才是真正的资源(PHAsset)
                 let assetsFetchResults:PHFetchResult = PHAsset.fetchAssets(in: assetCollection, options: nil)
                 
-                print("\(String(describing: assetCollection.localizedTitle))相册,共有照片数:\(assetsFetchResults.count)")
+                deBugPrint(item: "\(String(describing: assetCollection.localizedTitle))相册,共有照片数:\(assetsFetchResults.count)")
                 
                 var array = [CLImagePickerPhotoModel]()
                 assetsFetchResults.enumerateObjects({ (asset, i, nil) in
@@ -146,7 +146,7 @@ class CLPickersTools {
         let topLevelUserCollections:PHFetchResult = PHCollectionList.fetchTopLevelUserCollections(with: nil)
         
         //topLevelUserCollections中保存的是各个用户创建的相册对应的PHAssetCollection
-        print("用户创建\(topLevelUserCollections.count)个")
+        deBugPrint(item: "用户创建\(topLevelUserCollections.count)个")
         
         for i in 0..<topLevelUserCollections.count {
             
@@ -161,7 +161,7 @@ class CLPickersTools {
                 //从每一个智能相册中获取到的PHFetchResult中包含的才是真正的资源(PHAsset)
                 let assetsFetchResults:PHFetchResult = PHAsset.fetchAssets(in: assetCollection, options: nil)
                 
-                print("\(String(describing: assetCollection.localizedTitle))相册，共有照片数:\(assetsFetchResults.count)")
+                deBugPrint(item: "\(String(describing: assetCollection.localizedTitle))相册，共有照片数:\(assetsFetchResults.count)")
                 
                 var array = [CLImagePickerPhotoModel]()
                 assetsFetchResults.enumerateObjects({ (asset, i, nil) in
@@ -424,6 +424,6 @@ class CLPickersTools {
     }
     
     deinit {
-        print("clpickertool释放")
+        deBugPrint(item: "clpickertool释放")
     }
 }

@@ -144,7 +144,7 @@ class SUploadWorkCell: UITableViewCell,UICollectionViewDelegate,UICollectionView
         if indexPath.row != dataArray?.count {
             cell.setImages(image:dataArray![indexPath.row], isEditting: isEditting)
             cell.deleteAction = {
-                print($0)
+                deBugPrint(item: $0)
                 self.dataArray?.remove(at: indexPath.row)
                 self.isEditting = false
                 collectionView.reloadData()
@@ -191,7 +191,7 @@ class SUploadWorkCell: UITableViewCell,UICollectionViewDelegate,UICollectionView
     
     public var dataArray : Array<UIImage>?{
         didSet{
-            print(dataArray as Any)
+            deBugPrint(item: dataArray as Any)
             collect.reloadData()
         }
     }

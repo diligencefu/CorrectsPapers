@@ -10,16 +10,24 @@ import UIKit
 
 class TMyCorrectViewController: BaseViewController {
     var emptyView = UIView()    
+    var pageNum = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
         addImageWhenEmpty()
+//        addFooterRefresh()
     }
     
     
     override func requestData() {
         self.view.beginLoading()
-        NetWorkTeacherGetTMyAllNotWork { (datas,flag) in
+        let params =
+            ["SESSIONID":SESSIONIDT,
+             "mobileCode":mobileCodeT,
+//             "pageNo":String(pageNum)
+                ] as [String : Any]
+
+        NetWorkTeacherGetTMyAllNotWork(params: params) { (datas,flag) in
             if flag {
                 self.mainTableArr.removeAllObjects()
                 self.mainTableArr.addObjects(from: datas)
@@ -33,7 +41,14 @@ class TMyCorrectViewController: BaseViewController {
     override func refreshHeaderAction() {
 
         self.view.beginLoading()
-        NetWorkTeacherGetTMyAllNotWork { (datas,flag) in
+        pageNum = 0
+        let params =
+            ["SESSIONID":SESSIONIDT,
+             "mobileCode":mobileCodeT,
+//             "pageNo":String(pageNum)
+                ] as [String : Any]
+        
+        NetWorkTeacherGetTMyAllNotWork(params: params) { (datas,flag) in
             if flag {
                 self.mainTableArr.removeAllObjects()
                 self.mainTableArr.addObjects(from: datas)
@@ -42,6 +57,25 @@ class TMyCorrectViewController: BaseViewController {
             }
             self.view.endLoading()
         }
+    }
+
+    override func refreshFooterAction() {
+        pageNum = pageNum+1
+        let param =
+            [
+                "SESSIONID":SESSIONID,
+                "mobileCode":mobileCode,
+//                "pageNo":String(pageNum),
+                ]
+        NetWorkTeacherGetTMyAllNotWork(params: param) { (datas,flag) in
+            if flag {
+                self.mainTableArr.addObjects(from: datas)
+                self.mainTableView.reloadData()
+                self.mainTableView.mj_header.endRefreshing()
+            }
+            self.mainTableView.mj_footer.endRefreshing()
+        }
+        
     }
 
     
@@ -56,7 +90,6 @@ class TMyCorrectViewController: BaseViewController {
         mainTableView.register(UINib(nibName: "TShowBooksCell", bundle: nil), forCellReuseIdentifier: identyfierTable)
         self.view.addSubview(mainTableView)
     }
-    
     
     
     //    当数据为空的时候，显示提示
@@ -129,7 +162,9 @@ class TMyCorrectViewController: BaseViewController {
 //        BookDetailVC.model.user_num = "008"
 //        BookDetailVC.model.user_photo = "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1511315485&di=721c22ab84cb171b4f5c8293c99c2ca8&imgtype=jpg&er=1&src=http%3A%2F%2Fwww.feizl.com%2Fupload2007%2F2015_07%2F1507241542922222.jpg"
         BookDetailVC.model1 = model
-        
+        BookDetailVC.sendBackBlock = {
+            self.refreshHeaderAction()
+        }
         self.navigationController?.pushViewController(BookDetailVC, animated: true)
     }
     
@@ -148,7 +183,7 @@ class TMyCorrectViewController: BaseViewController {
             
             mainTableArr.removeObject(at: indexPath.row)
             tableView.reloadData()
-            print("删除了---\(indexPath.section)分区-\(indexPath.row)行")
+            deBugPrint(item: "删除了---\(indexPath.section)分区-\(indexPath.row)行")
         }
     }
     

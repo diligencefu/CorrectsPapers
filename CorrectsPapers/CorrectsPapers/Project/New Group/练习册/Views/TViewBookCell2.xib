@@ -50,28 +50,28 @@
                         <color key="textColor" red="0.25487014650000001" green="0.25492024419999998" blue="0.25486692789999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="sixing_icon_pressed" translatesAutoresizingMaskIntoConstraints="NO" id="DMp-Qs-0ae">
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="yixing_icon_pressed" translatesAutoresizingMaskIntoConstraints="NO" id="DMp-Qs-0ae">
                         <rect key="frame" x="282.5" y="8.5" width="70" height="12"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="70" id="UW9-yD-bWG"/>
                             <constraint firstAttribute="height" constant="12" id="iio-cu-S5u"/>
                         </constraints>
                     </imageView>
-                    <imageView userInteractionEnabled="NO" tag="2" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="workBook" translatesAutoresizingMaskIntoConstraints="NO" id="EOX-Gd-vNc">
+                    <imageView clipsSubviews="YES" tag="222" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="workBook" translatesAutoresizingMaskIntoConstraints="NO" id="EOX-Gd-vNc">
                         <rect key="frame" x="22" y="31" width="160" height="200"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="200" id="7pM-kT-UYe"/>
                             <constraint firstAttribute="width" constant="160" id="fb2-dQ-Ihr"/>
                         </constraints>
                     </imageView>
-                    <imageView userInteractionEnabled="NO" tag="3" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="workBook" translatesAutoresizingMaskIntoConstraints="NO" id="sys-XQ-47l">
+                    <imageView clipsSubviews="YES" tag="223" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="workBook" translatesAutoresizingMaskIntoConstraints="NO" id="sys-XQ-47l">
                         <rect key="frame" x="192.5" y="31" width="160" height="200"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="200" id="e2K-WM-K6l"/>
                             <constraint firstAttribute="width" constant="160" id="fSD-gT-usf"/>
                         </constraints>
                     </imageView>
-                    <imageView userInteractionEnabled="NO" tag="1" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="workBook" translatesAutoresizingMaskIntoConstraints="NO" id="RUG-2H-tH7">
+                    <imageView clipsSubviews="YES" tag="221" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="workBook" translatesAutoresizingMaskIntoConstraints="NO" id="RUG-2H-tH7">
                         <rect key="frame" x="107" y="31" width="160" height="200"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="200" id="H2r-vk-mQj"/>
@@ -112,7 +112,7 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="sixing_icon_pressed" width="72" height="12"/>
         <image name="workBook" width="160" height="200"/>
+        <image name="yixing_icon_pressed" width="72" height="12"/>
     </resources>
 </document>

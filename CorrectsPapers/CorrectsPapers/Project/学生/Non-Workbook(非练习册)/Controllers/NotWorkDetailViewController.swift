@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SwiftyJSON
 
 class NotWorkDetailViewController: BaseViewController,HBAlertPasswordViewDelegate{
     
@@ -20,23 +21,34 @@ class NotWorkDetailViewController: BaseViewController,HBAlertPasswordViewDelegat
     var showDateView = UIView()
     var dateBtn = UIButton()
     
-    var titleArr1 = ["本节课课程视频","本节课讲义下载","本节课作业下载"]
-    var titleArr3 = ["作业视频讲解","作业答案文档下载","文字版答案"]
-    var currentTitle1 = ""
-    var currentTitle2 = ""
-    
-    let identyfierTable6 = "identyfierTable6"
-    let identyfierTable9 = "identyfierTable9"
-    let identyfierTable10 = "identyfierTable10"
-    let identyfierTable11 = "identyfierTable11"
-    
-    var model = SNotWorkModel()
-    
-    
-    var state = ""
+    var workModel = NotWorkDetailModel()
     var pointArr = NSMutableArray()
     var answerArr = NSMutableArray()
     var gradeArr = NSMutableArray()
+    
+    var titleArr3 = ["作业视频讲解","作业答案文档下载","文字版答案"]
+    var currentTitle2 = ""
+    
+    let identyfierTable6 = "identyfierTable6"
+    let identyfierTable7 = "identyfierTable7"
+    let identyfierTable8 = "identyfierTable8"
+    let identyfierTable9 = "identyfierTable9"
+    let identyfierTable10 = "identyfierTable10"
+    let identyfierTable11 = "identyfierTable11"
+    let identyfierTable12 = "identyfierTable12"
+
+    var model = SNotWorkModel()
+    
+    var workVideoModel = PayModel()
+    var workAnswerModel = PayModel()
+    var workTextModel = PayModel()
+    
+    var payModels = NSMutableArray()
+    
+    var type = ["1","2","3"]
+    
+    
+    var state = ""
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,18 +56,128 @@ class NotWorkDetailViewController: BaseViewController,HBAlertPasswordViewDelegat
     
     override func requestData() {
         
-//        let params =
-//            [
-//                "userWorkBookId":model.userWorkBookId,
-//                "SESSIONID":SESSIONID,
-//                "mobileCode":mobileCode
-//        ]
-//
-//        netWorkForGetWorkBookByTime(params: params) { (dataArr) in
-//            print(dataArr)
-//        }
-//
+        let params =
+            [
+                "non_exercise_Id":model.non_exercise_id,
+                "SESSIONID":SESSIONID,
+                "mobileCode":mobileCode
+        ] as [String:Any]
+
+        NetWorkStudentGetAllnon_exercise(params: params) { (dataArr,flag) in
+            
+            if flag {
+                
+                if dataArr.count > 0{
+                    self.workModel = dataArr[0] as! NotWorkDetailModel
+                    self.state = self.workModel.correct_states
+                    self.mainTableView.reloadData()
+                }
+            }
+            print(dataArr)
+        }
+        
+        if Int(model.correct_states)! > Int(3) {
+            let params1 =
+                [
+                    "bookId":model.non_exercise_id,
+                    "SESSIONID":SESSIONID,
+                    "mobileCode":mobileCode
+                    ] as [String:Any]
+            NetWorkStudentCheckPay(params: params1) { (pays,flag) in
+                deBugPrint(item: pays)
+                if flag && pays.count > 0{
+                    self.payModels.addObjects(from: pays)
+                    self.workVideoModel = self.payModels[0] as! PayModel
+                    self.workAnswerModel = self.payModels[1] as! PayModel
+                    self.workTextModel = self.payModels[2] as! PayModel
+                    
+                    if self.workVideoModel.isPay != "no" {
+                        self.titleArr3.remove(at: self.titleArr3.index(of: "作业视频讲解")!)
+                        self.type.remove(at: self.type.index(of: "1")!)
+                    }
+                    
+                    if self.workAnswerModel.isPay != "no" {
+                        self.titleArr3.remove(at: self.titleArr3.index(of: "作业答案文档下载")!)
+                        self.type.remove(at: self.type.index(of: "2")!)
+                    }
+                    
+                    if self.workTextModel.isPay != "no" {
+                        self.titleArr3.remove(at: self.titleArr3.index(of: "文字版答案")!)
+                        self.type.remove(at: self.type.index(of: "3")!)
+                    }
+                    self.footView(titles: self.titleArr3)
+                }
+            }
+        }
+        
     }
+    
+    override func refreshHeaderAction() {
+        if currentIndex == 1 {
+            let params =
+                [
+                    "non_exercise_Id":model.non_exercise_id,
+                    "SESSIONID":SESSIONID,
+                    "mobileCode":mobileCode
+                    ] as [String:Any]
+            
+            NetWorkStudentGetAllnon_exercise(params: params) { (dataArr,flag) in
+                
+                if flag {
+                    if dataArr.count > 0{
+                        self.workModel = dataArr[0] as! NotWorkDetailModel
+                        self.state = self.workModel.correct_states
+                        self.mainTableView.reloadData()
+                        self.mainTableView.mj_header.endRefreshing()
+                    }
+                }
+                print(dataArr)
+            }
+            
+            
+        }else if currentIndex == 2 {
+            let params =
+                [
+                    "NonExcrcise_id":model.non_exercise_id,
+                    "SESSIONID":SESSIONID,
+                    "mobileCode":mobileCode
+                    ] as [String:Any]
+            self.view.beginLoading()
+            NetWorkStudentGetKnowledgePoint(params: params, callBack: { (datas, flag) in
+                if flag {
+                    self.pointArr.removeAllObjects()
+                    self.pointArr.addObjects(from: datas)
+                    self.mainTableView.reloadData()
+                    self.mainTableView.mj_header.endRefreshing()
+                }
+                self.view.endLoading()
+            })
+            
+        }else if currentIndex == 3 {
+            let type = self.type.joined(separator: ",")
+
+            let params =
+                [
+                    "bookId":model.non_exercise_id,
+                    "type":type,
+                    "SESSIONID":SESSIONID,
+                    "mobileCode":mobileCode
+                    ] as [String:Any]
+            NetWorkStudentGetAnswrs(params: params) { (datas, flag) in
+                if flag {
+                    self.answerArr.addObjects(from: datas)
+                    self.mainTableView.mj_header.endRefreshing()
+                    self.mainTableView.reloadData()
+                }
+            }
+            
+        }else if currentIndex == 4 {
+            
+            
+        }
+
+    }
+    
     
     override func configSubViews() {
         
@@ -125,6 +247,9 @@ class NotWorkDetailViewController: BaseViewController,HBAlertPasswordViewDelegat
         mainTableView.register(UINib(nibName: "TViewBookCell1", bundle: nil), forCellReuseIdentifier: identyfierTable9)
         mainTableView.register(UINib(nibName: "TViewBookCell2", bundle: nil), forCellReuseIdentifier: identyfierTable10)
         mainTableView.register(UINib(nibName: "TViewBookCell3", bundle: nil), forCellReuseIdentifier: identyfierTable11)
+        mainTableView.register(UINib(nibName: "ShowFileCell", bundle: nil), forCellReuseIdentifier: identyfierTable7)
+        mainTableView.register(UINib(nibName: "ShowWriteAnswerCell", bundle: nil), forCellReuseIdentifier: identyfierTable8)
+        mainTableView.register(UINib(nibName: "AnswerImageCell", bundle: nil), forCellReuseIdentifier: identyfierTable12)
 
         self.view.addSubview(mainTableView)
     }
@@ -158,6 +283,25 @@ class NotWorkDetailViewController: BaseViewController,HBAlertPasswordViewDelegat
         }
         
         if currentIndex == 1 {
+            let params =
+                [
+                    "non_exercise_Id":model.non_exercise_id,
+                    "SESSIONID":SESSIONID,
+                    "mobileCode":mobileCode
+                    ] as [String:Any]
+            
+            NetWorkStudentGetAllnon_exercise(params: params) { (dataArr,flag) in
+                
+                if flag {
+                    if dataArr.count > 0{
+                        self.workModel = dataArr[0] as! NotWorkDetailModel
+                        self.state = self.workModel.correct_states
+                        self.mainTableView.reloadData()
+                    }
+                }
+                print(dataArr)
+            }
+
             
         }else if currentIndex == 2 {
             let params =
@@ -177,7 +321,22 @@ class NotWorkDetailViewController: BaseViewController,HBAlertPasswordViewDelegat
             })
 
         }else if currentIndex == 3 {
+            let type = self.type.joined(separator: ",")
             
+            let params =
+                [
+                    "bookId":model.non_exercise_id,
+                    "type":type,
+                    "SESSIONID":SESSIONID,
+                    "mobileCode":mobileCode
+                    ] as [String:Any]
+            NetWorkStudentGetOtherAnswrs(params: params) { (datas, flag) in
+                if flag {
+                    self.answerArr.removeAllObjects()
+                    self.answerArr.addObjects(from: datas)
+                    self.mainTableView.reloadData()
+                }
+            }
             
         }else if currentIndex == 4 {
             
@@ -238,9 +397,7 @@ class NotWorkDetailViewController: BaseViewController,HBAlertPasswordViewDelegat
         passwd.titleLabel.text = "五哈哈哈哈"
         self.view.addSubview(passwd)
         
-        if currentIndex == 2 {
-            currentTitle1 = (sender.titleLabel?.text)!
-        }else{
+        if currentIndex == 3 {
             currentTitle2 = (sender.titleLabel?.text)!
         }
     }
@@ -250,12 +407,7 @@ class NotWorkDetailViewController: BaseViewController,HBAlertPasswordViewDelegat
     func sureAction(with alertPasswordView: HBAlertPasswordView!, password: String!) {
         alertPasswordView.removeFromSuperview()
         setToast(str: "输入的密码为:"+password)
-        if currentIndex == 2 {
-            
-            titleArr1.remove(at: titleArr1.index(of: currentTitle1)!)
-            footView(titles: titleArr1)
-            mainTableView.reloadData()
-        }else{
+        if currentIndex == 3 {
             
             titleArr3.remove(at: titleArr3.index(of: currentTitle2)!)
             footView(titles: titleArr3)
@@ -268,23 +420,36 @@ class NotWorkDetailViewController: BaseViewController,HBAlertPasswordViewDelegat
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         if currentIndex == 3 {
-            return 3-titleArr3.count
+            return answerArr.count
         }
         
         if currentIndex == 1 {
             
-            if Int(state)! < 5 {
+            if Int(state)! < 4 {
+                
                 return 1
             }
             
+            if workModel.correct_states == "4" && workModel.pre_score == "5" {
+                return 1
+            }
+            
+            if workModel.correct_states == "7" && workModel.pre_score == "5" {
+                return 1
+            }
+
             return 2
         }
         
         if currentIndex == 2 {
-            return 3-titleArr1.count
+            return pointArr.count
         }
         
-        return 10
+        if Int(model.correct_states)! == 4 || Int(model.correct_states)! == 7 {
+            return 2
+        }
+        
+        return 1
     }
     
     
@@ -296,86 +461,219 @@ class NotWorkDetailViewController: BaseViewController,HBAlertPasswordViewDelegat
         
         if currentIndex == 1 {
             
+            if state == "1" {
+                let cell : UpLoadWorkCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable1, for: indexPath) as! UpLoadWorkCell
+                
+                cell.upLoadImagesForWorkBook(images: images as! Array<UIImage>)
+                
+                cell.chooseImagesAction = {
+                    
+                    if $0 == "uploadAction" {
+                        let params = [
+                            "SESSIONID":SESSIONID,
+                            "mobileCode":mobileCode,
+                            "non_exercise_name":cell.workDescrip.text!,
+                            "correct_way":self.workModel.correct_way,
+                            "classes_id":self.workModel.pre_comment,
+                            "subject_id":self.workModel.correct_way,
+                            "freind_id":self.workModel.correct_way,
+                            ] as! [String : String]
+
+                        var nameArr = [String]()
+                        for index in 0..<self.images.count {
+                            nameArr.append("image\(index)")
+                        }
+                        
+                        netWorkForUploadWorkBook(params: params , data: self.images as! [UIImage], name: nameArr, success: { (datas) in
+                            let json = JSON(datas)
+                            deBugPrint(item: json)
+                            setToast(str: "上传成功")
+                            let params =
+                                [
+                                    "non_exercise_Id":self.model.non_exercise_id,
+                                    "SESSIONID":SESSIONID,
+                                    "mobileCode":mobileCode
+                                    ] as [String:Any]
+                            
+                            NetWorkStudentGetAllnon_exercise(params: params) { (dataArr,flag) in
+                                
+                                if flag {
+                                    if dataArr.count > 0{
+                                        self.workModel = dataArr[0] as! NotWorkDetailModel
+                                        self.state = self.workModel.correct_states
+                                        self.mainTableView.reloadData()
+                                    }
+                                }
+                                print(dataArr)
+                            }
+                            deBugPrint(item: datas)
+                        }, failture: { (error) in
+                            deBugPrint(item: error)
+                        })
+                        
+                    }else{
+                        self.setupPhoto1(count: 2,currentIndex: Int($0)!)
+                    }
+                }
+                
+                return cell
+            }
+            
             if state == "2" {
+                let cell : CheckWorkCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable2, for: indexPath) as! CheckWorkCell
                 
-                let cell : TViewBookCell1 = tableView.dequeueReusableCell(withIdentifier: identyfierTable9, for: indexPath) as! TViewBookCell1
-//                cell.TViewBookCellSetValuesForUndone(model: model)
-                return cell
-            }else  if state == "3" {
-                
-                let cell : TViewBookCell1 = tableView.dequeueReusableCell(withIdentifier: identyfierTable9, for: indexPath) as! TViewBookCell1
-//                cell.TViewBookCellSetValuesForUndone(model: model)
-                return cell
-            }else  if state == "4" {
-                
-                let cell : TViewBookCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable6, for: indexPath) as! TViewBookCell
-//                cell.TViewBookCellSetValuesForFirstCorrectDone(model: model)
+                cell.checkWorkCellSetValues1NotWork(model:workModel)
                 return cell
             }
-            else  if state == "5" {
+            
+            if  state == "3" {
                 
                 if indexPath.row == 0 {
-                    let cell : TViewBookCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable6, for: indexPath) as! TViewBookCell
-//                    cell.TViewBookCellSetValuesForFirstCorrectDone(model: model)
-                    return cell
-                }else{
-                    let cell : TViewBookCell3 = tableView.dequeueReusableCell(withIdentifier: identyfierTable11, for: indexPath) as! TViewBookCell3
-//                    cell.TViewBookCellSetValuesForNorWorkUndone(model: model)
+                    let cell : CheckWorkCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable2, for: indexPath) as! CheckWorkCell
+                    cell.checkWorkCellSetValues2NotWork(model:workModel)
+                    cell.resubmitAction = {
+//                        self.state = "0"
+//                        tableView.reloadData()
+                        let VC = CreateNotWorkViewController()
+                        self.navigationController?.pushViewController(VC, animated: true)
+                    }
+                    cell.complainAction = {
+                        let complianVC = ComplaintViewController()
+                        self.navigationController?.pushViewController(complianVC, animated: true)
+                    }
                     return cell
                 }
             }
-            else  if state == "6" {
+            
+            if state == "4" {
                 
-                if indexPath.row == 0 {
+                if  indexPath.row == 0 {
+                    let cell : CheckWorkCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable2, for: indexPath) as! CheckWorkCell
+                    cell.checkWorkCellSetValues3NotWork(model:workModel)
+                    cell.complainAction = {
+                        let complianVC = ComplaintViewController()
+                        self.navigationController?.pushViewController(complianVC, animated: true)
+                    }
                     
-                    let cell : TViewBookCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable6, for: indexPath) as! TViewBookCell
-//                    cell.TViewBookCellSetValuesForFirstCorrectDone(model: model)
-                    return cell
-                    
-                }else{
-                    
-                    let cell : TViewBookCell3 = tableView.dequeueReusableCell(withIdentifier: identyfierTable11, for: indexPath) as! TViewBookCell3
-//                    cell.TViewBookCellSetValuesForNorWorkUndone(model: model)
                     return cell
                 }
+                
+                let cell : UpLoadWorkCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable1, for: indexPath) as! UpLoadWorkCell
+                cell.upLoadImagesForResubmit(images: images as! Array<UIImage>)
+                
+                cell.chooseImagesAction = {
+                    if $0 == "uploadAction" {
+                        
+                        let params =
+                            [
+                                "SESSIONID":SESSIONID,
+                                "mobileCode":mobileCode,
+                                "non_exercise_Id":self.model.non_exercise_id
+                        ] as! [String : String]
+                        
+                        deBugPrint(item: params)
+                        var nameArr = [String]()
+                        nameArr.append("pre_photos1")
+                        nameArr.append("pre_photos2")
+                        netWorkForAddNonExerciseNext(params: params , data: self.images as! [UIImage] , name: nameArr, success: { (success) in
+                            
+                        }) { (erorr) in
+                            
+                        }
+                    }else{
+                        self.setupPhoto1(count: 2, currentIndex: Int($0)!)
+                    }
+                }
+                return cell
             }
-            else {
+            
+            if currentIndex == 1 && state == "5" {
                 
-                if indexPath.row == 0 {
+                let cell : CheckWorkCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable2, for: indexPath) as! CheckWorkCell
+                if  indexPath.row == 0 {
                     
-                    let cell : TViewBookCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable6, for: indexPath) as! TViewBookCell
-//                    cell.TViewBookCellSetValuesForFirstCorrectDone(model: model)
-                    return cell
-                }else{
-                    
-                    let cell : TViewBookCell2 = tableView.dequeueReusableCell(withIdentifier: identyfierTable10, for: indexPath) as! TViewBookCell2
-//                    cell.TViewBookCellSetValuesForDone(model: model)
+                    cell.checkWorkCellSetValues3NotWork(model:workModel)
                     return cell
                 }
+                cell.checkWorkCellSetValues1NotWork(model:workModel)
+                return cell
+            }
+            
+            if currentIndex == 1 && state == "6" {
+                let cell : CheckWorkCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable2, for: indexPath) as! CheckWorkCell
+                
+                if  indexPath.row == 0 {
+                    
+                    cell.checkWorkCellSetValues3NotWork(model:workModel)
+                    return cell
+                }
+                
+                cell.checkWorkCellSetValues2NotWork(model:workModel)
+                return cell
+            }
+            
+            if currentIndex == 1 && state == "7" {
+                
+                if  indexPath.row == 0 {
+                    
+                    let cell : CheckWorkCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable2, for: indexPath) as! CheckWorkCell
+                    cell.checkWorkCellSetValues3NotWork(model:workModel)
+                    return cell
+                }
+                let cell : CheckWorkCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable2, for: indexPath) as! CheckWorkCell
+                cell.checkWorkCellSetValues4NotWork(model:workModel)
+                return cell
             }
         }
         
         if currentIndex == 2 {
             
+            let model = pointArr[indexPath.row] as! UrlModel
+            
             let cell : AnserVideoCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable3, for: indexPath) as! AnserVideoCell
+            cell.AnserVideoCellSetValues(model: model)
             return cell
             
         }else if currentIndex == 3 {
             
-            let cell : AnserImageCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable, for: indexPath) as! AnserImageCell
-            return cell
+            let model = answerArr[indexPath.row] as! UrlModel
+            
+            if model.type == "1" {
+                
+                let cell : AnserVideoCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable3, for: indexPath) as! AnserVideoCell
+                cell.AnserVideoCellSetValues(model: model)
+                return cell
+            }else if model.type == "2" {
+                
+                let cell : ShowFileCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable7, for: indexPath) as! ShowFileCell
+                cell.setValues(model: model)
+                return cell
+            }else if model.type == "3" {
+                
+                let cell : ShowWriteAnswerCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable8, for: indexPath) as! ShowWriteAnswerCell
+                cell.showAnswer(text: model.title)
+                return cell
+            }else{
+                let cell : AnswerImageCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable12, for: indexPath) as! AnswerImageCell
+                cell.showWithImage(image: model.answard_res)
+                return cell
+            }
         }
         
         let cell : ClassGradeCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable4, for: indexPath) as! ClassGradeCell
         
-        if indexPath.row == 0 {
-            cell.is1thCell()
-        }else{
-            cell.setValueForClassGradeCell(index: 10-indexPath.row)
-        }
-        
-        return cell
+        if Int(model.correct_states)! == 4 || Int(model.correct_states)! == 7 {
 
+            if indexPath.row == 0 {
+                cell.is1thCellForNonWorkBook()
+            }else{
+                cell.setValueForNonBookGrade(model: workModel)
+            }
+        }else{
+            
+            cell.noDatas()
+        }
+        return cell
     }
     
     
@@ -383,8 +681,8 @@ class NotWorkDetailViewController: BaseViewController,HBAlertPasswordViewDelegat
         tableView.deselectRow(at: indexPath, animated: true)
         
         if currentIndex == 2 {
-            
-            let url = NSURL.init(string: "http://m.youku.com/video/id_XMzA4MDYxNzQ2OA==.html?spm=a2hww.20022069.m_215416.5~5%212~5~5%212~A&source=http%3A%2F%2Fyouku.com%2Fu%2F13656654646%3Fscreen%3Dphone")
+            let model = pointArr[indexPath.row] as! UrlModel
+              let url = NSURL.init(string: model.address!)
             
             if #available(iOS 10.0, *) {
                 UIApplication.shared.open(url! as URL, options: [:],
@@ -394,6 +692,27 @@ class NotWorkDetailViewController: BaseViewController,HBAlertPasswordViewDelegat
             } else {
                 // Fallback on earlier versions
             }
+            
+        }
+        
+        
+        if currentIndex == 3 {
+            let model = answerArr[indexPath.row] as! UrlModel
+            
+            if model.type == "1" {
+                let url = NSURL.init(string: model.answard_res)
+                
+                if #available(iOS 10.0, *) {
+                    UIApplication.shared.open(url! as URL, options: [:],
+                                              completionHandler: {
+                                                (success) in
+                    })
+                } else {
+                    // Fallback on earlier versions
+                }
+
+            }
+            
             
         }
         
@@ -441,13 +760,14 @@ class NotWorkDetailViewController: BaseViewController,HBAlertPasswordViewDelegat
     
     
     // 异步原图
-    private func setupPhoto1(count:NSInteger) {
+    // 异步原图
+    private func setupPhoto1(count:NSInteger,currentIndex:NSInteger) {
         let imagePickTool = CLImagePickersTool()
         
         imagePickTool.isHiddenVideo = true
         
         imagePickTool.setupImagePickerWith(MaxImagesCount: count, superVC: self) { (assetArr,cutImage) in
-            print("返回的asset数组是\(assetArr)")
+            deBugPrint(item: "返回的asset数组是\(assetArr)")
             
             PopViewUtil.share.showLoading()
             
@@ -460,7 +780,12 @@ class NotWorkDetailViewController: BaseViewController,HBAlertPasswordViewDelegat
             CLImagePickersTool.convertAssetArrToOriginImage(assetArr: assetArr, scale: 0.1, successClouse: {[weak self] (image,assetItem) in
                 imageArr.append(image)
                 
-                self?.images.add(image)
+                if (self?.images.count)!<2{
+                    self?.images.add(image)
+                }else{
+                    self?.images[currentIndex] = image
+                }
+                
                 self?.dealImage(imageArr: imageArr, index: index)
                 self?.mainTableView.reloadData()
                 
@@ -471,6 +796,7 @@ class NotWorkDetailViewController: BaseViewController,HBAlertPasswordViewDelegat
             
         }
     }
+
     
     @objc func dealImage(imageArr:[UIImage],index:Int) {
         // 图片下载完成后再去掉我们的转转转控件，这里没有考虑assetArr中含有视频文件的情况

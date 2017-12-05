@@ -38,5 +38,6 @@ class UrlModel: NSObject {
         model.title = json["title"].stringValue
         model.address = json["address"].stringValue
         return model
+        
     }
 }

@@ -18,7 +18,16 @@ class WorkBookViewController: BaseViewController ,UISearchBarDelegate{
         super.viewDidLoad()
         addImageWhenEmpty()
         rightBarButton()
+        
+        
+//        接收创建练习册成功的通知
+        NotificationCenter.default.addObserver(self, selector: #selector(receiveNitification(nitofication:)), name: NSNotification.Name(rawValue: SuccessRefreshNotificationCenter), object: nil)
     }
+    
+    @objc func receiveNitification(nitofication:Notification) {
+        self.mainTableView.mj_header.beginRefreshing()
+    }
+    
     
     override func leftBarButton() {
         
@@ -50,8 +59,7 @@ class WorkBookViewController: BaseViewController ,UISearchBarDelegate{
             
             if flag {
                 self.mainTableArr.removeAllObjects()
-                self.mainTableView.mj_header.endRefreshing()
-                print(dataArr)
+                deBugPrint(item: dataArr)
                 if dataArr.count > 0 {
                     
                     self.mainTableArr.addObjects(from: dataArr)
@@ -60,6 +68,7 @@ class WorkBookViewController: BaseViewController ,UISearchBarDelegate{
                     setToast(str: "返回数据为空")
                 }
             }
+            self.mainTableView.mj_header.endRefreshing()
             self.view.endLoading()
         }
     }
@@ -194,7 +203,7 @@ class WorkBookViewController: BaseViewController ,UISearchBarDelegate{
         cell.workBookCellSetValue(model: model)
         
         cell.addWorkBookBlock = {
-            print($0)
+            deBugPrint(item: $0)
             //MARK:添加练习册
             let params =
                 ["SESSIONID":SESSIONID,
@@ -207,7 +216,7 @@ class WorkBookViewController: BaseViewController ,UISearchBarDelegate{
                 if flag {
                     netWorkForGetAllWorkBook { (dataArr ,flag) in
                         if flag {
-                            print(dataArr)
+                           deBugPrint(item: dataArr)
                             if dataArr.count > 0 {
                                 
                                 self.mainTableArr.removeAllObjects()
@@ -230,6 +239,7 @@ class WorkBookViewController: BaseViewController ,UISearchBarDelegate{
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         searchBar.endEditing(true)
         tableView.deselectRow(at: indexPath, animated: true)
+    
 //        let model = mainTableArr[indexPath.row] as! WorkBookModel
 //        let BookDetailVC = BookDetailViewController()
 //        BookDetailVC.model = model

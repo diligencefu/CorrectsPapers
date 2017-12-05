@@ -55,6 +55,7 @@ class BoardInputView: UIView {
         textView.inputView = nil
         textView.inputAccessoryView = nil
         // 文本框
+        textView.removeFromSuperview()
         self.addSubview(textView)
         
         // 线

@@ -10,18 +10,17 @@ import UIKit
 
 class TShowBooksCell: UITableViewCell {
 
-    
     @IBOutlet weak var bookImage: UIImageView!
-    
     @IBOutlet weak var bookTitle: UILabel!
     @IBOutlet weak var studentName: UILabel!
     @IBOutlet weak var proName: UILabel!
     @IBOutlet weak var priceLabel: UILabel!
     @IBOutlet weak var bookState: UILabel!
-    
+    @IBOutlet weak var label: UIButton!
+    @IBOutlet weak var label1: UILabel!
     @IBOutlet weak var addbtn: UIButton!
     
-    
+    var addWorkBlock:(()->())?  //声明闭包
     override func awakeFromNib() {
         super.awakeFromNib()
 
@@ -37,8 +36,8 @@ class TShowBooksCell: UITableViewCell {
         proName.text = model.subject_name
         bookTitle.text = model.non_exercise_name
         priceLabel.text = model.rewards
+        model.state = "2"
         bookState.text = kGetStateFromString(str: model.state!)
-        
         bookState.textColor = kGetColorFromString(str:bookState.text!)
     }
     
@@ -49,13 +48,37 @@ class TShowBooksCell: UITableViewCell {
         studentName.text = model.user_name
         proName.text = model.subject_name
         bookTitle.text = model.non_exercise_name
-        priceLabel.text = model.rewards
-        bookState.text = kGetStateFromString(str: model.state!)
         
-        bookState.textColor = kGetColorFromString(str:bookState.text!)
+        if model.correct_way == "2" {
+            priceLabel.text = model.rewards
+            label.setTitle("悬赏学币：", for: .normal)
+            label1.text = ""
+            priceLabel.textColor = kGaryColor(num: 101)
+        }else{
+            label.setTitle("邀请", for: .normal)
+            label1.text = "来批改"
+            priceLabel.text = model.teacher_name
+            priceLabel.textColor = kGetColorFromString(str: "未批改")
+        }
+                
+        if model.state == "3" || model.state == "6" {
+            var symbol = ""
+            if model.reason.count > 0{
+                symbol = "-"
+            }
+            bookState.text = kGetStateFromString(str: model.state!)+symbol+model.reason
+        }else{
+            bookState.text = kGetStateFromString(str: model.state!)
 
+        }
+        bookState.textColor = kGetColorFromString(str:bookState.text!)
     }
     
+    @IBAction func addAction(_ sender: UIButton) {
+        if addWorkBlock != nil {
+            addWorkBlock!()
+        }
+    }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)

@@ -76,28 +76,28 @@
                         <color key="textColor" red="0.38034743070602417" green="0.38041785359382629" blue="0.38034301996231079" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="sixing_icon_pressed" translatesAutoresizingMaskIntoConstraints="NO" id="DM9-Jw-VIq">
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="yixing_icon_pressed" translatesAutoresizingMaskIntoConstraints="NO" id="DM9-Jw-VIq">
                         <rect key="frame" x="275" y="22" width="70" height="12"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="70" id="8eR-ds-LoV"/>
                             <constraint firstAttribute="height" constant="12" id="IHx-gj-sKo"/>
                         </constraints>
                     </imageView>
-                    <imageView userInteractionEnabled="NO" tag="2" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="workBook" translatesAutoresizingMaskIntoConstraints="NO" id="12q-DN-f91">
+                    <imageView clipsSubviews="YES" tag="222" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="workBook" translatesAutoresizingMaskIntoConstraints="NO" id="12q-DN-f91">
                         <rect key="frame" x="15" y="103" width="160" height="200"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="200" id="52z-uT-BiI"/>
                             <constraint firstAttribute="width" constant="160" id="aaf-E5-8tQ"/>
                         </constraints>
                     </imageView>
-                    <imageView userInteractionEnabled="NO" tag="3" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="workBook" translatesAutoresizingMaskIntoConstraints="NO" id="Dwg-G2-2CB">
+                    <imageView clipsSubviews="YES" tag="223" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="workBook" translatesAutoresizingMaskIntoConstraints="NO" id="Dwg-G2-2CB">
                         <rect key="frame" x="185" y="103" width="160" height="200"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="160" id="J1k-q5-1NV"/>
                             <constraint firstAttribute="height" constant="200" id="s9W-dd-f9E"/>
                         </constraints>
                     </imageView>
-                    <imageView userInteractionEnabled="NO" tag="1" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="workBook" translatesAutoresizingMaskIntoConstraints="NO" id="vQI-eo-iJg">
+                    <imageView userInteractionEnabled="NO" tag="221" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="workBook" translatesAutoresizingMaskIntoConstraints="NO" id="vQI-eo-iJg">
                         <rect key="frame" x="100" y="103" width="160" height="200"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="200" id="FzI-nM-6em"/>
@@ -201,7 +201,7 @@
     </objects>
     <resources>
         <image name="UserHead_64_default" width="32" height="32"/>
-        <image name="sixing_icon_pressed" width="72" height="12"/>
         <image name="workBook" width="160" height="200"/>
+        <image name="yixing_icon_pressed" width="72" height="12"/>
     </resources>
 </document>

@@ -95,7 +95,7 @@ class TEditInfoViewController: BaseViewController {
                 let cell2 : TeacherInfoCell3 = tableView.dequeueReusableCell(withIdentifier: identyfierTable2, for: indexPath) as! TeacherInfoCell3
                 cell2.TeacherInfoCell3SetImages(images: teacherIDImages)
                 cell2.chooseImagesAction = {
-                    print($0)
+                    deBugPrint(item: $0)
                     self.setupPhoto1(count: 2)
                 }
                 return cell2
@@ -113,7 +113,7 @@ class TEditInfoViewController: BaseViewController {
                 let cell2 : TeacherInfoCell4 = tableView.dequeueReusableCell(withIdentifier: identyfierTable3, for: indexPath) as! TeacherInfoCell4
                 cell2.TeacherInfoCell4SetImage(image: certification)
                 cell2.chooseImagesAction = {
-                    print($0)
+                    deBugPrint(item: $0)
                     self.isCertification = true
                     self.setupPhoto1(count: 1)
                 }
@@ -362,7 +362,7 @@ class TEditInfoViewController: BaseViewController {
         imagePickTool.isHiddenVideo = true
         
         imagePickTool.setupImagePickerWith(MaxImagesCount: count, superVC: self) { (assetArr,cutImage) in
-            print("返回的asset数组是\(assetArr)")
+            deBugPrint(item: "返回的asset数组是\(assetArr)")
             
             PopViewUtil.share.showLoading()
             

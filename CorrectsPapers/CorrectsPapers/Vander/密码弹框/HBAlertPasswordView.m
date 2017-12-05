@@ -74,7 +74,7 @@
         cancelButton.frame = CGRectMake(0, BGViewH - kButtonHeight, BGViewW / 2, kButtonHeight);
         [cancelButton setTitle:@"取消" forState:UIControlStateNormal];
         [cancelButton setTitleColor:[[UIColor blueColor] colorWithAlphaComponent:0.5] forState:UIControlStateNormal];
-        cancelButton.titleLabel.font = [UIFont systemFontOfSize:16];
+        cancelButton.titleLabel.font = [UIFont systemFontOfSize:18];
         [cancelButton addTarget:self action:@selector(cancelButtonAction) forControlEvents:UIControlEventTouchUpInside];
         [BGView addSubview:cancelButton];
         
@@ -83,7 +83,7 @@
         sureButton.frame = CGRectMake(CGRectGetMaxX(cancelButton.frame), BGViewH - kButtonHeight, BGViewW / 2, kButtonHeight);
         [sureButton setTitle:@"确定" forState:UIControlStateNormal];
         [sureButton setTitleColor:[[UIColor redColor] colorWithAlphaComponent:0.5] forState:UIControlStateNormal];
-        sureButton.titleLabel.font = [UIFont systemFontOfSize:16];
+        sureButton.titleLabel.font = [UIFont systemFontOfSize:19];
         [sureButton addTarget:self action:@selector(sureButtonAction) forControlEvents:UIControlEventTouchUpInside];
         [BGView addSubview:sureButton];
         
@@ -93,7 +93,7 @@
         
         // 密码框
         CGFloat passwordTextFieldY = (BGViewH - CGRectGetMaxY(topLineView.frame) - kButtonHeight - kBorderHeight) / 2;
-        UITextField *passwordTextField = [[UITextField alloc] initWithFrame:CGRectMake((BGViewW - kPasswordCount * kBorderHeight) / 2, passwordTextFieldY + CGRectGetMaxY(topLineView.frame)+20, kPasswordCount * kBorderHeight, kBorderHeight)];
+        UITextField *passwordTextField = [[UITextField alloc] initWithFrame:CGRectMake((BGViewW - kPasswordCount * kBorderHeight) / 2, passwordTextFieldY + CGRectGetMaxY(topLineView.frame), kPasswordCount * kBorderHeight, kBorderHeight)];
         passwordTextField.backgroundColor = [UIColor whiteColor];
         // 输入的文字颜色为白色
         passwordTextField.textColor = [UIColor whiteColor];

@@ -17,7 +17,7 @@ class TShowStuWorksModel: NSObject {
     var user_num : String!
     ///学生照片
     var user_photo : String!
-    ///批改成绩
+    ///首次批改成绩
     var scores : String!
     ///批改时间
     var correcting_time : String!
@@ -32,7 +32,7 @@ class TShowStuWorksModel: NSObject {
 //    改正后的评论
     var comment_next : String!
     //批改状态
-    var state : String!
+    var correcting_states : String!
     //老师名称
     var teacher_name : String!
     //作业描述
@@ -56,7 +56,7 @@ class TShowStuWorksModel: NSObject {
         
         model.scores_next = json["scores_next"].stringValue
         model.comment_next = json["comment_next"].stringValue
-        model.state = json["state"].stringValue
+        model.correcting_states = json["correcting_states"].stringValue
         model.teacher_name = json["teacher_name"].stringValue
         model.result = json["result"].stringValue
         model.book_details_id = json["book_details_id"].stringValue

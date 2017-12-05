@@ -166,7 +166,7 @@ func setToast(str:String) {
             label.alpha = 0
         }, completion: { (s) in
             label.removeFromSuperview()
-            print("移除提醒")
+            deBugPrint(item: "移除提醒")
         })
     }
 }
@@ -236,7 +236,7 @@ func kGetStateFromString(str:String) -> (String){
     }
 
     if str == "6" {
-        return "错题已退回"
+        return "错题退回"
     }
 
     if str == "7" {
@@ -269,7 +269,7 @@ func kGetColorFromString(str:String) -> (UIColor){
         return kSetRGBColor(r: 255, g: 153, b: 0)
     }
     
-    if str == "错题已退回"{
+    if str == "错题退回"{
     return kSetRGBColor(r: 255, g: 65, b: 65)
     }
     
@@ -280,6 +280,13 @@ func kGetColorFromString(str:String) -> (UIColor){
     return kSetRGBColor(r: 255, g: 78, b: 78)
 }
 
+
+//调试模式输出
+func deBugPrint( item: @autoclosure () -> Any) {
+    #if DEBUG
+        print(item())
+    #endif
+}
 
 
 class TheGlobalVariable: NSObject {

@@ -29,7 +29,7 @@ class ReloadNotWorkViewController: BaseViewController {
                 "non_exercise_Id":non_exercise_Id
         ]
         
-        print(params)
+        deBugPrint(item: params)
         var imgArr = [UIImage]()
         var nameArr = [String]()
         
@@ -44,7 +44,6 @@ class ReloadNotWorkViewController: BaseViewController {
         }) { (erorr) in
             
         }
-        
     }
     
     
@@ -95,9 +94,9 @@ class ReloadNotWorkViewController: BaseViewController {
                 }
                 
                 netWorkForUploadWorkBookNext(params: params, data: self.images as! [UIImage], name: nameArr, success: { (datas) in
-                    print(datas)
+                    deBugPrint(item: datas)
                     let json = JSON(datas)
-                    print(json)
+                    deBugPrint(item: json)
                     
                     if json["code"] == "1" {
                         
@@ -105,7 +104,7 @@ class ReloadNotWorkViewController: BaseViewController {
                     }
 
                 }, failture: { (error) in
-                    print(error)
+                    deBugPrint(item: error)
                 })
                 
             }else{
@@ -132,7 +131,7 @@ class ReloadNotWorkViewController: BaseViewController {
         imagePickTool.isHiddenVideo = true
         
         imagePickTool.setupImagePickerWith(MaxImagesCount: count, superVC: self) { (assetArr,cutImage) in
-            print("返回的asset数组是\(assetArr)")
+            deBugPrint(item: "返回的asset数组是\(assetArr)")
             
             PopViewUtil.share.showLoading()
             

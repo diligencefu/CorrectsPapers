@@ -41,7 +41,6 @@ class TBookViewController: BaseViewController {
             ["SESSIONID":SESSIONIDT,
              "mobileCode":mobileCodeT,
              ]
-        
         self.view.beginLoading()
         NetWorkTeacherGetTAllWorkList(params: params) { (datas,flag) in
             
@@ -56,11 +55,11 @@ class TBookViewController: BaseViewController {
     
     
     override func refreshHeaderAction() {
+        
         let params =
             ["SESSIONID":SESSIONIDT,
              "mobileCode":mobileCodeT,
              ]
-
         self.view.beginLoading()
         NetWorkTeacherGetTAllWorkList(params: params) { (datas,flag) in
             
@@ -72,14 +71,12 @@ class TBookViewController: BaseViewController {
             }
             self.view.endLoading()
         }
-
     }
     
     
     override func configSubViews() {
         
         self.navigationItem.title = "练习册作业"
-        
         //        顶部搜索栏
         searchBar = UISearchBar.init(frame: CGRect(x: 0, y: 0, width: kSCREEN_WIDTH, height: 50 ))
         searchBar.placeholder="搜索"
@@ -246,7 +243,7 @@ class TBookViewController: BaseViewController {
             
             mainTableArr.removeObject(at: indexPath.row)
             tableView.reloadData()
-            print("删除了---\(indexPath.section)分区-\(indexPath.row)行")
+            deBugPrint(item: "删除了---\(indexPath.section)分区-\(indexPath.row)行")
         }
     }
     

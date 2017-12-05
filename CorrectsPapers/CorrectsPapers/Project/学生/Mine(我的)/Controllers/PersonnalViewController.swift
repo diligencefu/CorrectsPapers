@@ -30,18 +30,23 @@ class PersonnalViewController: BaseViewController {
     override func requestData() {
         
         self.view.beginLoading()
-        netWorkForMyData { (dataArr,flag) in
-            
+        let params = [
+            "SESSIONID":SESSIONID,
+            "mobileCode":mobileCode
+        ]
+
+        netWorkForMyData(params: params) { (dataArr,flag) in
+
             if flag {
                 if dataArr.count > 0{
                     self.model = dataArr[0] as! PersonalModel
-                    self.infoArr = [[""],[self.model.coin_count!+"学币","100学分",self.model.friendCount+"人",""],[self.model.num,"",""]]
+                    self.infoArr = [[""],[OCTools.init().positiveFormat(self.model.coin_count!)+"学币","100学分",self.model.friendCount+"人",""],[self.model.num,"",""]]
                     
                     Defaults[username] = self.model.user_name
                     Defaults[userArea] = self.model.user_area
                     Defaults[userId] = self.model.user_num
                     //                Defaults[userGrade]! = self.model.user_fit_class
-                    Defaults[userAccount] = self.model.coin_count
+                    Defaults[userAccount] = OCTools.init().positiveFormat(self.model.coin_count!)
                     
                 }
                 self.mainTableView.reloadData()
@@ -53,17 +58,22 @@ class PersonnalViewController: BaseViewController {
     override func refreshHeaderAction() {
 
         self.view.beginLoading()
-        netWorkForMyData { (dataArr,flag) in
-            
+        let params = [
+            "SESSIONID":SESSIONID,
+            "mobileCode":mobileCode
+        ]
+        
+        netWorkForMyData(params: params) { (dataArr,flag) in
+
             if flag {
                 if dataArr.count > 0{
                     self.model = dataArr[0] as! PersonalModel
-                    self.infoArr = [[""],[self.model.coin_count!+"学币","100学分",self.model.friendCount+"人",""],[self.model.num,"",""]]
+                    self.infoArr = [[""],[OCTools.init().positiveFormat(self.model.coin_count!)+"学币","100学分",self.model.friendCount+"人",""],[self.model.num,"",""]]
                     
                     Defaults[username] = self.model.user_name
                     Defaults[userArea] = self.model.user_area
                     Defaults[userId] = self.model.user_num
-                    Defaults[userAccount] = self.model.coin_count
+                    Defaults[userAccount] = OCTools.init().positiveFormat(self.model.coin_count!)
                 }
                 self.mainTableView.mj_header.endRefreshing()
                 self.mainTableView.reloadData()
@@ -114,7 +124,7 @@ class PersonnalViewController: BaseViewController {
             model.friendCount = "0"
         }
 
-        self.infoArr = [[""],[self.model.coin_count!+"学币","100学分",self.model.friendCount+"人",""],[self.model.num,"",""]]
+        self.infoArr = [[""],[OCTools.init().positiveFormat(self.model.coin_count!)+"学币","100学分",self.model.friendCount+"人",""],[self.model.num,"",""]]
         
 //        infoArr = [[""],["100学币","100学分","0人",""],["",""],["",""]]
         
@@ -241,14 +251,14 @@ class PersonnalViewController: BaseViewController {
                 Alamofire.request("http://192.168.1.181:8080/duties/m/rongxing/mine/getComplaints",
                                   method: .get, parameters: dic,
                                   encoding: URLEncoding.default, headers: nil).responseJSON(queue:DispatchQueue.main, options: .allowFragments) { (response) in
-                                    print(response.result)
+                                    deBugPrint(item: response.result)
                                     switch response.result {
                                     case .success:
                                         
                                         setToast(str: "完成")
                                         break
                                     case .failure(let error):
-                                        print(error)
+                                        deBugPrint(item: error)
                                         
                                         setToast(str: "反馈意见和建议失败")
                                     }

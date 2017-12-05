@@ -198,7 +198,7 @@ class Non_WorkBookViewController: BaseViewController ,UIPickerViewDelegate,UIPic
     
     
     @objc func chooseDateAction(sender:UIButton) {
-        print(NSDate())
+        deBugPrint(item: NSDate())
         showDatePickerView()
     }
     
@@ -294,7 +294,7 @@ class Non_WorkBookViewController: BaseViewController ,UIPickerViewDelegate,UIPic
                 let cell : UpLoadWorkCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable1, for: indexPath) as! UpLoadWorkCell
                 cell.upLoadImagesForWorkBook(images: images as! Array<UIImage>)
                 cell.chooseImagesAction = {
-                    print($0)
+                    deBugPrint(item: $0)
                     
                     if $0 == "upLoad" {
                         
@@ -355,7 +355,7 @@ class Non_WorkBookViewController: BaseViewController ,UIPickerViewDelegate,UIPic
             cell.upLoadImagesForResubmit(images: images as! Array<UIImage>)
             
             cell.chooseImagesAction = {
-                print($0)
+                deBugPrint(item: $0)
                 
                 self.setupPhoto1(count: 2)
             }
@@ -490,7 +490,7 @@ class Non_WorkBookViewController: BaseViewController ,UIPickerViewDelegate,UIPic
         imagePickTool.isHiddenVideo = true
         
         imagePickTool.setupImagePickerWith(MaxImagesCount: count, superVC: self) { (assetArr,cutImage) in
-            print("返回的asset数组是\(assetArr)")
+            deBugPrint(item: "返回的asset数组是\(assetArr)")
             
             PopViewUtil.share.showLoading()
             
@@ -639,7 +639,7 @@ class Non_WorkBookViewController: BaseViewController ,UIPickerViewDelegate,UIPic
         
         
         if currentCount == 1 {
-            print(proArr[pickerView.selectedRow(inComponent: 0)])
+            deBugPrint(item: proArr[pickerView.selectedRow(inComponent: 0)])
             contents[2][0] = proArr[pickerView.selectedRow(inComponent: 0)]
             mainTableView.reloadSections([2], with: .none)
             
@@ -647,7 +647,7 @@ class Non_WorkBookViewController: BaseViewController ,UIPickerViewDelegate,UIPic
         
         
         if currentCount == 2 {
-            print(gradeArr[pickerView.selectedRow(inComponent: 0)] + " " + detailArr[pickerView.selectedRow(inComponent: 1)])
+            deBugPrint(item: gradeArr[pickerView.selectedRow(inComponent: 0)] + " " + detailArr[pickerView.selectedRow(inComponent: 1)])
             contents[2][1] = gradeArr[pickerView.selectedRow(inComponent: 0)] + " " + detailArr[pickerView.selectedRow(inComponent: 1)]
             mainTableView.reloadSections([2], with: .none)
             
@@ -655,7 +655,7 @@ class Non_WorkBookViewController: BaseViewController ,UIPickerViewDelegate,UIPic
         
 
         if currentCount == 0 {
-            print(wayArr[pickerView.selectedRow(inComponent: 0)])
+            deBugPrint(item: wayArr[pickerView.selectedRow(inComponent: 0)])
             contents[1][0] = wayArr[pickerView.selectedRow(inComponent: 0)]
 
             if wayArr[pickerView.selectedRow(inComponent: 0)] == "请好友帮忙"{
@@ -747,8 +747,8 @@ class Non_WorkBookViewController: BaseViewController ,UIPickerViewDelegate,UIPic
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         //将在滑动停止后触发，并打印出选中列和行索引
-        print(component)
-        print(row)
+        deBugPrint(item: component)
+        deBugPrint(item: row)
         
         //        contents = [[""],["悬赏学币","学币"],["语文","六年级下册"]]
         
@@ -866,7 +866,7 @@ class Non_WorkBookViewController: BaseViewController ,UIPickerViewDelegate,UIPic
         //日期样式
         formatter.dateFormat = "yyyy/MM/dd HH:mm:ss"
         
-        print(formatter.string(from: datePicker.date))
+        deBugPrint(item: formatter.string(from: datePicker.date))
     }
     
     
@@ -886,7 +886,7 @@ class Non_WorkBookViewController: BaseViewController ,UIPickerViewDelegate,UIPic
             let formatter = DateFormatter()
             //日期样式
             formatter.dateFormat = "yyyy/MM/dd"
-            print(formatter.string(from: self.datePicker.date))
+            deBugPrint(item: formatter.string(from: self.datePicker.date))
             self.dateBtn.setTitle(formatter.string(from: self.datePicker.date), for: .normal)
         }
     }
@@ -925,7 +925,7 @@ class Non_WorkBookViewController: BaseViewController ,UIPickerViewDelegate,UIPic
                 "freind_id":"1"
                 ]
         
-        print(params)
+        deBugPrint(item: params)
         var imgArr = [UIImage]()
         var nameArr = [String]()
         

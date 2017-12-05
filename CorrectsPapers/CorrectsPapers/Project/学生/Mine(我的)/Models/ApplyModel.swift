@@ -24,7 +24,8 @@ class ApplyModel: NSObject {
     var user_fit_class : String!
     ///用户id
     var userId : String!
-
+    ///用户id
+    var freind_id : String!
     
     class func setValueForApplyModel(json: JSON) -> ApplyModel {
         
@@ -34,6 +35,7 @@ class ApplyModel: NSObject {
         model.user_photo = json["user_photo"].stringValue
         model.user_type = json["user_type"].stringValue
         model.userId = json["userId"].stringValue
+        model.freind_id = json["freind_id"].stringValue
         model.user_num = json["user_num"].stringValue
         model.user_fit_class = json["user_fit_class"].stringValue
 

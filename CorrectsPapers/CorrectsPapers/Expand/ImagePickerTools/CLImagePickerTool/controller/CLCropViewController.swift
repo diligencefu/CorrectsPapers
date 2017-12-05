@@ -114,7 +114,7 @@ class CLCropViewController: CLBaseImagePickerViewController {
     }
     
     deinit {
-        print("CLCropViewController裁剪释放")
+        deBugPrint(item: "CLCropViewController裁剪释放")
     }
     
     @objc func clickSureBtn() {

@@ -18,7 +18,6 @@ class TShowBookCell: UITableViewCell {
     
     @IBOutlet weak var gradeMark: UIButton!
     
-    
     @IBOutlet weak var label1: UIButton!
     @IBOutlet weak var label2: UIButton!
     

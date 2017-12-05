@@ -10,6 +10,8 @@
 
 @implementation UIView (Ext)
 
+
+
 - (UIColor *) colorOfPoint:(CGPoint)point
 {
     unsigned char pixel[4] = {0};

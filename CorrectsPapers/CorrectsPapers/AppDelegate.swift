@@ -90,12 +90,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
                     
                 case SSDKPlatformType.typeWechat:
                     //设置微信应用信息
-                    appInfo?.ssdkSetupWeChat(byAppId: "wxce535119b08f7256",
-                                             appSecret: "c4ec2c48ba3ae176e47bf57ade3192ec")
+                    appInfo?.ssdkSetupWeChat(byAppId: "wxee4f5f10143d1da2",
+                                             appSecret: "a475e492d8f21801df64a8ed9c006a5c")
                 case SSDKPlatformType.typeQQ:
                     //设置QQ应用信息
-                    appInfo?.ssdkSetupQQ(byAppId: "1106479137",
-                                         appKey: "WMZGYIqmTAZMda3x",
+                    appInfo?.ssdkSetupQQ(byAppId: "1106558738",
+                                         appKey: "ixhK8uo7xLQ3NBcE",
                                          authType: SSDKAuthTypeWeb)
                 default:
                     break

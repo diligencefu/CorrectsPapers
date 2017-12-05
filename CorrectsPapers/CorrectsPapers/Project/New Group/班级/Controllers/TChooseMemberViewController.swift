@@ -79,12 +79,18 @@ class TChooseMemberViewController: BaseViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
 
+        
         if selectArr.contains(String(indexPath.row)) {
             selectArr.remove(at: selectArr.index(of: String(indexPath.row))!)
         }else{
             selectArr.append(String(indexPath.row))
         }
         tableView.reloadData()
+        
+        if selectArr.count == 4 {
+            selectArr.remove(at: 0)
+        }
+
     }
     
     

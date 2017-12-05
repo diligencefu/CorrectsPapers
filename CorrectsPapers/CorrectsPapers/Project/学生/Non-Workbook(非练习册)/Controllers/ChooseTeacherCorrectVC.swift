@@ -11,22 +11,30 @@ import UIKit
 class ChooseTeacherCorrectVC: BaseViewController {
 
     var selectArr = [String]()
-    
-    var chooseMemberBlock:((Array<String>)->())?  //声明闭包
+    var teachers = [ApplyModel]()
+    var chooseMemberBlock:((ApplyModel)->())?  //声明闭包
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        rightBarButton()
+//        rightBarButton()
     }
     
     override func requestData() {
-        let dic = ["SESSIONID":SESSIONID,"mobileCode":mobileCode]
-        
-        netWorkForModle_exercise(params: dic) { (flag) in
+        netWorkForMyFriend { (datas, success) in
             
+            deBugPrint(item: datas)
+            
+            for index in 0..<datas.count {
+                
+                let model = datas[index] as! ApplyModel
+                
+                if model.user_type != "1" {
+                    self.teachers.append(model)
+                }
+            }
+            self.mainTableView.reloadData()
         }
-
     }
     
     
@@ -55,16 +63,16 @@ class ChooseTeacherCorrectVC: BaseViewController {
     
     @objc func selectDone(sender:UIBarButtonItem) {
         
-        if chooseMemberBlock != nil {
-            chooseMemberBlock!(selectArr)
-        }
+//        if chooseMemberBlock != nil {
+//            chooseMemberBlock!(selectArr)
+//        }
         self.navigationController?.popViewController(animated: true)
     }
     
     //MARK:  ******代理 ：UITableViewDataSource,UITableViewDelegate
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        return mainTableArr.count
+        return teachers.count
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -73,36 +81,25 @@ class ChooseTeacherCorrectVC: BaseViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
+        let model = teachers[indexPath.section]
         let cell : ShowFridensCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable, for: indexPath) as! ShowFridensCell
         cell.selectionStyle = .default
-        //        cell.ShowFridensCellForShowFriend(model: <#ApplyModel#>)
-        
-        if selectArr.contains(String(indexPath.row)) {
-            cell.accessoryType = .checkmark
-        }else{
-            cell.accessoryType = .none
-        }
-        
+        cell.ShowFridensCellForShowFriend(model: model)
         return cell
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         
-        if selectArr.contains(String(indexPath.row)) {
-            selectArr.remove(at: selectArr.index(of: String(indexPath.row))!)
-        }else{
-            selectArr.append(String(indexPath.row))
+        let model = teachers[indexPath.section]
+        if chooseMemberBlock != nil {
+            chooseMemberBlock!(model)
+            self.navigationController?.popViewController(animated: true)
         }
-        tableView.reloadData()
     }
-    
     
     override func viewWillDisappear(_ animated: Bool) {
         
     }
-    
-    
-    
     
 }

@@ -31,7 +31,6 @@ class UploadVideoViewController: BaseViewController ,UIAlertViewDelegate{
         
         self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(title: "确认", style: .plain, target: self, action: #selector(submitAnswer(sender:)))
         self.navigationItem.rightBarButtonItem?.tintColor = UIColor.white
-        
     }
         
     
@@ -52,7 +51,7 @@ class UploadVideoViewController: BaseViewController ,UIAlertViewDelegate{
         priceTextfield.keyboardType = .numberPad
         
         let text = priceTextfield.text
-        print(text!)
+        deBugPrint(item: text!)
         alert.show()
     }
     
@@ -87,7 +86,6 @@ class UploadVideoViewController: BaseViewController ,UIAlertViewDelegate{
                     setToast(str: "请设置学币")
                     return
                 }
-                
                 let params1 =
                     ["SESSIONID":SESSIONIDT,
                      "mobileCode":mobileCodeT,
@@ -97,24 +95,15 @@ class UploadVideoViewController: BaseViewController ,UIAlertViewDelegate{
                      "money":priceTextfield.text!,
                      "address":StringToUTF_8InUrl(str: textfield3.text!)
                         ] as [String : Any]
-                if currentType == 1 {
-                    
-                    NetWorkTeacherAddTWorkUploadUploadPoints(params: params1, callBack: { (flag) in
-                        if flag {
-                            
-                            setToast(str: "已提交")
-                            self.navigationController?.popViewController(animated: true)
-                        }
-                    })
-                }else if currentType == 2 {
-                    
-                    
-                    
-                }else if currentType == 3 {
-                    
-                    
-                    
-                }
+                
+                NetWorkTeacherAddTWorkUploadUploadPoints(params: params1, callBack: { (flag) in
+                    if flag {
+                        
+                        setToast(str: "已提交")
+                        self.navigationController?.popViewController(animated: true)
+                    }
+                })
+               
             }else{
 
                 if !UIApplication.shared.canOpenURL(StringToUTF_8InUrl(str: textfield2.text!)) {
@@ -126,32 +115,22 @@ class UploadVideoViewController: BaseViewController ,UIAlertViewDelegate{
                     setToast(str: "请填写视频描述")
                     return
                 }
-                
-                if currentType == 1 {
-                    let params1 =
-                        ["SESSIONID":SESSIONIDT,
-                         "mobileCode":mobileCodeT,
-                         "bookId":bookId,
-                         "title":textfield1.text!,
-                         "answardRes":textfield2.text!,
-                         "money":priceTextfield.text!
-                            ] as [String : Any]
-                    NetWorkTeacherGetTWorkUploadVideo(params: params1, callBack: { (flag) in
-                        if flag {
-                            
-                            setToast(str: "已提交")
-                            self.navigationController?.popViewController(animated: true)
-                        }
-                    })
-                }else if currentType == 2 {
-                    
-                    
-                    
-                }else if currentType == 3 {
-                    
-                    
-                    
-                }
+                let params1 =
+                    ["SESSIONID":SESSIONIDT,
+                     "mobileCode":mobileCodeT,
+                     "bookId":bookId,
+                     "title":textfield1.text!,
+                     "answardRes":textfield2.text!,
+                     "money":priceTextfield.text!
+                        ] as [String : Any]
+                NetWorkTeacherGetTWorkUploadVideo(params: params1, callBack: { (flag) in
+                    if flag {
+                        
+                        setToast(str: "已提交")
+                        self.navigationController?.popViewController(animated: true)
+                    }
+                })
+
             }
         }else{
             setToast(str: "取消了")

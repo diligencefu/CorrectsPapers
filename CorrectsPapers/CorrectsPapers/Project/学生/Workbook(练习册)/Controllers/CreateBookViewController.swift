@@ -8,8 +8,16 @@
 
 import UIKit
 
+let SuccessRefreshNotificationCenter = "SuccessRefreshNotificationCenter"
+
+
+//protocol SuccessRefreshDelegate:NSObjectProtocol {
+//    func beginRefresh()
+//}
+
 class CreateBookViewController: BaseViewController ,UIPickerViewDelegate,UIPickerViewDataSource{
-    
+//    var delegate : SuccessRefreshDelegate?
+
     //    背景蒙层
     var BGView = UIView()
     var currentCount = 1
@@ -28,7 +36,7 @@ class CreateBookViewController: BaseViewController ,UIPickerViewDelegate,UIPicke
     var edition_photo = #imageLiteral(resourceName: "Upload-photos_yinshuabanci")
 
     var images = [UIImage]()
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         rightBarButton()
@@ -63,7 +71,8 @@ class CreateBookViewController: BaseViewController ,UIPickerViewDelegate,UIPicke
 //                setToast(str: "创建成功")
 //            }
             setToast(str: "创建成功")
-            self.navigationController?.popViewController(animated: true)
+            self.createSeccsessful()
+//            self.navigationController?.popViewController(animated: true)
             
         }) { (error) in
             
@@ -130,6 +139,10 @@ class CreateBookViewController: BaseViewController ,UIPickerViewDelegate,UIPicke
     
     
     @objc func createBookDoneAction(sender:UIButton) {
+       
+//        通知中心
+        NotificationCenter.default.post(name: Notification.Name(rawValue: SuccessRefreshNotificationCenter), object: self, userInfo: ["refresh":"begin"])
+        
         self.navigationController?.popToViewController((self.navigationController?.childViewControllers[0])!, animated: true)
     }
     
@@ -160,7 +173,7 @@ class CreateBookViewController: BaseViewController ,UIPickerViewDelegate,UIPicke
                 }
             }
             
-            cell.ChooseImageCellSetImage(image1: images[0] as! UIImage, image2: images[1] as! UIImage)
+            cell.ChooseImageCellSetImage(image1: images[0] , image2: images[1] )
             return cell
 
         }else{
@@ -325,19 +338,19 @@ class CreateBookViewController: BaseViewController ,UIPickerViewDelegate,UIPicke
         
         
         if currentCount == 0 {
-            print(proArr[pickerView.selectedRow(inComponent: 0)])
+            deBugPrint(item: proArr[pickerView.selectedRow(inComponent: 0)])
             mainTableArr[currentCount] = proArr[pickerView.selectedRow(inComponent: 0)]
             
         }
         
         if currentCount == 1 {
-            print(gradeArr[pickerView.selectedRow(inComponent: 0)] + "的" + detailArr[pickerView.selectedRow(inComponent: 1)])
-            mainTableArr[currentCount] = gradeArr[pickerView.selectedRow(inComponent: 0)] + "的" + detailArr[pickerView.selectedRow(inComponent: 1)]
+            deBugPrint(item: gradeArr[pickerView.selectedRow(inComponent: 0)] + " " + detailArr[pickerView.selectedRow(inComponent: 1)])
+            mainTableArr[currentCount] = gradeArr[pickerView.selectedRow(inComponent: 0)] + " " + detailArr[pickerView.selectedRow(inComponent: 1)]
             
         }
         
         if currentCount == 2 {
-            print(versionArr[pickerView.selectedRow(inComponent: 0)])
+            deBugPrint(item: versionArr[pickerView.selectedRow(inComponent: 0)])
             mainTableArr[currentCount] = versionArr[pickerView.selectedRow(inComponent: 0)]
             
         }
@@ -426,8 +439,8 @@ class CreateBookViewController: BaseViewController ,UIPickerViewDelegate,UIPicke
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         //将在滑动停止后触发，并打印出选中列和行索引
-        print(component)
-        print(row)
+        deBugPrint(item: component)
+        deBugPrint(item: row)
     }
     
 //    //设置列宽
@@ -463,7 +476,7 @@ class CreateBookViewController: BaseViewController ,UIPickerViewDelegate,UIPicke
         imagePickTool.isHiddenVideo = true
         
         imagePickTool.setupImagePickerWith(MaxImagesCount: count, superVC: self) { (assetArr,cutImage) in
-            print("返回的asset数组是\(assetArr)")
+            deBugPrint(item: "返回的asset数组是\(assetArr)")
             
             PopViewUtil.share.showLoading()
             

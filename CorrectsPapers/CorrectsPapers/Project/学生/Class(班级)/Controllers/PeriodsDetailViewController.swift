@@ -252,7 +252,7 @@ class PeriodsDetailViewController: BaseViewController ,HBAlertPasswordViewDelega
                 cell.SUploadWorkCellSetValues(images: images as! [UIImage])
                 
                 cell.addImageAction = {
-                    print($0)
+                    deBugPrint(item: $0)
 //                    if $0 == "Upload" {
 //                    }
                     self.setupPhoto1(count: 30)
@@ -272,9 +272,9 @@ class PeriodsDetailViewController: BaseViewController ,HBAlertPasswordViewDelega
                     }
                     nameArr.append("User_headImage")
                     upLoadClassWorkImageRequest(params: params, data: self.images as! [UIImage], name: nameArr, success: { (success) in
-                        print(success)
+                        deBugPrint(item: success)
                         let json = JSON(success)
-                        print(json)
+                        deBugPrint(item: json)
                         
                         if json["code"] == "1" {
                             setToast(str: "上传成功")
@@ -284,7 +284,7 @@ class PeriodsDetailViewController: BaseViewController ,HBAlertPasswordViewDelega
                             
                         }
                     }, failture: { (error) in
-                        print(error)
+                        deBugPrint(item: error)
                     })
                 }
                 
@@ -327,7 +327,7 @@ class PeriodsDetailViewController: BaseViewController ,HBAlertPasswordViewDelega
                     cell.SUploadWorkCellResubmit(images: images as! [UIImage])
                     
                     cell.addImageAction = {
-                        print($0)
+                        deBugPrint(item: $0)
                         self.setupPhoto1(count: 30)
                     }
                     
@@ -343,16 +343,16 @@ class PeriodsDetailViewController: BaseViewController ,HBAlertPasswordViewDelega
                             nameArr.append("Class_WorkBook_Image\(index)")
                         }
                         upLoadClassWorkImageRequestNext(params: params, data: self.images as! [UIImage], name: nameArr, success: { (success) in
-                            print(success)
+                            deBugPrint(item: success)
                             let json = JSON(success)
-                            print(json)
+                            deBugPrint(item: json)
                             
                             if json["code"] == "1" {
                                 setToast(str: "上传成功")
                             }
 
                         }, failture: { (error) in
-                            print(error)
+                            deBugPrint(item: error)
                         })
                     }
                     
@@ -462,7 +462,7 @@ class PeriodsDetailViewController: BaseViewController ,HBAlertPasswordViewDelega
             
             //            mainTableArr.removeObject(at: indexPath.row)
             //            tableView.reloadData()
-            print("删除了---\(indexPath.section)分区-\(indexPath.row)行")
+            deBugPrint(item: "删除了---\(indexPath.section)分区-\(indexPath.row)行")
         }
     }
     
@@ -480,7 +480,7 @@ class PeriodsDetailViewController: BaseViewController ,HBAlertPasswordViewDelega
         imagePickTool.isHiddenVideo = true
         
         imagePickTool.setupImagePickerWith(MaxImagesCount: count, superVC: self) { (assetArr,cutImage) in
-            print("返回的asset数组是\(assetArr)")
+            deBugPrint(item: "返回的asset数组是\(assetArr)")
             
             PopViewUtil.share.showLoading()
             

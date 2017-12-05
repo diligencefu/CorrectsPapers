@@ -55,7 +55,7 @@ class EditInfoViewController: BaseViewController {
         upLoadImageRequest(params: params, data: imgArr, name: nameArr, success: { (datas) in
             self.navigationItem.rightBarButtonItem?.isEnabled = true
         }) { (error) in
-            print(error)
+            deBugPrint(item: error)
             self.navigationItem.rightBarButtonItem?.isEnabled = true
         }
     }
@@ -106,7 +106,7 @@ class EditInfoViewController: BaseViewController {
             let cell : EditHeadCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable, for: indexPath) as! EditHeadCell
             cell.setUserIconBlock = {
                 
-                print($0)
+                deBugPrint(item: $0)
                 self.navigationItem.rightBarButtonItem?.isEnabled = true
             }
             return cell

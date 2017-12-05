@@ -274,7 +274,7 @@ class CLImagePickerSingleViewController: CLBaseImagePickerViewController {
     }
     
     deinit {
-        print("CLImagePickerSingleViewController释放")
+        deBugPrint(item: "CLImagePickerSingleViewController释放")
         CLNotificationCenter.removeObserver(self)
     }
 

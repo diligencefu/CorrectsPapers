@@ -108,7 +108,7 @@ class ShowWorkNotDone: UITableViewCell {
             
             imageV.tag = 170 + index
             workImages.addSubview(imageV)
-            print(imageV.frame)
+            deBugPrint(item: imageV.frame)
         }
         
         var height = 0

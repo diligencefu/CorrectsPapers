@@ -73,30 +73,15 @@ class WriteAnswerViewController: BaseViewController ,UITextFieldDelegate,UITextV
              "money":"2",
              ] as [String : Any]
         
-        
-        if currentType == 1 {
-            
-            NetWorkTeacherAddTWorkUploadContent(params: params1, callBack: { (flag) in
-                if flag {
-                    setToast(str: "已提交")
-                    self.navigationController?.popViewController(animated: true)
-                }
-            })
-        }else if currentType == 2 {
-            
-            
-            
-        }else if currentType == 3 {
-            
-            
-            
-        }
+        NetWorkTeacherAddTWorkUploadContent(params: params1, callBack: { (flag) in
+            if flag {
+                setToast(str: "已提交")
+                self.navigationController?.popViewController(animated: true)
+            }
+        })
 
-        
-        
     }
     
-
     
     //    MARK:UITextViewDelegate
     func textViewDidChange(_ textView: UITextView) {
@@ -106,7 +91,6 @@ class WriteAnswerViewController: BaseViewController ,UITextFieldDelegate,UITextV
         }else{
             tipTextField.isHidden = true
         }
-        
     }
     
     

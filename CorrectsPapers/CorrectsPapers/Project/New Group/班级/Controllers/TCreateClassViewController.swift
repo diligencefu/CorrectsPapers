@@ -13,9 +13,12 @@ class TCreateClassViewController: BaseViewController {
     var dataArr = [Array<String>]()
     var infoArr = [Array<String>]()
     
-    var teachers = ["班主任","添加助教老师"]
+    var teachers = ["班主任","添加助教老师","添加上课老师"]
     var students = ["批量添加学生"]
     
+    var teachers1 = [String]()
+    var teachers2 = [String]()
+
     override func viewDidLoad() {
         super.viewDidLoad()
         rightBarButton()
@@ -47,7 +50,6 @@ class TCreateClassViewController: BaseViewController {
         netWorkForInsertClasses(params: params) { (str) in
             
         }
-        
     }
     
     
@@ -55,8 +57,8 @@ class TCreateClassViewController: BaseViewController {
         
         self.navigationItem.title = "创建班级"
         
-        dataArr = [["班级头像","班级名字"],["交作业周天","交作业截止时间","本学期交作业次数"],teachers,students]
-        infoArr = [["",""],["按天","18:00前","次"],["吴老师",""],[""]]
+        dataArr = [["班级头像","班级名字"],["交作业周天","交作业截止时间","本学期交作业次数","本学期作业次数"],teachers,students]
+        infoArr = [["",""],["按天","18:00前","次","次"],["吴老师","",""],[""]]
         
         mainTableView = UITableView.init(frame: CGRect(x: 0, y: 0, width: kSCREEN_WIDTH, height: kSCREEN_HEIGHT - 64 ), style: .grouped)
         mainTableView.dataSource = self;
@@ -113,40 +115,50 @@ class TCreateClassViewController: BaseViewController {
             cell2.CreateClassCell2ShowAll(title: dataArr[indexPath.section][indexPath.row], info: infoArr[indexPath.section][indexPath.row],placeholder:"填写次数")
             return cell2
             
+        }else if indexPath.section == 1 &&  indexPath.row == 3 {
+            cell2.CreateClassCell2ShowAll(title: dataArr[indexPath.section][indexPath.row], info: infoArr[indexPath.section][indexPath.row],placeholder:"填写次数")
+            return cell2
+            
         }else if indexPath.section == 2  {
             
             if indexPath.row == 0 {
                 cell.CreateClassCellNormal(title: dataArr[indexPath.section][indexPath.row], name: infoArr[indexPath.section][indexPath.row])
                 return cell
                 
-            }else if indexPath.row == 1 {
-                cell2.CreateClassCell2(title: teachers[indexPath.row])
-                return cell2
+            }else {
                 
-            }else{
-                let cell : ShowFridensCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable1, for: indexPath) as! ShowFridensCell
-//                cell.ShowFridensCellForShowFriend()
-                return cell
+                var str = "+"
+                if indexPath.row == 1 {
+                    
+                    if teachers1.count == 3 {
+                        str = teachers1.joined(separator: ",") + "  "
+                    }else{
+                        str = teachers1.joined(separator: ",") + "  +"
+                    }
+                }else{
+                    str = teachers2.joined(separator: ",") + "  +"
+                }                
+                cell2.CreateClassCell2(title: teachers[indexPath.row],member:str)
+                return cell2
             }
             
         }else if indexPath.section == 3{
             
             if indexPath.row == 0 {
-                cell2.CreateClassCell2(title: students[indexPath.row])
+                cell2.CreateClassCell2(title: students[indexPath.row],member:"+")
                 
                 return cell2
             }else{
                 let cell : ShowFridensCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable1, for: indexPath) as! ShowFridensCell
 //                cell.ShowFridensCellForShowFriend()
                 return cell
-                
             }
         }else{
             cell.CreateClassCellNormal(title: dataArr[indexPath.section][indexPath.row], name: infoArr[indexPath.section][indexPath.row])
             return cell
         }
-        
     }
+    
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
@@ -154,13 +166,18 @@ class TCreateClassViewController: BaseViewController {
         if indexPath.section == 2  && indexPath.row == 1  {
             
             let chooseTeacher = TChooseMemberViewController()
-            chooseTeacher.selectArr = teachers
+            if teachers1.count == 3{
+                setToast(str: "已经三位助教老师了")
+                return
+            }
+//            chooseTeacher.selectArr = teachers
             chooseTeacher.chooseMemberBlock = {
                 
                 for index in 0..<$0.count {
-                    if !self.teachers.contains($0[index]) {
-                        self.teachers.append($0[index])
-                    }
+//                    if !self.teachers.contains($0[index]) {
+//
+//                    }
+                    self.teachers1.append($0[index])
                 }
                 
                 tableView.reloadSections([2], with: .automatic)
@@ -169,6 +186,28 @@ class TCreateClassViewController: BaseViewController {
             self.navigationController?.pushViewController(chooseTeacher, animated: true)
         }
         
+        if indexPath.section == 2  && indexPath.row == 2  {
+            
+            let chooseTeacher = TChooseMemberViewController()
+            if teachers2.count == 3{
+                setToast(str: "已经三位上课老师了")
+                return
+            }
+//            chooseTeacher.selectArr = teachers
+            chooseTeacher.chooseMemberBlock = {
+                
+                for index in 0..<$0.count {
+//                    if !self.teachers.contains($0[index]) {
+//                        self.teachers.append($0[index])
+//                    }
+                    self.teachers2.append($0[index])
+                }
+                
+                tableView.reloadSections([2], with: .automatic)
+            }
+            self.navigationController?.pushViewController(chooseTeacher, animated: true)
+        }
+
         if indexPath.section == 3  && indexPath.row == 0  {
             
             let chooseStudent = TChooseMemberViewController()

@@ -514,7 +514,7 @@ class TClassDetailViewController: BaseViewController,UITextFieldDelegate {
             
             //            mainTableArr.removeObject(at: indexPath.row)
             //            tableView.reloadData()
-            print("删除了---\(indexPath.section)分区-\(indexPath.row)行")
+            deBugPrint(item: "删除了---\(indexPath.section)分区-\(indexPath.row)行")
         }
     }
     

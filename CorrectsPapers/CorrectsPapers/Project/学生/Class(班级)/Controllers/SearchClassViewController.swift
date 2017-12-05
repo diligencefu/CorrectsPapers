@@ -119,7 +119,7 @@ class SearchClassViewController: BaseViewController ,UITextFieldDelegate,UIAlert
         cell.classCellSetValue(model: model, isSearch: true)
         cell.addClassBlock = {
             
-            print($0)
+            deBugPrint(item: $0)
             self.addAlertTip()
             
         }
@@ -217,7 +217,7 @@ class SearchClassViewController: BaseViewController ,UITextFieldDelegate,UIAlert
         nameTextfield = alert.textField(at: 0)!
 
         let text = nameTextfield.text
-        print(text!)
+        deBugPrint(item: text!)
         alert.show()
     }
     

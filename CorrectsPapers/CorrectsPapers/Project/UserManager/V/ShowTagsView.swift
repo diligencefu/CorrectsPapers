@@ -86,7 +86,7 @@ class ShowTagsView: UIView ,UIPickerViewDelegate,UIPickerViewDataSource{
         
         let viewHeight = kHeight * 4 + kSpace * 3
         
-        print(viewHeight)
+        deBugPrint(item: viewHeight)
     }
     
     func ShowTagsViewForGrades(title:String,total:NSInteger) {
@@ -121,7 +121,7 @@ class ShowTagsView: UIView ,UIPickerViewDelegate,UIPickerViewDataSource{
         }
         
         let viewHeight = kHeight * 3 + kSpace * 2
-        print(viewHeight)
+        deBugPrint(item: viewHeight)
     }
     
     func ShowTagsViewForChooseEdu(title:String,index:NSInteger) {
@@ -326,7 +326,7 @@ class ShowTagsView: UIView ,UIPickerViewDelegate,UIPickerViewDataSource{
                 
             case 4:
                 if selectStr == "" {
-                    selectStr = "1"
+                    selectStr = "字迹不清"
                 }
 
                 selectBlock!(selectStr,false)

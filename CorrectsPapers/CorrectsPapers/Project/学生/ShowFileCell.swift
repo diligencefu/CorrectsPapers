@@ -17,11 +17,13 @@ class ShowFileCell: UITableViewCell {
         // Initialization code
     }
 
-    
+    func setValues(model:UrlModel) {
+        
+        fileTitle.text = model.title
+        
+    }
     
     @IBAction func viewTheFile(_ sender: UIButton) {
-        
-        
         
     }
     

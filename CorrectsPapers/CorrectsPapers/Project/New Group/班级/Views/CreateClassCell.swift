@@ -25,7 +25,7 @@ class CreateClassCell: UITableViewCell {
 //        如果没有的话，就会直接添加一个键值对。
         userInfo["身高"] = "180mm"
         userInfo["年龄"] = "21"
-        print(userInfo)
+       deBugPrint(item: userInfo)
         
     }
 

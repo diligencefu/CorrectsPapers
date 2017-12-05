@@ -58,7 +58,7 @@ class MyFriendViewController: BaseViewController {
         
         netWorkForMyFriend { (datas, success) in
             
-            print(datas)
+            deBugPrint(item: datas)
             
             for index in 0..<datas.count {
                 

@@ -26,57 +26,86 @@ class TViewBookCell3: UITableViewCell {
         super.awakeFromNib()
         let tapGes1 = UITapGestureRecognizer.init(target: self, action: #selector(moveToBigImage(tap:)))
         tapGes1.numberOfTouchesRequired = 1
+        let tapGes2 = UITapGestureRecognizer.init(target: self, action: #selector(moveToBigImage(tap:)))
+        tapGes1.numberOfTouchesRequired = 1
+        let tapGes3 = UITapGestureRecognizer.init(target: self, action: #selector(moveToBigImage(tap:)))
+        tapGes1.numberOfTouchesRequired = 1
+        
         image1.addGestureRecognizer(tapGes1)
-        image2.addGestureRecognizer(tapGes1)
-        image3.addGestureRecognizer(tapGes1)
+        image2.addGestureRecognizer(tapGes2)
+        image3.addGestureRecognizer(tapGes3)
+        
+        image1.contentMode = .scaleAspectFill
+        image2.contentMode = .scaleAspectFill
+        image3.contentMode = .scaleAspectFill
     }
     
     @objc func moveToBigImage(tap:UITapGestureRecognizer) {
         var images = [KSPhotoItem]()
+        var index = 222
         
         if whereCome == 1 {
-            if Int(theModel1.state)! > 4 {
-                
-                let watchIMGItem = KSPhotoItem.init(sourceView: image1, image: image1.image)
-                images.append(watchIMGItem!)
-                if theModel1.corrected_error_photo.count == 2 {
+            
+            if theModel1.correcting_states == nil {
+                return
+            }
+            if Int(theModel1.correcting_states)! > 4 {
+                if theModel1.corrected_error_photo.count == 1 {
                     let watchIMGItem = KSPhotoItem.init(sourceView: image1, image: image1.image)
                     images.append(watchIMGItem!)
+                    index = 221
+                }else{
+                    let watchIMGItem2 = KSPhotoItem.init(sourceView: image2, image: image2.image)
+                    let watchIMGItem3 = KSPhotoItem.init(sourceView: image3, image: image3.image)
+                    images.append(watchIMGItem2!)
+                    images.append(watchIMGItem3!)
                 }
             }else{
                 
-                let watchIMGItem = KSPhotoItem.init(sourceView: image1, image: image1.image)
-                images.append(watchIMGItem!)
-                if theModel1.photo.count == 2 {
+                if theModel1.photo.count == 1 {
                     let watchIMGItem = KSPhotoItem.init(sourceView: image1, image: image1.image)
                     images.append(watchIMGItem!)
+                    index = 221
+                }else{
+                    let watchIMGItem2 = KSPhotoItem.init(sourceView: image2, image: image2.image)
+                    let watchIMGItem3 = KSPhotoItem.init(sourceView: image3, image: image3.image)
+                    images.append(watchIMGItem2!)
+                    images.append(watchIMGItem3!)
                 }
             }
             
         }else{
+            if theModel2.state == nil {
+                return
+            }
             if Int(theModel2.state)! > 4 {
                 
-                let watchIMGItem = KSPhotoItem.init(sourceView: image1, image: image1.image)
-                images.append(watchIMGItem!)
-                if theModel2.corrected_photos.count == 2 {
+                if theModel2.corrected_photos.count == 1 {
                     let watchIMGItem = KSPhotoItem.init(sourceView: image1, image: image1.image)
                     images.append(watchIMGItem!)
+                    index = 221
+                }else{
+                    let watchIMGItem2 = KSPhotoItem.init(sourceView: image2, image: image2.image)
+                    let watchIMGItem3 = KSPhotoItem.init(sourceView: image3, image: image3.image)
+                    images.append(watchIMGItem2!)
+                    images.append(watchIMGItem3!)
                 }
             }else if whereCome == 2{
-                
-                let watchIMGItem = KSPhotoItem.init(sourceView: image1, image: image1.image)
-                images.append(watchIMGItem!)
-                if theModel2.pre_photos.count == 2 {
+                if theModel2.pre_photos.count  == 1 {
                     let watchIMGItem = KSPhotoItem.init(sourceView: image1, image: image1.image)
                     images.append(watchIMGItem!)
+                    index = 221
+                }else{
+                    let watchIMGItem2 = KSPhotoItem.init(sourceView: image2, image: image2.image)
+                    let watchIMGItem3 = KSPhotoItem.init(sourceView: image3, image: image3.image)
+                    images.append(watchIMGItem2!)
+                    images.append(watchIMGItem3!)
                 }
             }
-            
         }
         
-        
         let watchIMGView = KSPhotoBrowser.init(photoItems: images,
-                                               selectedIndex:UInt((tap.view?.tag)!-221))
+                                               selectedIndex:UInt((tap.view?.tag)!-index))
         watchIMGView?.dismissalStyle = .scale
         watchIMGView?.backgroundStyle = .blurPhoto
         watchIMGView?.loadingStyle = .indeterminate
@@ -90,7 +119,7 @@ class TViewBookCell3: UITableViewCell {
         whereCome = 1
         
         bookState.isHidden = false
-        bookState.text = kGetStateFromString(str: model.state)
+        bookState.text = kGetStateFromString(str: model.correcting_states)
         bookState.textColor = kGetColorFromString(str: bookState.text!)
         
         if testImages.count == 1 {
@@ -123,14 +152,14 @@ class TViewBookCell3: UITableViewCell {
 
         if model.pre_photos.count == 1 {
             
-            image1.kf.setImage(with:  URL(string:testImages[0])!, placeholder: #imageLiteral(resourceName: "photos_image_default"), options: nil, progressBlock: nil, completionHandler: nil)
+            image1.kf.setImage(with:  URL(string:model.pre_photos[0])!, placeholder: #imageLiteral(resourceName: "photos_image_default"), options: nil, progressBlock: nil, completionHandler: nil)
             image2.isHidden = true
             image3.isHidden = true
         }else  {
             
             image1.isHidden = true
-            image2.kf.setImage(with:  URL(string:testImages[0])!, placeholder: #imageLiteral(resourceName: "photos_image_default"), options: nil, progressBlock: nil, completionHandler: nil)
-            image3.kf.setImage(with:  URL(string:testImages[1])!, placeholder: #imageLiteral(resourceName: "photos_image_default"), options: nil, progressBlock: nil, completionHandler: nil)
+            image2.kf.setImage(with:  URL(string:model.pre_photos[0])!, placeholder: #imageLiteral(resourceName: "photos_image_default"), options: nil, progressBlock: nil, completionHandler: nil)
+            image3.kf.setImage(with:  URL(string:model.pre_photos[1])!, placeholder: #imageLiteral(resourceName: "photos_image_default"), options: nil, progressBlock: nil, completionHandler: nil)
             image2.isHidden = false
             image3.isHidden = false
         }

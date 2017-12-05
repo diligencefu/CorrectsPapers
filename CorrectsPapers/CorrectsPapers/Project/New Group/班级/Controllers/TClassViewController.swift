@@ -52,7 +52,7 @@ class TClassViewController: BaseViewController {
                 self.mainTableView.reloadData()
             }
             self.view.endLoading()
-            self.mainTableView.mj_header.endLoading()
+            self.mainTableView.mj_header.endRefreshing()
         }
     }
     
@@ -204,7 +204,7 @@ class TClassViewController: BaseViewController {
             
             mainTableArr.removeObject(at: indexPath.row)
             tableView.reloadData()
-            print("删除了---\(indexPath.section)分区-\(indexPath.row)行")
+            deBugPrint(item: "删除了---\(indexPath.section)分区-\(indexPath.row)行")
         }
     }
     

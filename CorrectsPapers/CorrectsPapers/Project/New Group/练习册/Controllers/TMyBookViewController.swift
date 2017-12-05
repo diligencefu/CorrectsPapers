@@ -140,6 +140,7 @@ class TMyBookViewController: BaseViewController {
         let model = mainTableArr[indexPath.row] as! WorkBookModel
         let BookDetailVC = TBookDetailViewController()
         BookDetailVC.book_id = model.id!
+//        BookDetailVC.
         self.navigationController?.pushViewController(BookDetailVC, animated: true)
     }
     

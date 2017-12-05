@@ -31,10 +31,10 @@ class CreateClassCell2: UITableViewCell {
     }
     
     
-    func CreateClassCell2(title:String) {
+    func CreateClassCell2(title:String,member:String) {
         theTitle.text = title
         textField.isHidden = true
-        subTitle.text = "+"
+        subTitle.text = member
     }
 
     

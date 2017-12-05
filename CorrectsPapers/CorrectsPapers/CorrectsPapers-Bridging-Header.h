@@ -15,7 +15,8 @@
 #import "UIImage+EditImageWithColor.h"
 #import "UIBadgeView.h"
 #import "UIView+Common.h"
-
+#import "OCTools.h"
+//#import "IQKeyboardManager.h"
 
 //分享
 #import <ShareSDK/ShareSDK.h>

@@ -8,13 +8,16 @@
 
 
 //MARK:必要参数
-let SESSIONID = "8956ssd4785955665ddddfggfg452f"
-let mobileCode = "sion"
-//let SESSIONID = "562564455ffg5451vvc5565874512112"
-//let mobileCode = "com"
+let SESSIONIDT = "8956ssd4785955665ddddfggfg452f"
+let mobileCodeT = "sion"
+//let SESSIONIDT = "12345689piosid"
+//let mobileCodeT = "sam"
 
-let SESSIONIDT = "12345689piosid"
-let mobileCodeT = "sam"
+let SESSIONID = "562564455ffg5451vvc5565874512112"
+let mobileCode = "com"
+
+//let SESSIONID = "1"
+//let mobileCode = "on"
 
 //let header = [
 //    "SESSIONID":SESSIONID,
@@ -30,7 +33,7 @@ let kLogin_User = kBaseUrl +  "user/loginUser"
 
 
 let kBaseUrl1 = "http://192.168.1.181:8080/duties/m/rongxing/"
-let kBaseUrl11 = "http://192.168.1.230:8080/duties/m/rongxing/"
+let kBaseUrl11 = "http://192.168.1.191:8080/duties/m/rongxing/"
 //MARK: *****************老师端接口**************
 //MARK: *****************老师端接口**************
 //MARK: *****************老师端接口**************
@@ -38,81 +41,84 @@ let kBaseUrl11 = "http://192.168.1.230:8080/duties/m/rongxing/"
 //MARK: *****************老师端接口**************
 
 //MARK:(1-0 和 1-2 获取所有的练习册)接口
-let kGet_TAllWorkList = kBaseUrl11 +  "teacher/getTAllWorkList"
+let kGet_TAllWorkList = kBaseUrl11 +  "teacherNext/getTAllWorkList"
 
 //MARK: 1-1 我的练习册  - 我来批改
-let kAdd_MyWork = kBaseUrl11 +  "teacher/addMyWork"
+let kAdd_MyWork = kBaseUrl11 +  "teacherNext/addMyWork"
 
 //MARK:(1-1 我的练习册)接口
-let kGet_MyWorkList = kBaseUrl11 +  "teacher/getMyWorkList"
+let kGet_MyWorkList = kBaseUrl11 +  "teacherNext/getMyWorkList"
 
 //MARK:(1-1我的练习册  - 删除)接口
-let kdel_MyWork = kBaseUrl11 +  "teacher/delMyWork"
+let kdel_MyWork = kBaseUrl11 +  "teacherNext/delMyWork"
 
 //MARK:(1-3 练习册详情 根据练习册id获取详情)接口
-let kGet_TWorkDetail = kBaseUrl11 +  "teacher/getTWorkDetail"
+let kGet_TWorkDetail = kBaseUrl11 +  "teacherNext/getTWorkDetail"
 
 
 //MARK:(1-3 练习册详情 - 学生作业 》根据练习册id获取详情)接口
-let kGet_TStudentWork1 = kBaseUrl11 +  "teacher/getTStudentWork1"
+//let kGet_TStudentWork1 = kBaseUrl11 +  "teacherNext/getTStudentWork1"
+let kGet_TStudentWork1 = kBaseUrl11 +  "teacher/getBookDetails"
 
 //MARK:(1-3 练习册详情 - 已批改 >> 根据练习册id获取详情)接口
-let kGet_TStudentWork2 = kBaseUrl11 +  "teacher/getTStudentWork2"
+let kGet_TStudentWork2 = kBaseUrl11 +  "teacherNext/getTStudentWork2"
 
 //MARK:(1-3 练习册 - 详情 - 知识点讲解
-let kGet_TStudentWork3 = kBaseUrl11 +  "teacher/getTStudentWork3"
+let kGet_TStudentWork3 = kBaseUrl11 +  "teacherNext/getTStudentWork3"
 
 //MARK:(1-3 练习册 - 详情 - 参考答案
-let kGet_TAllAnswersByWorkId = kBaseUrl11 +  "teacher/getAllAnswersByWorkId"
+let kGet_TAllAnswersByWorkId = kBaseUrl11 +  "teacherNext/getAllAnswersByWorkId"
 
 //MARK:(1-3 练习册详情 - 成绩统计  》根据练习册id获取详情)接口
-let kGet_TStudentWork5 = kBaseUrl11 +  "teacher/getTStudentWork5"
+let kGet_TStudentWork5 = kBaseUrl11 +  "teacherNext/getTStudentWork5"
 
 //MARK: 1-3-1  练习册 - 上传视频
-let kGet_TWorkVideo = kBaseUrl11 +  "teacher/getTWorkVideo"
+let kGet_TWorkVideo = kBaseUrl11 +  "teacherNext/getTWorkVideo"
 
 ////MARK:  1-3-2 \ 2-2-2     （练习册 ，非练习册-上传图片）
-let kAdd_TPic = kBaseUrl11 +  "teacher/addTPic"
+let kAdd_TPic = kBaseUrl11 +  "teacherNext/addTPic"
 
 //MARK:1-3-3  练习册  - 手动填写答案
-let kAdd_TWorkContent = kBaseUrl11 +  "teacher/addTWorkContent"
+let kAdd_TWorkContent = kBaseUrl11 +  "teacherNext/addTWorkContent"
 
 //MARK: 1-3-4  练习册 - 上传知识点讲解
-let kAdd_TWorkChapter = kBaseUrl11 +  "teacher/addTWorkChapter"
+let kAdd_TWorkChapter = kBaseUrl11 +  "teacherNext/addTWorkChapter"
 
 //MARK: 1-3-5 练习册 - 学生往期成绩
-let kGet_TScoresByStudentId = kBaseUrl11 +  "teacher/getTScoresByStudentId"
+let kGet_TScoresByStudentId = kBaseUrl11 +  "teacherNext/getTScoresByStudentId"
 
 //MARK:(2-0 查询所有非练习册数据 (不属于自己的所有fei练习册))接口
-let kGet_TAllNotWork = kBaseUrl11 +  "teacher/getTAllNotWork"
+let kGet_TAllNotWork = kBaseUrl11 +  "teacher/getAllNonExercise"
 
 //MARK:(2-1 查询所有非练习册数据 (属于自己的所有fei练习册，所有状态))接口
-let kGet_TMyAllNotWork = kBaseUrl11 +  "teacher/getTMyAllNotWork"
+let kGet_TMyAllNotWork = kBaseUrl11 +  "teacher/getMyNonExercise"
 
 //MARK:2-2 非练习册-详情 - 作业
-let kGet_TMyNotWorkDatail = kBaseUrl11 +  "teacher/getTMyNotWorkDatail"
+let kGet_TMyNotWorkDatail = kBaseUrl11 +  "teacher/getNonExerciseList"
 
 //MARK: 2-2    非练习册-详情-知识点讲解
-let kGet_TMyNotWorkDatail2 = kBaseUrl11 +  "teacher/getTMyNotWorkDatail2"
+let kGet_TMyNotWorkDatail2 = kBaseUrl11 +  "teacherNext/getTMyNotWorkDatail2"
 
 //MARK:2-2    非练习册-详情-参考答案
-let kGet_TMyNotWorkDatail3 = kBaseUrl11 +  "teacher/getTMyNotWorkDatail3"
+let kGet_TMyNotWorkDatail3 = kBaseUrl11 +  "teacherNext/getTMyNotWorkDatail3"
 
 //MARK: 2-2 非练习册-详情 - 成绩统计
-let kGet_TMyNotWorkDatail4 = kBaseUrl11 +  "teacher/getTMyNotWorkDatail4"
+let kGet_TMyNotWorkDatail4 = kBaseUrl11 +  "teacherNext/getTMyNotWorkDatail4"
 
 //MARK:2-2-1    非练习册-上传视频
-let kAdd_TNotWorkVideo = kBaseUrl11 +  "teacher/addTNotWorkVideo"
+let kAdd_TNotWorkVideo = kBaseUrl11 +  "teacherNext/addTNotWorkVideo"
 
 //MARK:2-2-2    非练习册-上传文件
-let kAdd_TNotWorkFile = kBaseUrl11 +  "teacher/addTNotWorkFile"
+let kAdd_TNotWorkFile = kBaseUrl11 +  "teacherNext/addTNotWorkFile"
 
 //MARK: 2-2-3    非练习册-手动填写
-let kAdd_TNotWorkContent = kBaseUrl11 +  "teacher/addTNotWorkContent"
+let kAdd_TNotWorkContent = kBaseUrl11 +  "teacherNext/addTNotWorkContent"
 
 //MARK:  2-2-4    非练习册-上传知识点
-let kAdd_TNotWorkChapter = kBaseUrl11 +  "teacher/addTNotWorkChapter"
+let kAdd_TNotWorkChapter = kBaseUrl11 +  "teacherNext/addTNotWorkChapter"
 
+//MARK: 22   我来批改
+let kBulid_NonByTeacher = kBaseUrl11 +  "teacher/bulidNonByTeacher"
 
 ////MARK: 3-0 班级
 //let kMy_Classes = kBaseUrl11 +  "teacher/myClasses"
@@ -166,30 +172,23 @@ let kCorrec_ClassBookNext = kBaseUrl +  "teacher/correcClassBookNext"
 //MARK: 21 接口说明 ：  获取班级成员
 let kGet_ClassMember = kBaseUrl +  "teacher/getClassMember"
 
-
-
 //MARK:(学生端4-6、老师端4-7意见和建议)接口
 let kInsert_Suggestion = kBaseUrl1 +  "mine/insertSuggestion"
-
 
 //MARK:(老师端4-3-2好友申请添加)接口
 let kInsert_Friend = kBaseUrl1 +  "mine/insertFriend"
 
-
-
-
+//MARK:照片模糊退回状态
+let kGo_backWrokBookfei = kBaseUrl11 +  "teacher/gobackWrokBook"
 
 //MARK:(老师端4-4消息中心)接口
 let kGet_Messages = kBaseUrl1 +  "mine/getMessages"
 
-
 //MARK:(老师端4-2 我的收入)接口
 let kGet_Coins = kBaseUrl1 +  "mine/getCoins"
 
-
 //MARK:(老师端4-0我的))接口
 let kGet_Users = kBaseUrl1 +  "mine/getUsers"
-
 
 //MARK:(老师端 编辑资料)接))接口
 let kUpdate_Users = kBaseUrl1 +  "mine/updateUsers"
@@ -317,7 +316,17 @@ let kGet_KnowledgePoint = kBaseUrl +  "workBook/getKnowledgePoint"
 //MARK: 33接口说明 ：参考答案下载的学币事物处理通用方法，或者学币充值
 let kUp_DownAnswrs = kBaseUrl +  "workBook/updownAnswrs"
 
+//MARK: 35接口说明 ：  非练习册，班级作业，答案表信息通用接口
+let kGet_OtherAnswrs = kBaseUrl +  "workBook/getOtherAnswrs"
 
+//MARK: 34接口说明 ： 练习册答案表信息接口
+let kGet_Answrs = kBaseUrl +  "workBook/getAnswrs"
+
+//MARK: 36接口说明 ： 判断该答案是否已经付过款，用于33接口前调用
+let kCheck_Pay = kBaseUrl +  "workBook/checkPay"
+
+//MARK: 37接口说明 ：  非练习册详情接口
+let kGet_Allnon_exercise = kBaseUrl +  "workBook/getAllnon_exercise"
 
 
 class TheUrls: NSObject {

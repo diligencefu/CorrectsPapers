@@ -21,13 +21,31 @@ class IncomeHeadView: UIView {
     
     @IBOutlet weak var backImage: UIImageView!
     
-    
+    var chooseImagesAction:(()->())?  //声明闭包
+
     override func awakeFromNib() {
         backImage.image = getNavigationIMG(27, fromColor: kSetRGBColor(r: 0, g: 200, b: 255), toColor: kSetRGBColor(r: 0, g: 162, b: 255))
         
         topUp.setBackgroundImage( getNavigationIMG(27, fromColor: kSetRGBColor(r: 255, g: 219, b: 21), toColor: kSetRGBColor(r: 255, g: 168, b: 0)), for: .normal)
         topUp.layer.cornerRadius = 11 * kSCREEN_SCALE
         topUp.clipsToBounds = true
+        
+        incomeCount.text = OCTools.init().positiveFormat("2000")
     }
+    
+    
+    func setAccount(num:String) {
+        incomeCount.text = OCTools.init().positiveFormat(num)
+    }
+    
+    
+    @IBAction func rechargeAction(_ sender: UIButton) {
+        
+        if chooseImagesAction != nil {
+            chooseImagesAction!()
+        }
+        
+    }
+    
     
 }

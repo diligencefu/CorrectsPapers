@@ -134,7 +134,7 @@ class TSearchClassViewController: BaseViewController,UITextFieldDelegate,UIAlert
         cell.classCellSetValue(model: model, isSearch: true)
         cell.addClassBlock = {
             
-            print($0)
+            deBugPrint(item: $0)
             self.showTheChooseTypeView()
             self.class_id = model.classes_id
         }

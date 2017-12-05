@@ -10,6 +10,9 @@ import UIKit
 
 class IncomeViewController: BaseViewController {
 
+    var model = PersonalModel()
+    var headView = IncomeHeadView()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -26,6 +29,25 @@ class IncomeViewController: BaseViewController {
             }
             self.view.endLoading()
         }
+        self.view.beginLoading()
+        let params = [
+            "SESSIONID":SESSIONID,
+            "mobileCode":mobileCode
+        ]
+
+        netWorkForMyData(params: params) { (dataArr,flag) in
+            
+            if flag {
+                if dataArr.count > 0{
+                    self.model = dataArr[0] as! PersonalModel
+                    self.headView.setAccount(num:self.model.coin_count!)
+                }
+                self.mainTableView.reloadData()
+            }
+            self.view.endLoading()
+        }
+
+        
     }
     
     
@@ -40,16 +62,47 @@ class IncomeViewController: BaseViewController {
             }
             self.view.endLoading()
         }
+        
+        let params = [
+            "SESSIONID":SESSIONID,
+            "mobileCode":mobileCode
+        ]
+        
+        netWorkForMyData(params: params) { (dataArr,flag) in
+
+            if flag {
+                if dataArr.count > 0{
+                    self.model = dataArr[0] as! PersonalModel
+                    self.headView.setAccount(num:self.model.coin_count!)
+                    self.mainTableView.mj_header.endRefreshing()
+                }
+                self.mainTableView.reloadData()
+            }
+            self.view.endLoading()
+        }
+
     }
     
     
     override func configSubViews() {
-        
+
         self.navigationItem.title = "我的学币"
         
-        let headView = UINib(nibName:"IncomeHeadView",bundle:nil).instantiate(withOwner: self, options: nil).first as! IncomeHeadView
+        headView = UINib(nibName:"IncomeHeadView",bundle:nil).instantiate(withOwner: self, options: nil).first as! IncomeHeadView
         headView.frame =  CGRect(x: 0, y: 0, width: kSCREEN_WIDTH, height: 685)
-
+        headView.chooseImagesAction = {
+            let params =
+                [
+                    "money":"1000",
+                    "SESSIONID":SESSIONID,
+                    "mobileCode":mobileCode
+                    ] as [String:Any]
+            NetWorkStudentUpdownAnswrs(params: params) { (flag) in
+                if flag {
+                    self.refreshHeaderAction()
+                }
+            }
+        }
         
         mainTableView = UITableView.init(frame: CGRect(x: 0,
                                                        y: -500,

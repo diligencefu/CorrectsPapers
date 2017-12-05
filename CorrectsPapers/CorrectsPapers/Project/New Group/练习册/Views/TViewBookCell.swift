@@ -53,62 +53,92 @@ class TViewBookCell:  UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        
         let tapGes1 = UITapGestureRecognizer.init(target: self, action: #selector(moveToBigImage(tap:)))
         tapGes1.numberOfTouchesRequired = 1
+        let tapGes2 = UITapGestureRecognizer.init(target: self, action: #selector(moveToBigImage(tap:)))
+        tapGes1.numberOfTouchesRequired = 1
+        let tapGes3 = UITapGestureRecognizer.init(target: self, action: #selector(moveToBigImage(tap:)))
+        tapGes1.numberOfTouchesRequired = 1
+        
         image1.addGestureRecognizer(tapGes1)
-        image2.addGestureRecognizer(tapGes1)
-        image3.addGestureRecognizer(tapGes1)
-        userNum.font = UIFont.boldSystemFont(ofSize: 24*kSCREEN_SCALE)
+        image2.addGestureRecognizer(tapGes2)
+        image3.addGestureRecognizer(tapGes3)
+        
+        image1.contentMode = .scaleAspectFill
+        image2.contentMode = .scaleAspectFill
+        image3.contentMode = .scaleAspectFill
 
     }
-
     
     @objc func moveToBigImage(tap:UITapGestureRecognizer) {
         var images = [KSPhotoItem]()
+        var index = 222
         
         if whereCome == 1 {
-            if Int(theModel1.state)! > 4 {
+            if theModel1.correcting_states == nil {
+                return
+            }
+
+            if Int(theModel1.correcting_states)! > 4 {
                 
-                let watchIMGItem = KSPhotoItem.init(sourceView: image1, image: image1.image)
-                images.append(watchIMGItem!)
-                if theModel1.corrected_error_photo.count == 2 {
+                if theModel1.corrected_error_photo.count == 1 {
                     let watchIMGItem = KSPhotoItem.init(sourceView: image1, image: image1.image)
                     images.append(watchIMGItem!)
+                    index = 221
+                }else{
+                    let watchIMGItem2 = KSPhotoItem.init(sourceView: image2, image: image2.image)
+                    let watchIMGItem3 = KSPhotoItem.init(sourceView: image3, image: image3.image)
+                    images.append(watchIMGItem2!)
+                    images.append(watchIMGItem3!)
                 }
             }else{
                 
-                let watchIMGItem = KSPhotoItem.init(sourceView: image1, image: image1.image)
-                images.append(watchIMGItem!)
-                if theModel1.photo.count == 2 {
+                if theModel1.photo.count == 1 {
                     let watchIMGItem = KSPhotoItem.init(sourceView: image1, image: image1.image)
                     images.append(watchIMGItem!)
+                    index = 221
+                }else{
+                    let watchIMGItem2 = KSPhotoItem.init(sourceView: image2, image: image2.image)
+                    let watchIMGItem3 = KSPhotoItem.init(sourceView: image3, image: image3.image)
+                    images.append(watchIMGItem2!)
+                    images.append(watchIMGItem3!)
                 }
             }
-
+            
         }else{
+            if theModel2.state == nil {
+                return
+            }
+
             if Int(theModel2.state)! > 4 {
-                
-                let watchIMGItem = KSPhotoItem.init(sourceView: image1, image: image1.image)
-                images.append(watchIMGItem!)
-                if theModel2.corrected_photos.count == 2 {
+
+                if theModel2.corrected_photos.count == 1 {
                     let watchIMGItem = KSPhotoItem.init(sourceView: image1, image: image1.image)
                     images.append(watchIMGItem!)
+                    index = 221
+                }else{
+                    let watchIMGItem2 = KSPhotoItem.init(sourceView: image2, image: image2.image)
+                    let watchIMGItem3 = KSPhotoItem.init(sourceView: image3, image: image3.image)
+                    images.append(watchIMGItem2!)
+                    images.append(watchIMGItem3!)
                 }
             }else if whereCome == 2{
                 
-                let watchIMGItem = KSPhotoItem.init(sourceView: image1, image: image1.image)
-                images.append(watchIMGItem!)
-                if theModel2.pre_photos.count == 2 {
+                if theModel2.pre_photos.count  == 1 {
                     let watchIMGItem = KSPhotoItem.init(sourceView: image1, image: image1.image)
                     images.append(watchIMGItem!)
+                    index = 221
+                }else{
+                    let watchIMGItem2 = KSPhotoItem.init(sourceView: image2, image: image2.image)
+                    let watchIMGItem3 = KSPhotoItem.init(sourceView: image3, image: image3.image)
+                    images.append(watchIMGItem2!)
+                    images.append(watchIMGItem3!)
                 }
             }
-
         }
         
         let watchIMGView = KSPhotoBrowser.init(photoItems: images,
-                                               selectedIndex:UInt((tap.view?.tag)!-221))
+                                               selectedIndex:UInt((tap.view?.tag)!-index))
         watchIMGView?.dismissalStyle = .scale
         watchIMGView?.backgroundStyle = .blurPhoto
         watchIMGView?.loadingStyle = .indeterminate
@@ -116,7 +146,7 @@ class TViewBookCell:  UITableViewCell {
         watchIMGView?.bounces = false
         watchIMGView?.show(from: viewController()!)
     }
-    
+
     
 //    4
     func TViewBookCellSetValuesForFirstCorrectDone(model:TShowStuWorksModel) {
@@ -135,7 +165,7 @@ class TViewBookCell:  UITableViewCell {
         userNum.text =  model.user_num
         userName.text = model.user_name
         timeLabel.text = model.correcting_time
-        //        bookTitle.text = model.
+        bookTitle.text = model.result
         theTeacher.text = model.teacher_name
         remark.text = "老师评语：" + model.comment
         
@@ -188,6 +218,7 @@ class TViewBookCell:  UITableViewCell {
         userIcon.kf.setImage(with:  URL(string:model.user_photo)!, placeholder: #imageLiteral(resourceName: "UserHead_128_default"), options: nil, progressBlock: nil, completionHandler: nil)
         userNum.text =  model.user_num
         userName.text = model.student_name
+        bookTitle.text = model.non_exercise_name
         timeLabel.text = model.create_date
         theTeacher.text = model.teacher_name
         remark.text = "老师评语：" + model.pre_comment!
@@ -200,7 +231,7 @@ class TViewBookCell:  UITableViewCell {
             gradeImage.image = #imageLiteral(resourceName: "sanxing_icon_pressed")
         }else if model.pre_score == "4" {
             gradeImage.image = #imageLiteral(resourceName: "sixing_icon_pressed")
-        }else if model.pre_score == "4"{
+        }else if model.pre_score == "5"{
             gradeImage.image = #imageLiteral(resourceName: "wuxing_icon_pressed")
         }
 
@@ -210,14 +241,14 @@ class TViewBookCell:  UITableViewCell {
         
         if model.pre_photos.count == 1 {
             
-            image1.kf.setImage(with:  URL(string:testImages[0])!, placeholder: #imageLiteral(resourceName: "photos_image_default"), options: nil, progressBlock: nil, completionHandler: nil)
+            image1.kf.setImage(with:  URL(string:model.pre_photos[0])!, placeholder: #imageLiteral(resourceName: "photos_image_default"), options: nil, progressBlock: nil, completionHandler: nil)
             image2.isHidden = true
             image3.isHidden = true
         }else  {
             
             image1.isHidden = true
-            image2.kf.setImage(with:  URL(string:testImages[0])!, placeholder: #imageLiteral(resourceName: "photos_image_default"), options: nil, progressBlock: nil, completionHandler: nil)
-            image3.kf.setImage(with:  URL(string:testImages[1])!, placeholder: #imageLiteral(resourceName: "photos_image_default"), options: nil, progressBlock: nil, completionHandler: nil)
+            image2.kf.setImage(with:  URL(string:model.pre_photos[0])!, placeholder: #imageLiteral(resourceName: "photos_image_default"), options: nil, progressBlock: nil, completionHandler: nil)
+            image3.kf.setImage(with:  URL(string:model.pre_photos[1])!, placeholder: #imageLiteral(resourceName: "photos_image_default"), options: nil, progressBlock: nil, completionHandler: nil)
             image2.isHidden = false
             image3.isHidden = false
         }

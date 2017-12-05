@@ -57,11 +57,14 @@ class UpLoadWorkCell: UITableViewCell {
     }
     
     @objc func viewTheBigImage(ges:UITapGestureRecognizer) {
-//        setupPhoto1(count: 2)
         
         if chooseImagesAction != nil {
         
-            chooseImagesAction!(String((ges.view?.tag)!-230))
+            if ges.view?.tag == 230 {
+                chooseImagesAction!(String((ges.view?.tag)!-230))
+            }else{
+                chooseImagesAction!(String((ges.view?.tag)!-231))
+            }
         }
       }
     
@@ -73,7 +76,7 @@ class UpLoadWorkCell: UITableViewCell {
         imagePickTool.isHiddenVideo = true
         
         imagePickTool.setupImagePickerWith(MaxImagesCount: count, superVC: viewController()!) { (assetArr,cutImage) in
-            print("返回的asset数组是\(assetArr)")
+            deBugPrint(item: "返回的asset数组是\(assetArr)")
             
             PopViewUtil.share.showLoading()
             
@@ -136,8 +139,16 @@ class UpLoadWorkCell: UITableViewCell {
     @IBAction func uploadAction(_ sender: UIButton) {
 //        setToast(str: "上传作业")
         
-        if workDescrip.text?.count == 0 {
-            setToast(str: "请输入作业描述")
+        if CountDown.isHidden {
+            if workDescrip.text?.count == 0 {
+                setToast(str: "请输入作业描述")
+                workDescrip.becomeFirstResponder()
+                return
+            }
+        }        
+        
+        if (workDescrip.text?.count)! > 16 {
+            setToast(str: "作业描述超出字数限制！")
             workDescrip.becomeFirstResponder()
             return
         }
@@ -248,7 +259,7 @@ class UpLoadWorkCell: UITableViewCell {
     }
     
     @IBAction func addImageAction(_ sender: UIButton) {
-        print(sender.tag)
+        deBugPrint(item: sender.tag)
         
 //        if image3.isEnabled {
 //            if chooseImagesAction != nil {

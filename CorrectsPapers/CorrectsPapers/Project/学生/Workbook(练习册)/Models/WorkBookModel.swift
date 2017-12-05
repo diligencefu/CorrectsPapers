@@ -31,6 +31,9 @@ class WorkBookModel: BaseModel {
     ///批改老师
     var teacherName : String?
     
+    ///批改老师id
+    var teacher_id : String?
+
     ///用户练习册id（
     var userWorkBookId : String?
     
@@ -76,6 +79,7 @@ class WorkBookModel: BaseModel {
         model.state2 = json["state2"].stringValue
         model.state1 = json["state1"].stringValue
         model.correcting_states = json["correcting_states"].stringValue
+        model.teacher_id = json["teacher_id"].stringValue
 
         return model
     }

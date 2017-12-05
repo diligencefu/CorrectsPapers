@@ -77,16 +77,19 @@ class TShowClassWorkViewController: BaseViewController {
         reasonView.layer.cornerRadius = 24*kSCREEN_SCALE
         reasonView.selectBlock = {
             if !$1 {
-                print($0)
-//                let params =
-//                    ["SESSIONID":SESSIONIDT,
-//                     "mobileCode":mobileCodeT,
-//                     "book_details_id":self.model.class_book_id
-//                        ] as [String:Any]
-//
-//                NetWorkTeacherGobackWrokBook(params: params, callBack: { (flag) in
-//
-//                })
+                deBugPrint(item: $0)
+                let params =
+                    ["SESSIONID":SESSIONIDT,
+                     "mobileCode":mobileCodeT,
+                     "student_id":self.model.student_id,
+                     "type":"1",
+                     "reason":"$0",
+                     "book_id":self.model.class_book_id
+                        ] as [String:Any]
+
+                NetWorkTeacherGobackWrokBook(params: params, callBack: { (flag) in
+
+                })
                 
                 
             }

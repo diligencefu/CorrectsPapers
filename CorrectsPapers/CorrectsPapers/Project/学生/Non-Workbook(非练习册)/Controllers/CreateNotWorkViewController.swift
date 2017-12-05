@@ -8,14 +8,24 @@
 
 import UIKit
 
+
+protocol refreshDelegate:NSObjectProtocol {
+    func beginRefresh()
+}
+
+
 class CreateNotWorkViewController: BaseViewController,UIPickerViewDelegate,UIPickerViewDataSource{
 
+    var delegate : refreshDelegate?
+    
     var contents = [Array<String>]()
     var titles = [Array<String>]()
-    var images = NSMutableArray()
+    var images = [UIImage]()
+    var model = ApplyModel()
     
     var bookState = 0
     
+    var way = "1"
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,9 +35,9 @@ class CreateNotWorkViewController: BaseViewController,UIPickerViewDelegate,UIPic
     
     override func requestData() {
 
-        
     }
 
+    
     override func addHeaderRefresh() {
         
     }
@@ -36,8 +46,8 @@ class CreateNotWorkViewController: BaseViewController,UIPickerViewDelegate,UIPic
     override func configSubViews() {
         
         self.navigationItem.title = "创建非练习册"
-        titles = [[""],["批改方式","选择老师","悬赏金额"],["练习册科目","适用年纪"]]
-        contents = [[""],["悬赏学币","","学币"],["语文","六年级 下册"]]
+        titles = [[""],["批改方式","选择老师"],["练习册科目","适用年纪"]]
+        contents = [[""],["请好友帮忙",""],["语文","六年级 下册"]]
 
         mainTableArr =  ["","","","","","",""]
         
@@ -77,9 +87,9 @@ class CreateNotWorkViewController: BaseViewController,UIPickerViewDelegate,UIPic
         
         if  indexPath.section == 0 {
             let cell : UpLoadWorkCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable, for: indexPath) as! UpLoadWorkCell
-            cell.upLoadImagesForWorkBook(images: images as! Array<UIImage>)
+            cell.upLoadImagesForWorkBook(images: images)
             cell.chooseImagesAction = {
-                print($0)
+                deBugPrint(item: $0)
                 
                 if $0 == "uploadAction" {
                     
@@ -96,7 +106,7 @@ class CreateNotWorkViewController: BaseViewController,UIPickerViewDelegate,UIPic
         
         let cell : CreateBookCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable1, for: indexPath) as! CreateBookCell
         
-        if indexPath.section == 1 && indexPath.row == 2{
+        if indexPath.section == 1 && indexPath.row == 1 && way == "2"{
             cell.showForCreate(isShow: true, title: titles[indexPath.section][indexPath.row], subTitle: contents[indexPath.section][indexPath.row])
             cell.accessoryType = .none
         }else{
@@ -116,9 +126,17 @@ class CreateNotWorkViewController: BaseViewController,UIPickerViewDelegate,UIPic
             return
         }
         
-        if indexPath.section == 1 && indexPath.row == 1 {
+        if indexPath.section == 1 && indexPath.row == 1 && way == "1"{
             
             let chooseVC = ChooseTeacherCorrectVC()
+            
+            chooseVC.chooseMemberBlock = {
+                self.way = "1"
+                self.model = $0
+                self.contents = [[""],["请好友帮忙",self.model.user_name],["语文","六年级 下册"]]
+                tableView.reloadData()
+            }
+            
             self.navigationController?.pushViewController(chooseVC, animated: true)
             return
         }
@@ -149,6 +167,28 @@ class CreateNotWorkViewController: BaseViewController,UIPickerViewDelegate,UIPic
         pickerView.reloadAllComponents()
         showTheTagView()
 
+    }
+    
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        
+//        let view = UIView.init(frame: CGRect(x: 0, y: 0, width: kSCREEN_WIDTH, height: 12))
+//        view.backgroundColor
+        return UIView()
+        
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return 0
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        
+        if section != 0{
+            return 12
+        }
+        
+        return 0
     }
 
     
@@ -267,7 +307,7 @@ class CreateNotWorkViewController: BaseViewController,UIPickerViewDelegate,UIPic
         
         
         if currentCount == 1 {
-            print(proArr[pickerView.selectedRow(inComponent: 0)])
+            deBugPrint(item: proArr[pickerView.selectedRow(inComponent: 0)])
             contents[2][0] = proArr[pickerView.selectedRow(inComponent: 0)]
             mainTableView.reloadSections([2], with: .none)
             
@@ -275,7 +315,7 @@ class CreateNotWorkViewController: BaseViewController,UIPickerViewDelegate,UIPic
         
         
         if currentCount == 2 {
-            print(gradeArr[pickerView.selectedRow(inComponent: 0)] + " " + detailArr[pickerView.selectedRow(inComponent: 1)])
+            deBugPrint(item: gradeArr[pickerView.selectedRow(inComponent: 0)] + " " + detailArr[pickerView.selectedRow(inComponent: 1)])
             contents[2][1] = gradeArr[pickerView.selectedRow(inComponent: 0)] + " " + detailArr[pickerView.selectedRow(inComponent: 1)]
             mainTableView.reloadSections([2], with: .none)
             
@@ -283,13 +323,17 @@ class CreateNotWorkViewController: BaseViewController,UIPickerViewDelegate,UIPic
         
         
         if currentCount == 0 {
-            print(wayArr[pickerView.selectedRow(inComponent: 0)])
+            deBugPrint(item: wayArr[pickerView.selectedRow(inComponent: 0)])
             contents[1][0] = wayArr[pickerView.selectedRow(inComponent: 0)]
             
             if wayArr[pickerView.selectedRow(inComponent: 0)] == "请好友帮忙"{
-                titles = [[""],["批改方式","选择好友","悬赏金额"],["练习册科目","适用年纪"]]
+                way = "1"
+                titles = [[""],["批改方式","选择老师"],["练习册科目","适用年纪"]]
+                contents = [[""],[wayArr[pickerView.selectedRow(inComponent: 0)],""],["语文","六年级 下册"]]
             }else{
-                titles = [[""],["批改方式","选择老师","悬赏金额"],["练习册科目","适用年纪"]]
+                titles = [[""],["批改方式","悬赏金额"],["练习册科目","适用年纪"]]
+                contents = [[""],[wayArr[pickerView.selectedRow(inComponent: 0)],"学币"],["语文","六年级 下册"]]
+                way = "2"
             }
             mainTableView.reloadSections([1], with: .none)
         }
@@ -316,7 +360,6 @@ class CreateNotWorkViewController: BaseViewController,UIPickerViewDelegate,UIPic
             self.datePickerView.transform = .init(translationX: 0, y: -y)
             self.BGView.alpha = 1
         }
-        
     }
     
     
@@ -374,8 +417,8 @@ class CreateNotWorkViewController: BaseViewController,UIPickerViewDelegate,UIPic
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         //将在滑动停止后触发，并打印出选中列和行索引
-        print(component)
-        print(row)
+        deBugPrint(item: component)
+        deBugPrint(item: row)
         
         //        contents = [[""],["悬赏学币","学币"],["语文","六年级下册"]]
         
@@ -402,37 +445,47 @@ class CreateNotWorkViewController: BaseViewController,UIPickerViewDelegate,UIPic
     }
     
     
-    
     //   MARK: 请求网络上传作业
     func uploadWorkImage() {
         
         let cell = mainTableView.cellForRow(at: IndexPath.init(row: 1, section: 1)) as! CreateBookCell
         let cell2 = mainTableView.cellForRow(at: IndexPath.init(row: 0, section: 0)) as! UpLoadWorkCell
         
-        let params =
-            [
-                "SESSIONID":SESSIONID,
-                "mobileCode":mobileCode,
-                "non_exercise_name":cell2.workDescrip.text!,
-                "correct_way":contents[1][0],
-                "subject_id":contents[2][0],
-                "classes_id":contents[2][1],
-                "rewards":cell.titleTextField.text!,
-                "freind_id":"1"
+        var params = [String:String]()
+        
+        if way == "1" {
+            if model.userId == nil {
+                setToast(str: "请选择好友")
+                return
+            }
+        }
+        
+        if model.freind_id == nil {
+            model.freind_id = "123456"
+        }
+        
+        params = [
+            "SESSIONID":SESSIONID,
+            "mobileCode":mobileCode,
+            "non_exercise_name":cell2.workDescrip.text!,
+            "correct_way":way,
+            "subject_id":contents[2][0],
+            "classes_id":contents[2][1],
+            "rewards":cell.titleTextField.text!,
+            "freind_id":model.freind_id
         ]
         
-        print(params)
-        var imgArr = [UIImage]()
+        deBugPrint(item: params)
         var nameArr = [String]()
-        
-        imgArr.append(cell2.image2.image!)
-        imgArr.append(cell2.image3.image!)
-        
         nameArr.append("pre_photos1")
         nameArr.append("pre_photos2")
         
-        
-        netWorkForBulidnon_exercise(params: params, data: imgArr, name: nameArr, success: { (datas) in
+        netWorkForBulidnon_exercise(params: params, data: images, name: nameArr, success: { (datas) in
+            
+            if self.delegate != nil {
+                self.delegate?.beginRefresh()
+                self.navigationController?.popViewController(animated: true)
+            }
             
         }) { (error) in
                 
@@ -448,7 +501,7 @@ class CreateNotWorkViewController: BaseViewController,UIPickerViewDelegate,UIPic
         imagePickTool.isHiddenVideo = true
         
         imagePickTool.setupImagePickerWith(MaxImagesCount: count, superVC: self) { (assetArr,cutImage) in
-            print("返回的asset数组是\(assetArr)")
+            deBugPrint(item: "返回的asset数组是\(assetArr)")
             
             PopViewUtil.share.showLoading()
             
@@ -464,7 +517,7 @@ class CreateNotWorkViewController: BaseViewController,UIPickerViewDelegate,UIPic
                 if (self?.images.count)! > 2 {
                     self?.images[index] = image
                 }else{
-                    self?.images.add(image)
+                    self?.images.append(image)
                 }
                 
                 self?.mainTableView.reloadData()

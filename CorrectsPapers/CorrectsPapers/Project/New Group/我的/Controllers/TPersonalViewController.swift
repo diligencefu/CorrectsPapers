@@ -28,8 +28,13 @@ class TPersonalViewController: BaseViewController {
     override func requestData() {
         
         self.view.beginLoading()
-        netWorkForMyData { (dataArr,flag) in
-            
+        let params = [
+            "SESSIONID":SESSIONIDT,
+            "mobileCode":mobileCodeT
+        ]
+        
+        netWorkForMyData(params: params) { (dataArr,flag) in
+
             if flag {
                 if dataArr.count > 0{
                     self.model = dataArr[0] as! PersonalModel
@@ -51,7 +56,12 @@ class TPersonalViewController: BaseViewController {
     override func refreshHeaderAction() {
         
         self.view.beginLoading()
-        netWorkForMyData { (dataArr,flag) in
+        let params = [
+            "SESSIONID":SESSIONIDT,
+            "mobileCode":mobileCodeT
+        ]
+        
+        netWorkForMyData(params: params) { (dataArr,flag) in
             if flag {
 
                 if dataArr.count > 0{

@@ -9,5 +9,6 @@
 #import <Foundation/Foundation.h>
 
 @interface OCTools : NSObject
+- (NSString *)positiveFormat:(NSString *)text;
 - (BOOL)isUrl;
 @end

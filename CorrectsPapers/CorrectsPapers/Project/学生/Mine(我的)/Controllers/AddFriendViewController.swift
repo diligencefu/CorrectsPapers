@@ -73,7 +73,7 @@ class AddFriendViewController: BaseViewController {
             var params = ["":""]
             self.mainTableArr.removeAllObjects()
             let decimal = NSDecimalNumber(string: searchView.text)
-            print(decimal.intValue)
+            deBugPrint(item: decimal.intValue)
             if decimal.intValue == 9 {
                 params =
                     [
@@ -163,7 +163,7 @@ class AddFriendViewController: BaseViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: identyfierTable, for: indexPath) as! ShowFridensCell
         cell.ShowFridensCellForAddFriend(model:model)
         cell.addFriendsBlock = {
-            print($0)
+            deBugPrint(item: $0)
             let params = [
                 "SESSIONID":SESSIONID,
                 "mobileCode":mobileCode,

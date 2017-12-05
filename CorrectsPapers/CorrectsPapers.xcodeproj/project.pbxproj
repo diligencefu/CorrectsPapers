@@ -66,6 +66,7 @@
 		18449C831FA95AB400120FDA /* PersonalModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18449C821FA95AB400120FDA /* PersonalModel.swift */; };
 		184AE5081F90C07B007FE81A /* SearchBooksViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184AE5071F90C07B007FE81A /* SearchBooksViewController.swift */; };
 		184AE50A1F90C156007FE81A /* MyBookViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184AE5091F90C156007FE81A /* MyBookViewController.swift */; };
+		184B3E781FCBAC41002A90D8 /* NotWorkDetailModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184B3E771FCBAC41002A90D8 /* NotWorkDetailModel.swift */; };
 		184BBECC1F9B431500EF65C4 /* EditInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184BBECB1F9B431400EF65C4 /* EditInfoViewController.swift */; };
 		184BBECF1F9B45E900EF65C4 /* EditInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184BBECD1F9B45E900EF65C4 /* EditInfoCell.swift */; };
 		184BBED01F9B45E900EF65C4 /* EditInfoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 184BBECE1F9B45E900EF65C4 /* EditInfoCell.xib */; };
@@ -205,6 +206,7 @@
 		186458AC1FC7E98C000C6D05 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 186458AB1FC7E98C000C6D05 /* libsqlite3.tbd */; };
 		186458B31FC808E3000C6D05 /* ShareView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186458B21FC808E3000C6D05 /* ShareView.swift */; };
 		186458B51FC808EB000C6D05 /* ShareView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 186458B41FC808EB000C6D05 /* ShareView.xib */; };
+		18673B011FD2962100B1B631 /* PayModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18673B001FD2962100B1B631 /* PayModel.swift */; };
 		1867C40E1F9DA0CB00831A23 /* SystemMsgViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1867C40D1F9DA0CB00831A23 /* SystemMsgViewController.swift */; };
 		1867C4101F9DC65C00831A23 /* TBookDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1867C40F1F9DC65C00831A23 /* TBookDetailViewController.swift */; };
 		1867C4121F9DC6BB00831A23 /* TBookHeadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1867C4111F9DC6BB00831A23 /* TBookHeadView.swift */; };
@@ -439,6 +441,7 @@
 		184621571F8CAA1D00095097 /* CorrectsPapers-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CorrectsPapers-Bridging-Header.h"; sourceTree = "<group>"; };
 		184AE5071F90C07B007FE81A /* SearchBooksViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBooksViewController.swift; sourceTree = "<group>"; };
 		184AE5091F90C156007FE81A /* MyBookViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyBookViewController.swift; sourceTree = "<group>"; };
+		184B3E771FCBAC41002A90D8 /* NotWorkDetailModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotWorkDetailModel.swift; sourceTree = "<group>"; };
 		184BBECB1F9B431400EF65C4 /* EditInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditInfoViewController.swift; sourceTree = "<group>"; };
 		184BBECD1F9B45E900EF65C4 /* EditInfoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditInfoCell.swift; sourceTree = "<group>"; };
 		184BBECE1F9B45E900EF65C4 /* EditInfoCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EditInfoCell.xib; sourceTree = "<group>"; };
@@ -596,6 +599,7 @@
 		186458AE1FC7E99E000C6D05 /* Photos.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Photos.framework; path = System/Library/Frameworks/Photos.framework; sourceTree = SDKROOT; };
 		186458B21FC808E3000C6D05 /* ShareView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareView.swift; sourceTree = "<group>"; };
 		186458B41FC808EB000C6D05 /* ShareView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ShareView.xib; sourceTree = "<group>"; };
+		18673B001FD2962100B1B631 /* PayModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayModel.swift; sourceTree = "<group>"; };
 		1867C40D1F9DA0CB00831A23 /* SystemMsgViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemMsgViewController.swift; sourceTree = "<group>"; };
 		1867C40F1F9DC65C00831A23 /* TBookDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TBookDetailViewController.swift; sourceTree = "<group>"; };
 		1867C4111F9DC6BB00831A23 /* TBookHeadView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TBookHeadView.swift; sourceTree = "<group>"; };
@@ -1291,6 +1295,8 @@
 			isa = PBXGroup;
 			children = (
 				18504F1B1FC55E7E00A7252A /* SNotWorkModel.swift */,
+				184B3E771FCBAC41002A90D8 /* NotWorkDetailModel.swift */,
+				18673B001FD2962100B1B631 /* PayModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -2026,6 +2032,7 @@
 				"${SRCROOT}/Pods/Target Support Files/Pods-CorrectsPapers/Pods-CorrectsPapers-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/ASIHTTPRequest/ASIHTTPRequest.framework",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/IQKeyboardManager/IQKeyboardManager.framework",
 				"${BUILT_PRODUCTS_DIR}/IQKeyboardManagerSwift/IQKeyboardManagerSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
 				"${BUILT_PRODUCTS_DIR}/MJRefresh/MJRefresh.framework",
@@ -2045,6 +2052,7 @@
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ASIHTTPRequest.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IQKeyboardManager.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IQKeyboardManagerSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MJRefresh.framework",
@@ -2241,6 +2249,7 @@
 				184BBED31F9B4CE800EF65C4 /* EditHeadCell.swift in Sources */,
 				184D94711F97250200C79DBC /* CLPreviewViewController.swift in Sources */,
 				18E854B11FB975B40029E81F /* TViewBookCell0.swift in Sources */,
+				184B3E781FCBAC41002A90D8 /* NotWorkDetailModel.swift in Sources */,
 				184D94721F97250200C79DBC /* EditorViewController.swift in Sources */,
 				184D94731F97250200C79DBC /* EditorViewController.xib in Sources */,
 				18935EE41FC2A71200BF9651 /* ShowWorkNotDone.swift in Sources */,
@@ -2383,6 +2392,7 @@
 				183C57781FA9AAE00038CA8B /* MyBookDetailViewController.swift in Sources */,
 				185981C01FB588980021EAD9 /* BoardInputView.swift in Sources */,
 				18449C811FA9591F00120FDA /* BookDetailModel.swift in Sources */,
+				18673B011FD2962100B1B631 /* PayModel.swift in Sources */,
 				186F392D1F91FA8D009B8927 /* ComplaintCell.swift in Sources */,
 				1867C4121F9DC6BB00831A23 /* TBookHeadView.swift in Sources */,
 			);
@@ -2556,7 +2566,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = DWKUG2PD45;
+				DEVELOPMENT_TEAM = M7SM2N44X9;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2610,7 +2620,7 @@
 					"\"ZFDownload\"",
 					"-ObjC",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.RongXing.CorrectsPapers.;
+				PRODUCT_BUNDLE_IDENTIFIER = com.RongXing.CorrectsPapers;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "/Users/rongxingwangluo/Desktop/思而慧/CorrectsPapers/CorrectsPapers/CorrectsPapers-Bridging-Header.h";
@@ -2628,7 +2638,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = DWKUG2PD45;
+				DEVELOPMENT_TEAM = M7SM2N44X9;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2682,7 +2692,7 @@
 					"\"ZFDownload\"",
 					"-ObjC",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.RongXing.CorrectsPapers.;
+				PRODUCT_BUNDLE_IDENTIFIER = com.RongXing.CorrectsPapers;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "/Users/rongxingwangluo/Desktop/思而慧/CorrectsPapers/CorrectsPapers/CorrectsPapers-Bridging-Header.h";

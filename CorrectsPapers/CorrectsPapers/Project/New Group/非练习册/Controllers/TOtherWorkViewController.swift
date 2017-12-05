@@ -121,6 +121,19 @@ class TOtherWorkViewController: BaseViewController {
         let model = mainTableArr[indexPath.row] as! TNotWorkModel
         let cell : TShowBooksCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable, for: indexPath) as! TShowBooksCell
         cell.selectionStyle = .default
+        cell.addWorkBlock = {
+            let params =
+                ["SESSIONID":SESSIONIDT,
+                 "mobileCode":mobileCodeT,
+                 "non_exercise_Id":model.non_exercise_Id
+            ] as [String:Any]
+
+            NetWorkTeacherBulidNonByTeacher(params: params, callBack: { (flag) in
+                if flag {
+                    self.refreshHeaderAction()
+                }
+            })
+        }
         cell.TShowBooksCellForShowBook(model: model)
         return cell
     }
@@ -149,7 +162,7 @@ class TOtherWorkViewController: BaseViewController {
             
             mainTableArr.removeObject(at: indexPath.row)
             tableView.reloadData()
-            print("删除了---\(indexPath.section)分区-\(indexPath.row)行")
+            deBugPrint(item: "删除了---\(indexPath.section)分区-\(indexPath.row)行")
         }
     }
     

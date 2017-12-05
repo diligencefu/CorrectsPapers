@@ -33,7 +33,8 @@ class TBookDetailViewController: BaseViewController,UITextFieldDelegate {
     //    var bookState = 0
     
     var book_id = ""
-    
+    var userWorkBookId = ""
+
     let identyfierTable6 = "identyfierTable6"
     let identyfierTable7 = "identyfierTable7"
     let identyfierTable8 = "identyfierTable8"
@@ -76,8 +77,9 @@ class TBookDetailViewController: BaseViewController,UITextFieldDelegate {
         let params1 =
             ["SESSIONID":SESSIONIDT,
              "mobileCode":mobileCodeT,
-             "id":book_id
-        ]
+             "userWorkBookId":book_id,
+             "pageNo":"1"
+                ] as [String : Any]
         
         NetWorkTeacherGetTStudentWorkList(params: params1) { (datas,flag) in
             if flag {
@@ -420,7 +422,7 @@ class TBookDetailViewController: BaseViewController,UITextFieldDelegate {
             }else{
                 model = works[indexPath.row] as! TShowStuWorksModel
             }
-            print(model.state)
+            deBugPrint(item: model.correcting_states)
             
             let cell : TViewBookCell0 = tableView.dequeueReusableCell(withIdentifier: identyfierTable10, for: indexPath) as! TViewBookCell0
             
@@ -498,7 +500,7 @@ class TBookDetailViewController: BaseViewController,UITextFieldDelegate {
                 let viewC = TShowBookViewController()
                 let model = works[indexPath.row] as! TShowStuWorksModel
                 viewC.model = model
-                if model.state == "2" || model.state == "5" {
+                if model.correcting_states == "2" || model.correcting_states == "5" {
                     self.navigationController?.pushViewController(viewC, animated: true)
                 }
             }
@@ -661,7 +663,7 @@ class TBookDetailViewController: BaseViewController,UITextFieldDelegate {
     //MARK:上传答案点击事件
     @objc func showUploadBtn(sender:UIButton) {
         
-        print(sender.tag)
+        deBugPrint(item: sender.tag)
         
         if sender.tag == 181 {
             
@@ -711,7 +713,7 @@ class TBookDetailViewController: BaseViewController,UITextFieldDelegate {
         imagePickTool.isHiddenVideo = true
         
         imagePickTool.setupImagePickerWith(MaxImagesCount: count, superVC: self) { (assetArr,cutImage) in
-            print("返回的asset数组是\(assetArr)")
+            deBugPrint(item: "返回的asset数组是\(assetArr)")
             
             PopViewUtil.share.showLoading()
             
@@ -732,7 +734,7 @@ class TBookDetailViewController: BaseViewController,UITextFieldDelegate {
 
                 NetWorkTeacherUploadAnswerImages(params: params1, data: imageArr, success: { (success) in
                     let json = JSON(success)
-                    print(json)
+                    deBugPrint(item: json)
                     if json["code"] == "1" {
                         setToast(str: "上传成功")
                     }

@@ -6,15 +6,19 @@
 //  Copyright © 2017年 Fu Yaohui. All rights reserved.
 //
 
+import SwiftyUserDefaults
 
 //MARK:必要参数
-let SESSIONIDT = "8956ssd4785955665ddddfggfg452f"
-let mobileCodeT = "sion"
+//var SESSIONIDT = "8956ssd4785955665ddddfggfg452f"
+//var mobileCodeT = "sion"
+var SESSIONIDT = Defaults[userToken]!
+
+var mobileCodeT = Defaults[mCode]!
 //let SESSIONIDT = "12345689piosid"
 //let mobileCodeT = "sam"
 
-let SESSIONID = "562564455ffg5451vvc5565874512112"
-let mobileCode = "com"
+//var SESSIONID = "562564455ffg5451vvc5565874512112"
+//var mobileCode = "com"
 
 //let SESSIONID = "1"
 //let mobileCode = "on"
@@ -24,13 +28,20 @@ let mobileCode = "com"
 //    "mobileCode":mobileCode
 //]
 
+var SESSIONID = Defaults[userToken]!
+var mobileCode = Defaults[mCode]!
+
 let kBaseUrl = "http://192.168.1.191:8080/duties/m/rongxing/"
 
 //MARK:注册验证码
 let kGet_Sms = kBaseUrl + "user/getSms"
+//MARK:验证验证码
+let kcheak_Text = kBaseUrl + "user/cheakText"
 //MARK:注册账号
-let kLogin_User = kBaseUrl +  "user/loginUser"
+let kUser_Signup = kBaseUrl +  "user/UserSignup"
 
+//MARK:登录
+let kLogin_api = kBaseUrl +  "user/login"
 
 let kBaseUrl1 = "http://192.168.1.181:8080/duties/m/rongxing/"
 let kBaseUrl11 = "http://192.168.1.191:8080/duties/m/rongxing/"
@@ -171,6 +182,12 @@ let kCorrec_ClassBookNext = kBaseUrl +  "teacher/correcClassBookNext"
 
 //MARK: 21 接口说明 ：  获取班级成员
 let kGet_ClassMember = kBaseUrl +  "teacher/getClassMember"
+
+
+//MARK: 23 接口说明 ：    老师获取练习册学生成绩，班级学生成绩（最近大课时），班级学生往期成绩列表，通用接口
+let kGet_StudentScroes = kBaseUrl +  "teacher/getStudentScroes"
+
+
 
 //MARK:(学生端4-6、老师端4-7意见和建议)接口
 let kInsert_Suggestion = kBaseUrl1 +  "mine/insertSuggestion"

@@ -24,9 +24,16 @@ class AnserVideoCell: UITableViewCell {
     func AnserVideoCellSetValues(model:UrlModel) {
         
         videoTitle.text = model.counts
-        videoDesc.text = model.title
+        videoDesc.text = model.point_title
     }
     
+    
+    func AnserVideoCellSetValuesForAnswer(title:String) {
+        
+//        videoTitle.text = model.counts
+        videoDesc.text = title
+    }
+
     
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)

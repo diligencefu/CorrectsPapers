@@ -28,7 +28,9 @@ class TClassStudentCell: UITableViewCell {
     
     func showHeadTeacherCell(model:THeadTeacherModel) {
         handWork.isHidden = true
-        userIcon.kf.setImage(with:  URL(string:model.head_teacher_photo)!, placeholder: #imageLiteral(resourceName: "photos_image_default"), options: nil, progressBlock: nil, completionHandler: nil)
+        if model.head_teacher_photo != "" {
+            userIcon.kf.setImage(with:  URL(string:model.head_teacher_photo)!, placeholder: #imageLiteral(resourceName: "photos_image_default"), options: nil, progressBlock: nil, completionHandler: nil)
+        }
         userNum.text = model.head_teacher_num
         idMark.text = "工号"
         userName.text = model.head_teacher_name

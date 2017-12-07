@@ -64,6 +64,7 @@ class SettingViewController: BaseViewController {
     @objc func logoutAction() {
         Defaults[username] = nil
         Defaults[userToken] = nil
+        Defaults[mCode] = nil
         Defaults[username] = nil
         Defaults[userArea] = nil
         Defaults[userId] = nil

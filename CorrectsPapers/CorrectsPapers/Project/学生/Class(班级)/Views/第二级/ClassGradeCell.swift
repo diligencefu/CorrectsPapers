@@ -121,14 +121,14 @@ class ClassGradeCell: UITableViewCell {
         
     }
     ///    非练习册详情（老师）
-    func  setValueForNonBookGradeTeacher(model:TShowGradeModel) {
+    func  setValueForNonBookGradeTeacher(model:TNotWorkDetailModel) {
         
         label1.isHidden = true
         label2.isHidden = true
         fristGrade.alpha = 1
         doneGrade.alpha = 1
         
-        periodsLabel.text = model.user_name
+        periodsLabel.text = model.student_name
         
         if model.pre_score == "1" {
             fristGrade.image = #imageLiteral(resourceName: "yixing_icon_pressed")
@@ -141,7 +141,7 @@ class ClassGradeCell: UITableViewCell {
         }else if model.pre_score == "5" {
             fristGrade.image = #imageLiteral(resourceName: "wuxing_icon_pressed")
             doneGrade.image = #imageLiteral(resourceName: "not_icon_default")
-        }
+        } 
         
         if model.pre_score != "5" {
             if model.upd_score == "1" {

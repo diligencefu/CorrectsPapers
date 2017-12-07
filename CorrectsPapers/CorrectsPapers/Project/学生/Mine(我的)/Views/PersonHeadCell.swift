@@ -8,6 +8,7 @@
 
 import UIKit
 import IQKeyboardManagerSwift
+import SwiftyUserDefaults
 
 class PersonHeadCell: UITableViewCell {
 
@@ -32,23 +33,29 @@ class PersonHeadCell: UITableViewCell {
         headIcon.clipsToBounds = true
         
         backImage.image = getNavigationIMG(27, fromColor: kSetRGBColor(r: 0, g: 200, b: 255), toColor: kSetRGBColor(r: 0, g: 162, b: 255))
-        
     }
-
    
     
     func setValues(model:PersonalModel) {
-        
-        headIcon.kf.setImage(with:  URL(string:"https://ps.ssl.qhimg.com/sdmt/99_135_100/t01f61d3cc2fad557e5.jpg")!, placeholder: #imageLiteral(resourceName: "UserHead_64_default"), options: nil, progressBlock: nil, completionHandler: nil)
+        if model.user_photo != nil {
+            headIcon.kf.setImage(with:  URL(string:model.user_photo)!, placeholder: #imageLiteral(resourceName: "UserHead_64_default"), options: nil, progressBlock: nil, completionHandler: nil)
+
+        }
 
         userName.text = model.user_name
         grade.text = model.user_fit_class
-        area.text = model.user_area
-        user_id.text = model.user_num
+        user_id.text = model.user_area
+
+        if model.user_num != nil {
+            if Defaults[userIdentity] == kTeacher {
+                
+                area.text = "工号" + model.user_num
+            }else{
+                area.text = "学号" + model.user_num
+            }
+        }
+        
     }
-    
-    
-  
     
     
     override func setSelected(_ selected: Bool, animated: Bool) {

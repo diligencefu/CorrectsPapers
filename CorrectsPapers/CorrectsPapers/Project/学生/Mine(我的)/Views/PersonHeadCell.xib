@@ -23,7 +23,7 @@
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="tDv-Dp-QGI">
                         <rect key="frame" x="0.0" y="0.0" width="325" height="615"/>
                     </imageView>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="headimage" translatesAutoresizingMaskIntoConstraints="NO" id="4HU-V5-skB">
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="UserHead_128_default" translatesAutoresizingMaskIntoConstraints="NO" id="4HU-V5-skB">
                         <rect key="frame" x="8" y="528" width="66" height="66"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="66" id="ee8-bJ-e8C"/>
@@ -111,7 +111,7 @@
         </tableViewCell>
     </objects>
     <resources>
+        <image name="UserHead_128_default" width="64" height="64"/>
         <image name="go_icon_default" width="8" height="14"/>
-        <image name="headimage" width="200" height="200"/>
     </resources>
 </document>

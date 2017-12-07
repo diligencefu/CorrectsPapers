@@ -9,13 +9,14 @@
 import UIKit
 import Alamofire
 import SwiftyJSON
-
+import SwiftyUserDefaults
+  
 var createGroupBlock:((String,Array<Any>)->())?  //声明闭包
 
 //MARK:验证码接口
-public func netWorkForSendCode(phoneNumber:String,callBack:((String)->())?) ->  Void {
+public func netWorkForSendCode(phoneNumber:String,callBack:((String,Bool)->())?) ->  Void {
 
-    let dic = ["phone":"12345678945"]
+    let dic = ["phone":phoneNumber]
     Alamofire.request(kGet_Sms,
                       method: .get, parameters: dic,
                       encoding: URLEncoding.default, headers: nil).responseJSON(queue:DispatchQueue.main, options: .allowFragments) { (response) in
@@ -35,11 +36,48 @@ public func netWorkForSendCode(phoneNumber:String,callBack:((String)->())?) ->  
     }
 }
 
+  //MARK:验证码接口
+  public func netWorkForCheckCode(params:[String:String],callBack:((Bool)->())?) ->  Void {
+    
+    Alamofire.request(kcheak_Text,
+                      method: .get, parameters: params,
+                      encoding: URLEncoding.default, headers: nil).responseJSON(queue:DispatchQueue.main, options: .allowFragments) { (response) in
+                        deBugPrint(item: response.result)
+                        switch response.result {
+                        case .success:
+                            if let j = response.result.value {
+                                //SwiftyJSON解析数据
+                                let JSOnDictory = JSON(j)
+                                let translation =  JSOnDictory["message"]
+                                
+                                let code =  JSOnDictory["code"].intValue
+                                
+                                if code == 1{
+                                    callBack!(true)
+                                }
+                                
+                                if code == 5{
+                                    callBack!(false)
+                                    setToast(str: "该验证码已失效,请重新发送!")
+                                }else if code == 6{
+                                    callBack!(false)
+                                    setToast(str: "短信验证码错误!")
+                                }
+
+                                deBugPrint(item: translation)
+                            }
+                            break
+                        case .failure(let error):
+                            deBugPrint(item: error)
+                        }
+    }
+  }
+
 
 //MARK:注册接口
-public func netWorkForRegistAccount(params:[String:Any],callBack:((String)->())?) ->  Void {
+public func netWorkForRegistAccount(params:[String:Any],callBack:((Bool)->())?) ->  Void {
 //    let dataArr = NSMutableArraRy()
-    Alamofire.request(kLogin_User,
+    Alamofire.request(kUser_Signup,
                       method: .post,
                       parameters: params,
                       encoding: URLEncoding.default,
@@ -53,14 +91,19 @@ public func netWorkForRegistAccount(params:[String:Any],callBack:((String)->())?
                                 //SwiftyJSON解析数据
                                 let JSOnDictory = JSON(j)
                                 let code =  JSOnDictory["code"].intValue
-                                
+                                let translation =  JSOnDictory["message"].stringValue
+//                                Defaults[userToken] =  JSOnDictory["SESSIONID"].stringValue
+//                                Defaults[username] =  JSOnDictory["mobileCode"].stringValue
+                                Defaults[userToken] =  JSOnDictory["data"]["SESSIONID"].stringValue
+                                Defaults[mCode] =  JSOnDictory["data"]["mobileCode"].stringValue
+
                                 if code == 0{
-                                    callBack!("failure")
+                                    callBack!(false)
+                                    setToast(str: translation)
                                 }else{
-                                    callBack!("haha")
+                                    callBack!(true)
                                 }
                             }
-                            setToast(str: "完成")
                             break
                         case .failure(let error):
                             deBugPrint(item: error)
@@ -69,7 +112,53 @@ public func netWorkForRegistAccount(params:[String:Any],callBack:((String)->())?
     }
 }
 
-
+  //MARK:登录接口
+  public func netWorkForLogin(params:[String:Any],callBack:((Bool)->())?) ->  Void {
+    //    let dataArr = NSMutableArraRy()
+    Alamofire.request(kLogin_api,
+                      method: .get,
+                      parameters: params,
+                      encoding: URLEncoding.default,
+                      headers: nil).responseJSON
+        { (response) in
+            deBugPrint(item: response.result)
+            switch response.result {
+            case .success:
+                
+                if let j = response.result.value {
+                    //SwiftyJSON解析数据
+                    let JSOnDictory = JSON(j)
+                    let code =  JSOnDictory["code"].intValue
+                    let translation =  JSOnDictory["message"].stringValue
+                    
+                    if code == 0 {
+                        callBack!(false)
+                        setToast(str: translation)
+                    }else if code == 1{
+                        Defaults[userToken] =  JSOnDictory["data"]["SESSIONID"].stringValue
+                        Defaults[mCode] =  JSOnDictory["data"]["mobileCode"].stringValue
+                        
+                        if JSOnDictory["data"]["degree"].intValue == 2 {
+                            Defaults[userIdentity] = kTeacher
+                        }else if JSOnDictory["data"]["degree"].intValue == 1 {
+                            Defaults[userIdentity] = kStudent
+                        }
+                        
+                        callBack!(true)
+                    }else{
+                        callBack!(false)
+                        setToast(str: translation)
+                    }
+                }
+                break
+            case .failure(let error):
+                deBugPrint(item: error)
+                setToast(str: "注册失败")
+            }
+    }
+  }
+  
+  
 //MARK: *****************老师端接口**************
 //MARK: *****************老师端接口**************
 //MARK: *****************老师端接口**************
@@ -78,7 +167,8 @@ public func netWorkForRegistAccount(params:[String:Any],callBack:((String)->())?
 
 
 //MARK:  老师端4-5被投诉记录
-public func NetWorkTeacherGetComplaintRecord(callBack:((Array<Any>,Bool)->())?) ->  Void {
+
+  public func NetWorkTeacherGetComplaintRecord(callBack:((Array<Any>,Bool)->())?) ->  Void {
     
     let params =
         ["SESSIONID":"1",
@@ -731,7 +821,7 @@ public func NetWorkTeacherGetTAllNotWork(callBack:((Array<Any>,Bool)->())?) ->  
                                     
                                     let json = datas[index]
                                     let model  = TNotWorkModel.setValueForTNotWorkModel(json: json)
-                                    if model.isFriend == "no" && model.correct_way == "2"{
+                                    if model.correct_way == "2"{
                                         dataArr.append(model)
                                     }
                                 }
@@ -989,35 +1079,58 @@ public func NetWorkTeacherAddTNotWorkUploadVideo(params:[String:Any],callBack:((
 
 //MARK:未完成
 //MARK:22  2-2-2    非练习册-详情-上传文件
-public func NetWorkTeacherAddTNotWorkUploadFile(params:[String:Any],callBack:((Bool)->())?) ->  Void {
-    
-    Alamofire.request(kAdd_TNotWorkFile,
-                      method: .get, parameters: params,
-                      encoding: URLEncoding.default, headers: nil).responseJSON { (response) in
-                        deBugPrint(item: response.result)
-                        switch response.result {
-                        case .success:
-                            if let j = response.result.value {
-                                let JSOnDictory = JSON(j)
-                                
-                                let code =  JSOnDictory["code"].stringValue
-                                if code == "0" {
-                                    callBack!(false)
-                                    setToast(str: "上传文件失败")
-                                }else{
-                                    callBack!(true)
-                                    setToast(str: "上传文件成功")
-                                }
-                            }
-                            break
-                        case .failure(let error):
-                            deBugPrint(item: error)
-                            
-                            setToast(str: "上传文件失败")
+public func NetWorkTeacherAddTNotWorkUploadFile(params:[String:String]!,
+        data: [UIImage],
+        vc:UIViewController,
+        success : @escaping (_ response : [String : AnyObject])->(), failture : @escaping (_ error : Error)->()){
+        vc.view.beginLoading()
+        let headers = ["content-type":"multipart/form-data"]
+        
+        Alamofire.upload(
+            multipartFormData: { multipartFormData in
+                
+                multipartFormData.append((params["SESSIONID"]!.data(using: String.Encoding.utf8)!),
+                                         withName: "SESSIONID")
+                
+                multipartFormData.append((params["mobileCode"]!.data(using: String.Encoding.utf8)!),
+                                         withName: "mobileCode")
+                
+                multipartFormData.append((params["workId"]!.data(using: String.Encoding.utf8)!),
+                                         withName: "workId")
+                
+                multipartFormData.append((params["money"]!.data(using: String.Encoding.utf8)!),
+                                         withName: "money")
+                
+                for image in data {
+                    let data1 = UIImageJPEGRepresentation(image, 0.5)
+                    let temp = Int(arc4random()%1000000000)+Int(arc4random()%1000000000)
+                    let imageName = "Teacher/NotWorkBookAnswer\(temp)_image.png"
+                    multipartFormData.append(data1!, withName: "name"+imageName, fileName: imageName, mimeType: "image/png")
+                }
+                
+        },
+            to: kAdd_TNotWorkFile,
+            headers: headers,
+            encodingCompletion: { encodingResult in
+                switch encodingResult {
+                case .success(let upload, _, _):
+                    upload.responseJSON { response in
+                        if let value = response.result.value as? [String: AnyObject]{
+                            success(value)
                         }
+                        
+                        if response.result.value == nil {
+                            success(["000":"000" as AnyObject])
+                        }
+                    }
+                    vc.view.endLoading()
+                case .failure(let encodingError):
+                    failture(encodingError)
+                    vc.view.endLoading()
+                }
+        }
+        )
     }
-    
-}
 
 
 //MARK:23  2-2-3    非练习册-手动填写
@@ -1759,7 +1872,44 @@ public func NetWorkTeacherGobackWrokBookFei(params:[String:Any],callBack:((Bool)
     }
     
 }
+  
+  
+  //MARK:23 老师获取练习册学生成绩，班级学生成绩（最近大课时），班级学生往期成绩列表，通用接口
+  public func NetWorkTeacherGetStudentScroes(params:[String:Any],callBack:((Array<Any>,Bool)->())?) ->  Void {
+    
+    var dataArr = [TShowGradeModel]()
+    Alamofire.request(kGet_StudentScroes,
+                      method: .get, parameters: params,
+                      encoding: URLEncoding.default, headers: nil).responseJSON{ (response) in
+                        deBugPrint(item: response.result)
+                        switch response.result {
+                        case .success:
+                            if let j = response.result.value {
+                                
+                                //SwiftyJSON解析数据
+                                let JSOnDictory = JSON(j)
+                                let code =  JSOnDictory["code"].stringValue
+                                if code == "0" {
+                                    callBack!(dataArr,false)
+                                    setToast(str: "获取失败")
+                                }
+                                
+                                let datas =  JSOnDictory["data"]
+                                let model  = TShowGradeModel.setValueForTMyWorkTShowGradeModel(json: datas)
+                                dataArr.append(model)
+                                callBack!(dataArr,true)
+                            }
+                            break
+                        case .failure(let error):
+                            deBugPrint(item: error)
+                            callBack!(dataArr,false)
+                            setToast(str: "获取失败")
+                        }
+    }
+  }
+  
 
+  
 
 //MARK:意见和建议
 public func netWorkForSuggestion(params:[String:Any],callBack:((Bool)->())?) ->  Void {

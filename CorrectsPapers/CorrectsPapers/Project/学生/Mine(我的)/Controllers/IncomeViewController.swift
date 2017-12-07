@@ -46,7 +46,6 @@ class IncomeViewController: BaseViewController {
             }
             self.view.endLoading()
         }
-
         
     }
     

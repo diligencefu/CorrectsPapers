@@ -28,7 +28,9 @@ class TShowGradeModel: NSObject {
     var state : String!
     ///学号
     var user_num : String?
-    
+    ///课时数
+    var orders : String?
+
     class func setValueForTMyWorkTShowGradeModel(json: JSON) -> TShowGradeModel {
         
         let model = TShowGradeModel()
@@ -41,6 +43,7 @@ class TShowGradeModel: NSObject {
         model.upd_score = json["upd_score"].stringValue
         model.user_photo = json["user_photo"].stringValue
         model.user_num = json["user_num"].stringValue
+        model.orders = json["orders"].stringValue
         return model
     }
 }

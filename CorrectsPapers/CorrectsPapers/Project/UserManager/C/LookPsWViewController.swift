@@ -180,7 +180,7 @@ class LookPsWViewController: BaseViewController {
                 "type":"2",
                 ]
         
-        if passWord.text?.characters.count == 0 {
+        if passWord.text?.count == 0 {
             setToast(str: "请输入密码")
             return
         }

@@ -41,8 +41,9 @@ class LoginViewController: BaseViewController {
         userName.rightViewMode = .always
         userName.leftViewMode = .always
         userName.keyboardType = .numberPad
-        self.view.addSubview(userName)
         
+        userName.text = "13260646603"
+        self.view.addSubview(userName)
         
         let leftBG1 = UIView.init(frame: CGRect(x: 0, y: 0, width: 35, height: 45))
         
@@ -52,18 +53,15 @@ class LoginViewController: BaseViewController {
         leftBG1.addSubview(image1)
         userName.leftView = leftBG1
         
-        
         let line1 = UIView.init(frame: CGRect(x: 30, y: 75, width: kSCREEN_WIDTH - 60, height: 1))
         line1.backgroundColor = kGaryColor(num: 227)
         self.view.addSubview(line1)
-
         
         //       清除按钮
         let clearBtn = UIButton.init(frame: CGRect(x: 0, y: 0, width: 30, height: 30))
         clearBtn.setImage(#imageLiteral(resourceName: "close"), for: .normal)
         clearBtn.addTarget(self, action: #selector(clearUserNameText(sender:)), for: .touchUpInside)
         userName.rightView = clearBtn
-        
         
 //        密码
         passWord.frame = CGRect(x: 30, y: 90, width: kSCREEN_WIDTH - 30 * 2, height: 45)
@@ -77,8 +75,8 @@ class LoginViewController: BaseViewController {
         passWord.textColor = kGaryColor(num: 117)
         passWord.isSecureTextEntry = true
 //        passWord.keyboardType = .namePhonePad
+        passWord.text = "qwerty"
         self.view.addSubview(passWord)
-        
         
         let leftBG2 = UIView.init(frame: CGRect(x: 0, y: 0, width: 35, height: 45))
         
@@ -95,11 +93,9 @@ class LoginViewController: BaseViewController {
         canViewBtn.addTarget(self, action: #selector(VisibleOrInvisible(sender:)), for: .touchUpInside)
         passWord.rightView = canViewBtn
         
-        
         let line2 = UIView.init(frame: CGRect(x: 30, y: 135, width: kSCREEN_WIDTH - 60, height: 1))
         line2.backgroundColor = kGaryColor(num: 227)
         self.view.addSubview(line2)
-
         
         let login = UIButton.init(frame: CGRect(x: 30, y: 170, width: kSCREEN_WIDTH - 30 * 2, height: 40))
         login.setBackgroundImage(getNavigationIMG(27, fromColor: kSetRGBColor(r: 0, g: 200, b: 255), toColor: kSetRGBColor(r: 0, g: 162, b: 255)), for: .normal)
@@ -110,13 +106,11 @@ class LoginViewController: BaseViewController {
         login.addTarget(self, action: #selector(loginAction(sender:)), for: .touchUpInside)
         self.view.addSubview(login)
         
-        
         let regist = UIButton.init(frame: CGRect(x: 374/2 - 100, y: 300, width: 40, height: 35))
         regist.setTitle("注册账号", for: .normal)
         regist.setTitleColor(kGaryColor(num: 117), for: .normal)
         regist.addTarget(self, action: #selector(registAction(sender:)), for: .touchUpInside)
         self.view.addSubview(regist)
-        
         
         let centerView = UIView.init(frame: CGRect(x: 374/2, y: 300, width: 1, height: 35))
         centerView.backgroundColor = kGaryColor(num: 117)
@@ -127,7 +121,6 @@ class LoginViewController: BaseViewController {
         lookPW.setTitleColor(kGaryColor(num: 117), for: .normal)
         lookPW.addTarget(self, action: #selector(lookForPWAction(sender:)), for: .touchUpInside)
         self.view.addSubview(lookPW)        
-        
         
         centerView.snp.makeConstraints { (make) in
             make.centerX.equalToSuperview()
@@ -183,11 +176,19 @@ class LoginViewController: BaseViewController {
 //            setToast(str: "请输入密码")
 //            return
 //        }
+        let dic = ["phone":userName.text!,
+                   "password":passWord.text!,
+                   ] as [String : Any]
+
+        netWorkForLogin(params: dic) { (flag) in
+            
+            if flag {
+//                Defaults[username]  = self.userName.text
+//                Defaults[userToken] = self.passWord.text
+                self.view.window?.rootViewController = MainTabBarController()
+            }
+        }
         
-        Defaults[username]  = userName.text
-        Defaults[userToken] = passWord.text
-        
-        self.view.window?.rootViewController = MainTabBarController()
     }
     
     @objc func registAction(sender:UIButton) {

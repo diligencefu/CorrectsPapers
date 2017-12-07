@@ -26,6 +26,7 @@ class RegisterViewController: BaseViewController {
     @IBOutlet weak var teacher: UIButton!
     
     var selectInfo = false
+    var theCode = ""
     
 //声明定时器
     var timer = Timer()
@@ -118,8 +119,8 @@ class RegisterViewController: BaseViewController {
     
     @objc func sendVertifiCode(sender:UIButton) {
      
-        netWorkForSendCode(phoneNumber: phoneNum.text!) { (code) in
-            
+//        发送验证码
+        netWorkForSendCode(phoneNumber: phoneNum.text!) { (code,flag) in
         }
         
         invalidateTimer()
@@ -194,34 +195,45 @@ class RegisterViewController: BaseViewController {
     
     @IBAction func nextAction(_ sender: UIButton) {
         
-//        if !validateTelNumber(num: phoneNum.text! as NSString) {
-//            setToast(str: "请输入正确的账号")
-//            return
-//        }
-//
-//        if passWord.text?.characters.count == 0 {
-//            setToast(str: "请输入密码")
-//            return
-//        }
+        if !validateTelNumber(num: phoneNum.text! as NSString) {
+            setToast(str: "请输入正确的账号")
+            return
+        }
+
+        if passWord.text?.count == 0 {
+            setToast(str: "请输入密码")
+            return
+        }
         
         if passWord.text == rePassWord.text {
-            let perfecVC = PerfectInfoViewController()
-            perfecVC.isTeacher = selectInfo
-            perfecVC.phoneNum = phoneNum.text!
-            perfecVC.passWord = passWord.text!
-            perfecVC.Thecode = verifyCode.text!
-//            self.navigationController?.pushViewController(perfecVC, animated: true)
+            
+            let dic = ["phone":phoneNum.text,
+                       "content":verifyCode.text,
+                       ] as! [String : String]
+            netWorkForCheckCode(params: dic, callBack: { (flag) in
+                
+                if flag {
+                    let perfecVC = PerfectInfoViewController()
+                    perfecVC.isTeacher = self.selectInfo
+                    perfecVC.phoneNum = self.phoneNum.text!
+                    perfecVC.passWord = self.passWord.text!
+                    perfecVC.Thecode = self.verifyCode.text!
+                    self.navigationController?.pushViewController(perfecVC, animated: true)
+                }
+            })
+            
+            
         }else{
             setToast(str: "两次密码输入不一致")
             return
         }
         
-        let perfecVC = PerfectInfoViewController()
-        perfecVC.isTeacher = selectInfo
-        perfecVC.phoneNum = phoneNum.text!
-        perfecVC.passWord = passWord.text!
-        perfecVC.Thecode = verifyCode.text!
-        self.navigationController?.pushViewController(perfecVC, animated: true)
+//        let perfecVC = PerfectInfoViewController()
+//        perfecVC.isTeacher = selectInfo
+//        perfecVC.phoneNum = phoneNum.text!
+//        perfecVC.passWord = passWord.text!
+//        perfecVC.Thecode = verifyCode.text!
+//        self.navigationController?.pushViewController(perfecVC, animated: true)
     }
     
     

@@ -46,7 +46,7 @@ class TNotWorkModel: NSObject {
         let model = TNotWorkModel()
         model.non_exercise_name = json["non_exercise_name"].stringValue
         model.id = json["non_exercise_Id"].stringValue
-        model.subject_name = json["subject_id"].stringValue
+        model.subject_name = json["subject_name"].stringValue
         model.user_name = json["user_name"].stringValue
         model.pre_photos = json["pre_photos"].stringValue
         model.rewards = json["rewards"].stringValue

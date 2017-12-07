@@ -11,6 +11,8 @@ import SwiftyUserDefaults
 
 let username = DefaultsKey<String?>("userName")
 let userToken = DefaultsKey<String?>("userToken")
+let mCode = DefaultsKey<String?>("mCode")
+
 let userIdentity = DefaultsKey<String?>("userIdentity")
 
 let userGrade = DefaultsKey<String?>("userGrade")

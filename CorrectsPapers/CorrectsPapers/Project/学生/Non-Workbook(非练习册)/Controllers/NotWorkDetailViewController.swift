@@ -87,9 +87,18 @@ class NotWorkDetailViewController: BaseViewController,HBAlertPasswordViewDelegat
                 deBugPrint(item: pays)
                 if flag && pays.count > 0{
                     self.payModels.addObjects(from: pays)
-                    self.workVideoModel = self.payModels[0] as! PayModel
-                    self.workAnswerModel = self.payModels[1] as! PayModel
-                    self.workTextModel = self.payModels[2] as! PayModel
+                    
+                    if pays.count == 1 {
+                        self.workVideoModel = self.payModels[0] as! PayModel
+                    }
+                    
+                    if pays.count == 2 {
+                        self.workAnswerModel = self.payModels[1] as! PayModel
+                    }
+                    
+                    if pays.count == 3 {
+                        self.workTextModel = self.payModels[2] as! PayModel
+                    }
                     
                     if self.workVideoModel.isPay != "no" {
                         self.titleArr3.remove(at: self.titleArr3.index(of: "作业视频讲解")!)
@@ -609,6 +618,17 @@ class NotWorkDetailViewController: BaseViewController,HBAlertPasswordViewDelegat
                 }
                 
                 cell.checkWorkCellSetValues2NotWork(model:workModel)
+                
+                cell.resubmitAction = {
+                    self.state = "4"
+                    tableView.reloadData()
+                }
+                
+                cell.complainAction = {
+                    let complaintVC = ComplaintViewController()
+                    self.navigationController?.pushViewController(complaintVC, animated: true)
+                }
+                
                 return cell
             }
             
@@ -636,28 +656,39 @@ class NotWorkDetailViewController: BaseViewController,HBAlertPasswordViewDelegat
             
         }else if currentIndex == 3 {
             
-            let model = answerArr[indexPath.row] as! UrlModel
+            let model1 = answerArr[0] as! UrlModel
+            let model2 = answerArr[1] as! UrlModel
+            let model3 = answerArr[2] as! UrlModel
+            let model4 = answerArr[3] as! UrlModel
+
             
-            if model.type == "1" {
-                
+            if indexPath.row < model1.title.count {
                 let cell : AnserVideoCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable3, for: indexPath) as! AnserVideoCell
-                cell.AnserVideoCellSetValues(model: model)
+                cell.AnserVideoCellSetValuesForAnswer(title: model1.title[indexPath.row])
                 return cell
-            }else if model.type == "2" {
-                
+            }else if indexPath.row < model1.title.count+model2.title.count {
                 let cell : ShowFileCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable7, for: indexPath) as! ShowFileCell
-                cell.setValues(model: model)
+                cell.setValues(model: model2)
                 return cell
-            }else if model.type == "3" {
-                
+            }else if indexPath.row < model1.title.count+model2.title.count+model3.title.count {
                 let cell : ShowWriteAnswerCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable8, for: indexPath) as! ShowWriteAnswerCell
-                cell.showAnswer(text: model.title)
+                //                cell.showAnswer(text: model.title)
                 return cell
             }else{
                 let cell : AnswerImageCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable12, for: indexPath) as! AnswerImageCell
-                cell.showWithImage(image: model.answard_res)
+//                cell.showWithImage(image: model4.answard_res[indexPath.row])
                 return cell
+
             }
+            
+//            if model1.type == "1" {
+//
+//            }else if model.type == "2" {
+//
+//            }else if model.type == "3" {
+//
+//            }else{
+//            }
         }
         
         let cell : ClassGradeCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable4, for: indexPath) as! ClassGradeCell
@@ -682,7 +713,7 @@ class NotWorkDetailViewController: BaseViewController,HBAlertPasswordViewDelegat
         
         if currentIndex == 2 {
             let model = pointArr[indexPath.row] as! UrlModel
-              let url = NSURL.init(string: model.address!)
+              let url = NSURL.init(string: model.point_address!)
             
             if #available(iOS 10.0, *) {
                 UIApplication.shared.open(url! as URL, options: [:],
@@ -699,20 +730,20 @@ class NotWorkDetailViewController: BaseViewController,HBAlertPasswordViewDelegat
         if currentIndex == 3 {
             let model = answerArr[indexPath.row] as! UrlModel
             
-            if model.type == "1" {
-                let url = NSURL.init(string: model.answard_res)
-                
-                if #available(iOS 10.0, *) {
-                    UIApplication.shared.open(url! as URL, options: [:],
-                                              completionHandler: {
-                                                (success) in
-                    })
-                } else {
-                    // Fallback on earlier versions
-                }
-
-            }
-            
+//            if model.type == "1" {
+//                let url = NSURL.init(string: model.answard_res)
+//
+//                if #available(iOS 10.0, *) {
+//                    UIApplication.shared.open(url! as URL, options: [:],
+//                                              completionHandler: {
+//                                                (success) in
+//                    })
+//                } else {
+//                    // Fallback on earlier versions
+//                }
+//
+//            }
+//
             
         }
         

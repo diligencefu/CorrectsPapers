@@ -223,7 +223,7 @@ class TBookDetailViewController: BaseViewController,UITextFieldDelegate {
                 self.view.endLoading()
             }
         }else if currentIndex == 4{
-            
+            //            #WORNNINGN:
             NetWorkTeacherGetTPeriodAnswers(params: params) { (datas,flag) in
                 
                 if flag {
@@ -343,7 +343,20 @@ class TBookDetailViewController: BaseViewController,UITextFieldDelegate {
 //            }
         }else{
             
-            NetWorkTeacherGetTStudentGrades(params: params) { (datas,flag) in
+            let date = NSDate.init()
+            let formatter = DateFormatter()
+            //日期样式
+            formatter.dateFormat = "yyyy/MM/dd"
+
+            let params1 =
+                ["SESSIONID":SESSIONIDT,
+                 "mobileCode":mobileCodeT,
+                 "type":"1",
+                 "date":formatter.string(from: date as Date),
+                 "workBook_id":book_id,
+            ]
+            
+            NetWorkTeacherGetStudentScroes(params: params1) { (datas,flag) in
                 if flag {
                     self.grades.removeAllObjects()
                     self.grades.addObjects(from: datas)

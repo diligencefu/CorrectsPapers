@@ -34,6 +34,7 @@ class ShowTagsView: UIView ,UIPickerViewDelegate,UIPickerViewDataSource{
     var workTimeArr = [String]()
     var reasonArr = [String]()
     var teacherType = [String]()
+    var academicArr = [String]()
 
     var currentCount = 1
 
@@ -52,6 +53,7 @@ class ShowTagsView: UIView ,UIPickerViewDelegate,UIPickerViewDataSource{
         workTimeArr = ["14:00-18:00","18:00-22:00"]
         reasonArr = ["字迹不清","图片模糊","上传错误"]
         teacherType = ["上课老师","助教老师"]
+        academicArr = ["大专","本科","硕士","博士"]
 
         _ = tagsView.subviews.map {
             $0.removeFromSuperview()
@@ -138,6 +140,10 @@ class ShowTagsView: UIView ,UIPickerViewDelegate,UIPickerViewDataSource{
     
             which = 5
             viewTitle.text = "选择类型"
+        }else if index == 10002{
+            
+            which = 6
+            viewTitle.text = "选择学历"
         }
         else{
             which = 3
@@ -192,8 +198,6 @@ class ShowTagsView: UIView ,UIPickerViewDelegate,UIPickerViewDataSource{
                 setToast(str: "已经三个了")
             }
         }
-        
-        
     }
     
     
@@ -252,6 +256,10 @@ class ShowTagsView: UIView ,UIPickerViewDelegate,UIPickerViewDataSource{
             return teacherType.count
         }
         
+        if currentCount == 10002 {
+            return academicArr.count
+        }
+
         return workTimeArr.count
     }
     
@@ -269,6 +277,10 @@ class ShowTagsView: UIView ,UIPickerViewDelegate,UIPickerViewDataSource{
         
         if currentCount == 10001 {
             return teacherType[row]
+        }
+        
+        if currentCount == 10002 {
+            return academicArr[row]
         }
 
         return workTimeArr[row]
@@ -288,7 +300,11 @@ class ShowTagsView: UIView ,UIPickerViewDelegate,UIPickerViewDataSource{
             }else{
                 selectStr = "2"
             }
+        }else if currentCount == 10002 {
+            
+            selectStr = academicArr[row]
         }else{
+            
             selectStr = workTimeArr[row]
         }
         
@@ -302,33 +318,42 @@ class ShowTagsView: UIView ,UIPickerViewDelegate,UIPickerViewDataSource{
             case 0:
                 
                 var str = ""
-                
                 for index in 0..<selectProArr.count {
-                    str.append(selectProArr[index]+" ")
+                    var dian = ","
+                    if index == selectProArr.count-1 {
+                        dian = ""
+                    }
+                    str.append(selectProArr[index]+dian)
                 }
-                
                 selectBlock!(str,false)
 
             case 1:
-                var str = ""
                 
+                var str = ""
                 for index in 0..<selectGreadeArr.count {
-                    str.append(selectGreadeArr[index]+" ")
+                    var dian = ","
+                    if index == selectGreadeArr.count-1 {
+                        dian = ""
+                    }
+                    str.append(selectGreadeArr[index]+dian)
                 }
                 
                 selectBlock!(str,false)
-
             case 2:
+                if selectStr == ""{
+                    selectStr = "武汉市"
+                }
                 selectBlock!(selectStr,false)
-
             case 3:
+                if selectStr == ""{
+                    selectStr = "14:00-18:00"
+                }
                 selectBlock!(selectStr,false)
-                
             case 4:
+                
                 if selectStr == "" {
                     selectStr = "字迹不清"
                 }
-
                 selectBlock!(selectStr,false)
                 
             case 5:
@@ -338,7 +363,14 @@ class ShowTagsView: UIView ,UIPickerViewDelegate,UIPickerViewDataSource{
                 }
                 
                 selectBlock!(selectStr,false)
+            case 6:
                 
+                if selectStr == "" {
+                    selectStr = "大专"
+                }
+                
+                selectBlock!(selectStr,false)
+
             default:
                 break
             }

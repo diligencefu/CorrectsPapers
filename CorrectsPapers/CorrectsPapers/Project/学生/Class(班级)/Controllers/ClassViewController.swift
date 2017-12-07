@@ -104,8 +104,6 @@ class ClassViewController: BaseViewController {
     
     
     //    当数据为空的时候，显示提示
-    
-    //    当数据为空的时候，显示提示
     func addImageWhenEmpty() {
         
         emptyView = UIView.init(frame: CGRect(x: 0, y: 0, width: kSCREEN_WIDTH, height: kSCREEN_HEIGHT - 46))

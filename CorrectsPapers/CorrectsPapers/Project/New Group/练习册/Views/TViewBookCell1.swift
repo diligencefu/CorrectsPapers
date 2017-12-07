@@ -147,16 +147,16 @@ class TViewBookCell1: UITableViewCell {
         userName.text = model.user_name
         timeLabel.text = model.correcting_time
         
-        if testImages.count == 1 {
+        if model.photo.count == 1 {
             
-            image1.kf.setImage(with:  URL(string:testImages[0])!, placeholder: #imageLiteral(resourceName: "photos_image_default"), options: nil, progressBlock: nil, completionHandler: nil)
+            image1.kf.setImage(with:  URL(string:model.photo[0])!, placeholder: #imageLiteral(resourceName: "photos_image_default"), options: nil, progressBlock: nil, completionHandler: nil)
             image2.isHidden = true
             image3.isHidden = true
         }else  {
             
             image1.isHidden = true
-            image2.kf.setImage(with:  URL(string:testImages[0])!, placeholder: #imageLiteral(resourceName: "photos_image_default"), options: nil, progressBlock: nil, completionHandler: nil)
-            image3.kf.setImage(with:  URL(string:testImages[1])!, placeholder: #imageLiteral(resourceName: "photos_image_default"), options: nil, progressBlock: nil, completionHandler: nil)
+            image2.kf.setImage(with:  URL(string:model.photo[0])!, placeholder: #imageLiteral(resourceName: "photos_image_default"), options: nil, progressBlock: nil, completionHandler: nil)
+            image3.kf.setImage(with:  URL(string:model.photo[1])!, placeholder: #imageLiteral(resourceName: "photos_image_default"), options: nil, progressBlock: nil, completionHandler: nil)
             image2.isHidden = false
             image3.isHidden = false
         }

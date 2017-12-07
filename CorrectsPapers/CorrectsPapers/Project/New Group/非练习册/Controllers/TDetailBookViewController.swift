@@ -232,17 +232,17 @@ class TDetailBookViewController: BaseViewController {
             footBtnView.removeFromSuperview()
         }
         
-        let params =
-            ["SESSIONID":SESSIONIDT,
-             "mobileCode":mobileCodeT,
-             "id":model1.id
-        ] as [String:Any]
  
         if currentIndex == 1 {
             
             requestData()
         }else if currentIndex == 2 {
-            
+            let params =
+                ["SESSIONID":SESSIONIDT,
+                 "mobileCode":mobileCodeT,
+                 "workBookId":model1.id
+                    ] as [String:Any]
+
             NetWorkTeacherGetTMyNotWorkDatailPoints(params: params) { (datas,flag) in
                 self.pointArr.removeAllObjects()
                 self.pointArr.addObjects(from: datas)
@@ -250,14 +250,14 @@ class TDetailBookViewController: BaseViewController {
             }
         }else if currentIndex == 3 {
             
-//            let params1 =
-//                ["SESSIONID":SESSIONIDT,
-//                 "mobileCode":mobileCodeT,
-////                 "workBookId":book_id
-//            ]
-//            NetWorkTeacherGetTMyNotWorkDatailAnswers(params: params1) { (datas) in
-//                self.mainTableView.reloadData()
-//            }
+            let params1 =
+                ["SESSIONID":SESSIONIDT,
+                 "mobileCode":mobileCodeT,
+                 "workBookId":model1.id
+            ] as [String:Any]
+            NetWorkTeacherGetTMyNotWorkDatailAnswers(params: params1) { (datas,flag) in
+                self.mainTableView.reloadData()
+            }
         }else if currentIndex == 4{
             let params1 =
                 ["SESSIONID":SESSIONIDT,
@@ -296,7 +296,7 @@ class TDetailBookViewController: BaseViewController {
                         return 1
                     }
                     
-                    if model.state == "4" && model.pre_score == "5" {
+                    if model.state == "4"{
                         return 1
                     }
                     
@@ -322,7 +322,12 @@ class TDetailBookViewController: BaseViewController {
             return imageArr.count+videoArr.count+textArr.count
         }
         
-        return  gradeArr.count+1
+        
+        if Int(model1.state)! == 4 || Int(model1.state)! == 7 {
+            return 2
+        }
+        
+        return 1
     }
     
     
@@ -452,13 +457,25 @@ class TDetailBookViewController: BaseViewController {
         }else{
             let cell : ClassGradeCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable4, for: indexPath) as! ClassGradeCell
             
-            if indexPath.row == 0 {
-                cell.is1thCellForWorkBook()
-            }else{
-//                cell.setValueForClassGradeCell(index: 10-indexPath.row)
-                let model = gradeArr[indexPath.row-1] as! TShowGradeModel
+//            if indexPath.row == 0 {
+//                cell.is1thCellForWorkBook()
+//            }else{
+////                cell.setValueForClassGradeCell(index: 10-indexPath.row)
+//                let model = gradeArr[indexPath.row-1] as! TShowGradeModel
+//
+//                cell.setValueForNonBookGradeTeacher(model: model,name:model1.user_name)
+//            }
+//
+            
+            if Int(model1.state)! == 4 || Int(model1.state)! == 7 {
                 
-                cell.setValueForNonBookGradeTeacher(model: model)
+                if indexPath.row == 0 {
+                    cell.is1thCellForNonWorkBook()
+                }else{
+                    cell.setValueForNonBookGradeTeacher(model: model)
+                }
+            }else{
+                cell.noDatas()
             }
             return cell
         }
@@ -484,7 +501,7 @@ class TDetailBookViewController: BaseViewController {
                 
                 let model = pointArr[indexPath.row] as! UrlModel
                 
-                let url = StringToUTF_8InUrl(str: model.answard_res)
+                let url = StringToUTF_8InUrl(str: model.address!)
                 
                 if #available(iOS 10.0, *) {
                     
@@ -622,6 +639,20 @@ class TDetailBookViewController: BaseViewController {
                 
                 self?.imageArr.append(image)
                 self?.dealImage(imageArr: imageArr, index: index)
+                
+                let params1 =
+                    ["SESSIONID":SESSIONIDT,
+                     "mobileCode":mobileCodeT,
+                     "workId":self?.model1.id!,
+                     "money":"3",
+                     ] as! [String:String]
+                
+                NetWorkTeacherAddTNotWorkUploadFile(params: params1, data: [image], vc: self!, success: { (data) in
+                    
+                }, failture: { (error) in
+                    
+                })
+                
                 self?.mainTableView.reloadData()
                 
                 }, failedClouse: { () in

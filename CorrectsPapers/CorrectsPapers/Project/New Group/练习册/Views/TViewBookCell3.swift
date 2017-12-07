@@ -122,16 +122,16 @@ class TViewBookCell3: UITableViewCell {
         bookState.text = kGetStateFromString(str: model.correcting_states)
         bookState.textColor = kGetColorFromString(str: bookState.text!)
         
-        if testImages.count == 1 {
+        if model.photo.count == 1 {
             
-            image1.kf.setImage(with:  URL(string:testImages[0])!, placeholder: #imageLiteral(resourceName: "photos_image_default"), options: nil, progressBlock: nil, completionHandler: nil)
+            image1.kf.setImage(with:  URL(string:model.photo[0])!, placeholder: #imageLiteral(resourceName: "photos_image_default"), options: nil, progressBlock: nil, completionHandler: nil)
             image2.isHidden = true
             image3.isHidden = true
             
         }else  {
             image1.isHidden = true
-            image2.kf.setImage(with:  URL(string:testImages[0])!, placeholder: #imageLiteral(resourceName: "photos_image_default"), options: nil, progressBlock: nil, completionHandler: nil)
-            image3.kf.setImage(with:  URL(string:testImages[1])!, placeholder: #imageLiteral(resourceName: "photos_image_default"), options: nil, progressBlock: nil, completionHandler: nil)
+            image2.kf.setImage(with:  URL(string:model.photo[0])!, placeholder: #imageLiteral(resourceName: "photos_image_default"), options: nil, progressBlock: nil, completionHandler: nil)
+            image3.kf.setImage(with:  URL(string:model.photo[1])!, placeholder: #imageLiteral(resourceName: "photos_image_default"), options: nil, progressBlock: nil, completionHandler: nil)
             image2.isHidden = false
             image3.isHidden = false
             
@@ -150,16 +150,16 @@ class TViewBookCell3: UITableViewCell {
         
         bookState.textColor = kGetColorFromString(str:bookState.text!)
 
-        if model.pre_photos.count == 1 {
+        if model.corrected_photos.count == 1 {
             
-            image1.kf.setImage(with:  URL(string:model.pre_photos[0])!, placeholder: #imageLiteral(resourceName: "photos_image_default"), options: nil, progressBlock: nil, completionHandler: nil)
+            image1.kf.setImage(with:  URL(string:model.corrected_photos[0])!, placeholder: #imageLiteral(resourceName: "photos_image_default"), options: nil, progressBlock: nil, completionHandler: nil)
             image2.isHidden = true
             image3.isHidden = true
         }else  {
             
             image1.isHidden = true
-            image2.kf.setImage(with:  URL(string:model.pre_photos[0])!, placeholder: #imageLiteral(resourceName: "photos_image_default"), options: nil, progressBlock: nil, completionHandler: nil)
-            image3.kf.setImage(with:  URL(string:model.pre_photos[1])!, placeholder: #imageLiteral(resourceName: "photos_image_default"), options: nil, progressBlock: nil, completionHandler: nil)
+            image2.kf.setImage(with:  URL(string:model.corrected_photos[0])!, placeholder: #imageLiteral(resourceName: "photos_image_default"), options: nil, progressBlock: nil, completionHandler: nil)
+            image3.kf.setImage(with:  URL(string:model.corrected_photos[1])!, placeholder: #imageLiteral(resourceName: "photos_image_default"), options: nil, progressBlock: nil, completionHandler: nil)
             image2.isHidden = false
             image3.isHidden = false
         }

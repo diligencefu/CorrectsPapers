@@ -17,9 +17,12 @@ class PerfectInfoViewController: BaseViewController {
     var Thecode = ""
     var passWord = ""
     
-    
-    
-    
+    var gradeStr = ""
+    var areaStr = ""
+    var subjectStr = ""
+    var workTime = ""
+    var academic = ""
+
     var dataArr = [Array<String>]()
     var infoArr = [Array<String>]()
     
@@ -30,7 +33,10 @@ class PerfectInfoViewController: BaseViewController {
         super.viewDidLoad()
         addTagsView()
         
-        
+    }
+    
+    
+    override func addHeaderRefresh() {
         
     }
     
@@ -43,12 +49,12 @@ class PerfectInfoViewController: BaseViewController {
             self.navigationItem.title = "老师基本信息录入"
             
             dataArr = [["我的名称","邮箱账号","当前学历","所在城市"],["批改科目","适合年级","工作时间"]]
-            infoArr = [["付耀辉","diligencefu@sina.com","三年级","武汉"],["语文数学","一二三年级","12：00-14：00"]]
+            infoArr = [["输入真实姓名","填写我的邮箱","选择我的学历","选择所在地"],["选择适合科目","选择适合年级","选择工作时间"]]
         }else{
             self.navigationItem.title = "学生基本信息录入"
             
             dataArr = [["我的名称","所在地区","所在年级"]]
-            infoArr = [["付耀辉","武汉","三年级"]]
+            infoArr = [["输入真实姓名","选择所在地","选择我的年级"]]
         }
         
         mainTableView = UITableView.init(frame: CGRect(x: 0, y: 0, width: kSCREEN_WIDTH, height: kSCREEN_HEIGHT - 64 ), style: .plain)
@@ -80,126 +86,95 @@ class PerfectInfoViewController: BaseViewController {
     }
     
     @objc func loginAction() {
-        Defaults[username] = "nil"
-        Defaults[userToken] = "nil"
-        
-        if isTeacher {
-            Defaults[userIdentity] = kTeacher
-        }else{
-            Defaults[userIdentity] = kStudent
-        }
-        
-        //        self.view.window?.rootViewController = MainTabBarController()
+//        Defaults[username] = "nil"
+//        Defaults[userToken] = "nil"
+//        
+//        if isTeacher {
+//            Defaults[userIdentity] = kTeacher
+//        }else{
+//            Defaults[userIdentity] = kStudent
+//        }
+//        
+//        //        self.view.window?.rootViewController = MainTabBarController()
         
         var params = [String:Any]()
-        
-        
+        let cell = mainTableView.cellForRow(at: IndexPath.init(row: 0, section: 0)) as! TeacherInfoCell1
+        let cell1 = mainTableView.cellForRow(at: IndexPath.init(row: 1, section: 0)) as! TeacherInfoCell1
+
         if isTeacher {
-            params = ["phone":phoneNum,
-                      "password":passWord,
-                      "content":Thecode,
-                      "name":infoArr[0][0],
-                      "area_id":"1",
-                      "class_id":"1",
-                      "email":infoArr[0][1],
-                      "subject_id":"1",
-                      "education":"1",
-                      "working_time":infoArr[1][2],
-                      "user_type":"2",
-                      "type":"1",
-                     ]
-            
-//            params =
-//                ["phone":phoneNum,
-//                 "password":"123456",
-//                 "content":"256485",
-//                 "name":"我的",
-//                 "area_id":"1",
-//                 "userFitClass":"1",
-//                 "user_type":"1",
-//                 "type":"1",
-//                 "email":"diligencefu@sina.com",
-//                 "subject_id":"1",
-//                 "education":"1",
-//                 "working_time":"14:00-18:00"
-//            ]
-            
+            params =
+                ["phone":phoneNum,
+                 "password":passWord,
+                 "content":Thecode,
+                 "name":cell.textField.text!,
+                 "area_id":infoArr[0][3],
+                 "class_id":infoArr[1][1],
+                 "email":cell1.textField.text!,
+                 "subject_id":infoArr[1][0],
+                 "education":infoArr[0][2],
+                 "working_time":infoArr[1][2],
+                 "user_type":"2",
+                 "type":"1",
+            ]
         }else{
             
             params =
                 ["phone":phoneNum,
                  "password":passWord,
                  "content":Thecode,
-                 "name":infoArr[0][0],
-                 "area_id":"1",
-                 "class_id":"1",
+                 "name":cell.textField.text!,
+                 "area_id":infoArr[0][1],
+                 "class_id":infoArr[0][2],
                  "user_type":"1",
                  "type":"1"
             ]
-//
-//            params =
-//                ["phone":phoneNum,
-//                 "password":"123456",
-//                 "content":"256485",
-//                 "name":"我的",
-//                 "area_id":"1",
-//                 "userFitClass":"1",
-//                 "user_type":"1",
-//                 "type":"1"
-//            ]
         }
         
         netWorkForRegistAccount(params: params) { (code) in
             
-            if code == "haha" {
-//                if !self.isTeacher {
-//                    Defaults[userIdentity] = kStudent
-//                    Defaults[username] = self.infoArr[0][0]
-//                    Defaults[userArea] = self.infoArr[0][1]
-//                    Defaults[userToken] = "userToken"
+            if code {
+//                学生
+                if !self.isTeacher {
+                    Defaults[userIdentity] = kStudent
+                    Defaults[username] = cell.textField.text!
+                    Defaults[userArea] = self.infoArr[0][1]
 //                    Defaults[userId] = "学号 008"
-//                    //                    Defaults[userIcon] = kTeacher
-//                    Defaults[userGrade] = self.infoArr[0][2]
-//                }else{
-//
-//                    self.infoArr = [["付耀辉","diligencefu@sina.com","三年级","武汉"],["语文数学","一二三年级","12：00-14：00"]]
-//
-//                    Defaults[userIdentity] = kTeacher
-//                    Defaults[username] = self.infoArr[0][0]
-//                    Defaults[userArea] = self.infoArr[0][2]
-//                    //                    Defaults[userId] = kTeacher
+                    Defaults[userGrade] = self.infoArr[0][2]
+                }else{
+//                    老师
+                    Defaults[userIdentity] = kTeacher
+                    Defaults[username] = cell.textField.text!
+                    Defaults[userArea] = self.infoArr[0][3]
 //                    Defaults[userId] = "学号 008"
-//                    //                    Defaults[userIcon] = kTeacher
-//                    Defaults[userGrade] = self.infoArr[0][3]
-//                }
-//
-//                self.view.window?.rootViewController = MainTabBarController()
+                    Defaults[userGrade] = self.infoArr[1][1]
+                }
 
+                self.view.window?.rootViewController = MainTabBarController()
             }
         }
-        
-        if !self.isTeacher {
-            Defaults[userIdentity] = kStudent
-            Defaults[username] = self.infoArr[0][0]
-            Defaults[userArea] = self.infoArr[0][1]
-            Defaults[userToken] = "userToken"
-            Defaults[userId] = "学号 008"
-            //                    Defaults[userIcon] = kTeacher
-            Defaults[userGrade] = self.infoArr[0][2]
-        }else{
-            
-            self.infoArr = [["付耀辉","diligencefu@sina.com","三年级","武汉"],["语文数学","一二三年级","12：00-14：00"]]
-            
-            Defaults[userIdentity] = kTeacher
-            Defaults[username] = self.infoArr[0][0]
-            Defaults[userArea] = self.infoArr[0][2]
-            //                    Defaults[userId] = kTeacher
-            Defaults[userId] = "学号 008"
-            //                    Defaults[userIcon] = kTeacher
-            Defaults[userGrade] = self.infoArr[0][3]
-        }
-        
-        self.view.window?.rootViewController = MainTabBarController()
+//
+//        if !self.isTeacher {
+//            Defaults[userIdentity] = kStudent
+//            Defaults[username] = self.infoArr[0][0]
+//            Defaults[userArea] = self.infoArr[0][1]
+//            Defaults[userToken] = "userToken"
+//            Defaults[userId] = "学号 008"
+//            //                    Defaults[userIcon] = kTeacher
+//            Defaults[userGrade] = self.infoArr[0][2]
+//        }else{
+//
+//            self.infoArr = [["输入真实姓名","填写邮箱","本科","武汉"],["语文数学","一二三年级","12：00-14：00"]]
+//
+//            Defaults[userIdentity] = kTeacher
+//            Defaults[username] = self.infoArr[0][0]
+//            Defaults[userArea] = self.infoArr[0][2]
+//            //                    Defaults[userId] = kTeacher
+//            Defaults[userId] = "学号 008"
+//            //                    Defaults[userIcon] = kTeacher
+//            Defaults[userGrade] = self.infoArr[0][3]
+//        }
+//
+//        self.view.window?.rootViewController = MainTabBarController()
 
     }
     
@@ -229,11 +204,13 @@ class PerfectInfoViewController: BaseViewController {
             if indexPath.section == 0 && indexPath.row < 2{
                 cell.selectionStyle = .none
                 cell.TeacherInfoCellForSection2(title: title, subStr: subTitle)
+                cell.accessoryType = .none
             }else{
                 cell.TeacherInfoCellForNormal(title: title, subStr: subTitle)
             }
         }else{
             if indexPath.row == 0   {
+                cell.accessoryType = .none
                 cell.TeacherInfoCellForSection2(title: title, subStr: subTitle)
             }else{
                 cell.TeacherInfoCellForNormal(title: title, subStr: subTitle)
@@ -246,13 +223,15 @@ class PerfectInfoViewController: BaseViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         
-        
         if isTeacher {
             if indexPath.section == 0 {
                 
                 if indexPath.row == 2 {
+                    showAcademicView()
+                }
+
+                if indexPath.row == 3 {
                     showAreaView()
-                    
                 }
                 
             }else {
@@ -314,11 +293,11 @@ class PerfectInfoViewController: BaseViewController {
     
     
     var BGView = UIView()
-    
     var projectTagsView = ShowTagsView()
     var gradeTagsView = ShowTagsView()
     var timeView = ShowTagsView()
     var areaView = ShowTagsView()
+    var academicView = ShowTagsView()
     var totalNum = 1
     
     
@@ -342,6 +321,7 @@ class PerfectInfoViewController: BaseViewController {
             self.gradeTagsView.transform = .identity
             self.timeView.transform = .identity
             self.areaView.transform = .identity
+            self.academicView.transform = .identity
         }
         
     }
@@ -427,9 +407,8 @@ class PerfectInfoViewController: BaseViewController {
             if !$1 {
                 
                 if self.isTeacher {
-                    self.infoArr[0][2] = $0
-                    self.mainTableView.reloadRows(at: [IndexPath.init(row: 2, section: 0)], with: .automatic)
-                    
+                    self.infoArr[0][3] = $0
+                    self.mainTableView.reloadRows(at: [IndexPath.init(row: 3, section: 0)], with: .automatic)
                 }else{
                     self.infoArr[0][1] = $0
                     self.mainTableView.reloadRows(at: [IndexPath.init(row: 1, section: 0)], with: .automatic)
@@ -443,7 +422,23 @@ class PerfectInfoViewController: BaseViewController {
         areaView.clipsToBounds = true
         self.view.addSubview(areaView)
         
+        academicView = UINib(nibName:"ShowTagsView",bundle:nil).instantiate(withOwner: self, options: nil).first as! ShowTagsView
+        academicView.ShowTagsViewForChooseEdu(title: "选择学历", index: 10002)
+        academicView.frame =  CGRect(x: 0, y: kSCREEN_HEIGHT, width: kSCREEN_WIDTH, height: 280)
+        academicView.layer.cornerRadius = 24*kSCREEN_SCALE
+        academicView.selectBlock = {
+            if !$1 {
+                self.infoArr[0][2] = $0
+                self.mainTableView.reloadRows(at: [IndexPath.init(row: 2, section: 0)], with: .automatic)
+            }
+            self.hiddenViews()
+        }
+        
+        academicView.clipsToBounds = true
+        self.view.addSubview(academicView)
+
     }
+    
     
     func showTheProjectTagsView() -> Void {
         let y = 180+206*kSCREEN_SCALE
@@ -455,6 +450,7 @@ class PerfectInfoViewController: BaseViewController {
         
     }
     
+    
     func showGradeTagsView() -> Void {
         let y = 180+287*kSCREEN_SCALE
         
@@ -463,6 +459,7 @@ class PerfectInfoViewController: BaseViewController {
             self.BGView.alpha = 1
         }
     }
+    
     
     func showTimeView() -> Void {
         let y = CGFloat(265)
@@ -473,10 +470,20 @@ class PerfectInfoViewController: BaseViewController {
         
     }
     
+    
     func showAreaView() -> Void {
         let y = CGFloat(330)
         UIView.animate(withDuration: 0.5) {
             self.areaView.transform = .init(translationX: 0, y: -y)
+            self.BGView.alpha = 1
+        }
+    }
+    
+    
+    func showAcademicView() -> Void {
+        let y = CGFloat(265)
+        UIView.animate(withDuration: 0.5) {
+            self.academicView.transform = .init(translationX: 0, y: -y)
             self.BGView.alpha = 1
         }
     }

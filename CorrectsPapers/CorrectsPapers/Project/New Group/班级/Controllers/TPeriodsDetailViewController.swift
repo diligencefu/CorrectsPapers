@@ -8,7 +8,7 @@
 
 import UIKit
 
-class TPeriodsDetailViewController: BaseViewController,UITextFieldDelegate {
+class TPeriodsDetailViewController: BaseViewController,UITextFieldDelegate ,UIAlertViewDelegate{
     
     var typeArr = ["学生作业","已批改","课程视频","作业答案"]
     var underLine = UIView()
@@ -24,7 +24,7 @@ class TPeriodsDetailViewController: BaseViewController,UITextFieldDelegate {
     //    知识点
     var videoArr = [UrlModel]()
     //    参考答案数据
-    var answerArr = [UIImage]()
+    var answerArr = NSMutableArray()
     //    成绩
     var grades = NSMutableArray()
     
@@ -33,6 +33,12 @@ class TPeriodsDetailViewController: BaseViewController,UITextFieldDelegate {
     //    var bookState = 0
     
     var periods_id = ""
+    
+    var periodsName = ""
+
+    
+    var loadImages = [UIImage]()
+    
     
     let identyfierTable6 = "identyfierTable6"
     let identyfierTable7 = "identyfierTable7"
@@ -51,27 +57,20 @@ class TPeriodsDetailViewController: BaseViewController,UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         footView()
+        //        接收创建练习册成功的通知
+        NotificationCenter.default.addObserver(self, selector: #selector(receiveNitification(nitofication:)), name: NSNotification.Name(rawValue: SuccessCorrectClassWorkBookNoti), object: nil)
     }
     
+    @objc func receiveNitification(nitofication:Notification) {
+        self.mainTableView.mj_header.beginRefreshing()
+    }
+
     override func requestData() {
-        
-//        let params1 =
-//            ["SESSIONID":SESSIONIDT,
-//             "mobileCode":mobileCodeT,
-//             "id":book_id
-//        ]
-//
-//        NetWorkTeacherGetTStudentWorkList(params: params1) { (datas) in
-//            self.works.removeAllObjects()
-//            self.works.addObjects(from: datas)
-//            self.mainTableView.reloadData()
-//        }
-        
         
         let params =
             ["SESSIONID":SESSIONIDT,
              "mobileCode":mobileCodeT,
-             "periods_id":"1"
+             "periods_id":periods_id
         ] as [String:Any]
         self.view.beginLoading()
         NetWorkTeacherSelectClassBook(params: params, callBack: { (datas,flag) in
@@ -86,16 +85,14 @@ class TPeriodsDetailViewController: BaseViewController,UITextFieldDelegate {
     }
     
     
-    override func addHeaderRefresh() {
-        
-    }
-    
-    
     override func configSubViews() {
+        
+        
+        self.navigationItem.title = periodsName
+
         
         headView = UIView.init(frame: CGRect(x: 0, y: 0, width: kSCREEN_WIDTH, height: 165*kSCREEN_SCALE))
         headView.backgroundColor = UIColor.white
-        
         
         NofitICLabel = UILabel.init(frame: CGRect(x: 0, y: 0, width: kSCREEN_WIDTH, height: 64 * kSCREEN_SCALE))
         NofitICLabel.textColor = kSetRGBColor(r: 255, g: 153, b: 0)
@@ -114,13 +111,17 @@ class TPeriodsDetailViewController: BaseViewController,UITextFieldDelegate {
         mainTableView.dataSource = self
         mainTableView.delegate = self
         mainTableView.estimatedRowHeight = 100
-        mainTableView.register(UINib(nibName: "AnserImageCell",    bundle: nil), forCellReuseIdentifier: identyfierTable2)
+        mainTableView.register(UINib(nibName: "AnswerImageCell",    bundle: nil), forCellReuseIdentifier: identyfierTable2)
         mainTableView.register(UINib(nibName: "AnserVideoCell",    bundle: nil), forCellReuseIdentifier: identyfierTable3)
         mainTableView.register(UINib(nibName: "ClassGradeCell",    bundle: nil), forCellReuseIdentifier: identyfierTable4)
         mainTableView.register(UINib(nibName: "TUpLoadVideoCell",  bundle: nil), forCellReuseIdentifier: identyfierTable5)
         mainTableView.register(UINib(nibName: "TShowDoneWorkCell", bundle: nil), forCellReuseIdentifier: identyfierTable7)
         mainTableView.register(UINib(nibName: "TViewBookCell0",    bundle: nil), forCellReuseIdentifier: identyfierTable10)
         mainTableView.register(UITableViewCell.self, forCellReuseIdentifier: identyfierTable11)
+        
+        
+        mainTableView.register(UINib(nibName: "ShowFileCell", bundle: nil), forCellReuseIdentifier: identyfierTable9)
+        mainTableView.register(UINib(nibName: "ShowWriteAnswerCell", bundle: nil), forCellReuseIdentifier: identyfierTable8)
         
         mainTableView.tableHeaderView = headView
         self.view.addSubview(mainTableView)
@@ -197,7 +198,6 @@ class TPeriodsDetailViewController: BaseViewController,UITextFieldDelegate {
             footBtnView.removeFromSuperview()
         }
         
-        
         let params =
             ["SESSIONID":SESSIONIDT,
              "mobileCode":mobileCodeT,
@@ -205,22 +205,64 @@ class TPeriodsDetailViewController: BaseViewController,UITextFieldDelegate {
         ]
         self.view.beginLoading()
         if currentIndex == 1 {
-            
             NetWorkTeacherSelectClassBook(params: params, callBack: { (datas,flag) in
                 if flag {
                     self.works.removeAllObjects()
                     self.works.addObjects(from: datas)
                     self.mainTableView.reloadData()
                 }
+                self.mainTableView.mj_header.endRefreshing()
                 self.view.endLoading()
             })
             
         }else if currentIndex == 2 {
             
+            let params =
+                ["SESSIONID":SESSIONIDT,
+                 "mobileCode":mobileCodeT,
+                 "periods_id":periods_id
+            ]
+
+            NetWorkTeacherGetCheckAgoCorrected(params: params, callBack: { (datas, flag) in
+                if flag {
+                    self.doneWorks.removeAllObjects()
+                    self.doneWorks.addObjects(from: datas)
+                    self.mainTableView.reloadData()
+                }
+                self.mainTableView.mj_header.endRefreshing()
+                self.view.endLoading()
+            })
         }else if currentIndex == 3 {
             
+//            40、41号接口
+            
+            
+            self.mainTableView.mj_header.endRefreshing()
+            self.view.endLoading()
         }else if currentIndex == 4{
             
+            let params1 =
+                ["SESSIONID":SESSIONIDT,
+                 "mobileCode":mobileCodeT,
+                 "bookId":periods_id
+                    ] as [String:Any]
+            NetWorkTeacherGetTMyNotWorkDatailAnswers(params: params1) { (datas,flag) in
+                
+                if flag {
+                    self.answerArr.removeAllObjects()
+                    self.answerArr.addObjects(from: datas)
+                    
+                    for model in self.answerArr {
+                        let m = model as! UrlModel
+                        let markBtn = self.footBtnView.viewWithTag(180+Int(m.type!)!) as! UIButton
+                        markBtn.setBackgroundImage(getNavigationIMG(27, fromColor: kGaryColor(num: 220), toColor: kGaryColor(num: 220)), for: .normal)
+                        markBtn.isEnabled = false
+                    }
+                    self.mainTableView.reloadData()
+                }
+                self.mainTableView.mj_header.endRefreshing()
+                self.view.endLoading()
+            }
         }
     }
     
@@ -261,26 +303,19 @@ class TPeriodsDetailViewController: BaseViewController,UITextFieldDelegate {
         }else{
             footBtnView.removeFromSuperview()
         }
-        
-        let params =
-            ["SESSIONID":SESSIONIDT,
-             "mobileCode":mobileCodeT,
-             "periods_id":periods_id
-        ]
-        self.view.beginLoading()
-        if currentIndex == 1 {
-            
-            NetWorkTeacherSelectClassBook(params: params, callBack: { (datas,flag) in
-            
-                self.view.endLoading()
-            })
-            
-        }else if currentIndex == 2 {
-        }else if currentIndex == 3 {
-        }else if currentIndex == 4{
+
+        if currentIndex == 4 {
+            mainTableView.height = kSCREEN_HEIGHT - 64 - 96*kSCREEN_SCALE-10
+            self.view.addSubview(footBtnView)
+        }else{
+            footBtnView.removeFromSuperview()
+            mainTableView.height = kSCREEN_HEIGHT - 64
         }
-        isSearching = false
-        mainTableView.reloadData()
+        
+        refreshHeaderAction()
+        
+//        isSearching = false
+//        mainTableView.reloadData()
     }
     
     
@@ -369,9 +404,39 @@ class TPeriodsDetailViewController: BaseViewController,UITextFieldDelegate {
             }
             
         }else{
-            
-            let cell : AnserImageCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable2, for: indexPath) as! AnserImageCell
-            return cell
+            let model = answerArr[indexPath.row] as! UrlModel
+            deBugPrint(item: model.type!)
+            deBugPrint(item: model.format!)
+            if model.type == "1" {
+                
+                let cell : AnserVideoCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable3, for: indexPath) as! AnserVideoCell
+                cell.AnserVideoCellSetValuesForAnswer(title: model.title)
+                return cell
+            }else  if model.type == "2" {
+                
+                if model.format == "doc" || model.format == "xls"{
+                    let cell : ShowFileCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable9, for: indexPath) as! ShowFileCell
+                    cell.setValues(model: model)
+                    return cell
+                }else{
+                    
+                    let cell : AnswerImageCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable2, for: indexPath) as! AnswerImageCell
+                    cell.showWithImage(image: model.answard_res)
+                    cell.selectionStyle = .none
+                    return cell
+                }
+                
+            }else  if model.type == "3" {
+                let cell : ShowWriteAnswerCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable8, for: indexPath) as! ShowWriteAnswerCell
+                cell.showAnswer(text: model.answard_res)
+                cell.selectionStyle = .none
+                return cell
+            }else{
+                return UITableViewCell()
+            }
+
+//            let cell : AnserImageCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable2, for: indexPath) as! AnserImageCell
+//            return cell
         }
     }
     
@@ -397,28 +462,30 @@ class TPeriodsDetailViewController: BaseViewController,UITextFieldDelegate {
                 let nextVC = UploadVideoViewController()
                 nextVC.isAnswer = false
                 nextVC.addUrlBlock = {
-//                    self.videoArr.append($0)
-                    self.mainTableView.reloadData()
+
+                    self.mainTableView.mj_header.beginRefreshing()
                 }
                 self.navigationController?.pushViewController(nextVC, animated: true)
             }else{
                 
                 let model = videoArr[indexPath.row]
-                let url = StringToUTF_8InUrl(str: model.address!)
-                if #available(iOS 10.0, *) {
-                    
-                    UIApplication.shared.open(url as URL, options: [:],
-                                              completionHandler: {
-                                                (success) in
-                    })
-                } else {
-                    // Fallback on earlier versions
-                }
-            }
+                let webVc = WebViewController()
+                webVc.webUrl = model.point_address
+                webVc.theTitle = model.point_title
+                self.navigationController?.pushViewController(webVc, animated: true)
+            }            
         }
+        
         
         if currentIndex == 4 {
             
+            let model = answerArr[indexPath.row] as! UrlModel
+            if model.type == "1" {
+                let webVc = WebViewController()
+                webVc.webUrl = model.answard_res
+                webVc.theTitle = model.title
+                self.navigationController?.pushViewController(webVc, animated: true)
+            }
         }
     }
     
@@ -543,12 +610,11 @@ class TPeriodsDetailViewController: BaseViewController,UITextFieldDelegate {
             
             let nextVC = UploadVideoViewController()
             nextVC.isAnswer = true
+            nextVC.bookId = periods_id
             nextVC.currentType = 3
-            //            nextVC.addUrlBlock = {
-            //                self.videoArr.append($0)
-            //                self.mainTableView.reloadData()
-            //            }
-            
+            nextVC.addUrlBlock = {
+                self.mainTableView.mj_header.beginRefreshing()
+            }
             self.navigationController?.pushViewController(nextVC, animated: true)
         }else  if sender.tag == 182{
             
@@ -557,10 +623,11 @@ class TPeriodsDetailViewController: BaseViewController,UITextFieldDelegate {
             
             let nextVC = WriteAnswerViewController()
             nextVC.currentType = 3
-
-            //            nextVC.addTextBlock = {
-            //                self.mainTableView.reloadData()
-            //            }
+            nextVC.bookId = periods_id
+            nextVC.addTextBlock = {
+                deBugPrint(item: $0)
+                self.mainTableView.mj_header.beginRefreshing()
+            }
             self.navigationController?.pushViewController(nextVC, animated: true)
         }
     }
@@ -595,9 +662,8 @@ class TPeriodsDetailViewController: BaseViewController,UITextFieldDelegate {
             CLImagePickersTool.convertAssetArrToOriginImage(assetArr: assetArr, scale: 0.1, successClouse: {[weak self] (image,assetItem) in
                 imageArr.append(image)
                 
-                self?.answerArr.append(image)
+                self?.loadImages.append(image)
                 self?.dealImage(imageArr: imageArr, index: index)
-                self?.mainTableView.reloadData()
                 
                 }, failedClouse: { () in
                     index = index - 1
@@ -611,10 +677,57 @@ class TPeriodsDetailViewController: BaseViewController,UITextFieldDelegate {
         // 图片下载完成后再去掉我们的转转转控件，这里没有考虑assetArr中含有视频文件的情况
         if imageArr.count == index {
             PopViewUtil.share.stopLoading()
+            addAlertTip()
         }
         // 图片显示出来以后可能还要上传到云端的服务器获取图片的url，这里不再细说了。
     }
     
+    var priceTextfield = UITextField()
     
+    func addAlertTip() {
+        
+        let alert = UIAlertView.init(title: "设置支付学币", message: "单位：（学币）", delegate: self, cancelButtonTitle: "确定", otherButtonTitles: "取消")
+        alert.alertViewStyle = .plainTextInput
+        
+        priceTextfield = alert.textField(at: 0)!
+        priceTextfield.keyboardType = .numberPad
+        
+        let text = priceTextfield.text
+        deBugPrint(item: text!)
+        alert.show()
+    }
+    
+    
+    func alertView(_ alertView: UIAlertView, clickedButtonAt buttonIndex: Int) {
+        let buttonTitle = alertView.buttonTitle(at: buttonIndex)
+        if buttonTitle == "确定" {
+            
+            if (priceTextfield.text?.count)! < 1 {
+                setToast(str: "请设置答案价格")
+                return
+            }
+            
+            if Int(priceTextfield.text!) == nil {
+                setToast(str: "请设置有效数字")
+                return
+            }
+            
+            self.view.beginLoading()
+            let params1 =
+                ["SESSIONID":SESSIONIDT,
+                 "mobileCode":mobileCodeT,
+                 "workId":periods_id,
+                 "money":priceTextfield.text!,
+                 ] as [String : String]
+            
+            NetWorkTeacherAddTNotWorkUploadFile(params: params1, data: loadImages, vc: self, success: { (data) in
+                self.mainTableView.mj_header.beginRefreshing()
+            }, failture: { (error) in
+                
+            })
+            
+            self.mainTableView.reloadData()
+        }
+    }
     
 }

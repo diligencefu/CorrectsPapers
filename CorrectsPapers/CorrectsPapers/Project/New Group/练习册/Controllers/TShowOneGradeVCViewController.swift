@@ -12,6 +12,10 @@ class TShowOneGradeVCViewController: BaseViewController {
 
     
     var user_num = ""
+    var user_name = ""
+    var classid = ""
+
+    var type = 3
     
     
     override func viewDidLoad() {
@@ -20,30 +24,62 @@ class TShowOneGradeVCViewController: BaseViewController {
     
     override func requestData() {
         
-        let params =
-            ["SESSIONID":SESSIONIDT,
-             "mobileCode":mobileCodeT,
-             "studentId":user_num
-        ]
-        self.view.beginLoading()
-        NetWorkTeacherGetTScoresByStudentId(params: params) { (datas,flag) in
-            self.mainTableArr.removeAllObjects()
-            self.view.endLoading()
+//        let params =
+//            ["SESSIONID":SESSIONIDT,
+//             "mobileCode":mobileCodeT,
+//             "studentId":user_num
+//        ]
+//        self.view.beginLoading()
+//        NetWorkTeacherGetTScoresByStudentId(params: params) { (datas,flag) in
+//            self.mainTableArr.removeAllObjects()
+//            self.view.endLoading()
+//            if flag {
+//                if datas.count == 0 {
+//                    setToast(str: "暂无数据")
+//                }
+//
+//                self.mainTableArr.addObjects(from: datas)
+//                self.mainTableView.reloadData()
+//
+//            }
+//        }
+        
+        
+        var params11 = [String:Any]()
+        
+        if type == 3 {
+            params11 = [
+                "SESSIONID":SESSIONIDT,
+                "classes_id":classid,
+                "student_id":user_num,
+                "mobileCode":mobileCodeT,
+                "type":"3"
+            ]
+        }else{
+            params11 = [
+                "SESSIONID":SESSIONIDT,
+                "student_id":user_num,
+                "mobileCode":mobileCodeT,
+                "type":"3"
+            ]
+        }
+        
+        
+        NetWorkTeacherGetStudentScroes(params: params11) { (datas,flag) in
+            
             if flag {
-                if datas.count == 0 {
-                    setToast(str: "暂无数据")
-                }
-                
                 self.mainTableArr.addObjects(from: datas)
                 self.mainTableView.reloadData()
-
             }
+            self.mainTableView.reloadData()
+            self.view.endLoading()
         }
     }
     
+    
     override func configSubViews() {
         
-        self.navigationItem.title = "刘大锤"
+        self.navigationItem.title = user_name
         
         mainTableView = UITableView.init(frame: CGRect(x: 0, y: 0, width: kSCREEN_WIDTH, height: kSCREEN_HEIGHT - 64 ), style: .plain)
         mainTableView.dataSource = self;
@@ -73,7 +109,13 @@ class TShowOneGradeVCViewController: BaseViewController {
             cell.is1thCell()
         }else{
             let model = mainTableArr[indexPath.row-1] as! TShowGradeModel
-            cell.setValueForBookGrade(model:model)
+            
+            if classid == "" {
+                cell.setValueForBookGrade(model:model)
+            }else{
+                cell.setValueForBookGradeClassDetailGrade(model:model)
+            }            
+            
 //            cell.setValueForClassGradeCell(index: 10-indexPath.row)
 
         }

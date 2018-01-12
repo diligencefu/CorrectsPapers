@@ -30,33 +30,38 @@ class TClassDetailViewController: BaseViewController,UITextFieldDelegate {
     var studentArr = NSMutableArray()
     
     //    班级信息
-    var Infos = NSMutableArray()
-    
+    var InfoModel = LNClassInfoModel()
+
     //   成绩统计
     var Grades = NSMutableArray()
     
     var classid = ""
+    var className = ""
     var periods_id = ""
-
+    
+//    是不是班主任
+    var type = "1"
+    
     var resource = TClassMemberModel()
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         rightBarButton()
+        NotificationCenter.default.addObserver(self, selector: #selector(receiveNitification(nitofication:)), name: NSNotification.Name(rawValue: SuccessCorrectClassBuildPeriodNoti), object: nil)
     }
     
-    
-    override func addHeaderRefresh() {
-        
-    }    
-    
+    @objc func receiveNitification(nitofication:Notification) {
+        self.mainTableView.mj_header.beginRefreshing()
+    }
+
     
     override func requestData() {
         let params = [
             "SESSIONID":SESSIONIDT,
             "classes_id":classid,
-            "mobileCode":mobileCodeT
+            "mobileCode":mobileCodeT,
+            "type":type
             ] as [String:Any]
         
         self.view.beginLoading()
@@ -74,11 +79,24 @@ class TClassDetailViewController: BaseViewController,UITextFieldDelegate {
             }
             self.view.endLoading()
         }
+        
+        let params1 = [
+            "SESSIONID":SESSIONIDT,
+            "class_id":classid,
+            "mobileCode":mobileCodeT,
+            ] as [String:Any]
+
+        NetWorkTeachersGetNotify(params: params1) { (text, flag) in
+            if flag {
+                self.NofitICLabel.text = text
+            }
+        }
+        
     }
     
     override func configSubViews() {
         
-        self.navigationItem.title = "少年班"
+        self.navigationItem.title = className
         
         headView = UIView.init(frame: CGRect(x: 0, y: 0, width: kSCREEN_WIDTH, height: 165*kSCREEN_SCALE))
         headView.backgroundColor = UIColor.white
@@ -128,11 +146,21 @@ class TClassDetailViewController: BaseViewController,UITextFieldDelegate {
         
         if sender.tag == 10086 {
             
-            let classMassage = TShowClassMessageVC()
-            self.navigationController?.pushViewController(classMassage, animated: true)
+            if type == "1" {
+                let notiVC = SuggestViewController()
+                notiVC.class_id = classid
+                notiVC.isSuggest = false
+                self.navigationController?.pushViewController(notiVC, animated: true)
+            }else{
+                let classMassage = TShowClassMessageVC()
+                self.navigationController?.pushViewController(classMassage, animated: true)
+            }
+            
+            
         }else{
-            
-            
+            let chooseMember = TLNChooseTypeViewController()
+            chooseMember.class_id = classid
+            self.navigationController?.pushViewController(chooseMember, animated: true)
         }
     }
     
@@ -198,6 +226,84 @@ class TClassDetailViewController: BaseViewController,UITextFieldDelegate {
     }
     
     
+    override func refreshHeaderAction() {
+        
+        if currentIndex == 1 {
+            
+            let params = [
+                "SESSIONID":SESSIONIDT,
+                "classes_id":classid,
+                "mobileCode":mobileCodeT,
+                "type":type
+            ]
+            NetWorkTeacherTeacherSelectAllPeriods(params: params) { (datas,flag) in
+                
+                if flag {
+                    self.Periods.removeAllObjects()
+                    self.Periods.addObjects(from: datas)
+                    self.mainTableView.reloadData()
+                }
+                self.view.endLoading()
+                self.mainTableView.mj_header.endRefreshing()
+            }
+        }else if currentIndex == 2 {
+            
+            let params = [
+                "SESSIONID":SESSIONIDT,
+                "classes_id":classid,
+                "mobileCode":mobileCodeT,
+                ]
+            NetWorkTeacherGetClassMember(params: params, callBack: { (datas,flag) in
+                
+                if flag {
+                    if datas.count > 0{
+                        
+                        self.resource = datas[0] as! TClassMemberModel
+                    }
+                    self.mainTableView.reloadData()
+                }
+                self.view.endLoading()
+                self.mainTableView.mj_header.endRefreshing()
+            })
+        }else if currentIndex == 3 {
+            
+            let params = [
+                "SESSIONID":SESSIONIDT,
+                "mobileCode":mobileCodeT,
+                "type":"3",
+                "classes_id":classid
+            ]
+            netWorkForGetClassContents(params: params) { (datas, flag) in
+                if datas.count > 0{
+                    
+                    self.InfoModel = datas[0] as! LNClassInfoModel
+                    self.mainTableView.reloadData()
+                }
+                self.view.endLoading()
+                self.mainTableView.mj_header.endRefreshing()
+            }
+        }else if currentIndex == 4{
+            
+            let params11 = [
+                "SESSIONID":SESSIONIDT,
+                "classes_id":classid,
+                "mobileCode":mobileCodeT,
+                "type":"2"
+            ]
+            NetWorkTeacherGetStudentScroes(params: params11) { (datas,flag) in
+                
+                if flag {
+                    self.Grades.removeAllObjects()
+                    self.Grades.addObjects(from: datas)
+                    self.mainTableView.reloadData()
+                }
+                self.view.endLoading()
+                self.mainTableView.mj_header.endRefreshing()
+            }
+        }
+    }
+    
+    
     //MARK:   顶部选择栏选择事件
     @objc func goodAtProject(sender:UIButton) {
         
@@ -218,63 +324,9 @@ class TClassDetailViewController: BaseViewController,UITextFieldDelegate {
         
         currentIndex = sender.tag - 130
         
-        let params = [
-            "SESSIONID":SESSIONIDT,
-            "classes_id":classid,
-            "mobileCode":mobileCodeT
-        ]
         self.view.beginLoading()
-        if currentIndex == 1 {
-            
-            NetWorkTeacherTeacherSelectAllPeriods(params: params) { (datas,flag) in
-                
-                if flag {
-                    self.Periods.removeAllObjects()
-                    self.Periods.addObjects(from: datas)
-                    self.mainTableView.reloadData()
-                }
-                self.view.endLoading()
-            }
-        }else if currentIndex == 2 {
-            let params = [
-                "SESSIONID":SESSIONIDT,
-                "classes_id":classid,
-//                "periods_id":periods_id,
-                "mobileCode":mobileCodeT
-            ]
-            NetWorkTeacherGetClassMember(params: params, callBack: { (datas,flag) in
-                
-                if flag {
-                    if datas.count > 0{
-                        
-                        self.resource = datas[0] as! TClassMemberModel
-                    }
-                    self.mainTableView.reloadData()
-                }
-                self.view.endLoading()
-            })
-        }else if currentIndex == 3 {
-            
-            //            let params1 =
-            //                ["SESSIONID":SESSIONIDT,
-            //                 "mobileCode":mobileCodeT,
-            ////                 "workBookId":book_id
-            //            ]
-            //            NetWorkTeacherGetTMyNotWorkDatailAnswers(params: params1) { (datas) in
-            //                self.mainTableView.reloadData()
-            //            }
-        }else if currentIndex == 4{
-            
-            NetWorkTeacherGetTMyNotWorkDatailGrades(params: params) { (datas,flag) in
-//                self.answerArr.removeAll()
-                // #MARK:待处理
-                self.mainTableView.reloadData()
-            }
-        }
-
-        
-        
-        mainTableView.reloadData()
+        refreshHeaderAction()
+//        mainTableView.reloadData()
     }
     
     
@@ -282,27 +334,49 @@ class TClassDetailViewController: BaseViewController,UITextFieldDelegate {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         if currentIndex == 2 {
-            if section == 0 {
-//                return applyArr.count
-                if resource.apply != nil{
-                    return resource.apply.studentApply.count+resource.apply.teacherApply.count
-                }
-                return 0
-            }else if section == 1 {
-                if resource.head_teacher == nil {
+            
+            if type == "1" {
+                if section == 0 {
+                    
+                    if resource.apply != nil{
+                        return resource.apply.studentApply.count+resource.apply.teacherApply.count
+                    }
                     return 0
+                }else if section == 1 {
+                    if resource.head_teacher == nil {
+                        return 0
+                    }
+                    return 1
+                }else if section == 2 {
+                    if resource.teacher == nil {
+                        return 0
+                    }
+                    return resource.teacher.count
+                }else{
+                    if resource.student == nil {
+                        return 0
+                    }
+                    return resource.student.count
                 }
-                return 1
-            }else if section == 2 {
-                if resource.teacher == nil {
-                    return 0
-                }
-                return resource.teacher.count
+
             }else{
-                if resource.student == nil {
-                    return 0
+             
+                if section == 0 {
+                    if resource.head_teacher == nil {
+                        return 0
+                    }
+                    return 1
+                }else if section == 1 {
+                    if resource.teacher == nil {
+                        return 0
+                    }
+                    return resource.teacher.count
+                }else{
+                    if resource.student == nil {
+                        return 0
+                    }
+                    return resource.student.count
                 }
-                return resource.student.count
             }
         }
         
@@ -314,14 +388,19 @@ class TClassDetailViewController: BaseViewController,UITextFieldDelegate {
             return Periods.count
         }
         
-        return 10
+        return Grades.count+1
         
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
         
         if currentIndex == 2 {
-            return 4
+            
+            if type == "1" {
+                return 4
+            }else{
+                return 3
+            }
         }
         
         return 1
@@ -335,48 +414,113 @@ class TClassDetailViewController: BaseViewController,UITextFieldDelegate {
             return cell
         }else if currentIndex == 2 {
             
-            if indexPath.section == 0 {
-                let cell : TApplyJoinClassCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable4, for: indexPath) as! TApplyJoinClassCell
+            if type == "1" {
+                if indexPath.section == 0 {
+                    let cell : TApplyJoinClassCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable4, for: indexPath) as! TApplyJoinClassCell
+                    
+                    if indexPath.row < resource.apply.studentApply.count {
+                        let model = resource.apply.studentApply[indexPath.row]
+                        cell.TApplyJoinClassCellForStudent(model: model)
+                    }else{
+                        let model = resource.apply.teacherApply[indexPath.row-resource.apply.studentApply.count]
+                        cell.TApplyJoinClassCellForTeacher(model: model)
+                    }
+                    
+                    cell.disposeApplyBlock = {
+                        
+                        var userid = ""
+                        var type = ""
+                        
+                        if indexPath.row < self.resource.apply.studentApply.count {
+                            let model = self.resource.apply.studentApply[indexPath.row]
+                            userid = model.student_id
+                            type = "2"
+                        }else{
+                            let model = self.resource.apply.teacherApply[indexPath.row-self.resource.apply.studentApply.count]
+                            userid = model.teacher_id
+                            type = "1"
+                        }
 
-                if indexPath.row < resource.apply.studentApply.count {
-                    let model = resource.apply.studentApply[indexPath.row]
-                    cell.TApplyJoinClassCellForStudent(model: model)
+                        let params = [
+                            "SESSIONID":SESSIONIDT,
+                            "mobileCode":mobileCodeT,
+                            "userId":userid,
+                            "class_id":self.classid,
+                            "state":$0,
+                            "type":type,
+                            ]
+                        NetWorkTeachersApplyOkTeacher(params: params, callBack: { (flag) in
+                            if flag {
+                                self.mainTableView.mj_header.beginRefreshing()
+                            }
+                        })
+                    }
+                    
+                    return cell
+                }else if indexPath.section == 1{
+                    
+                    let cell : TClassStudentCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable5, for: indexPath) as! TClassStudentCell
+                    cell.showHeadTeacherCell(model: resource.head_teacher)
+                    return cell
+                }else if indexPath.section == 2{
+                    
+                    let cell : TClassStudentCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable5, for: indexPath) as! TClassStudentCell
+                    cell.showOtherTeachersCell(model: resource.teacher[indexPath.row])
+                    return cell
                 }else{
-                    let model = resource.apply.teacherApply[indexPath.row-resource.apply.studentApply.count]
-                    cell.TApplyJoinClassCellForTeacher(model: model)
+                    
+                    let cell : TClassStudentCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable5, for: indexPath) as! TClassStudentCell
+                    cell.showStudentsCell(model: resource.student[indexPath.row])
+                    return cell
                 }
-                
-                return cell
-            }else if indexPath.section == 1{
-                
-                let cell : TClassStudentCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable5, for: indexPath) as! TClassStudentCell
-                cell.showHeadTeacherCell(model: resource.head_teacher)
-                return cell
-            }else if indexPath.section == 2{
-                
-                let cell : TClassStudentCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable5, for: indexPath) as! TClassStudentCell
-                cell.showOtherTeachersCell(model: resource.teacher[indexPath.row])
-                return cell
+
             }else{
-                
-                let cell : TClassStudentCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable5, for: indexPath) as! TClassStudentCell
-                cell.showStudentsCell(model: resource.student[indexPath.row])
-                return cell
+            
+                if indexPath.section == 0{
+                    
+                    let cell : TClassStudentCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable5, for: indexPath) as! TClassStudentCell
+                    cell.showHeadTeacherCell(model: resource.head_teacher)
+                    return cell
+                }else if indexPath.section == 1{
+                    
+                    let cell : TClassStudentCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable5, for: indexPath) as! TClassStudentCell
+                    cell.showOtherTeachersCell(model: resource.teacher[indexPath.row])
+                    return cell
+                }else{
+                    
+                    let cell : TClassStudentCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable5, for: indexPath) as! TClassStudentCell
+                    cell.showStudentsCell(model: resource.student[indexPath.row])
+                    return cell
+                }
             }
             
         }else if currentIndex == 3 {
             
             let cell : TClassInfoCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable2, for: indexPath) as! TClassInfoCell
-            cell.TClassInfoCellForTeacher()
+            if InfoModel.class_name != nil {
+                
+                var isHeadTeacher = false
+                
+                if type == "1" {
+                    isHeadTeacher = true
+                }
+                
+                cell.TClassInfoCellForStudent(model: InfoModel,isHeadTeacher:isHeadTeacher)
+            }
             return cell
         }else{
             
             let cell : ClassGradeCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable3, for: indexPath) as! ClassGradeCell
             
-            if indexPath.row == 0 {
-                cell.is1thCellForWorkBook()
+            if Grades.count == 0{
+                cell.noDatas()
             }else{
-                cell.setValueForClassGradeCell(index: 10-indexPath.row)
+                if indexPath.row == 0 {
+                    cell.is1thCellForWorkBook()
+                }else{
+                    let model = Grades[indexPath.row-1] as! TShowGradeModel
+                    cell.setValueForClassGradeCellTeacher(model:model)
+                }
             }
             return cell
         }
@@ -386,13 +530,27 @@ class TClassDetailViewController: BaseViewController,UITextFieldDelegate {
         tableView.deselectRow(at: indexPath, animated: true)
         if currentIndex == 1 {
             
-            let periodsVC = TPeriodsDetailViewController()
-            self.navigationController?.pushViewController(periodsVC, animated: true)
+            let model = Periods[indexPath.row] as! TPeriodsModel
+            if model.name.count == 0 && type == "1" {
+                
+                let buildPeriodVC = LNBuildPeriodViewController()
+                buildPeriodVC.period_id = model.periods_id
+                self.navigationController?.pushViewController(buildPeriodVC, animated: true)
+            }else{
+                let periodsVC = TPeriodsDetailViewController()
+                periodsVC.periods_id = model.periods_id
+                periodsVC.periodsName = model.name
+                self.navigationController?.pushViewController(periodsVC, animated: true)
+            }
         }
         
         if currentIndex == 4 {
             if indexPath.row != 0 {
+                let model = Grades[indexPath.row-1] as! TShowGradeModel
                 let showVC = TShowOneGradeVCViewController()
+                showVC.user_num = model.studentId
+                showVC.classid = classid
+                showVC.user_name = model.user_name
                 self.navigationController?.pushViewController(showVC, animated: true)
             }
         }
@@ -425,13 +583,19 @@ class TClassDetailViewController: BaseViewController,UITextFieldDelegate {
                 BGiew.addSubview(searchTextfield)
                 
                 let textLabel = UILabel.init(frame: CGRect(x: 0, y: 39, width: kSCREEN_WIDTH, height: 48*kSCREEN_SCALE))
-                if resource.apply != nil{
-                    if resource.apply.teacherApply.count == 0 && resource.apply.studentApply.count == 0 {
-                        textLabel.text = "暂无加入班级申请"
+                
+                if type == "1" {
+                    if resource.apply != nil{
+                        if resource.apply.teacherApply.count == 0 && resource.apply.studentApply.count == 0 {
+                            textLabel.text = "   暂无加入班级申请"
+                        }else{
+                            textLabel.text = "   申请加入"
+                        }
                     }
-                    
+                }else{
+                    textLabel.text = "   班主任"
                 }
-                textLabel.text = "   申请加入"
+                
                 textLabel.font = kFont24
                 textLabel.textColor = kGaryColor(num: 176)
                 BGiew.addSubview(textLabel)
@@ -439,12 +603,41 @@ class TClassDetailViewController: BaseViewController,UITextFieldDelegate {
             }else{
                 
                 let textLabel = UILabel.init(frame: CGRect(x: 0, y: 39, width: kSCREEN_WIDTH, height: 48*kSCREEN_SCALE))
-                if section == 1{
-                    textLabel.text = "   班主任"
-                }else if section == 2{
-                    textLabel.text = "   助教老师"
+                
+                if type == "1" {
+                    if section == 1{
+                        textLabel.text = "   班主任"
+                    }else if section == 2{
+                        
+                        if resource.teacher != nil && resource.teacher.count>0 {
+                            textLabel.text = "   老师"
+                        }else{
+                            textLabel.text = "   暂无老师"
+                        }
+                        
+                    }else{
+                        if resource.student != nil && resource.student.count>0 {
+                            textLabel.text = "   学生"
+                        }else{
+                            textLabel.text = "   暂无学生"
+                        }
+                    }
+                    
                 }else{
-                    textLabel.text = "   其他学生"
+                    if section == 1{
+                        if resource.teacher != nil && resource.teacher.count>0 {
+                            textLabel.text = "   老师"
+                        }else{
+                            textLabel.text = "   暂无老师"
+                        }
+                        
+                    }else{
+                        if resource.student != nil && resource.student.count>0 {
+                            textLabel.text = "   学生"
+                        }else{
+                            textLabel.text = "   暂无学生"
+                        }
+                    }
                 }
                 textLabel.backgroundColor = kGaryColor(num: 243)
                 textLabel.font = kFont24
@@ -488,15 +681,20 @@ class TClassDetailViewController: BaseViewController,UITextFieldDelegate {
         
         if currentIndex == 2 {
             
-            if indexPath.section == 1 {
+            if type == "1" {
                 
-                if resource.head_teacher.isMe == "yes" {
-                    return true
-                }
-            }else if indexPath.section == 2 {
-                
-                if resource.teacher[indexPath.row].isMe == "yes" {
-                    return true
+                return true
+            }else{
+                if indexPath.section == 0 {
+                    
+                    if resource.head_teacher.isMe == "yes" {
+                        return true
+                    }
+                }else if indexPath.section == 1 {
+                    
+                    if resource.teacher[indexPath.row].isMe == "yes" {
+                        return true
+                    }
                 }
             }
         
@@ -512,15 +710,62 @@ class TClassDetailViewController: BaseViewController,UITextFieldDelegate {
         
         if editingStyle == .delete {
             
-            //            mainTableArr.removeObject(at: indexPath.row)
-            //            tableView.reloadData()
-            deBugPrint(item: "删除了---\(indexPath.section)分区-\(indexPath.row)行")
+            let params = [
+                "SESSIONID":SESSIONIDT,
+                "mobileCode":mobileCodeT,
+                "classes_id":classid
+            ]
+            if type == "1" {
+                if indexPath.section == 1 {
+                    NetWorkTeacherDeleteMyclasses(params: params, callBack: { (flag) in
+                        if flag {
+                            //        通知中心
+                            NotificationCenter.default.post(name: Notification.Name(rawValue: SuccessCorrectDeleteClassNoti), object: self, userInfo: ["refresh":"begin"])
+                            
+                            self.navigationController?.popViewController(animated: true)
+                        }
+                    })
+                }else{
+                    
+                    var user_id = ""
+                    if indexPath.section == 2{
+                        user_id = resource.teacher[indexPath.row].teacher_id
+                    }else{
+                        user_id = resource.student[indexPath.row].student_id
+                    }
+                    let params = [
+                        "SESSIONID":SESSIONIDT,
+                        "mobileCode":mobileCodeT,
+                        "userId":user_id,
+                        "classes_id":classid
+                    ]
+                    NetWorkTeachersDelclassPelTeacher(params: params, callBack: { (flag) in
+                        if flag {
+                            self.mainTableView.mj_header.beginRefreshing()
+                        }
+                    })
+                }
+            }else{
+                NetWorkTeachersOutOfClass(params: params, callBack: { (flag) in
+                    if flag {
+                        //        通知中心
+                        NotificationCenter.default.post(name: Notification.Name(rawValue: SuccessCorrectDeleteClassNoti), object: self, userInfo: ["refresh":"begin"])
+
+                        self.navigationController?.popViewController(animated: true)
+                    }
+                })
+            }
         }
     }
     
     func tableView(_ tableView: UITableView, titleForDeleteConfirmationButtonForRowAt indexPath: IndexPath) -> String? {
-        if resource.head_teacher.isMe == "yes" {
-            return "解散班级"
+        
+        if type == "1" {
+            if indexPath.section == 1 {
+                return "解散班级"
+            }else{
+                return "删除成员"
+            }
         }
         return "退出班级"
     }

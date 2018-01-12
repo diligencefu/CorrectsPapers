@@ -20,7 +20,6 @@ class LookPsWViewController: BaseViewController {
     
     @IBOutlet weak var nextBtn: UIButton!
     
-
     
     //声明定时器
     var timer = Timer()

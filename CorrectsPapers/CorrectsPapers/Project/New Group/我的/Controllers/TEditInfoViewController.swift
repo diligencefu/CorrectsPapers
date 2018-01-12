@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import SwiftyUserDefaults
+import SwiftyJSON
 
 class TEditInfoViewController: BaseViewController {
 
@@ -17,41 +19,127 @@ class TEditInfoViewController: BaseViewController {
     var proArr = [String]()
     var gradeArr = [String]()
     
-    var teacherIDImages = [UIImage]()
+    var teacherIDFrontImage = #imageLiteral(resourceName: "Upload-photos_yinshuabanci")
+    var teacherIDBackImage = #imageLiteral(resourceName: "Upload-photos_yinshuabanci")
+    var headImage = #imageLiteral(resourceName: "UserHead_128_default")
     var certification = UIImage()
     
     var isCertification = false
+    
+//    身份证号码
+    var idStr = ""
+//    教师资格证号码
+    var certStr = ""
+    
+    var image1 = ""
+    var image2 = ""
+    var image3 = ""
+    var image4 = ""
+    
+    var model = PersonalModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         addTagsView()
         self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(title: "保存", style: .plain, target: self, action: #selector(saveInfo(sender:)))
         self.navigationItem.rightBarButtonItem?.tintColor = UIColor.white
-
+    }
+    
+    override func addHeaderRefresh() {
+        
     }
     
     @objc func saveInfo(sender:UIBarButtonItem) {
         
+        if idStr == "" {
+            setToast(str: "请输入身份证号")
+            return
+        }
+//        if certStr == "" {
+//            setToast(str: "请输入教师资格证号")
+//            return
+//        }
+        if infoArr[2][2] == "选择工作时间" {
+            setToast(str: "请选择工作时间")
+            return
+        }
+        if image1 == "1" {
+            setToast(str: "请选择头像")
+            return
+        }
+        if image1 == "2" {
+            setToast(str: "请选择身份证正背面照片")
+            return
+        }
+        if image1 == "3" {
+            setToast(str: "请选择身份证背面照片")
+            return
+        }
+//        if image1 == "4" {
+//            setToast(str: "请选择教师资格证照片")
+//            return
+//        }
+        
+        self.navigationItem.rightBarButtonItem?.isEnabled = false
+        self.view.beginLoading()
+        let params =
+            [
+                "SESSIONID":SESSIONID,
+                "mobileCode":mobileCode,
+                "grade":infoArr[2][1],
+                "identity":idStr,
+                "celtyl":certStr,
+                "phone":Defaults[userPhone]!,
+                "idea":infoArr[1][2],
+                "user_correct_subject":infoArr[2][0],
+                "user_photo":image1,
+                "identity_front":image2,
+                "identity_verso":image3,
+                "celtyl_photo":image4,
+                "user_job_time":infoArr[2][2]
+        ] as [String:Any]
+        NetWorkTeachersEditorTeacher(params: params) { (flag) in
+            if flag {
+                self.navigationController?.popViewController(animated: true)
+            }else{
+                self.navigationItem.rightBarButtonItem?.isEnabled = false
+            }
+            self.view.endLoading()
+        }
     }
     
     override func configSubViews() {
         
         self.navigationItem.title = "个人信息"
-        dataArr = [["我的头像"],["我的名称","联系方式","所在地区"],["批改科目","我的年级","工作时间"],["我的工号"],["身份证号码",""],["教师资格证号",""]]
-        infoArr = [[""],["吴某某","","武汉市"],["数学","八年级","选择时间"],["123456"],["421132196712262587",""],["421132196712262587",""]]
-
+        
+        if model.haveIdentity == "no" && model.haveCeltyl == "no"{
+            
+            dataArr = [["我的头像"],["我的名称","联系方式","所在地区"],["批改科目","我的年级","工作时间"],["我的工号"],["身份证号码:",""],["教师资格证号:",""]]
+            infoArr = [[""],[model.user_name,model.user_phone,model.user_area],[model.user_correct_subject,model.user_fit_class,model.user_job_time],[model.user_num],["",""],["",""]]
+        }else if model.haveIdentity == "no" && model.haveCeltyl == "yes"{
+            
+            dataArr = [["我的头像"],["我的名称","联系方式","所在地区"],["批改科目","我的年级","工作时间"],["我的工号"],["教师资格证号:",""]]
+            infoArr = [[""],[model.user_name,model.user_phone,model.user_area],[model.user_correct_subject,model.user_fit_class,model.user_job_time],[model.user_num],["",""]]
+        }else if model.haveIdentity == "yes" && model.haveCeltyl == "no"{
+            
+            dataArr = [["我的头像"],["我的名称","联系方式","所在地区"],["批改科目","我的年级","工作时间"],["我的工号"],["身份证号码:",""]]
+            infoArr = [[""],[model.user_name,model.user_phone,model.user_area],[model.user_correct_subject,model.user_fit_class,model.user_job_time],[model.user_num],["",""]]
+        }else{
+            
+            dataArr = [["我的头像"],["我的名称","联系方式","所在地区"],["批改科目","我的年级","工作时间"],["我的工号"]]
+            infoArr = [[""],[model.user_name,model.user_phone,model.user_area],[model.user_correct_subject,model.user_fit_class,model.user_job_time],[model.user_num]]
+        }
+        
         mainTableView = UITableView.init(frame: CGRect(x: 0, y: 0, width: kSCREEN_WIDTH, height: kSCREEN_HEIGHT - 64 ), style: .grouped)
-        mainTableView.dataSource = self;
-        mainTableView.delegate = self;
+        mainTableView.dataSource = self
+        mainTableView.delegate = self
         mainTableView.estimatedRowHeight = 143 * kSCREEN_SCALE;
         mainTableView.register(UINib(nibName: "TeacherInfoCell1", bundle: nil), forCellReuseIdentifier: identyfierTable)
         mainTableView.register(UINib(nibName: "TeacherInfoCell2", bundle: nil), forCellReuseIdentifier: identyfierTable1)
         mainTableView.register(UINib(nibName: "TeacherInfoCell3", bundle: nil), forCellReuseIdentifier: identyfierTable2)
         mainTableView.register(UINib(nibName: "TeacherInfoCell4", bundle: nil), forCellReuseIdentifier: identyfierTable3)
         mainTableView.register(UINib(nibName: "EditHeadCell", bundle: nil), forCellReuseIdentifier: identyfierTable4)
-
         self.view.addSubview(mainTableView)
-        
     }
     
     
@@ -70,57 +158,74 @@ class TEditInfoViewController: BaseViewController {
 
         let cell : TeacherInfoCell1 = tableView.dequeueReusableCell(withIdentifier: identyfierTable, for: indexPath) as! TeacherInfoCell1
         cell.selectionStyle = .default
-        
         let title = dataArr[indexPath.section][indexPath.row]
         let subTitle = infoArr[indexPath.section][indexPath.row]
         
         if indexPath.section == 0 { 
             let cell1 : EditHeadCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable4, for: indexPath) as! EditHeadCell
+            cell1.setTeacherUserIcon(image:headImage, imgStr: "")
+            cell1.chooseIconBlock = {
+                deBugPrint(item: $0)
+                self.setupPhoto1(count: 1, isBack: false,isHead: true)
+            }
             return cell1
         }else if indexPath.section == 1 && indexPath.row < 2{
-            cell.TeacherInfoCellForSection2(title: title, subStr: subTitle)
-        }else if indexPath.section == 3 {
-            let cell2 : TeacherInfoCell2 = tableView.dequeueReusableCell(withIdentifier: identyfierTable1, for: indexPath) as! TeacherInfoCell2
-            cell2.TeacherInfoCell2ForNormal(title: title, content: subTitle)
-            return cell2
             
+            let cell : TeacherInfoCell2 = tableView.dequeueReusableCell(withIdentifier: identyfierTable1, for: indexPath) as! TeacherInfoCell2
+            cell.TeacherInfoCell2ForNormal(title: title, content: subTitle)
+            cell.accessoryType = .none
+            return cell
+        }else if indexPath.section == 3 {
+            
+            let cell : TeacherInfoCell2 = tableView.dequeueReusableCell(withIdentifier: identyfierTable1, for: indexPath) as! TeacherInfoCell2
+            cell.TeacherInfoCell2ForNormal(title: title, content: subTitle)
+            cell.accessoryType = .none
+            return cell
         }else if indexPath.section == 4 {
             
             if indexPath.row == 0 {
-                let cell2 : TeacherInfoCell2 = tableView.dequeueReusableCell(withIdentifier: identyfierTable1, for: indexPath) as! TeacherInfoCell2
-                cell2.TeacherInfoCell2ForNormal(title: title, content: subTitle)
-                return cell2
-
+                cell.TeacherInfoCellForSection2(title: title, subStr: subTitle)
+                cell.endEditBlock = {
+                    if $1{
+                        deBugPrint(item: $0)
+                        self.idStr = $0
+                    }
+                }
+                cell.selectionStyle = .none
+                cell.accessoryType = .none
+                return cell
             }else{
                 let cell2 : TeacherInfoCell3 = tableView.dequeueReusableCell(withIdentifier: identyfierTable2, for: indexPath) as! TeacherInfoCell3
-                cell2.TeacherInfoCell3SetImages(images: teacherIDImages)
+                cell2.TeacherInfoCell3SetImagess(frontImage: teacherIDFrontImage,backImage:teacherIDBackImage)
                 cell2.chooseImagesAction = {
+                    self.isCertification = false
                     deBugPrint(item: $0)
-                    self.setupPhoto1(count: 2)
+                    self.setupPhoto1(count: 1, isBack: $0,isHead: false)
                 }
                 return cell2
-
             }
-            
         }else if indexPath.section == 5 {
             
             if indexPath.row == 0 {
-                let cell2 : TeacherInfoCell2 = tableView.dequeueReusableCell(withIdentifier: identyfierTable1, for: indexPath) as! TeacherInfoCell2
-                cell2.TeacherInfoCell2ForNormal(title: title, content: subTitle)
-                return cell2
-                
+                cell.TeacherInfoCellForSection2(title: title, subStr: subTitle)
+                cell.endEditBlock = {
+                    if $1{
+                        self.certStr = $0
+                    }
+                }
+                cell.selectionStyle = .none
+                cell.accessoryType = .none
+                return cell
             }else{
                 let cell2 : TeacherInfoCell4 = tableView.dequeueReusableCell(withIdentifier: identyfierTable3, for: indexPath) as! TeacherInfoCell4
                 cell2.TeacherInfoCell4SetImage(image: certification)
                 cell2.chooseImagesAction = {
                     deBugPrint(item: $0)
                     self.isCertification = true
-                    self.setupPhoto1(count: 1)
+                    self.setupPhoto1(count: 1, isBack: false,isHead: false)
                 }
-
                 return cell2
             }
-            
         }else{
             cell.TeacherInfoCellForNormal(title: title, subStr: subTitle)
         }
@@ -151,9 +256,7 @@ class TEditInfoViewController: BaseViewController {
                 
                 showTimeView()
             }
-            
         }
-        
     }
     
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
@@ -212,7 +315,7 @@ class TEditInfoViewController: BaseViewController {
     var projectTagsView = ShowTagsView()
     var gradeTagsView = ShowTagsView()
     var timeView = ShowTagsView()
-    var eduView = ShowTagsView()
+    var eduView = ChooseCityView()
     
     @objc func showChooseCondi(tap:UITapGestureRecognizer) -> Void {
         if tap.view?.alpha == 1 {
@@ -252,7 +355,6 @@ class TEditInfoViewController: BaseViewController {
         tapGes1.numberOfTouchesRequired = 1
         BGView.addGestureRecognizer(tapGes1)
         self.view.addSubview(BGView)
-        
         
         projectTagsView = UINib(nibName:"ShowTagsView",bundle:nil).instantiate(withOwner: self, options: nil).first as! ShowTagsView
         projectTagsView.ShowTagsViewForProjects(title: "选择批改科目")
@@ -298,13 +400,14 @@ class TEditInfoViewController: BaseViewController {
         timeView.clipsToBounds = true
         self.view.addSubview(timeView)
         
+//        eduView = UINib(nibName:"ShowTagsView",bundle:nil).instantiate(withOwner: self, options: nil).first as! ShowTagsView
+//        eduView.ShowTagsViewForChooseEdu(title: "选择城市", index: 0)
+        eduView = UINib(nibName:"ChooseCityView",bundle:nil).instantiate(withOwner: self, options: nil).first as! ChooseCityView
         
-        eduView = UINib(nibName:"ShowTagsView",bundle:nil).instantiate(withOwner: self, options: nil).first as! ShowTagsView
-        eduView.ShowTagsViewForChooseEdu(title: "选择城市", index: 0)
         eduView.frame =  CGRect(x: 0, y: kSCREEN_HEIGHT, width: kSCREEN_WIDTH, height: 350)
         eduView.layer.cornerRadius = 24*kSCREEN_SCALE
         eduView.selectBlock = {
-            if !$1 {
+            if $1 {
                 self.infoArr[1][2] = $0
                 self.mainTableView.reloadRows(at: [IndexPath.init(row: 2, section: 1)], with: .automatic)
                 
@@ -314,7 +417,6 @@ class TEditInfoViewController: BaseViewController {
         
         eduView.clipsToBounds = true
         self.view.addSubview(eduView)
-        
     }
     
     
@@ -325,7 +427,6 @@ class TEditInfoViewController: BaseViewController {
             self.projectTagsView.transform = .init(translationX: 0, y: -y)
             self.BGView.alpha = 1
         }
-        
     }
     
     func showGradeTagsView() -> Void {
@@ -338,12 +439,12 @@ class TEditInfoViewController: BaseViewController {
     }
     
     func showTimeView() -> Void {
+        
         let y = CGFloat(265)
         UIView.animate(withDuration: 0.5) {
             self.timeView.transform = .init(translationX: 0, y: -y)
             self.BGView.alpha = 1
         }
-        
     }
     
     
@@ -356,7 +457,7 @@ class TEditInfoViewController: BaseViewController {
     }
     
     // 异步原图
-    private func setupPhoto1(count:NSInteger) {
+    private func setupPhoto1(count:NSInteger,isBack:Bool,isHead:Bool) {
         let imagePickTool = CLImagePickersTool()
         
         imagePickTool.isHiddenVideo = true
@@ -375,24 +476,65 @@ class TEditInfoViewController: BaseViewController {
             CLImagePickersTool.convertAssetArrToOriginImage(assetArr: assetArr, scale: 0.1, successClouse: {[weak self] (image,assetItem) in
                 imageArr.append(image)
                 
-                if (self?.isCertification)! {
+                var type = "4"
+                
+                if (self?.isCertification)! && !isHead{
                     
                     self?.certification = image
                     self?.mainTableView.reloadSections([5], with: .automatic)
+                    type = "4"
                 }else{
                     
-                    self?.teacherIDImages.append(image)
-                    self?.mainTableView.reloadSections([4], with: .automatic)
+                    if !isHead{
+                        if !isBack  {
+                            self?.teacherIDFrontImage = image
+                            type = "2"
+                        }else{
+                            self?.teacherIDBackImage = image
+                            type = "3"
+                        }
+                        self?.mainTableView.reloadSections([4], with: .automatic)
+                    }
                 }
                 
+                if isHead {
+                    self?.headImage = image
+                    self?.mainTableView.reloadSections([0], with: .automatic)
+                    type = "1"
+                }
                 
+                let params = [
+                    "SESSIONID":SESSIONID,
+                    "mobileCode":mobileCode,
+                    "type":type
+                ]
+                let arr = [image]
+                editorTeacherUpLoadImageRequest(params: params, data: arr, name: [""], success: { (datas) in
+                    
+                    if type == "1" {
+                        self?.image1 = JSON(datas)["data"]["user_photo"].stringValue
+                    }
+                    if type == "2" {
+                        self?.image2 = JSON(datas)["data"]["identity_front"].stringValue
+                    }
+                    if type == "3" {
+                        self?.image3 = JSON(datas)["data"]["identity_verso"].stringValue
+                    }
+                    if type == "4" {
+                        self?.image4 = JSON(datas)["data"]["celtyl_photo"].stringValue
+                    }
+                    
+                }, failture: { (error) in
+                })
+                self?.navigationItem.rightBarButtonItem?.isEnabled = true
+
                 self?.dealImage(imageArr: imageArr, index: index)
                 
                 }, failedClouse: { () in
                     index = index - 1
                     self.dealImage(imageArr: imageArr, index: index)
+                    self.navigationItem.rightBarButtonItem?.isEnabled = true
             })
-            
         }
     }
     
@@ -403,6 +545,5 @@ class TEditInfoViewController: BaseViewController {
         }
         // 图片显示出来以后可能还要上传到云端的服务器获取图片的url，这里不再细说了。
     }
-    
-    
+
 }

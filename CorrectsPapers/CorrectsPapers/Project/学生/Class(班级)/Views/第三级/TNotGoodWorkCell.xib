@@ -31,7 +31,7 @@
                         <rect key="frame" x="273" y="11" width="62" height="21"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="21" id="dvd-UC-wRx"/>
-                            <constraint firstAttribute="width" constant="62" id="tod-jl-7EY"/>
+                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="62" id="tod-jl-7EY"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <nil key="textColor"/>

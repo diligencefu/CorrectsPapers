@@ -67,7 +67,6 @@ class TViewBookCell:  UITableViewCell {
         image1.contentMode = .scaleAspectFill
         image2.contentMode = .scaleAspectFill
         image3.contentMode = .scaleAspectFill
-
     }
     
     @objc func moveToBigImage(tap:UITapGestureRecognizer) {
@@ -79,8 +78,16 @@ class TViewBookCell:  UITableViewCell {
                 return
             }
 
-            if Int(theModel1.correcting_states)! > 4 {
-                
+            var state = 0
+            
+            if theModel1.correcting_states.count > 0 && Int(theModel1.correcting_states) != nil{
+                state = Int(theModel1.correcting_states)!
+            }else{
+                state = Int(theModel1.state)!
+            }
+            
+            if state > 4{
+
                 if theModel1.corrected_error_photo.count == 1 {
                     let watchIMGItem = KSPhotoItem.init(sourceView: image1, image: image1.image)
                     images.append(watchIMGItem!)
@@ -167,6 +174,7 @@ class TViewBookCell:  UITableViewCell {
         timeLabel.text = model.correcting_time
         bookTitle.text = model.result
         theTeacher.text = model.teacher_name
+        doThing.text = ""
         remark.text = "老师评语：" + model.comment
         
         if model.scores == "1" {
@@ -187,14 +195,14 @@ class TViewBookCell:  UITableViewCell {
 
         if model.photo.count == 1 {
             
-            image1.kf.setImage(with:  URL(string:testImages[0])!, placeholder: #imageLiteral(resourceName: "photos_image_default"), options: nil, progressBlock: nil, completionHandler: nil)
+            image1.kf.setImage(with:  URL(string:model.photo[0])!, placeholder: #imageLiteral(resourceName: "class_default"), options: nil, progressBlock: nil, completionHandler: nil)
             image2.isHidden = true
             image3.isHidden = true
         }else  {
             
             image1.isHidden = true
-            image2.kf.setImage(with:  URL(string:testImages[0])!, placeholder: #imageLiteral(resourceName: "photos_image_default"), options: nil, progressBlock: nil, completionHandler: nil)
-            image3.kf.setImage(with:  URL(string:testImages[1])!, placeholder: #imageLiteral(resourceName: "photos_image_default"), options: nil, progressBlock: nil, completionHandler: nil)
+            image2.kf.setImage(with:  URL(string:model.photo[0])!, placeholder: #imageLiteral(resourceName: "class_default"), options: nil, progressBlock: nil, completionHandler: nil)
+            image3.kf.setImage(with:  URL(string:model.photo[1])!, placeholder: #imageLiteral(resourceName: "class_default"), options: nil, progressBlock: nil, completionHandler: nil)
             image2.isHidden = false
             image3.isHidden = false
         }
@@ -241,14 +249,14 @@ class TViewBookCell:  UITableViewCell {
         
         if model.pre_photos.count == 1 {
             
-            image1.kf.setImage(with:  URL(string:model.pre_photos[0])!, placeholder: #imageLiteral(resourceName: "photos_image_default"), options: nil, progressBlock: nil, completionHandler: nil)
+            image1.kf.setImage(with:  URL(string:model.pre_photos[0])!, placeholder: #imageLiteral(resourceName: "class_default"), options: nil, progressBlock: nil, completionHandler: nil)
             image2.isHidden = true
             image3.isHidden = true
         }else  {
             
             image1.isHidden = true
-            image2.kf.setImage(with:  URL(string:model.pre_photos[0])!, placeholder: #imageLiteral(resourceName: "photos_image_default"), options: nil, progressBlock: nil, completionHandler: nil)
-            image3.kf.setImage(with:  URL(string:model.pre_photos[1])!, placeholder: #imageLiteral(resourceName: "photos_image_default"), options: nil, progressBlock: nil, completionHandler: nil)
+            image2.kf.setImage(with:  URL(string:model.pre_photos[0])!, placeholder: #imageLiteral(resourceName: "class_default"), options: nil, progressBlock: nil, completionHandler: nil)
+            image3.kf.setImage(with:  URL(string:model.pre_photos[1])!, placeholder: #imageLiteral(resourceName: "class_default"), options: nil, progressBlock: nil, completionHandler: nil)
             image2.isHidden = false
             image3.isHidden = false
         }

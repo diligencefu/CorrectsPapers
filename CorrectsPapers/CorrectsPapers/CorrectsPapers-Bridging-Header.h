@@ -28,6 +28,12 @@
 
 //微信SDK头文件
 #import "WXApi.h"
+#import "WXApiManager.h"
+#import "MXWechatPayHandler.h"
+#import "MXWechatSignAdaptor.h"
 
+#import "WebViewController.h"
+
+#import "TZImagePickerController.h"
 
 #endif /* CorrectsPapers_Bridging_Header_h */

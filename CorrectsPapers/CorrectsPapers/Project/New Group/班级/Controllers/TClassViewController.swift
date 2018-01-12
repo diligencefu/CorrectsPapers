@@ -11,13 +11,20 @@ import UIKit
 class TClassViewController: BaseViewController {
     var emptyView = UIView()
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         rightBarButton()
         addImageWhenEmpty()
 
+        //        接收创建练习册成功的通知
+        NotificationCenter.default.addObserver(self, selector: #selector(receiveNitification(nitofication:)), name: NSNotification.Name(rawValue: SuccessCorrectDeleteClassNoti), object: nil)
     }
     
+    @objc func receiveNitification(nitofication:Notification) {
+        self.mainTableView.mj_header.beginRefreshing()
+    }
+
     override func leftBarButton() {
         
     }
@@ -26,7 +33,8 @@ class TClassViewController: BaseViewController {
     override func requestData() {
         let params = [
             "SESSIONID":SESSIONIDT,
-            "mobileCode":mobileCodeT
+            "mobileCode":mobileCodeT,
+            "type":"1"
         ]
         self.view.beginLoading()
         netWorkForMyClass(params: params) { (datas,flag) in
@@ -43,7 +51,8 @@ class TClassViewController: BaseViewController {
     override func refreshHeaderAction() {
         let params = [
             "SESSIONID":SESSIONIDT,
-            "mobileCode":mobileCodeT
+            "mobileCode":mobileCodeT,
+            "type":"1"
         ]
         netWorkForMyClass(params: params) { (datas,flag) in
             if flag {
@@ -174,6 +183,10 @@ class TClassViewController: BaseViewController {
         let model = mainTableArr[indexPath.row] as! ClassModel
         let classVC = TClassDetailViewController()
         classVC.classid = model.classes_id
+        classVC.className = model.class_name
+        if model.is_head_teacher == "no" {
+            classVC.type = "2"
+        }
         self.navigationController?.pushViewController(classVC, animated: true)
 
     }

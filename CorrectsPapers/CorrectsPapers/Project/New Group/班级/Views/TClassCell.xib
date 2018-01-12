@@ -21,7 +21,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="大后天就要亏咯是的撒奋斗的奋斗drydfjjvvhgvjhcfhkvjhlk" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="f3A-3h-DCW">
-                        <rect key="frame" x="124" y="10" width="388" height="36"/>
+                        <rect key="frame" x="124" y="10" width="181" height="36"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="36" id="V8k-xt-VBw"/>
                         </constraints>
@@ -103,6 +103,7 @@
                     <constraint firstItem="xQ8-Uv-gBR" firstAttribute="leading" secondItem="f3A-3h-DCW" secondAttribute="leading" id="Beh-pf-Td9"/>
                     <constraint firstItem="hgz-A3-apV" firstAttribute="leading" secondItem="f3A-3h-DCW" secondAttribute="leading" id="G6J-1w-nUK"/>
                     <constraint firstItem="f3A-3h-DCW" firstAttribute="leading" secondItem="Mmf-oH-yxI" secondAttribute="trailing" constant="8" id="HKw-BN-XId"/>
+                    <constraint firstAttribute="trailing" secondItem="f3A-3h-DCW" secondAttribute="trailing" constant="15" id="Mk8-tw-gHt"/>
                     <constraint firstItem="xQ8-Uv-gBR" firstAttribute="top" secondItem="f3A-3h-DCW" secondAttribute="bottom" constant="4" id="NNX-YC-hmC"/>
                     <constraint firstItem="ys9-Sd-GSN" firstAttribute="leading" secondItem="Sth-Wj-hcK" secondAttribute="trailing" id="Nic-1R-676"/>
                     <constraint firstItem="Mmf-oH-yxI" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="RF5-md-IbS"/>
@@ -121,6 +122,6 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="workBook" width="160" height="200"/>
+        <image name="workBook" width="100" height="100"/>
     </resources>
 </document>

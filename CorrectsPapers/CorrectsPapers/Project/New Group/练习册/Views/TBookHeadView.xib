@@ -13,7 +13,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="TBookHeadView" customModule="CorrectsPapers" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="375" height="224"/>
+            <rect key="frame" x="0.0" y="0.0" width="375" height="23"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="总人数：" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pg4-kv-ivs">
@@ -106,21 +106,6 @@
                     <color key="textColor" red="0.4313226342" green="0.43140128249999998" blue="0.43131768700000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RU1-m6-Lat">
-                    <rect key="frame" x="0.0" y="28" width="375" height="196"/>
-                    <subviews>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="workBook" translatesAutoresizingMaskIntoConstraints="NO" id="GBU-1Q-oze">
-                            <rect key="frame" x="35" y="5" width="305" height="186"/>
-                        </imageView>
-                    </subviews>
-                    <color key="backgroundColor" red="0.95675891637802124" green="0.95692259073257446" blue="0.95674854516983032" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                    <constraints>
-                        <constraint firstAttribute="trailing" secondItem="GBU-1Q-oze" secondAttribute="trailing" constant="35" id="2Vi-If-SDe"/>
-                        <constraint firstAttribute="bottom" secondItem="GBU-1Q-oze" secondAttribute="bottom" constant="5" id="FIn-PA-dW0"/>
-                        <constraint firstItem="GBU-1Q-oze" firstAttribute="leading" secondItem="RU1-m6-Lat" secondAttribute="leading" constant="35" id="XLh-Fv-Rqp"/>
-                        <constraint firstItem="GBU-1Q-oze" firstAttribute="top" secondItem="RU1-m6-Lat" secondAttribute="top" constant="5" id="hmo-UW-gLF"/>
-                    </constraints>
-                </view>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
@@ -128,12 +113,9 @@
                 <constraint firstItem="Iiu-sZ-ngh" firstAttribute="centerY" secondItem="pg4-kv-ivs" secondAttribute="centerY" id="57O-KZ-MiS"/>
                 <constraint firstItem="Qcz-sw-nsv" firstAttribute="centerY" secondItem="pg4-kv-ivs" secondAttribute="centerY" id="6gU-yK-d4F"/>
                 <constraint firstItem="hYy-Ha-Jgp" firstAttribute="centerY" secondItem="pg4-kv-ivs" secondAttribute="centerY" id="7AA-4t-DRN"/>
-                <constraint firstItem="RU1-m6-Lat" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="7ne-cp-Lgr"/>
                 <constraint firstItem="hYy-Ha-Jgp" firstAttribute="leading" secondItem="Iiu-sZ-ngh" secondAttribute="trailing" constant="1" id="8fC-p4-mtz"/>
                 <constraint firstItem="SXk-c2-ZaR" firstAttribute="leading" secondItem="TTZ-lv-v5p" secondAttribute="trailing" id="9t0-pV-trD"/>
                 <constraint firstItem="hYy-Ha-Jgp" firstAttribute="centerY" secondItem="pg4-kv-ivs" secondAttribute="centerY" id="FWd-ck-7Fw"/>
-                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="RU1-m6-Lat" secondAttribute="bottom" id="Hr5-tZ-5Sl"/>
-                <constraint firstItem="RU1-m6-Lat" firstAttribute="trailing" secondItem="vUN-kp-3ea" secondAttribute="trailing" id="Jbk-Ff-Opm"/>
                 <constraint firstItem="TTZ-lv-v5p" firstAttribute="leading" secondItem="hYy-Ha-Jgp" secondAttribute="trailing" constant="15" id="JgQ-Ac-G4h"/>
                 <constraint firstItem="Qcz-sw-nsv" firstAttribute="leading" secondItem="OBe-Xg-5Lm" secondAttribute="trailing" constant="1" id="N7o-UE-Biy"/>
                 <constraint firstItem="Iiu-sZ-ngh" firstAttribute="leading" secondItem="pg4-kv-ivs" secondAttribute="trailing" id="Ndc-jW-VNE"/>
@@ -148,7 +130,6 @@
                 <constraint firstItem="OBe-Xg-5Lm" firstAttribute="centerY" secondItem="pg4-kv-ivs" secondAttribute="centerY" id="f1o-T7-Ke2"/>
                 <constraint firstItem="pg4-kv-ivs" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="5" id="jB6-7e-Tk9"/>
                 <constraint firstItem="TTZ-lv-v5p" firstAttribute="centerY" secondItem="pg4-kv-ivs" secondAttribute="centerY" id="n8d-rp-Nna"/>
-                <constraint firstItem="RU1-m6-Lat" firstAttribute="top" secondItem="Iiu-sZ-ngh" secondAttribute="bottom" constant="5" id="o7y-h8-WBG"/>
                 <constraint firstItem="pg4-kv-ivs" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="5" id="qHn-kD-A8n"/>
                 <constraint firstItem="Qcz-sw-nsv" firstAttribute="centerY" secondItem="LQg-2J-GqF" secondAttribute="centerY" id="spS-aN-grm"/>
                 <constraint firstItem="LQg-2J-GqF" firstAttribute="leading" secondItem="lm0-ne-i0q" secondAttribute="trailing" constant="15" id="wOp-U9-rmu"/>
@@ -157,14 +138,10 @@
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <connections>
                 <outlet property="doneNum" destination="OBe-Xg-5Lm" id="AQ8-5j-Q8s"/>
-                <outlet property="image" destination="GBU-1Q-oze" id="m6F-Ds-WWG"/>
                 <outlet property="submitNum" destination="SXk-c2-ZaR" id="tPg-Vj-m7C"/>
                 <outlet property="totalNum" destination="Iiu-sZ-ngh" id="nTB-mT-dIu"/>
             </connections>
-            <point key="canvasLocation" x="-2" y="107"/>
+            <point key="canvasLocation" x="-2.5" y="6.5"/>
         </view>
     </objects>
-    <resources>
-        <image name="workBook" width="160" height="200"/>
-    </resources>
 </document>

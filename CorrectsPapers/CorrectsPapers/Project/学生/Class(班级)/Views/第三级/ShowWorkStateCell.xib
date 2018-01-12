@@ -41,7 +41,7 @@
                     </label>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GY1-iU-IWT">
                         <rect key="frame" x="16" y="88.5" width="328" height="43"/>
-                        <color key="backgroundColor" red="1" green="0.60275733470000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="height" relation="greaterThanOrEqual" id="Ewa-A2-FGr"/>
                         </constraints>

@@ -15,13 +15,16 @@ class TShowClassWorkViewController: BaseViewController {
     var reasonView = ShowTagsView()
     var BGView = UIView()
     
-    
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
+        //        接收创建练习册成功的通知
+        NotificationCenter.default.addObserver(self, selector: #selector(receiveNitification(nitofication:)), name: NSNotification.Name(rawValue: SuccessCorrectClassWorkBookNoti), object: nil)
     }
     
+    @objc func receiveNitification(nitofication:Notification) {
+        self.navigationController?.popViewController(animated: true)
+    }
+
     override func configSubViews() {
         
         self.navigationItem.title = "作业详情"
@@ -88,16 +91,39 @@ class TShowClassWorkViewController: BaseViewController {
                         ] as [String:Any]
 
                 NetWorkTeacherGobackWrokBook(params: params, callBack: { (flag) in
-
+                    if flag {
+                        //        通知中心
+                        NotificationCenter.default.post(name: Notification.Name(rawValue: SuccessCorrectClassWorkBookNoti), object: self, userInfo: ["refresh":"begin"])
+                        self.navigationController?.popViewController(animated: true)
+                    }
                 })
-                
-                
             }
             self.hiddenViews()
         }
         
         reasonView.clipsToBounds = true
         self.view.addSubview(reasonView)
+    }
+    
+    
+    override func requestData() {
+        let params =
+            ["SESSIONID":SESSIONIDT,
+             "mobileCode":mobileCodeT,
+             "class_book_id":model.class_book_id,
+             ] as [String:Any]
+        NetWorkTeacherGetClassBookList(params: params) { (datas, flag) in
+            if flag && datas.count > 0{
+                self.model = datas[0] as! TShowClassWorksModel
+                self.mainTableView.reloadData()
+            }
+            self.mainTableView.mj_header.endRefreshing()
+        }
+    }
+    
+    
+    override func refreshHeaderAction() {
+        requestData()
     }
     
     
@@ -140,6 +166,7 @@ class TShowClassWorkViewController: BaseViewController {
             editorVC.theName = model.user_name
             editorVC.theNum = "学号 "+model.student_num
             editorVC.bookid = model.class_book_id
+            editorVC.student_id = model.student_id
             editorVC.bookState = model.type
             editorVC.whereCome = 3
             self.present(editorVC, animated: true, completion: nil)
@@ -152,6 +179,7 @@ class TShowClassWorkViewController: BaseViewController {
             editorVC.theNum = "学号 "+model.student_num
             editorVC.bookid = model.class_book_id
             editorVC.bookState = model.type
+            editorVC.student_id = model.student_id
             editorVC.whereCome = 3
             self.present(editorVC, animated: true, completion: nil)
         }
@@ -200,5 +228,4 @@ class TShowClassWorkViewController: BaseViewController {
             }
         }
     }
-    
 }

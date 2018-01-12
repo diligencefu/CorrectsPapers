@@ -23,13 +23,16 @@ class TClassStudentCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        userIcon.layer.cornerRadius = 8*kSCREEN_SCALE
+        userIcon.clipsToBounds = true
+
     }
     
     
     func showHeadTeacherCell(model:THeadTeacherModel) {
         handWork.isHidden = true
         if model.head_teacher_photo != "" {
-            userIcon.kf.setImage(with:  URL(string:model.head_teacher_photo)!, placeholder: #imageLiteral(resourceName: "photos_image_default"), options: nil, progressBlock: nil, completionHandler: nil)
+            userIcon.kf.setImage(with:  URL(string:model.head_teacher_photo)!, placeholder: #imageLiteral(resourceName: "class_default"), options: nil, progressBlock: nil, completionHandler: nil)
         }
         userNum.text = model.head_teacher_num
         idMark.text = "工号"
@@ -41,24 +44,31 @@ class TClassStudentCell: UITableViewCell {
         if model.ispay == "no" {
             handWork.isHidden = true
         }else if model.ispay == "yes" {
-            handWork.isHidden = false
+            handWork.isHidden = true
         }
-        
-        userIcon.kf.setImage(with:  URL(string:model.student_photo)!, placeholder: #imageLiteral(resourceName: "photos_image_default"), options: nil, progressBlock: nil, completionHandler: nil)
+        handWork.isHidden = true
+
+        userIcon.kf.setImage(with:  OCTools.getEfficientAddress(model.student_photo), placeholder: #imageLiteral(resourceName: "class_default"), options: nil, progressBlock: nil, completionHandler: nil)
         userNum.text = model.student_num
         idMark.text = "学号"
         userName.text = model.student_name
-
     }
 
     func showOtherTeachersCell(model:TTeacherModel) {
-        handWork.isHidden = true
-        userIcon.kf.setImage(with:  URL(string:model.teacher_photo)!, placeholder: #imageLiteral(resourceName: "photos_image_default"), options: nil, progressBlock: nil, completionHandler: nil)
+        handWork.isHidden = false
+        userIcon.kf.setImage(with:  URL(string:model.teacher_photo)!, placeholder: #imageLiteral(resourceName: "class_default"), options: nil, progressBlock: nil, completionHandler: nil)
         userNum.text = model.teacher_num
         idMark.text = "工号"
         userName.text = model.teacher_name
+        
+        if model.type == "1" {
+            handWork.text = "上课老师"
+        }else if model.type == "2" {
+            handWork.text = "助教老师"
+        }else{
+            handWork.text = ""
+        }
     }
-
     
 
     override func setSelected(_ selected: Bool, animated: Bool) {

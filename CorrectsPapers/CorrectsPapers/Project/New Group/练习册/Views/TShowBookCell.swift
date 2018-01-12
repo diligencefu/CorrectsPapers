@@ -52,7 +52,7 @@ class TShowBookCell: UITableViewCell {
         proMark.layer.borderWidth = 1
         
         gradeMark.snp.updateConstraints { (make) in
-            make.width.equalTo(getLabWidth(labelStr: model.grade!, font: kFont24, height: 18) + 20)
+            make.width.equalTo(getLabWidth(labelStr: model.class_name, font: kFont24, height: 18) + 20)
         }
         
         proMark.snp.updateConstraints { (make) in
@@ -60,7 +60,7 @@ class TShowBookCell: UITableViewCell {
         }
         
         
-        gradeMark.setTitle(model.grade, for: .normal)
+        gradeMark.setTitle(model.class_name, for: .normal)
         
         
         
@@ -72,7 +72,7 @@ class TShowBookCell: UITableViewCell {
         
         termDate.text = model.semester
         
-        bookImage.kf.setImage(with:  URL(string:model.cover_photo)!, placeholder: #imageLiteral(resourceName: "photos_image_default"), options: nil, progressBlock: nil, completionHandler: nil)
+        bookImage.kf.setImage(with:  URL(string:model.cover_photo)!, placeholder: #imageLiteral(resourceName: "class_default"), options: nil, progressBlock: nil, completionHandler: nil)
         
         if model.subject_name == "生物" {
             proMark.layer.borderColor = kSetRGBColor(r: 102, g: 200, b: 205).cgColor

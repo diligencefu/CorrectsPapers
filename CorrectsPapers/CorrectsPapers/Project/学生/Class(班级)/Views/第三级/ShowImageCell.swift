@@ -45,7 +45,7 @@ class ShowImageCell: UICollectionViewCell {
     }
     
     func showImages(image:String) {
-        showImage.kf.setImage(with:  URL(string:image)!, placeholder: #imageLiteral(resourceName: "workBook"), options: nil, progressBlock: nil, completionHandler: nil)
+        showImage.kf.setImage(with:  URL(string:image)!, placeholder: #imageLiteral(resourceName: "class_default"), options: nil, progressBlock: nil, completionHandler: nil)
 
     }
     

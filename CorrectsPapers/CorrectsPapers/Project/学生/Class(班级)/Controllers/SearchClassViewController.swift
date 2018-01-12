@@ -35,6 +35,10 @@ class SearchClassViewController: BaseViewController ,UITextFieldDelegate,UIAlert
         
     }
     
+    override func refreshHeaderAction() {
+        searchBegin()
+    }
+    
     
     override func leftBarButton() {
         self.navigationItem.leftBarButtonItem = UIBarButtonItem.init(image:#imageLiteral(resourceName: "back_icon_default"), style: .done, target: self, action: #selector(backAction(sender:)))
@@ -120,7 +124,17 @@ class SearchClassViewController: BaseViewController ,UITextFieldDelegate,UIAlert
         cell.addClassBlock = {
             
             deBugPrint(item: $0)
-            self.addAlertTip()
+            let params = [
+                "SESSIONID":SESSIONIDT,
+                "classes_id":model.classes_id,
+                "mobileCode":mobileCodeT,
+            ] as [String:Any]
+            netWorkForJoinClass(params: params, callBack: { (flag) in
+                if flag {
+                    setToast(str: "已发送申请")
+                    self.searchBegin()
+                }
+            })
             
         }
         return cell
@@ -129,8 +143,6 @@ class SearchClassViewController: BaseViewController ,UITextFieldDelegate,UIAlert
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         searchTextfield.endEditing(true)
-        mainTableArr = []
-        tableView.reloadData()
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -185,18 +197,28 @@ class SearchClassViewController: BaseViewController ,UITextFieldDelegate,UIAlert
     @objc func searchBegin() {
 
         let params = [
-            "SESSIONID":SESSIONID,
-            "mobileCode":mobileCode,
-            
+            "SESSIONID":SESSIONIDT,
+            "class_name":searchTextfield.text!,
+            "mobileCode":mobileCodeT,
+            "type":"2"
         ]
         self.view.beginLoading()
         netWorkForMyClass(params: params) { (datas,flag) in
             if flag {
                 self.mainTableArr.removeAllObjects()
+                
+//                for index in datas {
+//                    let model = index as! ClassModel
+//                    if model.ByClass == "0" {
+//                        self.mainTableArr.add(model)
+//                    }
+//                }
                 self.mainTableArr.addObjects(from: datas)
                 self.isSearching = true
                 self.mainTableView.reloadData()
             }
+            
+            self.mainTableView.mj_header.endRefreshing()
             self.view.endLoading()
         }
     }
@@ -224,7 +246,7 @@ class SearchClassViewController: BaseViewController ,UITextFieldDelegate,UIAlert
     func alertView(_ alertView: UIAlertView, clickedButtonAt buttonIndex: Int) {
         let buttonTitle = alertView.buttonTitle(at: buttonIndex)
         if buttonTitle == certainTitle {
-            setToast(str: "真实姓名为 --------> " + nameTextfield.text!)
+//            setToast(str: "真实姓名为 --------> " + nameTextfield.text!)
         }else{
              setToast(str: "取消了")
         }

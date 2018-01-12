@@ -9,7 +9,7 @@
 import UIKit
 import SwiftyJSON
 
-class TBookDetailViewController: BaseViewController,UITextFieldDelegate {
+class TBookDetailViewController: BaseViewController,UITextFieldDelegate,UIAlertViewDelegate {
     
     var typeArr = ["学生作业","已批改","知识点讲解","参考答案","成绩"]
     var underLine = UIView()
@@ -24,7 +24,7 @@ class TBookDetailViewController: BaseViewController,UITextFieldDelegate {
 //    知识点
     var videoArr = [UrlModel]()
 //    参考答案数据
-    var answerArr = [UrlModel]()
+    var answerArr = NSMutableArray()
 //    成绩
     var grades = NSMutableArray()
     
@@ -42,25 +42,51 @@ class TBookDetailViewController: BaseViewController,UITextFieldDelegate {
     let identyfierTable10 = "identyfierTable10"
     let identyfierTable11 = "identyfierTable11"
 
+    var selectDate = ""
+    
+    
 //    搜索框
     var isSearching = false
     var searchTextfield = UITextField()
 
     var footBtnView = UIView()
 
+    var mainModel = TMyWorkDetailModel()
+    
+    
+    var bookName = ""
+    
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        rightBarButton()
         footView()
+        addTimeSelector()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(receiveNitification(nitofication:)), name: NSNotification.Name(rawValue: SuccessCorrectWorkBookNoti), object: nil)
     }
+    
+    @objc func receiveNitification(nitofication:Notification) {
+        self.mainTableView.mj_header.beginRefreshing()
+    }
+
+    
+    override func viewWillAppear(_ animated: Bool) {
+        
+    }
+    
     
     override func requestData() {
         
         let params =
             ["SESSIONID":SESSIONIDT,
              "mobileCode":mobileCodeT,
-             "id":book_id
+             "id":book_id,
+             "date":selectDate
              ]
+
         self.view.beginLoading()
         NetWorkTeacherGetTWorkDetail(params: params) { (datas,flag) in
             
@@ -74,37 +100,27 @@ class TBookDetailViewController: BaseViewController,UITextFieldDelegate {
             self.view.endLoading()
         }
         
-        let params1 =
-            ["SESSIONID":SESSIONIDT,
-             "mobileCode":mobileCodeT,
-             "userWorkBookId":book_id,
-             "pageNo":"1"
-                ] as [String : Any]
-        
-        NetWorkTeacherGetTStudentWorkList(params: params1) { (datas,flag) in
+        NetWorkTeacherGetTStudentWorkList(params: params) { (datas,flag) in
             if flag {
                 self.works.removeAllObjects()
                 self.works.addObjects(from: datas)
                 self.mainTableView.reloadData()
             }
+            self.mainTableView.mj_header.beginRefreshing()
             self.view.endLoading()
         }
-    }
-    
-    
-    override func addHeaderRefresh() {
         
     }
     
     
     override func configSubViews() {
         
-        self.navigationItem.title = "练习册名称"
+        self.navigationItem.title = bookName
         
-        headView = UIView.init(frame: CGRect(x: 0, y: 0, width: kSCREEN_WIDTH, height: 224 + 80*kSCREEN_SCALE))
+        headView = UIView.init(frame: CGRect(x: 0, y: 0, width: kSCREEN_WIDTH, height: 23 + 80*kSCREEN_SCALE))
         headView.backgroundColor = UIColor.white
         infoView = UINib(nibName:"TBookHeadView",bundle:nil).instantiate(withOwner: self, options: nil).first as! TBookHeadView
-        infoView.frame =  CGRect(x: 0, y: 0, width: kSCREEN_WIDTH, height: 224)
+        infoView.frame =  CGRect(x: 0, y: 0, width: kSCREEN_WIDTH, height: 23)
         headView.addSubview(infoView)
         
         
@@ -113,19 +129,18 @@ class TBookDetailViewController: BaseViewController,UITextFieldDelegate {
         var totalWidth = CGFloat()
         
         //MARK: 因为按钮字数不一样，长短有别，所以我先看看一共有多长再平分space
-        for index in 0...typeArr.count-1{
+        for index in 0..<typeArr.count{
             
             let kWidth = getLabWidth(labelStr: typeArr[index], font: kFont32, height: kHeight) + 10
             totalWidth += kWidth
-            
         }
         
         let kSpace = CGFloat(kSCREEN_WIDTH - totalWidth)/CGFloat(typeArr.count+1)
         
-        for index in 0...typeArr.count-1{
+        for index in 0..<typeArr.count{
             
             let kWidth = getLabWidth(labelStr: typeArr[index], font: kFont32, height: kHeight) + 10
-            let markBtn = UIButton.init(frame: CGRect(x: kSpace + (contentWidth + kSpace * CGFloat(index)) , y: 224, width: kWidth, height: kHeight))
+            let markBtn = UIButton.init(frame: CGRect(x: kSpace + (contentWidth + kSpace * CGFloat(index)) , y: 23, width: kWidth, height: kHeight))
             //            markBtn.center.y = headView.center.y
             markBtn.setTitle(typeArr[index], for: .normal)
             markBtn.setTitleColor(kGaryColor(num: 117), for: .normal)
@@ -138,7 +153,7 @@ class TBookDetailViewController: BaseViewController,UITextFieldDelegate {
         
         let view = headView.viewWithTag(131) as! UIButton
         view.setTitleColor(kMainColor(), for: .normal)
-        underLine = UIView.init(frame: CGRect(x: 0, y: 224+80 * kSCREEN_SCALE - 3, width: getLabWidth(labelStr: typeArr[0], font: kFont32, height: 1) - 5, height: 2))
+        underLine = UIView.init(frame: CGRect(x: 0, y: 23+80 * kSCREEN_SCALE - 3, width: getLabWidth(labelStr: typeArr[0], font: kFont32, height: 1) - 5, height: 2))
         underLine.backgroundColor = kMainColor()
         underLine.layer.cornerRadius = 1
         underLine.clipsToBounds = true
@@ -162,7 +177,7 @@ class TBookDetailViewController: BaseViewController,UITextFieldDelegate {
         mainTableView.register(UINib(nibName: "ShowWriteAnswerCell",    bundle: nil), forCellReuseIdentifier: identyfierTable11)
         mainTableView.register(UINib(nibName: "AnswerImageCell",    bundle: nil), forCellReuseIdentifier: identyfierTable8)
         mainTableView.register(UINib(nibName: "ShowFileCell",    bundle: nil), forCellReuseIdentifier: identyfierTable9)
-        mainTableView.register(UITableViewCell.self, forCellReuseIdentifier: identyfierTable11)
+//        mainTableView.register(UITableViewCell.self, forCellReuseIdentifier: identyfierTable12)
         
         mainTableView.tableHeaderView = headView
         self.view.addSubview(mainTableView)
@@ -178,23 +193,25 @@ class TBookDetailViewController: BaseViewController,UITextFieldDelegate {
         let params =
             ["SESSIONID":SESSIONIDT,
              "mobileCode":mobileCodeT,
-             "id":book_id
-        ]
-        
+             "id":book_id,
+             "date":selectDate,
+             ]
+
         if currentIndex == 4 {
             self.view.addSubview(footBtnView)
         }else{
             footBtnView.removeFromSuperview()
         }
-        self.view.beginLoading()
+//        self.view.beginLoading()
         if currentIndex == 1 {
             
             NetWorkTeacherGetTStudentWorkList(params: params) { (datas,flag) in
-                
+
                 if flag {
                     self.works.removeAllObjects()
                     self.works.addObjects(from: datas)
                     self.mainTableView.reloadData()
+                    self.mainTableView.mj_header.endRefreshing()
                 }
                 self.view.endLoading()
             }
@@ -207,10 +224,17 @@ class TBookDetailViewController: BaseViewController,UITextFieldDelegate {
                     self.mainTableView.reloadData()
                 }
                 self.view.endLoading()
+                self.mainTableView.mj_header.endRefreshing()
             }
         }else if currentIndex == 3 {
             
-            NetWorkTeacherGetTPeriodPoint(params: params) { (datas,flag) in
+            let params11 =
+                ["SESSIONID":SESSIONIDT,
+                 "mobileCode":mobileCodeT,
+                 "date":selectDate,
+                 "workBookId":book_id
+            ]
+            NetWorkTeacherGetTPeriodPoint(params: params11) { (datas,flag) in
                 if flag {
                     self.videoArr.removeAll()
                     
@@ -220,30 +244,57 @@ class TBookDetailViewController: BaseViewController,UITextFieldDelegate {
                     }
                     self.mainTableView.reloadData()
                 }
+                self.mainTableView.mj_header.endRefreshing()
                 self.view.endLoading()
             }
         }else if currentIndex == 4{
-            //            #WORNNINGN:
-            NetWorkTeacherGetTPeriodAnswers(params: params) { (datas,flag) in
+            let params1 =
+                ["SESSIONID":SESSIONIDT,
+                 "mobileCode":mobileCodeT,
+                 "date":selectDate,
+                 "bookId":book_id
+                    ] as [String:Any]
+            NetWorkTeacherGetTMyNotWorkDatailAnswers(params: params1) { (datas,flag) in
                 
                 if flag {
-                    self.answerArr.removeAll()
-                    for index in 0..<datas.count {
-                        let model = datas[index] as! UrlModel
-                        self.answerArr.append(model)
+                    self.answerArr.removeAllObjects()
+                    self.answerArr.addObjects(from: datas)
+                    
+                    for btn in self.footBtnView.subviews {
+                        let theBtn = btn as! UIButton
+                        theBtn.setBackgroundImage(getNavigationIMG(27, fromColor: kSetRGBColor(r: 0, g: 200, b: 255), toColor: kSetRGBColor(r: 0, g: 162, b: 255)), for: .normal)
+                        theBtn.isEnabled = true
                     }
+
+                    for model in self.answerArr {
+                        let m = model as! UrlModel
+                        let markBtn = self.footBtnView.viewWithTag(180+Int(m.type!)!) as! UIButton
+                        markBtn.setBackgroundImage(getNavigationIMG(27, fromColor: kGaryColor(num: 220), toColor: kGaryColor(num: 220)), for: .normal)
+                        markBtn.isEnabled = false
+                    }
+                    //self.footView()
                     self.mainTableView.reloadData()
                 }
+                self.mainTableView.mj_header.endRefreshing()
                 self.view.endLoading()
             }
         }else{
             
-            NetWorkTeacherGetTStudentGrades(params: params) { (datas,flag) in
+            let params111 =
+                ["SESSIONID":SESSIONIDT,
+                 "mobileCode":mobileCodeT,
+                 "id":book_id,
+                 "date":selectDate,
+                 "type":"1"
+                 ]
+
+            NetWorkTeacherGetStudentScroes(params: params111) { (datas,flag) in
                 if flag {
                     self.grades.removeAllObjects()
                     self.grades.addObjects(from: datas)
                     self.mainTableView.reloadData()
                 }
+                self.mainTableView.mj_header.endRefreshing()
                 self.view.endLoading()
             }
         }
@@ -251,17 +302,39 @@ class TBookDetailViewController: BaseViewController,UITextFieldDelegate {
     
     
     //    右键
+    var dateBtn = UIButton()
     func rightBarButton() {
         
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(image: #imageLiteral(resourceName: "edit_icon"), style: .plain, target: self, action: #selector(correctPapers(sender:)))
+        let date = NSDate.init()
+        let formatter = DateFormatter()
+        //日期样式
+        formatter.dateFormat = "yyyy-MM-dd"
+        selectDate = formatter.string(from: date as Date)
         
+        dateBtn = UIButton.init(frame: CGRect(x: 10, y: 0 , width: kSCREEN_WIDTH/3, height: 38))
+        dateBtn.backgroundColor = UIColor.clear
+        dateBtn.titleLabel?.font = kFont30
+        dateBtn.setTitleColor(UIColor.white, for: .normal)
+        dateBtn.setImage(#imageLiteral(resourceName: "date_dropdown-arrow_icon"), for: .normal)
+        dateBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 12)
+        dateBtn.imageEdgeInsets = UIEdgeInsetsMake(0, 103, 0, 0)
+        dateBtn.setTitle(selectDate, for: .normal)
+        dateBtn.addTarget(self, action: #selector(chooseDateAction(sender:)), for: .touchUpInside)
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(customView: dateBtn)
     }
-    
-    
-    @objc func correctPapers(sender:UIBarButtonItem) {
-        setToast(str: "编辑作业")
+    @objc func chooseDateAction(sender:UIButton) {
+        //        print(NSDate())
+//        if currentIndex == 5 {
+//            return
+//        }
+        showDatePickerView()
     }
+
     
+//    @objc func correctPapers(sender:UIBarButtonItem) {
+//        setToast(str: "编辑作业")
+//    }
+//
     
     //MARK:   顶部选择栏选择事件
     @objc func goodAtProject(sender:UIButton) {
@@ -285,15 +358,18 @@ class TBookDetailViewController: BaseViewController,UITextFieldDelegate {
         let params =
             ["SESSIONID":SESSIONIDT,
              "mobileCode":mobileCodeT,
-             "id":book_id
-        ]
-        
+             "id":book_id,
+             "date":selectDate,
+             ]
+
         if currentIndex == 4 {
+            mainTableView.height = kSCREEN_HEIGHT - 64 - 96*kSCREEN_SCALE-10
             self.view.addSubview(footBtnView)
         }else{
             footBtnView.removeFromSuperview()
+            mainTableView.height = kSCREEN_HEIGHT - 64
         }
-        
+
         self.view.beginLoading()
         if currentIndex == 1 {
             
@@ -320,6 +396,7 @@ class TBookDetailViewController: BaseViewController,UITextFieldDelegate {
             let params1 =
                 ["SESSIONID":SESSIONIDT,
                  "mobileCode":mobileCodeT,
+                 "date":selectDate,
                  "workBookId":book_id
             ]
             NetWorkTeacherGetTPeriodPoint(params: params1) { (datas,flag) in
@@ -335,25 +412,45 @@ class TBookDetailViewController: BaseViewController,UITextFieldDelegate {
                 self.view.endLoading()
             }
         }else if currentIndex == 4{
-
-//            NetWorkTeacherGetTPeriodAnswers(params: params) { (datas) in
-//                self.answerArr.removeAll()
-//                // #MARK:待处理
-//                self.mainTableView.reloadData()
-//            }
+            let params1 =
+                ["SESSIONID":SESSIONIDT,
+                 "mobileCode":mobileCodeT,
+                 "bookId":book_id,
+                 "date":selectDate
+                    ] as [String:Any]
+            NetWorkTeacherGetTMyNotWorkDatailAnswers(params: params1) { (datas,flag) in
+                
+                if flag {
+//                    self.footView()
+                    self.answerArr.removeAllObjects()
+                    self.answerArr.addObjects(from: datas)
+                    
+                    for btn in self.footBtnView.subviews {
+                        let theBtn = btn as! UIButton
+                        theBtn.setBackgroundImage(getNavigationIMG(27, fromColor: kSetRGBColor(r: 0, g: 200, b: 255), toColor: kSetRGBColor(r: 0, g: 162, b: 255)), for: .normal)
+                        theBtn.isEnabled = true
+                    }
+                    
+                    for model in self.answerArr {
+                        let m = model as! UrlModel
+                        let markBtn = self.footBtnView.viewWithTag(180+Int(m.type!)!) as! UIButton
+                        markBtn.setBackgroundImage(getNavigationIMG(27, fromColor: kGaryColor(num: 220), toColor: kGaryColor(num: 220)), for: .normal)
+                        markBtn.isEnabled = false
+                    }
+                    //                    self.footView()
+                    self.mainTableView.reloadData()
+                }
+//                self.mainTableView.mj_header.endRefreshing()
+                self.view.endLoading()
+            }
         }else{
-            
-            let date = NSDate.init()
-            let formatter = DateFormatter()
-            //日期样式
-            formatter.dateFormat = "yyyy/MM/dd"
 
             let params1 =
                 ["SESSIONID":SESSIONIDT,
                  "mobileCode":mobileCodeT,
                  "type":"1",
-                 "date":formatter.string(from: date as Date),
-                 "workBook_id":book_id,
+                 "date":selectDate,
+                 "id":book_id,
             ]
             
             NetWorkTeacherGetStudentScroes(params: params1) { (datas,flag) in
@@ -427,6 +524,7 @@ class TBookDetailViewController: BaseViewController,UITextFieldDelegate {
                 if searchArr.count == 0 {
                     let cell : UITableViewCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable11, for: indexPath)
                     cell.textLabel?.text = "未找到关于“"+searchTextfield.text!+"”的作业"
+                    cell.detailTextLabel?.text = ""
                     cell.selectionStyle = .none
                     return cell
                 }else{
@@ -465,39 +563,75 @@ class TBookDetailViewController: BaseViewController,UITextFieldDelegate {
             }
             
         }else if currentIndex == 4 {
-            
-            let model = answerArr[indexPath.row]
+
+            let model = answerArr[indexPath.row] as! UrlModel
+            deBugPrint(item: model.type!)
+            deBugPrint(item: model.format!)
             if model.type == "1" {
-                let cell : AnserVideoCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable3, for: indexPath) as! AnserVideoCell
-                cell.AnserVideoCellSetValues(model: model)
-                return cell
-
-            }else if model.type == "2" {
-
-                let cell : ShowFileCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable9, for: indexPath) as! ShowFileCell
-                return cell
-
-            }else if model.type == "3" {
                 
+                let cell : AnserVideoCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable3, for: indexPath) as! AnserVideoCell
+                cell.AnserVideoCellSetValuesForAnswer(title: model.title)
+                return cell
+            }else  if model.type == "2" {
+                
+                if model.format == "doc" || model.format == "xls"{
+                    let cell : ShowFileCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable9, for: indexPath) as! ShowFileCell
+                    cell.setValues(model: model)
+                    return cell
+                }else{
+                    
+                    let cell : AnswerImageCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable8, for: indexPath) as! AnswerImageCell
+                    cell.showWithImage(image: model.answard_res)
+                    cell.selectionStyle = .none
+                    return cell
+                }
+                
+            }else  if model.type == "3" {
                 let cell : ShowWriteAnswerCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable11, for: indexPath) as! ShowWriteAnswerCell
-                cell.showAnswer(text: model.title)
+                cell.showAnswer(text: model.answard_res)
+                cell.selectionStyle = .none
                 return cell
             }else{
-                
-                let cell : AnswerImageCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable8, for: indexPath) as! AnswerImageCell
-                cell.showWithImage(image: model.address!)
-                return cell
+                return UITableViewCell()
             }
+
+            
+//            let model = answerArr[indexPath.row] as! UrlModel
+//            if model.type == "1" {
+//                let cell : AnserVideoCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable3, for: indexPath) as! AnserVideoCell
+//                cell.AnserVideoCellSetValues(model: model)
+//                return cell
+//
+//            }else if model.type == "2" {
+//
+//                let cell : ShowFileCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable9, for: indexPath) as! ShowFileCell
+//                return cell
+//
+//            }else if model.type == "3" {
+//
+//                let cell : ShowWriteAnswerCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable11, for: indexPath) as! ShowWriteAnswerCell
+////                cell.showAnswer(text: model.title)
+//                return cell
+//            }else{
+//
+//                let cell : AnswerImageCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable8, for: indexPath) as! AnswerImageCell
+//                cell.showWithImage(image: model.address!)
+//                return cell
+//            }
             
         }else{
             
             let cell : ClassGradeCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable4, for: indexPath) as! ClassGradeCell
             
-            if indexPath.row == 0 {
-                cell.is1thCell()
+            if grades.count == 0{
+                cell.noDatas()
             }else{
-                let model = grades[indexPath.row-1] as! TShowGradeModel
-                cell.setValueForBookGrade(model:model)
+                if indexPath.row == 0 {
+                    cell.is1thCellForWorkBook()
+                }else{
+                    let model = grades[indexPath.row-1] as! TShowGradeModel
+                    cell.setValueForBookGrade(model:model)
+                }
             }
             return cell
         }
@@ -513,11 +647,28 @@ class TBookDetailViewController: BaseViewController,UITextFieldDelegate {
                 let viewC = TShowBookViewController()
                 let model = works[indexPath.row] as! TShowStuWorksModel
                 viewC.model = model
+                viewC.correct_date = selectDate
+                viewC.book_details_id = model.book_details_id
                 if model.correcting_states == "2" || model.correcting_states == "5" {
-                    self.navigationController?.pushViewController(viewC, animated: true)
+                    
+                    let date = NSDate.init()
+                    let formatter = DateFormatter()
+                    //日期样式
+                    formatter.dateFormat = "yyyy/MM/dd"
+                   let createDate = formatter.date(from: model.correcting_time)
+
+                    let dateStr = model.correcting_time.substring(to: String.Index.init(encodedOffset: 10))
+                    
+                    if formatter.string(from: date as Date) == dateStr {
+                        self.navigationController?.pushViewController(viewC, animated: true)
+                    }else{
+                        setToast(str: "只能批改当天的作业")
+                    }
                 }
             }
         }
+        
+        
         
         if currentIndex == 3 {
             
@@ -528,33 +679,54 @@ class TBookDetailViewController: BaseViewController,UITextFieldDelegate {
                 nextVC.bookId = book_id
                 nextVC.currentType = 1
                 nextVC.addUrlBlock = {
-
+                    self.mainTableView.mj_header.beginRefreshing()
                     self.mainTableView.reloadData()
                 }
                 self.navigationController?.pushViewController(nextVC, animated: true)
             }else{
                
                 let model = videoArr[indexPath.row]
-                let url = StringToUTF_8InUrl(str: model.address!)
-                if #available(iOS 10.0, *) {
-                  
-                    UIApplication.shared.open(url as URL, options: [:],
-                                              completionHandler: {
-                                                (success) in
-                    })
-                } else {
-                    // Fallback on earlier versions
-                }
+                
+                let webVc = WebViewController()
+                webVc.webUrl = model.point_address
+                webVc.theTitle = model.point_title
+                self.navigationController?.pushViewController(webVc, animated: true)
             }
         }
         
         if currentIndex == 4 {
-
+            let model = answerArr[indexPath.row] as! UrlModel
+            if model.type == "1" {
+                
+                let webVc = WebViewController()
+                webVc.webUrl = model.answard_res
+                webVc.theTitle = model.title
+                self.navigationController?.pushViewController(webVc, animated: true)
+            }else if model.type == "2" && model.format == "img" {
+                
+                let cell = tableView.cellForRow(at: indexPath) as! AnswerImageCell
+                var images = [KSPhotoItem]()
+                
+                let watchIMGItem = KSPhotoItem.init(sourceView: cell.showImage, image: cell.showImage.image)
+                images.append(watchIMGItem!)
+                
+                let watchIMGView = KSPhotoBrowser.init(photoItems: images,
+                                                       selectedIndex:UInt(0))
+                watchIMGView?.dismissalStyle = .scale
+                watchIMGView?.backgroundStyle = .blurPhoto
+                watchIMGView?.loadingStyle = .indeterminate
+                watchIMGView?.pageindicatorStyle = .text
+                watchIMGView?.bounces = false
+                watchIMGView?.show(from: self)
+            }
         }
         
         if currentIndex == 5 {
             if indexPath.row != 0 {
                 let showVC = TShowOneGradeVCViewController()
+                let model = grades[indexPath.row-1] as! TShowGradeModel
+                showVC.user_num = model.studentId
+                showVC.type = 1
                 self.navigationController?.pushViewController(showVC, animated: true)
             }
         }
@@ -679,10 +851,15 @@ class TBookDetailViewController: BaseViewController,UITextFieldDelegate {
         deBugPrint(item: sender.tag)
         
         if sender.tag == 181 {
-            
+
             let nextVC = UploadVideoViewController()
             nextVC.isAnswer = true
+            nextVC.bookId = book_id
             nextVC.currentType = 1
+            nextVC.bookDate = selectDate
+            nextVC.addUrlBlock = {
+                self.mainTableView.mj_header.beginRefreshing()
+            }
             self.navigationController?.pushViewController(nextVC, animated: true)
         }else  if sender.tag == 182{
             
@@ -691,6 +868,12 @@ class TBookDetailViewController: BaseViewController,UITextFieldDelegate {
             
             let nextVC = WriteAnswerViewController()
             nextVC.currentType = 1
+            nextVC.bookId = book_id
+            nextVC.bookDate = selectDate
+            nextVC.addTextBlock = {
+                deBugPrint(item: $0)
+                self.mainTableView.mj_header.beginRefreshing()
+            }
             self.navigationController?.pushViewController(nextVC, animated: true)
         }
     }
@@ -703,6 +886,8 @@ class TBookDetailViewController: BaseViewController,UITextFieldDelegate {
         let params1 =
             ["SESSIONID":SESSIONIDT,
              "mobileCode":mobileCodeT,
+             "date":selectDate,
+             "studentId":textField.text!,
              "id":book_id
         ]
         self.view.beginLoading()
@@ -738,23 +923,25 @@ class TBookDetailViewController: BaseViewController,UITextFieldDelegate {
             // 内部提供的方法可以异步获取图片，同步获取的话时间比较长，不建议！，如果是iCloud中的照片就直接从icloud中下载，下载完成后返回图片,同时也提供了下载失败的方法
             CLImagePickersTool.convertAssetArrToOriginImage(assetArr: assetArr, scale: 0.1, successClouse: {[weak self] (image,assetItem) in
                 imageArr.append(image)
-                let params1 =
-                    [
-                        "SESSIONID":SESSIONIDT,
-                        "mobileCode":mobileCodeT,
-                        "workId":self?.book_id
-                        ] as! [String:String]
+                self?.imageArr.append(image)
 
-                NetWorkTeacherUploadAnswerImages(params: params1, data: imageArr, success: { (success) in
-                    let json = JSON(success)
-                    deBugPrint(item: json)
-                    if json["code"] == "1" {
-                        setToast(str: "上传成功")
-                    }
-
-                }, failture: { (error) in
-                    
-                })
+//                let params1 =
+//                    [
+//                        "SESSIONID":SESSIONIDT,
+//                        "mobileCode":mobileCodeT,
+//                        "date":self?.selectDate,
+//                        "workId":self?.book_id
+//                        ] as! [String:String]
+//
+//                NetWorkTeacherUploadAnswerImages(params: params1, data: imageArr, success: { (success) in
+//                    let json = JSON(success)
+//                    deBugPrint(item: json)
+//                    if json["code"] == "1" {
+//                        setToast(str: "上传成功")
+//                    }
+//                }, failture: { (error) in
+//
+//                })
                 
 //                self?.answerArr.append(image)
                 self?.dealImage(imageArr: imageArr, index: index)
@@ -773,8 +960,220 @@ class TBookDetailViewController: BaseViewController,UITextFieldDelegate {
         // 图片下载完成后再去掉我们的转转转控件，这里没有考虑assetArr中含有视频文件的情况
         if imageArr.count == index {
             PopViewUtil.share.stopLoading()
+            self.addAlertTip()
         }
         // 图片显示出来以后可能还要上传到云端的服务器获取图片的url，这里不再细说了。
+    }
+    
+    
+    var imageArr = [UIImage]()
+    var priceTextfield = UITextField()
+    
+    func addAlertTip() {
+        
+        let alert = UIAlertView.init(title: "设置支付学币", message: "单位：（学币）", delegate: self, cancelButtonTitle: "确定", otherButtonTitles: "取消")
+        alert.alertViewStyle = .plainTextInput
+        
+        priceTextfield = alert.textField(at: 0)!
+        priceTextfield.keyboardType = .numberPad
+        
+        let text = priceTextfield.text
+        deBugPrint(item: text!)
+        alert.show()
+    }
+    
+    
+    func alertView(_ alertView: UIAlertView, clickedButtonAt buttonIndex: Int) {
+        let buttonTitle = alertView.buttonTitle(at: buttonIndex)
+        if buttonTitle == "确定" {
+            
+            if (priceTextfield.text?.count)! < 1 {
+                setToast(str: "请设置答案价格")
+                return
+            }
+            
+            if Int(priceTextfield.text!) == nil {
+                setToast(str: "请设置有效数字")
+                return
+            }
+
+            self.view.beginLoading()
+            let params1 =
+                ["SESSIONID":SESSIONIDT,
+                 "mobileCode":mobileCodeT,
+                 "workId":self.book_id,
+                 "money":priceTextfield.text!,
+                 ] as [String : String]
+            
+            NetWorkTeacherAddTNotWorkUploadFile(params: params1, data: imageArr, vc: self, success: { (data) in
+                self.mainTableView.mj_header.beginRefreshing()
+            }, failture: { (error) in
+                
+            })
+            
+            self.mainTableView.reloadData()
+        }
+    }
+    
+    
+    var BGView = UIView()
+    var datePickerView = UIView()
+    var datePicker = UIDatePicker()
+    
+    func addTimeSelector() {
+        
+        //        弹出视图弹出来之后的背景蒙层
+        BGView = UIView.init(frame: self.view.frame)
+        BGView.backgroundColor = kSetRGBAColor(r: 5, g: 5, b: 5, a: 0.5)
+        BGView.alpha = 0
+        //        BGView.isHidden = true
+        
+        let tapGes1 = UITapGestureRecognizer.init(target: self, action: #selector(showChooseCondi(tap:)))
+        tapGes1.numberOfTouchesRequired = 1
+        BGView.addGestureRecognizer(tapGes1)
+        
+        self.view.addSubview(BGView)
+        
+        
+        //MARK:   时间选择器背景
+        datePickerView = UIView.init(frame: CGRect(x: 0, y: kSCREEN_HEIGHT, width: kSCREEN_WIDTH, height: DateHeight))
+        datePickerView.backgroundColor = UIColor.white
+        datePickerView.layer.cornerRadius = 16 * kSCREEN_SCALE
+        
+        //MARK:  把datapicker的背景设为透明，这个selecView可以模拟选择栏
+        let selectView = UIView.init(frame: CGRect(x: 0, y: DateHeight/2-17, width: kSCREEN_WIDTH, height: 34))
+        selectView.backgroundColor = kMainColor()
+        //        selectView.center = datePickerView.center
+        datePickerView.addSubview(selectView)
+        
+        
+        //创建日期选择器
+        datePicker = UIDatePicker(frame: CGRect(x:0, y: 0, width:kSCREEN_WIDTH, height:DateHeight))
+        //将日期选择器区域设置为中文，则选择器日期显示为中文
+        datePicker.locale = Locale(identifier: "zh_CN")
+        
+        datePicker.addTarget(self, action: #selector(dateChanged),
+                             for: .valueChanged)
+        datePicker.backgroundColor = UIColor.clear
+        datePicker.datePickerMode = .date
+        datePicker.maximumDate = NSDate.init(timeIntervalSinceNow: 0) as Date
+        datePicker.minimumDate = NSDate.init(timeIntervalSinceNow: -1296000) as Date
+        datePickerView.addSubview(datePicker)
+        
+        //MARK:  顶部需要显示三个控件
+        let topView = UIView.init(frame: CGRect(x: 0, y: 0, width: kSCREEN_WIDTH, height: 100 * kSCREEN_SCALE))
+        topView.backgroundColor = kMainColor()
+        topView.layer.cornerRadius = 16 * kSCREEN_SCALE
+        
+        //MARK:  取消按钮
+        let cancel = UIButton.init(frame: CGRect(x: 15, y: 20 * kSCREEN_SCALE, width: 45, height: 60 * kSCREEN_SCALE))
+        cancel.titleLabel?.font = kFont32
+        cancel.setTitle("取消", for: .normal)
+        cancel.setTitleColor(UIColor.white, for: .normal)
+        cancel.addTarget(self, action: #selector(cancelAction(sender:)), for: .touchUpInside)
+        topView.addSubview(cancel)
+        
+        //MARK:   确定按钮
+        let contain = UIButton.init(frame: CGRect(x: kSCREEN_WIDTH - 60, y: 20 * kSCREEN_SCALE, width: 45, height: 60 * kSCREEN_SCALE))
+        contain.titleLabel?.font = kFont32
+        contain.setTitle("确定", for: .normal)
+        contain.setTitleColor(UIColor.white, for: .normal)
+        contain.addTarget(self, action: #selector(containAction(sender:)), for: .touchUpInside)
+        topView.addSubview(contain)
+        
+        //MARK:  题目
+        let titleLabel = UILabel.init(frame: CGRect(x: 0, y: 0, width: kSCREEN_WIDTH - 120, height: 60 * kSCREEN_SCALE))
+        titleLabel.text = "选择日期"
+        titleLabel.font = kFont36
+        titleLabel.textColor = UIColor.white
+        titleLabel.textAlignment = .center
+        titleLabel.center = topView.center
+        
+        topView.addSubview(titleLabel)
+        
+        datePickerView.addSubview(topView)
+        
+        //MARK:  因为需要设置圆角 还是只能上面有，所以我又给下面盖了一个。。。
+        let theView = UIView.init(frame: CGRect(x: 0, y: 80 * kSCREEN_SCALE, width: kSCREEN_WIDTH, height: 20 * kSCREEN_SCALE))
+        theView.backgroundColor = kMainColor()
+        datePickerView.addSubview(theView)
+        self.view.addSubview(datePickerView)
+        
+    }
+    
+    
+    //MARK: 模拟蒙层的点击事件 隐藏
+    @objc func showChooseCondi(tap:UITapGestureRecognizer) -> Void {
+        if tap.view?.alpha == 1 {
+            
+            UIView.animate(withDuration: 0.5) {
+                tap.view?.alpha = 0
+                self.datePickerView.transform = .identity
+                self.dateBtn.setImage(#imageLiteral(resourceName: "date_dropdown-arrow_icon"), for: .normal)
+            }
+        }
+    }
+    
+    //MARK://日期选择器响应方法
+    @objc func dateChanged(datePicker : UIDatePicker){
+        //更新提醒时间文本框
+        let formatter = DateFormatter()
+        //日期样式
+        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        deBugPrint(item: formatter.string(from: datePicker.date))
+    }
+    
+    
+    //MARK:      取消事件
+    @objc func cancelAction(sender:UIButton) {
+        UIView.animate(withDuration: 0.5) {
+            self.dateBtn.setImage(#imageLiteral(resourceName: "date_dropdown-arrow_icon"), for: .normal)
+            self.datePickerView.transform = .identity
+            self.BGView.alpha = 0
+        }
+    }
+    
+    @objc func containAction(sender:UIButton) {
+        
+        let formatter = DateFormatter()
+        //日期样式
+        formatter.dateFormat = "yyyy-MM-dd"
+        deBugPrint(item: formatter.string(from: self.datePicker.date))
+        self.selectDate = formatter.string(from: self.datePicker.date)
+        
+//        let date = NSDate.init()
+        let formatter1 = DateFormatter()
+        //日期样式
+        formatter1.dateFormat = "yyyy-MM-dd"
+        
+//        if !timeArr.contains(selectDate) && selectDate != formatter1.string(from: date as Date) {
+//            setToast(str: "你在"+selectDate+"没有相关作业！")
+//            return
+//        }
+        
+        selectDate = formatter.string(from: self.datePicker.date as Date)
+        //        self.navigationItem.rightBarButtonItem?.title = selectDate
+        self.dateBtn.setTitle(formatter.string(from: self.datePicker.date), for: .normal)
+
+        self.mainTableView.mj_header.beginRefreshing()
+        
+        UIView.animate(withDuration: 0.5) {
+            self.dateBtn.setImage(#imageLiteral(resourceName: "date_dropdown-arrow_icon"), for: .normal)
+            self.datePickerView.transform = .identity
+            self.BGView.alpha = 0
+        }
+    }
+    
+    
+    //MARK:   弹出视图DatePicker的出现事件
+    func showDatePickerView() -> Void {
+        
+        let y = DateHeight - 80 * kSCREEN_SCALE
+        UIView.animate(withDuration: 0.5) {
+            self.dateBtn.setImage(#imageLiteral(resourceName: "date_up-arrow_icon"), for: .normal)
+            self.datePickerView.transform = .init(translationX: 0, y: -y)
+            self.BGView.alpha = 1
+        }
     }
     
 }

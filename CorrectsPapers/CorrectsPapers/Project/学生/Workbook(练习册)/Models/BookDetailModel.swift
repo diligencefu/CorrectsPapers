@@ -36,6 +36,8 @@ class BookDetailModel: BaseModel {
     var comment_next : String?
     ///创建时间
     var create_date : String?
+    ///id
+    var book_details_id : String!
 
 
     class func setValueForBookDetailModel(json: JSON) -> BookDetailModel {
@@ -54,6 +56,7 @@ class BookDetailModel: BaseModel {
         model.scores_next = json["scores_next"].stringValue
         model.comment_next = json["comment_next"].stringValue
         model.create_date = json["create_date"].stringValue
+        model.book_details_id = json["book_details_id"].stringValue
         return model
     }
     

@@ -8,6 +8,7 @@
 
 import UIKit
 import SwiftyJSON
+import SwiftyUserDefaults
 
 class MyBookDetailViewController: BaseViewController,HBAlertPasswordViewDelegate {
     var typeArr = NSMutableArray()
@@ -43,6 +44,20 @@ class MyBookDetailViewController: BaseViewController,HBAlertPasswordViewDelegate
     let identyfierTable8 = "identyfierTable8"
     let identyfierTable12 = "identyfierTable12"
 
+    
+    var downloadType = 100
+
+    var payModels = NSMutableArray()
+
+    var workVideoModel = PayModel()
+    var workAnswerModel = PayModel()
+    var workTextModel = PayModel()
+
+    
+    var type = [String]()
+    var noAnswerTypes = [String]()
+
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         addTimeSelector()
@@ -56,7 +71,7 @@ class MyBookDetailViewController: BaseViewController,HBAlertPasswordViewDelegate
         let date = NSDate.init()
         let formatter = DateFormatter()
         //日期样式
-        formatter.dateFormat = "yyyy/MM/dd"
+        formatter.dateFormat = "yyyy-MM-dd"
         selectDate = formatter.string(from: date as Date)
         
         dateBtn = UIButton.init(frame: CGRect(x: 10, y: 0 , width: kSCREEN_WIDTH/3, height: 38))
@@ -76,7 +91,7 @@ class MyBookDetailViewController: BaseViewController,HBAlertPasswordViewDelegate
         let date = NSDate.init()
         let formatter = DateFormatter()
         //日期样式
-        formatter.dateFormat = "yyyy/MM/dd"
+        formatter.dateFormat = "yyyy-MM-dd"
 
         let params =
             [
@@ -108,35 +123,88 @@ class MyBookDetailViewController: BaseViewController,HBAlertPasswordViewDelegate
             self.view.endLoading()
         }
         
-        let params1 =
-            [
-                "bookId":model.work_book_Id,
-                "SESSIONID":SESSIONID,
-                "mobileCode":mobileCode
-                ] as [String:Any]
-        NetWorkStudentCheckPay(params: params1) { (pays,falg) in
-            
-            
+//        let params1 =
+//            [
+//                "bookId":model.work_book_Id,
+//                "SESSIONID":SESSIONID,
+//                "mobileCode":mobileCode
+//                ] as [String:Any]
+//        NetWorkStudentCheckPay(params: params1) { (pays,falg) in
+//
+//
+//        }
+        
+        titleArr3 = ["作业视频讲解","作业答案文档下载","文字版答案"]
+        
+        if Int(workState)! > Int(1) {
+            let params1 =
+                [
+                    "bookId":model.work_book_Id,
+                    "SESSIONID":SESSIONID,
+                    "mobileCode":mobileCode
+                    ] as [String:Any]
+            NetWorkStudentCheckPay(params: params1) { (pays,flag) in
+                deBugPrint(item: pays)
+                if flag && pays.count > 0{
+                    self.payModels.addObjects(from: pays)
+                    
+                    for model in pays {
+                        let m = model as! PayModel
+                        
+                        if m.type == "1"{
+                            self.workVideoModel = m
+                        }
+                        if m.type == "2"{
+                            self.workAnswerModel = m
+                        }
+                        if m.type == "3"{
+                            self.workTextModel = m
+                        }
+                        self.noAnswerTypes.append(m.type!)
+                    }
+                    
+                    if self.workVideoModel.isPay != "no" && self.workVideoModel.isPay != nil {
+                        self.titleArr3.remove(at: self.titleArr3.index(of: "作业视频讲解")!)
+                        self.type.append("1")
+                    }
+                    
+                    if self.workAnswerModel.isPay != "no" && self.workAnswerModel.isPay != nil {
+                        self.titleArr3.remove(at: self.titleArr3.index(of: "作业答案文档下载")!)
+                        self.type.append("2")
+                    }
+                    
+                    if self.workTextModel.isPay != "no" && self.workTextModel.isPay != nil{
+                        self.titleArr3.remove(at: self.titleArr3.index(of: "文字版答案")!)
+                        self.type.append("3")
+                    }
+                    if self.currentIndex == 3 {
+                        
+                        self.mainTableView.mj_header.beginRefreshing()
+                        self.footView(titles: self.titleArr3)
+                    }
+                }
+                self.view.endLoading()
+            }
         }
+
     }
     
     
     override func refreshHeaderAction() {
         
         if currentIndex == 1 {
-            let date = NSDate.init()
-            let formatter = DateFormatter()
-            //日期样式
-            formatter.dateFormat = "yyyy/MM/dd"
+//            let date = NSDate.init()
+//            let formatter = DateFormatter()
+//            //日期样式
+//            formatter.dateFormat = "yyyy-MM-dd"
             
             let params =
                 [
                     "userWorkBookId":model.userWorkBookId!,
                     "SESSIONID":SESSIONID,
-                    "time":formatter.string(from: date as Date),
+                    "time":selectDate,
                     "mobileCode":mobileCode
                     ]
-            self.view.beginLoading()
             netWorkForGetWorkBookByTime(params: params) { (dataArr,flag) in
                 if flag {
                     if dataArr.count > 0{
@@ -150,22 +218,52 @@ class MyBookDetailViewController: BaseViewController,HBAlertPasswordViewDelegate
                     deBugPrint(item: dataArr)
                 }
                 self.mainTableView.mj_header.endRefreshing()
-                self.view.endLoading()
             }
 
         }else if currentIndex == 2 {
-            
+            let params =
+                [
+                    "workBookId":model.work_book_Id,
+                    "date":selectDate,
+                    "SESSIONID":SESSIONID,
+                    "mobileCode":mobileCode
+                    ] as [String:Any]
+            NetWorkStudentGetKnowledgePoint(params: params, callBack: { (datas, flag) in
+                if flag {
+                    self.pointArr.removeAllObjects()
+                    self.pointArr.addObjects(from: datas)
+                    self.mainTableView.reloadData()
+                }
+                self.mainTableView.mj_header.endRefreshing()
+                
+            })
         }else if currentIndex == 3 {
+            let params =
+                [
+                    "bookId":model.work_book_Id,
+                    "type":"1",
+                    "SESSIONID":SESSIONID,
+                    "mobileCode":mobileCode
+                    ] as [String:Any]
+            NetWorkStudentGetAnswrs(params: params) { (datas, flag) in
+                if flag {
+                    self.answerArr.addObjects(from: datas)
+                    self.mainTableView.reloadData()
+                }
+                self.mainTableView.mj_header.endRefreshing()
+                self.view.endLoading()
+            }
             
         }else if currentIndex == 4 {
             
         }
+
         
     }
     
     override func configSubViews() {
         
-        self.navigationItem.title = "非练习册"
+        self.navigationItem.title = model.work_book_name
         
         typeArr = ["我的作业","知识点讲解","参考答案","成绩统计"]
         let kHeight = CGFloat(44)
@@ -274,6 +372,7 @@ class MyBookDetailViewController: BaseViewController,HBAlertPasswordViewDelegate
                 [
                     "userWorkBookId":model.userWorkBookId!,
                     "SESSIONID":SESSIONID,
+                    "time":selectDate,
                     "mobileCode":mobileCode
                     ] as [String:Any]
             self.view.beginLoading()
@@ -296,7 +395,8 @@ class MyBookDetailViewController: BaseViewController,HBAlertPasswordViewDelegate
             
             let params =
                 [
-                    "bookId":model.work_book_Id,
+                    "workBookId":model.work_book_Id,
+                    "date":selectDate,
                     "SESSIONID":SESSIONID,
                     "mobileCode":mobileCode
                     ] as [String:Any]
@@ -319,6 +419,7 @@ class MyBookDetailViewController: BaseViewController,HBAlertPasswordViewDelegate
                     ] as [String:Any]
             NetWorkStudentGetAnswrs(params: params) { (datas, flag) in
                 if flag {
+                    self.answerArr.removeAllObjects()
                     self.answerArr.addObjects(from: datas)
                     self.mainTableView.reloadData()
                 }
@@ -328,7 +429,7 @@ class MyBookDetailViewController: BaseViewController,HBAlertPasswordViewDelegate
             
         }
         
-        self.mainTableView.mj_header.endRefreshing()
+//        self.mainTableView.mj_header.endRefreshing()
         mainTableView.reloadData()
     }
     
@@ -362,50 +463,151 @@ class MyBookDetailViewController: BaseViewController,HBAlertPasswordViewDelegate
             markBtn.clipsToBounds = true
             markBtn.setTitleColor(UIColor.white, for: .normal)
             markBtn.tag = 181 + index
+            
+            var theType = ""
+            
+            if titles[index] == "作业视频讲解" {
+                theType = "1"
+            }
+            if titles[index] == "作业答案文档下载" {
+                theType = "2"
+            }
+            if titles[index] == "文字版答案" {
+                theType = "3"
+            }
+            
+            if !noAnswerTypes.contains(theType) {
+                
+                markBtn.setBackgroundImage(getNavigationIMG(27, fromColor: kGaryColor(num: 220), toColor: kGaryColor(num: 220)), for: .normal)
+                markBtn.isEnabled = false
+            }
+
             footBtnView.addSubview(markBtn)
         }
         mainTableView.tableFooterView = footBtnView
     }
     
-    
     //MARK:下载视频点击事件
     @objc func showDownloadBtn(sender:UIButton) {
         
-        let passwd = HBAlertPasswordView.init(frame: self.view.bounds)
-        passwd.delegate = self
-        
-        passwd.titleLabel.text = "请支付5学币"
-        self.view.addSubview(passwd)
-        
-        if currentIndex == 3 {
-            currentTitle2 = (sender.titleLabel?.text)!
+        if sender.titleLabel?.text == "作业视频讲解" {
+            downloadType = 1
         }
+        
+        if sender.titleLabel?.text == "作业答案文档下载" {
+            downloadType = 2
+        }
+        
+        if sender.titleLabel?.text == "文字版答案" {
+            downloadType = 3
+        }
+        
+        if Defaults[HavePayPassword] == "yes" {
+            let passwd = HBAlertPasswordView.init(frame: self.view.bounds)
+            passwd.delegate = self
+            
+            if currentIndex == 1 {
+                
+            }else{
+                
+            }
+            var theModel = PayModel()
+            
+            for model11 in payModels {
+                let m = model11 as! PayModel
+                if m.type == String(downloadType) {
+                    theModel = m
+                }
+            }
+            
+            passwd.titleLabel.text = "请支付"+theModel.money+"学币"
+            self.view.addSubview(passwd)
+        }else{
+            let aboutVC = LNSetPswViewController()
+            self.navigationController?.pushViewController(aboutVC, animated: true)
+            
+        }
+        
     }
     
     
     //    HBAlertPasswordViewDelegate 密码弹框代理
     func sureAction(with alertPasswordView: HBAlertPasswordView!, password: String!) {
         alertPasswordView.removeFromSuperview()
-//        setToast(str: "输入的密码为:"+password)
-        let params =
-            [
-                "teacher_id":model.teacher_id!,
-                "bookId":model.work_book_Id,
-                "money":"1",
-                "type":"1",
-                "SESSIONID":SESSIONID,
-                "mobileCode":mobileCode
-                ] as [String:Any]
-        NetWorkStudentUpdownAnswrs(params: params) { (flag) in
-            if flag {
-                
+        
+        var theModel = PayModel()
+        
+        for model11 in payModels {
+            let m = model11 as! PayModel
+            if m.type == String(downloadType) {
+                theModel = m
             }
         }
         
-        titleArr3.remove(at: titleArr3.index(of: currentTitle2)!)
-        footView(titles: titleArr3)
-        mainTableView.reloadData()
+        let params = [
+            "SESSIONID":SESSIONID,
+            "mobileCode":mobileCode,
+            "teacher_id":theModel.teacher_id!,
+            "money":theModel.money,
+            "PasswordAgo":password,
+            "bookId":model.work_book_Id,
+            "type":downloadType
+            ] as [String : Any]
+        self.view.beginLoading()
+        NetWorkStudentUpdownAnswrs(params: params) { (flag) in
+            if flag {
+                setToast(str: "下载成功！")
+                self.view.endLoading()
+                self.requestData()
+            }
+            self.view.endLoading()
+        }
+        
+        if currentIndex == 3 {
+            
+            footView(titles: titleArr3)
+        }
     }
+
+    
+//    //MARK:下载视频点击事件
+//    @objc func showDownloadBtn(sender:UIButton) {
+//
+//        let passwd = HBAlertPasswordView.init(frame: self.view.bounds)
+//        passwd.delegate = self
+//
+//        passwd.titleLabel.text = "请支付5学币"
+//        self.view.addSubview(passwd)
+//
+//        if currentIndex == 3 {
+//            currentTitle2 = (sender.titleLabel?.text)!
+//        }
+//    }
+//
+//
+//    //    HBAlertPasswordViewDelegate 密码弹框代理
+//    func sureAction(with alertPasswordView: HBAlertPasswordView!, password: String!) {
+//        alertPasswordView.removeFromSuperview()
+////        setToast(str: "输入的密码为:"+password)
+//        let params =
+//            [
+//                "teacher_id":model.teacher_id!,
+//                "bookId":model.work_book_Id,
+//                "money":"1",
+//                "type":"1",
+//                "SESSIONID":SESSIONID,
+//                "mobileCode":mobileCode
+//                ] as [String:Any]
+//        NetWorkStudentUpdownAnswrs(params: params) { (flag) in
+//            if flag {
+//
+//            }
+//        }
+//
+//        titleArr3.remove(at: titleArr3.index(of: currentTitle2)!)
+//        footView(titles: titleArr3)
+//        mainTableView.reloadData()
+//    }
 
     
     //MARK:  ******代理 ：UITableViewDataSource,UITableViewDelegate
@@ -416,7 +618,7 @@ class MyBookDetailViewController: BaseViewController,HBAlertPasswordViewDelegate
         }
         
         if currentIndex == 3 {
-            return pointArr.count
+            return answerArr.count
         }
         
         if currentIndex == 2 {
@@ -473,28 +675,10 @@ class MyBookDetailViewController: BaseViewController,HBAlertPasswordViewDelegate
 //
 //                        if json["code"] == "1" {
                         
-                            setToast(str: "上传成功")
-                            let params =
-                                [
-                                    "userWorkBookId":self.model.userWorkBookId!,
-                                    "SESSIONID":SESSIONID,
-                                    "mobileCode":mobileCode
-                                    ] as [String:Any]
-                            self.view.beginLoading()
-                            netWorkForGetWorkBookByTime(params: params) { (dataArr,flag) in
-                                if flag {
-                                    if datas.count > 0{
-                                        self.theModel = dataArr[0] as! BookDetailModel
-                                        self.workState = self.theModel.correcting_states
-                                        if self.workState == "" {
-                                            self.workState = "1"
-                                        }
-                                        self.mainTableView.reloadData()
-                                    }
-                                    deBugPrint(item: dataArr)
-                                }
-                                self.view.endLoading()
-                            }
+//                            setToast(str: "上传成功")
+                        self.uploadSucceed(datas: json.arrayValue)
+                        
+                        
 //                        }
                         deBugPrint(item: datas)
                     }, failture: { (error) in
@@ -522,7 +706,7 @@ class MyBookDetailViewController: BaseViewController,HBAlertPasswordViewDelegate
                 let cell : CheckWorkCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable2, for: indexPath) as! CheckWorkCell
                 cell.checkWorkCellSetValues2(model:theModel)
                 cell.resubmitAction = {
-                    self.workState = "0"
+                    self.workState = "1"
                     tableView.reloadData()
                 }
                 cell.complainAction = {
@@ -551,9 +735,24 @@ class MyBookDetailViewController: BaseViewController,HBAlertPasswordViewDelegate
             
             cell.chooseImagesAction = {
                 if $0 == "uploadAction" {
+                    
+                    let date = NSDate.init()
+                    let formatter = DateFormatter()
+                    //日期样式
+                    formatter.dateFormat = "yyyy/MM/dd"
+//                    let createDate = formatter.date(from: self.selectDate)
+                    
+                    let dateStr = self.selectDate.substring(to: String.Index.init(encodedOffset: 10))
+                    
+                    if formatter.string(from: date as Date) != dateStr {
+                        setToast(str: "只能上传当天的作业")
+                        return
+                    }
+                    
                     let params =
                         [
-                            "workBookId":self.model.work_book_Id,
+                            "bookId":self.theModel.book_details_id,
+                            "type":"2",
                             "SESSIONID":SESSIONID,
                             "mobileCode":mobileCode
                     ]
@@ -562,17 +761,20 @@ class MyBookDetailViewController: BaseViewController,HBAlertPasswordViewDelegate
                     for index in 0..<self.images.count {
                         nameArr.append("image\(index)")
                     }
-                    netWorkForUploadWorkBookNext(params: params, data: self.images as! [UIImage], name: nameArr, success: { (datas) in
+                    self.view.beginLoading()
+                    netWorkForUploadWorkBookSecondBulidBook(params: params as! [String : String], data: self.images as! [UIImage], name: nameArr, success: { (datas) in
                         deBugPrint(item: datas)
                         let json = JSON(datas)
                         deBugPrint(item: json)
-                        
                         if json["code"] == "1" {
                             
                             setToast(str: "上传成功")
+                            self.uploadSucceed(datas: json.arrayValue)
                         }
+                        self.view.endLoading()
                     }, failture: { (error) in
                         deBugPrint(item: error)
+                        self.view.endLoading()
                     })
                 }else{
                     self.setupPhoto1(count: 2,currentIndex: Int($0)!)
@@ -660,18 +862,87 @@ class MyBookDetailViewController: BaseViewController,HBAlertPasswordViewDelegate
         tableView.deselectRow(at: indexPath, animated: true)
         
         if currentIndex == 2 {
-            
-            let url = NSURL.init(string: "http://m.youku.com/video/id_XMzA4MDYxNzQ2OA==.html?spm=a2hww.20022069.m_215416.5~5%212~5~5%212~A&source=http%3A%2F%2Fyouku.com%2Fu%2F13656654646%3Fscreen%3Dphone")
-            
-            if #available(iOS 10.0, *) {
-                UIApplication.shared.open(url! as URL, options: [:],
-                                          completionHandler: {
-                                            (success) in
-                })
-            } else {
-                // Fallback on earlier versions
+            let model = pointArr[indexPath.row] as! UrlModel
+            let webVc = WebViewController()
+            webVc.webUrl = model.point_address
+            webVc.theTitle = model.point_title
+            self.navigationController?.pushViewController(webVc, animated: true)
+        }
+        if currentIndex == 3 {
+            let model = answerArr[indexPath.row] as! UrlModel
+            if model.type == "1" {
+                let webVc = WebViewController()
+                webVc.webUrl = model.answard_res
+                webVc.theTitle = model.title
+                self.navigationController?.pushViewController(webVc, animated: true)
+            }else if model.type == "2" {
+                if model.format == "img" {
+                    let cell = tableView.cellForRow(at: indexPath) as! AnswerImageCell
+                    var images = [KSPhotoItem]()
+                    
+                    let watchIMGItem = KSPhotoItem.init(sourceView: cell.showImage, image: cell.showImage.image)
+                    images.append(watchIMGItem!)
+                    
+                    let watchIMGView = KSPhotoBrowser.init(photoItems: images,
+                                                           selectedIndex:UInt(0))
+                    watchIMGView?.dismissalStyle = .scale
+                    watchIMGView?.backgroundStyle = .blurPhoto
+                    watchIMGView?.loadingStyle = .indeterminate
+                    watchIMGView?.pageindicatorStyle = .text
+                    watchIMGView?.bounces = false
+                    watchIMGView?.show(from: self)
+                }else{
+                    
+                }
             }
         }
+
+//            let url = NSURL.init(string: "http://m.youku.com/video/id_XMzA4MDYxNzQ2OA==.html?spm=a2hww.20022069.m_215416.5~5%212~5~5%212~A&source=http%3A%2F%2Fyouku.com%2Fu%2F13656654646%3Fscreen%3Dphone")
+//
+//            if #available(iOS 10.0, *) {
+//                UIApplication.shared.open(url! as URL, options: [:],
+//                                          completionHandler: {
+//                                            (success) in
+//                })
+//            } else {
+//                // Fallback on earlier versions
+//            }
+        
+    }
+    
+    
+    func uploadSucceed(datas:Array<Any>) {
+        
+        self.mainTableView.mj_header.beginRefreshing()
+        
+        //        通知中心
+        NotificationCenter.default.post(name: Notification.Name(rawValue: SuccessUploadWorkNotiS), object: self, userInfo: ["refresh":"begin"])
+
+        
+//        let params =
+//            [
+//                "userWorkBookId":self.model.userWorkBookId!,
+//                "SESSIONID":SESSIONID,
+//                "time":selectDate,
+//                "mobileCode":mobileCode
+//                ] as [String:Any]
+//        self.view.beginLoading()
+//        netWorkForGetWorkBookByTime(params: params) { (dataArr,flag) in
+//            if flag {
+//                if datas.count > 0{
+//                    self.theModel = dataArr[0] as! BookDetailModel
+//                    self.workState = self.theModel.correcting_states
+//                    if self.workState == "" {
+//                        self.workState = "1"
+//                    }
+//                    self.images.removeAllObjects()
+//                    self.mainTableView.reloadData()
+//                }
+//                deBugPrint(item: dataArr)
+//            }
+//            self.view.endLoading()
+//        }
+
     }
     
     
@@ -864,7 +1135,7 @@ class MyBookDetailViewController: BaseViewController,HBAlertPasswordViewDelegate
         //更新提醒时间文本框
         let formatter = DateFormatter()
         //日期样式
-        formatter.dateFormat = "yyyy/MM/dd HH:mm:ss"
+        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
         deBugPrint(item: formatter.string(from: datePicker.date))
     }
     
@@ -882,19 +1153,19 @@ class MyBookDetailViewController: BaseViewController,HBAlertPasswordViewDelegate
         
         let formatter = DateFormatter()
         //日期样式
-        formatter.dateFormat = "yyyy/MM/dd"
+        formatter.dateFormat = "yyyy-MM-dd"
         deBugPrint(item: formatter.string(from: self.datePicker.date))
         self.selectDate = formatter.string(from: self.datePicker.date)
         
-        let date = NSDate.init()
+//        let date = NSDate.init()
         let formatter1 = DateFormatter()
         //日期样式
-        formatter1.dateFormat = "yyyy/MM/dd"
+        formatter1.dateFormat = "yyyy-MM-dd"
 
-        if !timeArr.contains(selectDate) && selectDate != formatter1.string(from: date as Date) {
-            setToast(str: "你在"+selectDate+"没有相关作业！")
-            return
-        }
+//        if !timeArr.contains(selectDate) && selectDate != formatter1.string(from: date as Date) {
+//            setToast(str: "你在"+selectDate+"没有相关作业！")
+//            return
+//        }
 
         selectDate = formatter.string(from: self.datePicker.date as Date)
 //        self.navigationItem.rightBarButtonItem?.title = selectDate

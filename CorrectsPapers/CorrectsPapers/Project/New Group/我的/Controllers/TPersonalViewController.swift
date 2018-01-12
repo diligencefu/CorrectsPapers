@@ -32,18 +32,17 @@ class TPersonalViewController: BaseViewController {
             "SESSIONID":SESSIONIDT,
             "mobileCode":mobileCodeT
         ]
-        
         netWorkForMyData(params: params) { (dataArr,flag) in
 
             if flag {
                 if dataArr.count > 0{
                     self.model = dataArr[0] as! PersonalModel
                     self.infoArr = [[""],[self.model.coin_count!+"学币"],[self.model.friendCount+"人",""],[self.model.num,"",""]]
-                    
                     Defaults[username] = self.model.user_name
                     Defaults[userArea] = self.model.user_area
+                    Defaults[userPhone] = self.model.user_phone
                     Defaults[userId] = self.model.user_num
-                    //                Defaults[userGrade]! = self.model.user_fit_class
+                    //Defaults[userGrade]! = self.model.user_fit_class
                     Defaults[userAccount] = self.model.coin_count
                     
                 }
@@ -53,6 +52,7 @@ class TPersonalViewController: BaseViewController {
         }
     }
     
+    
     override func refreshHeaderAction() {
         
         self.view.beginLoading()
@@ -60,10 +60,9 @@ class TPersonalViewController: BaseViewController {
             "SESSIONID":SESSIONIDT,
             "mobileCode":mobileCodeT
         ]
-        
         netWorkForMyData(params: params) { (dataArr,flag) in
+            
             if flag {
-
                 if dataArr.count > 0{
                     self.model = dataArr[0] as! PersonalModel
                     self.infoArr = [[""],[self.model.coin_count!+"学币"],[self.model.friendCount+"人",""],[self.model.num,"",""]]
@@ -71,14 +70,13 @@ class TPersonalViewController: BaseViewController {
                     Defaults[username] = self.model.user_name
                     Defaults[userArea] = self.model.user_area
                     Defaults[userId] = self.model.user_num
+                    Defaults[userPhone] = self.model.user_phone
                     //Defaults[userGrade]! = self.model.user_fit_class
                     Defaults[userAccount] = self.model.coin_count
-                    
                 }
                 
                 self.mainTableView.mj_header.endRefreshing()
                 self.mainTableView.reloadData()
-
             }
             self.view.endLoading()
         }
@@ -88,13 +86,12 @@ class TPersonalViewController: BaseViewController {
     override func leftBarButton() {
         self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(image: #imageLiteral(resourceName: "set_icon_default"), style: .plain, target: self, action: #selector(pushToSetting(sender:)))
         self.navigationItem.rightBarButtonItem?.tintColor = UIColor.white
-        
     }
     
     @objc func pushToSetting(sender:UIBarButtonItem) {
+        
         let setVC = SettingViewController()
         self.navigationController?.pushViewController(setVC, animated: true)
-        
     }
     
     override func configSubViews() {
@@ -107,7 +104,7 @@ class TPersonalViewController: BaseViewController {
         model.user_name = Defaults[username]
         model.user_area = Defaults[userArea]
         model.user_num = Defaults[userId]
-        //        model.user_fit_class = Defaults[userGrade]!
+        //model.user_fit_class = Defaults[userGrade]!
         
         if Defaults[messageNum] != nil {
             model.num = Defaults[messageNum]
@@ -124,9 +121,8 @@ class TPersonalViewController: BaseViewController {
         }else{
             model.friendCount = "0"
         }
-        dataArr = [[""],["我的收入"],["我的好友","邀请好友"],["消息中心","被投诉记录","意见和建议"]]
         
-
+        dataArr = [[""],["我的收入"],["我的好友","邀请好友"],["消息中心","被投诉记录","意见和建议"]]
         self.infoArr = [[""],[self.model.coin_count!+"学币"],[self.model.friendCount+"人",""],[self.model.num,"",""]]
         
         mainTableView = UITableView.init(frame: CGRect(x: 0,
@@ -223,7 +219,11 @@ class TPersonalViewController: BaseViewController {
         tableView.deselectRow(at: indexPath, animated: true)
         
         if indexPath.section == 0 {
+            
+            let cell = tableView.cellForRow(at: IndexPath.init(row: 0, section: 0)) as! PersonHeadCell
             let editVC = TEditInfoViewController()
+            editVC.model = model
+            editVC.headImage = cell.headIcon.image!
             self.navigationController?.pushViewController(editVC, animated: true)
             
         }
@@ -272,4 +272,3 @@ class TPersonalViewController: BaseViewController {
         }
     }
 }
-

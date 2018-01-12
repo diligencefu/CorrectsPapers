@@ -8,6 +8,7 @@
 
 import UIKit
 import SwiftyJSON
+import SwiftyUserDefaults
 
 class NotWorkDetailViewController: BaseViewController,HBAlertPasswordViewDelegate{
     
@@ -45,8 +46,10 @@ class NotWorkDetailViewController: BaseViewController,HBAlertPasswordViewDelegat
     
     var payModels = NSMutableArray()
     
-    var type = ["1","2","3"]
-    
+    var type = [String]()
+    var noAnswerTypes = [String]()
+
+    var downloadType = 100
     
     var state = ""
 
@@ -55,7 +58,8 @@ class NotWorkDetailViewController: BaseViewController,HBAlertPasswordViewDelegat
     }
     
     override func requestData() {
-        
+        self.view.beginLoading()
+
         let params =
             [
                 "non_exercise_Id":model.non_exercise_id,
@@ -73,10 +77,13 @@ class NotWorkDetailViewController: BaseViewController,HBAlertPasswordViewDelegat
                     self.mainTableView.reloadData()
                 }
             }
-            print(dataArr)
+            self.view.endLoading()
+            deBugPrint(item: dataArr)
         }
         
-        if Int(model.correct_states)! > Int(3) {
+        titleArr3 = ["作业视频讲解","作业答案文档下载","文字版答案"]
+        
+        if Int(model.correct_states)! > Int(1) {
             let params1 =
                 [
                     "bookId":model.non_exercise_id,
@@ -88,40 +95,48 @@ class NotWorkDetailViewController: BaseViewController,HBAlertPasswordViewDelegat
                 if flag && pays.count > 0{
                     self.payModels.addObjects(from: pays)
                     
-                    if pays.count == 1 {
-                        self.workVideoModel = self.payModels[0] as! PayModel
+                    for model in pays {
+                        let m = model as! PayModel
+                        
+                        if m.type == "1"{
+                            self.workVideoModel = m
+                        }
+                        if m.type == "2"{
+                            self.workAnswerModel = m
+                        }
+                        if m.type == "3"{
+                            self.workTextModel = m
+                        }
+                        self.noAnswerTypes.append(m.type!)
                     }
                     
-                    if pays.count == 2 {
-                        self.workAnswerModel = self.payModels[1] as! PayModel
-                    }
-                    
-                    if pays.count == 3 {
-                        self.workTextModel = self.payModels[2] as! PayModel
-                    }
-                    
-                    if self.workVideoModel.isPay != "no" {
+                    if self.workVideoModel.isPay != "no" && self.workVideoModel.isPay != nil {
                         self.titleArr3.remove(at: self.titleArr3.index(of: "作业视频讲解")!)
-                        self.type.remove(at: self.type.index(of: "1")!)
+                        self.type.append("1")
                     }
                     
-                    if self.workAnswerModel.isPay != "no" {
+                    if self.workAnswerModel.isPay != "no" && self.workAnswerModel.isPay != nil {
                         self.titleArr3.remove(at: self.titleArr3.index(of: "作业答案文档下载")!)
-                        self.type.remove(at: self.type.index(of: "2")!)
+                        self.type.append("2")
                     }
                     
-                    if self.workTextModel.isPay != "no" {
+                    if self.workTextModel.isPay != "no" && self.workTextModel.isPay != nil{
                         self.titleArr3.remove(at: self.titleArr3.index(of: "文字版答案")!)
-                        self.type.remove(at: self.type.index(of: "3")!)
+                        self.type.append("3")
                     }
-                    self.footView(titles: self.titleArr3)
+                    if self.currentIndex == 3 {
+                        
+                        self.mainTableView.mj_header.beginRefreshing()
+                        self.footView(titles: self.titleArr3)
+                    }
                 }
+                self.view.endLoading()
             }
         }
-        
     }
     
     override func refreshHeaderAction() {
+        self.view.beginLoading()
         if currentIndex == 1 {
             let params =
                 [
@@ -141,17 +156,16 @@ class NotWorkDetailViewController: BaseViewController,HBAlertPasswordViewDelegat
                     }
                 }
                 print(dataArr)
+                self.view.endLoading()
             }
-            
-            
         }else if currentIndex == 2 {
+            
             let params =
                 [
                     "NonExcrcise_id":model.non_exercise_id,
                     "SESSIONID":SESSIONID,
                     "mobileCode":mobileCode
                     ] as [String:Any]
-            self.view.beginLoading()
             NetWorkStudentGetKnowledgePoint(params: params, callBack: { (datas, flag) in
                 if flag {
                     self.pointArr.removeAllObjects()
@@ -161,10 +175,9 @@ class NotWorkDetailViewController: BaseViewController,HBAlertPasswordViewDelegat
                 }
                 self.view.endLoading()
             })
-            
         }else if currentIndex == 3 {
+            
             let type = self.type.joined(separator: ",")
-
             let params =
                 [
                     "bookId":model.non_exercise_id,
@@ -172,19 +185,19 @@ class NotWorkDetailViewController: BaseViewController,HBAlertPasswordViewDelegat
                     "SESSIONID":SESSIONID,
                     "mobileCode":mobileCode
                     ] as [String:Any]
-            NetWorkStudentGetAnswrs(params: params) { (datas, flag) in
+            NetWorkStudentGetOtherAnswrs(params: params) { (datas, flag) in
                 if flag {
+                    self.answerArr.removeAllObjects()
                     self.answerArr.addObjects(from: datas)
                     self.mainTableView.mj_header.endRefreshing()
                     self.mainTableView.reloadData()
                 }
+                self.view.endLoading()
             }
-            
         }else if currentIndex == 4 {
             
-            
+            self.view.endLoading()
         }
-
     }
     
     
@@ -205,11 +218,9 @@ class NotWorkDetailViewController: BaseViewController,HBAlertPasswordViewDelegat
             
             let kWidth = getLabWidth(labelStr: typeArr[index] as! String, font: kFont32, height: kHeight) + 10
             totalWidth += kWidth
-            
         }
         
         let kSpace = CGFloat(kSCREEN_WIDTH - totalWidth)/5
-        
         for index in 0..<typeArr.count{
             
             let kWidth = getLabWidth(labelStr: typeArr[index] as! String, font: kFont32, height: kHeight) + 10
@@ -263,7 +274,6 @@ class NotWorkDetailViewController: BaseViewController,HBAlertPasswordViewDelegat
         self.view.addSubview(mainTableView)
     }
     
-    
     //MARK:   顶部选择栏选择事件
     @objc func goodAtProject(sender:UIButton) {
         
@@ -272,7 +282,8 @@ class NotWorkDetailViewController: BaseViewController,HBAlertPasswordViewDelegat
         if view == sender {
             return
         }
-        
+        self.view.beginLoading()
+
         view.setTitleColor(kGaryColor(num: 117), for: .normal)
         sender.setTitleColor(kMainColor(), for: .normal)
         
@@ -283,7 +294,6 @@ class NotWorkDetailViewController: BaseViewController,HBAlertPasswordViewDelegat
         })
         
         currentIndex = sender.tag - 130
-        
       
         if currentIndex == 3 {
             footView(titles: titleArr3)
@@ -308,10 +318,9 @@ class NotWorkDetailViewController: BaseViewController,HBAlertPasswordViewDelegat
                         self.mainTableView.reloadData()
                     }
                 }
+                self.view.endLoading()
                 print(dataArr)
-            }
-
-            
+            }            
         }else if currentIndex == 2 {
             let params =
                 [
@@ -345,11 +354,12 @@ class NotWorkDetailViewController: BaseViewController,HBAlertPasswordViewDelegat
                     self.answerArr.addObjects(from: datas)
                     self.mainTableView.reloadData()
                 }
+                self.view.endLoading()
             }
             
         }else if currentIndex == 4 {
             
-            
+            self.view.endLoading()
         }
 
         mainTableView.reloadData()
@@ -385,6 +395,25 @@ class NotWorkDetailViewController: BaseViewController,HBAlertPasswordViewDelegat
             markBtn.clipsToBounds = true
             markBtn.setTitleColor(UIColor.white, for: .normal)
             markBtn.tag = 181 + index
+            
+            var theType = ""
+            
+            if titles[index] == "作业视频讲解" {
+                theType = "1"
+            }
+            if titles[index] == "作业答案文档下载" {
+                theType = "2"
+            }
+            if titles[index] == "文字版答案" {
+                theType = "3"
+            }
+
+            if !noAnswerTypes.contains(theType) {
+                
+                markBtn.setBackgroundImage(getNavigationIMG(27, fromColor: kGaryColor(num: 220), toColor: kGaryColor(num: 220)), for: .normal)
+                markBtn.isEnabled = false
+            }
+            
             footBtnView.addSubview(markBtn)
         }
         mainTableView.tableFooterView = footBtnView
@@ -394,33 +423,82 @@ class NotWorkDetailViewController: BaseViewController,HBAlertPasswordViewDelegat
     //MARK:下载视频点击事件
     @objc func showDownloadBtn(sender:UIButton) {
         
-        let passwd = HBAlertPasswordView.init(frame: self.view.bounds)
-        passwd.delegate = self
+        if sender.titleLabel?.text == "作业视频讲解" {
+            downloadType = 1
+        }
+
+        if sender.titleLabel?.text == "作业答案文档下载" {
+            downloadType = 2
+        }
+
+        if sender.titleLabel?.text == "文字版答案" {
+            downloadType = 3
+        }
         
-        if currentIndex == 1 {
+        if Defaults[HavePayPassword] == "yes" {
+            let passwd = HBAlertPasswordView.init(frame: self.view.bounds)
+            passwd.delegate = self
             
+            if currentIndex == 1 {
+                
+            }else{
+                
+            }
+            var theModel = PayModel()
+            
+            for model11 in payModels {
+                let m = model11 as! PayModel
+                if m.type == String(downloadType) {
+                    theModel = m
+                }
+            }
+            
+            passwd.titleLabel.text = "请支付"+theModel.money+"学币"
+            self.view.addSubview(passwd)
         }else{
-            
+            let aboutVC = LNSetPswViewController()
+            self.navigationController?.pushViewController(aboutVC, animated: true)
+
         }
         
-        passwd.titleLabel.text = "五哈哈哈哈"
-        self.view.addSubview(passwd)
-        
-        if currentIndex == 3 {
-            currentTitle2 = (sender.titleLabel?.text)!
-        }
     }
     
     
     //    HBAlertPasswordViewDelegate 密码弹框代理
     func sureAction(with alertPasswordView: HBAlertPasswordView!, password: String!) {
         alertPasswordView.removeFromSuperview()
-        setToast(str: "输入的密码为:"+password)
+        
+        var theModel = PayModel()
+        
+        for model11 in payModels {
+            let m = model11 as! PayModel
+            if m.type == String(downloadType) {
+                theModel = m
+            }
+        }
+        
+        let params = [
+            "SESSIONID":SESSIONID,
+            "mobileCode":mobileCode,
+            "teacher_id":theModel.teacher_id!,
+            "money":theModel.money,
+            "PasswordAgo":password,
+            "bookId":model.non_exercise_id,
+            "type":downloadType
+            ] as [String : Any]
+        self.view.beginLoading()
+        NetWorkStudentUpdownAnswrs(params: params) { (flag) in
+            if flag {
+                setToast(str: "下载成功！")
+                self.view.endLoading()
+                self.requestData()
+            }
+            self.view.endLoading()
+        }
+        
         if currentIndex == 3 {
-            
-            titleArr3.remove(at: titleArr3.index(of: currentTitle2)!)
+
             footView(titles: titleArr3)
-            mainTableView.reloadData()
         }
     }
 
@@ -478,6 +556,7 @@ class NotWorkDetailViewController: BaseViewController,HBAlertPasswordViewDelegat
                 cell.chooseImagesAction = {
                     
                     if $0 == "uploadAction" {
+                        
                         let params = [
                             "SESSIONID":SESSIONID,
                             "mobileCode":mobileCode,
@@ -585,7 +664,7 @@ class NotWorkDetailViewController: BaseViewController,HBAlertPasswordViewDelegat
                         nameArr.append("pre_photos1")
                         nameArr.append("pre_photos2")
                         netWorkForAddNonExerciseNext(params: params , data: self.images as! [UIImage] , name: nameArr, success: { (success) in
-                            
+                            self.mainTableView.mj_header.beginRefreshing()
                         }) { (erorr) in
                             
                         }
@@ -656,39 +735,35 @@ class NotWorkDetailViewController: BaseViewController,HBAlertPasswordViewDelegat
             
         }else if currentIndex == 3 {
             
-            let model1 = answerArr[0] as! UrlModel
-            let model2 = answerArr[1] as! UrlModel
-            let model3 = answerArr[2] as! UrlModel
-            let model4 = answerArr[3] as! UrlModel
-
-            
-            if indexPath.row < model1.title.count {
+            let model = answerArr[indexPath.row] as! UrlModel
+            deBugPrint(item: model.type!)
+            deBugPrint(item: model.format!)
+            if model.type == "1" {
+                
                 let cell : AnserVideoCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable3, for: indexPath) as! AnserVideoCell
-                cell.AnserVideoCellSetValuesForAnswer(title: model1.title[indexPath.row])
+                cell.AnserVideoCellSetValuesForAnswer(title: model.title)
                 return cell
-            }else if indexPath.row < model1.title.count+model2.title.count {
-                let cell : ShowFileCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable7, for: indexPath) as! ShowFileCell
-                cell.setValues(model: model2)
-                return cell
-            }else if indexPath.row < model1.title.count+model2.title.count+model3.title.count {
+            }else  if model.type == "2" {
+                
+                if model.format == "doc" || model.format == "xls"{
+                    let cell : ShowFileCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable7, for: indexPath) as! ShowFileCell
+                    cell.setValues(model: model)
+                    return cell
+                }else{
+                    
+                    let cell : AnswerImageCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable12, for: indexPath) as! AnswerImageCell
+                    cell.showWithImage(image: model.answard_res)
+                    cell.selectionStyle = .none
+                    return cell
+                }
+                
+            }else  if model.type == "3" {
                 let cell : ShowWriteAnswerCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable8, for: indexPath) as! ShowWriteAnswerCell
-                //                cell.showAnswer(text: model.title)
+                cell.showAnswer(text: model.answard_res)
+                cell.selectionStyle = .none
                 return cell
-            }else{
-                let cell : AnswerImageCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable12, for: indexPath) as! AnswerImageCell
-//                cell.showWithImage(image: model4.answard_res[indexPath.row])
-                return cell
-
             }
-            
-//            if model1.type == "1" {
-//
-//            }else if model.type == "2" {
-//
-//            }else if model.type == "3" {
-//
-//            }else{
-//            }
+
         }
         
         let cell : ClassGradeCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable4, for: indexPath) as! ClassGradeCell
@@ -713,37 +788,38 @@ class NotWorkDetailViewController: BaseViewController,HBAlertPasswordViewDelegat
         
         if currentIndex == 2 {
             let model = pointArr[indexPath.row] as! UrlModel
-              let url = NSURL.init(string: model.point_address!)
-            
-            if #available(iOS 10.0, *) {
-                UIApplication.shared.open(url! as URL, options: [:],
-                                          completionHandler: {
-                                            (success) in
-                })
-            } else {
-                // Fallback on earlier versions
-            }
-            
+            let webVc = WebViewController()
+            webVc.webUrl = model.point_address
+            webVc.theTitle = model.point_title
+            self.navigationController?.pushViewController(webVc, animated: true)
         }
         
         
         if currentIndex == 3 {
             let model = answerArr[indexPath.row] as! UrlModel
             
-//            if model.type == "1" {
-//                let url = NSURL.init(string: model.answard_res)
-//
-//                if #available(iOS 10.0, *) {
-//                    UIApplication.shared.open(url! as URL, options: [:],
-//                                              completionHandler: {
-//                                                (success) in
-//                    })
-//                } else {
-//                    // Fallback on earlier versions
-//                }
-//
-//            }
-//
+            if model.type == "1" {
+                let webVc = WebViewController()
+                webVc.webUrl = model.answard_res
+                webVc.theTitle = model.title
+                self.navigationController?.pushViewController(webVc, animated: true)
+
+            }else if model.type == "2" && model.format == "img" {
+                let cell = tableView.cellForRow(at: indexPath) as! AnswerImageCell
+                var images = [KSPhotoItem]()
+
+                let watchIMGItem = KSPhotoItem.init(sourceView: cell.showImage, image: cell.showImage.image)
+                images.append(watchIMGItem!)
+                
+                let watchIMGView = KSPhotoBrowser.init(photoItems: images,
+                                                       selectedIndex:UInt(0))
+                watchIMGView?.dismissalStyle = .scale
+                watchIMGView?.backgroundStyle = .blurPhoto
+                watchIMGView?.loadingStyle = .indeterminate
+                watchIMGView?.pageindicatorStyle = .text
+                watchIMGView?.bounces = false
+                watchIMGView?.show(from: self)
+            }
             
         }
         

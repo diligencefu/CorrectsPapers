@@ -39,23 +39,20 @@ class TeacherInfoCell3: UITableViewCell {
     
     @objc func viewTheBigImage(ges:UITapGestureRecognizer) {
 
+        var isBack = false
+        if ges.view?.tag == 123212 {
+            isBack = true
+        }
         if chooseImagesAction != nil {
-            chooseImagesAction!(true)
+            chooseImagesAction!(isBack)
         }
     }
     
     
-    func TeacherInfoCell3SetImages(images:[UIImage]) {
+    func TeacherInfoCell3SetImagess(frontImage: UIImage,backImage:UIImage) {
         
-        if images.count == 2 {
-            
-            IDCardFront.image = images[0]
-            IDCardBack.image = images[1]
-        }else if images.count == 1 {
-            
-            self.IDCardFront.image = images[0]
-        }
-
+        IDCardFront.image = frontImage
+        IDCardBack.image = backImage
     }
     
 

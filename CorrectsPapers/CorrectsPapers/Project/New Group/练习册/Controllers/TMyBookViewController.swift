@@ -18,7 +18,7 @@ class TMyBookViewController: BaseViewController {
     
     override func configSubViews() {
         
-        self.navigationItem.title = "我的练习册"
+        self.navigationItem.title = "我的批改"
 
         mainTableView = UITableView.init(frame: CGRect(x: 0, y: 0, width: kSCREEN_WIDTH, height: kSCREEN_HEIGHT - 64 ), style: .plain)
         mainTableView.dataSource = self;
@@ -139,7 +139,16 @@ class TMyBookViewController: BaseViewController {
         
         let model = mainTableArr[indexPath.row] as! WorkBookModel
         let BookDetailVC = TBookDetailViewController()
+        BookDetailVC.bookName = model.work_book_name
         BookDetailVC.book_id = model.id!
+        
+        
+        let date = NSDate.init()
+        let formatter = DateFormatter()
+        //日期样式
+        formatter.dateFormat = "yyyy-MM-dd"
+        BookDetailVC.selectDate = formatter.string(from: date as Date)
+
 //        BookDetailVC.
         self.navigationController?.pushViewController(BookDetailVC, animated: true)
     }

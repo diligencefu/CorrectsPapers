@@ -15,6 +15,7 @@ class UploadVideoViewController: BaseViewController ,UIAlertViewDelegate{
     var isAnswer = false
     var currentType = 0
     var bookId = ""
+    var bookDate = ""
     
     
     var addUrlBlock:(()->())?  //声明闭包
@@ -36,7 +37,6 @@ class UploadVideoViewController: BaseViewController ,UIAlertViewDelegate{
     
     //    MARK:提交
     @objc func submitAnswer(sender:UIBarButtonItem) {
-        
         addAlertTip()
     }
     
@@ -86,22 +86,42 @@ class UploadVideoViewController: BaseViewController ,UIAlertViewDelegate{
                     setToast(str: "请设置学币")
                     return
                 }
-                let params1 =
-                    ["SESSIONID":SESSIONIDT,
-                     "mobileCode":mobileCodeT,
-                     "bookId":bookId,
-                     "counts":textfield1.text!,
-                     "title":textfield2.text!,
-                     "money":priceTextfield.text!,
-                     "address":StringToUTF_8InUrl(str: textfield3.text!)
-                        ] as [String : Any]
                 
+                self.view.beginLoading()
+                var params1 = [String : Any]()
+                
+                if currentType == 1 {
+                    params1 =
+                        ["SESSIONID":SESSIONIDT,
+                         "mobileCode":mobileCodeT,
+                         "bookId":bookId,
+                         "counts":textfield1.text!,
+                         "title":textfield2.text!,
+                         "money":priceTextfield.text!,
+                         "date":bookDate,
+                         "address":StringToUTF_8InUrl(str: textfield3.text!)
+                        ] as [String : Any]
+                }else{
+                    params1 =
+                        ["SESSIONID":SESSIONIDT,
+                         "mobileCode":mobileCodeT,
+                         "bookId":bookId,
+                         "counts":textfield1.text!,
+                         "title":textfield2.text!,
+                         "money":priceTextfield.text!,
+                         "address":StringToUTF_8InUrl(str: textfield3.text!)
+                        ] as [String : Any]
+                }
                 NetWorkTeacherAddTWorkUploadUploadPoints(params: params1, callBack: { (flag) in
                     if flag {
                         
                         setToast(str: "已提交")
+                        if self.addUrlBlock != nil {
+                            self.addUrlBlock!()
+                        }
                         self.navigationController?.popViewController(animated: true)
                     }
+                    self.view.endLoading()
                 })
                
             }else{
@@ -115,20 +135,41 @@ class UploadVideoViewController: BaseViewController ,UIAlertViewDelegate{
                     setToast(str: "请填写视频描述")
                     return
                 }
-                let params1 =
-                    ["SESSIONID":SESSIONIDT,
-                     "mobileCode":mobileCodeT,
-                     "bookId":bookId,
-                     "title":textfield1.text!,
-                     "answardRes":textfield2.text!,
-                     "money":priceTextfield.text!
+                self.view.beginLoading()
+                
+                var params1 = [String : Any]()
+                
+                if currentType == 1 {
+                    params1 =
+                        ["SESSIONID":SESSIONIDT,
+                         "mobileCode":mobileCodeT,
+                         "bookId":bookId,
+                         "title":textfield1.text!,
+                         "answardRes":textfield2.text!,
+                         "date":bookDate,
+                         "money":priceTextfield.text!
                         ] as [String : Any]
+                }else{
+                    params1 =
+                        ["SESSIONID":SESSIONIDT,
+                         "mobileCode":mobileCodeT,
+                         "bookId":bookId,
+                         "title":textfield1.text!,
+                         "answardRes":textfield2.text!,
+                         "money":priceTextfield.text!
+                        ] as [String : Any]
+                }
+
                 NetWorkTeacherGetTWorkUploadVideo(params: params1, callBack: { (flag) in
+                    
                     if flag {
-                        
                         setToast(str: "已提交")
+                        if self.addUrlBlock != nil {
+                            self.addUrlBlock!()
+                        }
                         self.navigationController?.popViewController(animated: true)
                     }
+                    self.view.endLoading()
                 })
 
             }
@@ -175,20 +216,18 @@ class UploadVideoViewController: BaseViewController ,UIAlertViewDelegate{
                 
                 if index == 1 {
                     
-                    textfield.text = "http://"
+                    textfield.placeholder = "http://"
                     textfield.keyboardType = .URL
                 }
             }else{
                 if index == 2 {
                     
-                    textfield.text = "http://"
+                    textfield.placeholder = "http://"
                     textfield.keyboardType = .URL
                 }
             }
-            
             self.view.addSubview(textfield)
         }        
-        
     }
 
 }

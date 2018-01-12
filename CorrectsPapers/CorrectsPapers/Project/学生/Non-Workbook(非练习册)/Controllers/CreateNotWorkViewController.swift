@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+import SwiftyJSON
 
 protocol refreshDelegate:NSObjectProtocol {
     func beginRefresh()
@@ -100,6 +100,7 @@ class CreateNotWorkViewController: BaseViewController,UIPickerViewDelegate,UIPic
                     self.setupPhoto1(count: 2, index: Int($0)!-1)
 
                 }
+                
             }
             return cell
         }
@@ -409,7 +410,6 @@ class CreateNotWorkViewController: BaseViewController,UIPickerViewDelegate,UIPic
             }else{
                 return detailArr[row]
             }
-            
         }
         
         return wayArr[row]
@@ -447,7 +447,8 @@ class CreateNotWorkViewController: BaseViewController,UIPickerViewDelegate,UIPic
     
     //   MARK: 请求网络上传作业
     func uploadWorkImage() {
-        
+        self.view.beginLoading()
+
         let cell = mainTableView.cellForRow(at: IndexPath.init(row: 1, section: 1)) as! CreateBookCell
         let cell2 = mainTableView.cellForRow(at: IndexPath.init(row: 0, section: 0)) as! UpLoadWorkCell
         
@@ -482,13 +483,20 @@ class CreateNotWorkViewController: BaseViewController,UIPickerViewDelegate,UIPic
         
         netWorkForBulidnon_exercise(params: params, data: images, name: nameArr, success: { (datas) in
             
-            if self.delegate != nil {
-                self.delegate?.beginRefresh()
-                self.navigationController?.popViewController(animated: true)
+            let json = JSON(datas)
+            
+            if json["code"].stringValue == "1" {
+                if self.delegate != nil {
+                    self.delegate?.beginRefresh()
+                    self.navigationController?.popViewController(animated: true)
+                }
+            }else{
+                setToast(str: "上传失败")
             }
             
+            self.view.endLoading()
         }) { (error) in
-                
+            self.view.endLoading()
         }
         
     }

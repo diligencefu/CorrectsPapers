@@ -9,14 +9,20 @@
 import UIKit
 
 class MyBookViewController: BaseViewController{
-    var emptyView = UIView()
     
+    var emptyView = UIView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         addImageWhenEmpty()
+        //        接收创建练习册成功的通知
+        NotificationCenter.default.addObserver(self, selector: #selector(receiveNitification(nitofication:)), name: NSNotification.Name(rawValue: SuccessUploadWorkNotiS), object: nil)
     }
     
+    @objc func receiveNitification(nitofication:Notification) {
+        self.mainTableView.mj_header.beginRefreshing()
+    }
+
     override func requestData() {
         
         self.view.beginLoading()
@@ -36,6 +42,7 @@ class MyBookViewController: BaseViewController{
         self.view.beginLoading()
         netWorkForMyWorkBook { (dataArr,flag) in
             deBugPrint(item: dataArr)
+            
             if dataArr.count > 0 {
                 self.mainTableArr.removeAllObjects()
                 self.mainTableArr.addObjects(from: dataArr)
@@ -43,9 +50,7 @@ class MyBookViewController: BaseViewController{
             }
             self.view.endLoading()
             self.mainTableView.mj_header.endRefreshing()
-
         }
-        
     }
     
     
@@ -60,7 +65,6 @@ class MyBookViewController: BaseViewController{
         mainTableView.register(UINib(nibName: "MyBookCell", bundle: nil), forCellReuseIdentifier: identyfierTable)
         mainTableView.tableFooterView = UIView.init()
         self.view.addSubview(mainTableView)
-        
     }
     
     
@@ -82,7 +86,6 @@ class MyBookViewController: BaseViewController{
             label.numberOfLines = 2
             label.text = "暂时没有练习册"
             emptyView.addSubview(label)
-                        
         }
     
     
@@ -99,9 +102,11 @@ class MyBookViewController: BaseViewController{
         return mainTableArr.count
     }
     
+    
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
+    
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let model = mainTableArr[indexPath.row] as! WorkBookModel
@@ -111,12 +116,18 @@ class MyBookViewController: BaseViewController{
         return cell
     }
     
+    
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         let model = mainTableArr[indexPath.row] as! WorkBookModel
         let BookDetailVC = MyBookDetailViewController()
         BookDetailVC.model = model
         BookDetailVC.workState = model.correcting_states!
+        let date = NSDate.init()
+        let formatter = DateFormatter()
+        //日期样式
+        formatter.dateFormat = "yyyy-MM-dd"
+        BookDetailVC.selectDate = formatter.string(from: date as Date)
         self.navigationController?.pushViewController(BookDetailVC, animated: true)
 
     }

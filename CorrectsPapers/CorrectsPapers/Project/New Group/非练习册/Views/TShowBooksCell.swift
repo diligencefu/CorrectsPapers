@@ -31,7 +31,7 @@ class TShowBooksCell: UITableViewCell {
 
     func TShowBooksCellForShowBook(model:TNotWorkModel) {
         
-        bookImage.kf.setImage(with:StringToUTF_8InUrl(str: model.pre_photos), placeholder: #imageLiteral(resourceName: "photos_image_default"), options: nil, progressBlock: nil, completionHandler: nil)
+        bookImage.kf.setImage(with:StringToUTF_8InUrl(str: model.pre_photos), placeholder: #imageLiteral(resourceName: "class_default"), options: nil, progressBlock: nil, completionHandler: nil)
         studentName.text = model.user_name
         proName.text = model.subject_name
         bookTitle.text = model.non_exercise_name
@@ -44,9 +44,9 @@ class TShowBooksCell: UITableViewCell {
     
     func TShowBooksCellForMyCorrect(model:TNotWorkModel) {
         addbtn.isHidden = true
-        bookImage.kf.setImage(with:StringToUTF_8InUrl(str: model.pre_photos), placeholder: #imageLiteral(resourceName: "photos_image_default"), options: nil, progressBlock: nil, completionHandler: nil)
+        bookImage.kf.setImage(with:StringToUTF_8InUrl(str: model.pre_photos), placeholder: #imageLiteral(resourceName: "class_default"), options: nil, progressBlock: nil, completionHandler: nil)
         studentName.text = model.user_name
-        proName.text = model.subject_name
+        proName.text = model.subject_id
         bookTitle.text = model.non_exercise_name
         
         if model.correct_way == "2" {

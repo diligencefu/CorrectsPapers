@@ -30,6 +30,8 @@ class TShowGradeModel: NSObject {
     var user_num : String?
     ///课时数
     var orders : String?
+    ///批改时间
+    var update_date : String?
 
     class func setValueForTMyWorkTShowGradeModel(json: JSON) -> TShowGradeModel {
         
@@ -44,6 +46,7 @@ class TShowGradeModel: NSObject {
         model.user_photo = json["user_photo"].stringValue
         model.user_num = json["user_num"].stringValue
         model.orders = json["orders"].stringValue
+        model.update_date = json["update_date"].stringValue
         return model
     }
 }

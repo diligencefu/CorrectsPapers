@@ -33,5 +33,30 @@ class TClassMemberModel: NSObject {
         return model
     }
     
+}
+
+class LNClassMemberModel: NSObject {
+    ///班主任
+    var head_teacher : THeadTeacherModel!
+    ///学生
+    var student : Array<TStudentModel>!
+    ///上课老师
+    var teacher_class : Array<TTeacherModel>!
+    ///助教老师
+    var teacher_help : Array<TTeacherModel>!
+    ///助教老师
+    var me : TStudentModel!
+
     
+    class func setValueForLNClassMemberModel(json: JSON) -> LNClassMemberModel {
+        
+        let model = LNClassMemberModel()
+        model.head_teacher = THeadTeacherModel.setValueForTHeadTeacherModel(json: json["head_teacher"])
+        model.student = TStudentModel.setValueForTStudentModel(jsonArr: json["student"])
+        model.teacher_class = TTeacherModel.setValueForTTeacherModel(jsonArr: json["teacher_class"])
+        model.teacher_help = TTeacherModel.setValueForTTeacherModel(jsonArr: json["teacher_help"])
+        model.me = TStudentModel.setValueForTStudentModel_Me(json: json["me"]["me"])
+        return model
+    }
+
 }

@@ -30,7 +30,9 @@ class TViewBookCell0: UITableViewCell {
     func TViewBookCell0SetValuesForShowWork(model:TShowStuWorksModel) {
         
         bookTitle.text = model.result
-        userIcon.kf.setImage(with:  URL(string:model.user_photo)!, placeholder: #imageLiteral(resourceName: "UserHead_128_default"), options: nil, progressBlock: nil, completionHandler: nil)
+        if model.user_photo.count>0 {
+            userIcon.kf.setImage(with:  URL(string:model.user_photo)!, placeholder: #imageLiteral(resourceName: "UserHead_128_default"), options: nil, progressBlock: nil, completionHandler: nil)
+        }
         userNum.text =  model.user_num
         userName.text = model.user_name
         timeLabel.text = model.correcting_time
@@ -54,7 +56,7 @@ class TViewBookCell0: UITableViewCell {
         userIcon.kf.setImage(with:  URL(string:model.user_photo)!, placeholder: #imageLiteral(resourceName: "UserHead_128_default"), options: nil, progressBlock: nil, completionHandler: nil)
         userNum.text =  model.student_num
         userName.text = model.user_name
-        timeLabel.text = model.p_datetime
+        timeLabel.text = model.create_date
         
         bookState.textColor = kSetRGBColor(r: 255, g: 153, b: 0)
         

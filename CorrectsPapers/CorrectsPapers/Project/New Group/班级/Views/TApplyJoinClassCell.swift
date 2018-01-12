@@ -21,6 +21,10 @@ class TApplyJoinClassCell: UITableViewCell {
     @IBOutlet weak var refuse: UIButton!
     @IBOutlet weak var agree: UIButton!
     
+    
+    var disposeApplyBlock:((String)->())?  //声明闭包
+
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         
@@ -41,14 +45,14 @@ class TApplyJoinClassCell: UITableViewCell {
     
     func TApplyJoinClassCellForTeacher(model:TTeacherModel) {
         
-        userIcon.kf.setImage(with:  URL(string:model.teacher_photo)!, placeholder: #imageLiteral(resourceName: "photos_image_default"), options: nil, progressBlock: nil, completionHandler: nil)
+        userIcon.kf.setImage(with:  URL(string:model.teacher_photo)!, placeholder: #imageLiteral(resourceName: "UserHead_128_default"), options: nil, progressBlock: nil, completionHandler: nil)
         userNum.text = model.teacher_num
         userName.text = model.teacher_name
         idMark.text = "工号"
     }
     
     func TApplyJoinClassCellForStudent(model:TStudentModel) {
-        userIcon.kf.setImage(with:  URL(string:model.student_photo)!, placeholder: #imageLiteral(resourceName: "photos_image_default"), options: nil, progressBlock: nil, completionHandler: nil)
+        userIcon.kf.setImage(with:  URL(string:model.student_photo)!, placeholder: #imageLiteral(resourceName: "UserHead_128_default"), options: nil, progressBlock: nil, completionHandler: nil)
         userNum.text = model.student_num
         userName.text = model.student_name
         idMark.text = "学号"
@@ -56,13 +60,17 @@ class TApplyJoinClassCell: UITableViewCell {
     
     @IBAction func refuseAction(_ sender: UIButton) {
         
-        
+        if disposeApplyBlock != nil {
+            disposeApplyBlock!("3")
+        }
     }
     
     
     @IBAction func agreeAction(_ sender: UIButton) {
         
-        
+        if disposeApplyBlock != nil {
+            disposeApplyBlock!("2")
+        }
     }
     
     

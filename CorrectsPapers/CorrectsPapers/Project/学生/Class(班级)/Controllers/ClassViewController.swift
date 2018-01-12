@@ -15,6 +15,12 @@ class ClassViewController: BaseViewController {
         super.viewDidLoad()
         rightBarButton()
         addImageWhenEmpty()
+        //        接收退出成功的通知
+        NotificationCenter.default.addObserver(self, selector: #selector(receiveNitification(nitofication:)), name: NSNotification.Name(rawValue: SuccessCorrectDeleteClassNotiS), object: nil)
+    }
+    
+    @objc func receiveNitification(nitofication:Notification) {
+        self.mainTableView.mj_header.beginRefreshing()
     }
 
     override func leftBarButton() {
@@ -25,10 +31,10 @@ class ClassViewController: BaseViewController {
     override func requestData() {
         let params = [
             "SESSIONID":SESSIONID,
-            "mobileCode":mobileCode
+            "mobileCode":mobileCode,
         ]
         self.view.beginLoading()
-        netWorkForMyClass(params: params) { (datas,flag) in
+        netWorkForMyClassStudent(params: params) { (datas,flag) in
             if flag {
                 
                 self.mainTableArr.removeAllObjects()
@@ -70,11 +76,11 @@ class ClassViewController: BaseViewController {
     override func refreshHeaderAction() {
         let params = [
             "SESSIONID":SESSIONID,
-            "mobileCode":mobileCode
-        ]
+            "mobileCode":mobileCode,
+            ]
         self.view.beginLoading()
-        netWorkForMyClass(params: params) { (datas,flag) in
-            
+        netWorkForMyClassStudent(params: params) { (datas,flag) in
+
             if flag {
                 self.mainTableArr.removeAllObjects()
                 self.mainTableArr.addObjects(from: datas)
@@ -130,7 +136,6 @@ class ClassViewController: BaseViewController {
         creatBook.clipsToBounds = true
         creatBook.addTarget(self, action: #selector(creatClassAction(sender:)), for: .touchUpInside)
         emptyView.addSubview(creatBook)
-        
     }
     
     
@@ -169,8 +174,11 @@ class ClassViewController: BaseViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        let detailVC = ClassDetailViewController()
         
+        let model = mainTableArr[indexPath.row] as! ClassModel
+        let detailVC = ClassDetailViewController()
+        detailVC.class_id = model.classes_id
+        detailVC.class_name = model.class_name
         self.navigationController?.pushViewController(detailVC, animated: true)
 
     }

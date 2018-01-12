@@ -36,6 +36,11 @@ class ShowTagsView: UIView ,UIPickerViewDelegate,UIPickerViewDataSource{
     var teacherType = [String]()
     var academicArr = [String]()
 
+    
+    var worksCircle = [String]()
+    var workDeadLine = [String]()
+    
+
     var currentCount = 1
 
     var which = 0
@@ -55,6 +60,8 @@ class ShowTagsView: UIView ,UIPickerViewDelegate,UIPickerViewDataSource{
         teacherType = ["上课老师","助教老师"]
         academicArr = ["大专","本科","硕士","博士"]
 
+        worksCircle = ["每天","每周一","每周二","每周三","每周四","每周五","每周六","每周日"]
+        workDeadLine = ["12:00前","13:00前","14:00前","15:00前","16:00前","17:00前","18:00前","19:00前","20:00前"]
         _ = tagsView.subviews.map {
             $0.removeFromSuperview()
         }
@@ -144,6 +151,14 @@ class ShowTagsView: UIView ,UIPickerViewDelegate,UIPickerViewDataSource{
             
             which = 6
             viewTitle.text = "选择学历"
+        }else if index == 10003{
+            
+            which = 7
+            viewTitle.text = "选择周期"
+        }else if index == 10004{
+            
+            which = 8
+            viewTitle.text = "选择截止时间"
         }
         else{
             which = 3
@@ -155,7 +170,6 @@ class ShowTagsView: UIView ,UIPickerViewDelegate,UIPickerViewDataSource{
         if index == 1 {
             height = 220 * kSCREEN_SCALE
         }
-        
         
         //MARK:   时间选择器
         pickerView = UIPickerView()
@@ -259,6 +273,14 @@ class ShowTagsView: UIView ,UIPickerViewDelegate,UIPickerViewDataSource{
         if currentCount == 10002 {
             return academicArr.count
         }
+        
+        if currentCount == 10003 {
+            return worksCircle.count
+        }
+        
+        if currentCount == 10004 {
+            return workDeadLine.count
+        }
 
         return workTimeArr.count
     }
@@ -282,6 +304,14 @@ class ShowTagsView: UIView ,UIPickerViewDelegate,UIPickerViewDataSource{
         if currentCount == 10002 {
             return academicArr[row]
         }
+        
+        if currentCount == 10003 {
+            return worksCircle[row]
+        }
+        
+        if currentCount == 10004 {
+            return workDeadLine[row]
+        }
 
         return workTimeArr[row]
     }
@@ -303,6 +333,12 @@ class ShowTagsView: UIView ,UIPickerViewDelegate,UIPickerViewDataSource{
         }else if currentCount == 10002 {
             
             selectStr = academicArr[row]
+        }else if currentCount == 10003 {
+            
+            selectStr = worksCircle[row]
+        }else if currentCount == 10004 {
+            
+            selectStr = workDeadLine[row]
         }else{
             
             selectStr = workTimeArr[row]
@@ -367,6 +403,20 @@ class ShowTagsView: UIView ,UIPickerViewDelegate,UIPickerViewDataSource{
                 
                 if selectStr == "" {
                     selectStr = "大专"
+                }
+                
+                selectBlock!(selectStr,false)
+            case 7:
+                
+                if selectStr == "" {
+                    selectStr = "每天"
+                }
+                
+                selectBlock!(selectStr,false)
+            case 8:
+                
+                if selectStr == "" {
+                    selectStr = "18:00前"
                 }
                 
                 selectBlock!(selectStr,false)

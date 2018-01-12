@@ -40,6 +40,8 @@ class TNotWorkModel: NSObject {
     var reason : String!
     ///老师名字
     var teacher_name : String!
+    ///科目
+    var subject_id : String!
 
     class func setValueForTNotWorkModel(json: JSON) -> TNotWorkModel {
         
@@ -59,6 +61,7 @@ class TNotWorkModel: NSObject {
         model.student_id = json["student_id"].stringValue
         model.reason = json["reason"].stringValue
         model.teacher_name = json["teacher_name"].stringValue
+        model.subject_id = json["subject_id"].stringValue
         return model
     }
 

@@ -21,10 +21,17 @@ class TBookViewController: BaseViewController {
         
         rightBarButton()
         addImageWhenEmpty()
-        addFooterRefresh()
+//        addFooterRefresh()
         addTipView()
+        //        接收创建练习册成功的通知
+        NotificationCenter.default.addObserver(self, selector: #selector(receiveNitification(nitofication:)), name: NSNotification.Name(rawValue: SuccessRefreshNotificationCenter), object: nil)
     }
     
+    @objc func receiveNitification(nitofication:Notification) {
+        self.mainTableView.mj_header.beginRefreshing()
+    }
+    
+
     override func leftBarButton() {
         
     }
@@ -67,8 +74,8 @@ class TBookViewController: BaseViewController {
                 self.mainTableArr.removeAllObjects()
                 self.mainTableArr.addObjects(from: datas)
                 self.mainTableView.reloadData()
-                self.mainTableView.mj_header.endRefreshing()
             }
+            self.mainTableView.mj_header.endRefreshing()
             self.view.endLoading()
         }
     }
@@ -136,16 +143,27 @@ class TBookViewController: BaseViewController {
     //    右键
     func rightBarButton() {
         
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(image: #imageLiteral(resourceName: "book_icon_default"), style: .plain, target: self, action: #selector(pushToMyBook(sender:)))
+        let createClass = UIBarButtonItem.init(image:#imageLiteral(resourceName: "create-class_icon"), style: .plain, target: self, action: #selector(pushToMyBook(sender:)))
+        createClass.tag = 10086
+        
+        let searchClass = UIBarButtonItem.init(image: #imageLiteral(resourceName: "MyBook_icon_default"), style: .plain, target: self, action: #selector(pushToMyBook(sender:)))
+        searchClass.tag = 10068
+        
+        self.navigationItem.rightBarButtonItems = [searchClass,createClass,]
+
         
     }
     
     
     @objc func pushToMyBook(sender:UIBarButtonItem) {
         
-        let myBook = TMyBookViewController()
-        
-        self.navigationController?.pushViewController(myBook, animated: true)
+        if sender.tag != 10086 {
+            let myBook = TMyBookViewController()
+            self.navigationController?.pushViewController(myBook, animated: true)
+        }else{
+            let myBook = CreateBookViewController()
+            self.navigationController?.pushViewController(myBook, animated: true)
+        }
     }
     
     
@@ -212,6 +230,7 @@ class TBookViewController: BaseViewController {
             self.index = indexPath.row
             self.showTheTipView()
         }
+        cell.selectionStyle = .none
         cell.TShowBookCellSetValue(model:model)
         return cell
     }
@@ -256,6 +275,7 @@ class TBookViewController: BaseViewController {
     
     override func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         searchBar.resignFirstResponder()
+        
     }
     
     

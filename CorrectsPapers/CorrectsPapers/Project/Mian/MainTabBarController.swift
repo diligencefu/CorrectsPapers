@@ -102,7 +102,7 @@ class MainTabBarController: UITabBarController {
             self.viewControllers = [Nav0,Nav1,Nav2,Nav3]
         }
         
-        self.selectedIndex = 1
+        self.selectedIndex = 0
     }
 
     func unSelectedTapTabBarItems(tabBarItem:UITabBarItem) {

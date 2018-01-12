@@ -19,7 +19,6 @@ class WorkBookViewController: BaseViewController ,UISearchBarDelegate{
         addImageWhenEmpty()
         rightBarButton()
         
-        
 //        接收创建练习册成功的通知
         NotificationCenter.default.addObserver(self, selector: #selector(receiveNitification(nitofication:)), name: NSNotification.Name(rawValue: SuccessRefreshNotificationCenter), object: nil)
     }
@@ -53,7 +52,6 @@ class WorkBookViewController: BaseViewController ,UISearchBarDelegate{
     }
     
     override func refreshHeaderAction() {
-        self.view.beginLoading()
 
         netWorkForGetAllWorkBook { (dataArr,flag) in
             
@@ -69,7 +67,6 @@ class WorkBookViewController: BaseViewController ,UISearchBarDelegate{
                 }
             }
             self.mainTableView.mj_header.endRefreshing()
-            self.view.endLoading()
         }
     }
     
@@ -77,7 +74,6 @@ class WorkBookViewController: BaseViewController ,UISearchBarDelegate{
     override func configSubViews() {
         
         self.navigationItem.title = "练习册作业"
-        
         
         //        顶部搜索栏
         searchBar = UISearchBar.init(frame: CGRect(x: 0, y: 0, width: kSCREEN_WIDTH, height: 50 ))
@@ -114,7 +110,6 @@ class WorkBookViewController: BaseViewController ,UISearchBarDelegate{
         mainTableView.tableHeaderView = searchBar
         mainTableView.tableFooterView = UIView()
         self.view.addSubview(mainTableView)
-        
     }
     
     
@@ -125,19 +120,28 @@ class WorkBookViewController: BaseViewController ,UISearchBarDelegate{
     }
     
     
-//    右键
+    //    右键
     func rightBarButton() {
         
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(image: #imageLiteral(resourceName: "book_icon_default"), style: .plain, target: self, action: #selector(pushToMyBook(sender:)))
+        let createClass = UIBarButtonItem.init(image:#imageLiteral(resourceName: "create-class_icon"), style: .plain, target: self, action: #selector(pushToMyBook(sender:)))
+        createClass.tag = 10086
         
+        let searchClass = UIBarButtonItem.init(image: #imageLiteral(resourceName: "book_icon_default"), style: .plain, target: self, action: #selector(pushToMyBook(sender:)))
+        searchClass.tag = 10068
+        
+        self.navigationItem.rightBarButtonItems = [searchClass,createClass,]
     }
     
     
     @objc func pushToMyBook(sender:UIBarButtonItem) {
         
-        let myBook = MyBookViewController()
-        
-        self.navigationController?.pushViewController(myBook, animated: true)
+        if sender.tag != 10086 {
+            let myBook = MyBookViewController()
+            self.navigationController?.pushViewController(myBook, animated: true)
+        }else{
+            let myBook = CreateBookViewController()
+            self.navigationController?.pushViewController(myBook, animated: true)
+        }
     }
     
     
@@ -184,7 +188,6 @@ class WorkBookViewController: BaseViewController ,UISearchBarDelegate{
         }else{
             emptyView.removeFromSuperview()
         }
-
         return mainTableArr.count
     }
     
@@ -214,20 +217,23 @@ class WorkBookViewController: BaseViewController ,UISearchBarDelegate{
             netWorkForAddWorkBookToMe(params: params, callBack: { (flag) in
                 
                 if flag {
-                    netWorkForGetAllWorkBook { (dataArr ,flag) in
-                        if flag {
-                           deBugPrint(item: dataArr)
-                            if dataArr.count > 0 {
-                                
-                                self.mainTableArr.removeAllObjects()
-                                self.mainTableArr.addObjects(from: dataArr)
-                                self.mainTableView.reloadData()
-                            }else{
-                                setToast(str: "返回数据为空")
-                            }
-                        }
-                        self.view.endLoading()
-                    }
+                    tableView.mj_header.beginRefreshing()
+
+//                    netWorkForGetAllWorkBook { (dataArr ,flag) in
+//                        if flag {
+//                           deBugPrint(item: dataArr)
+//                            if dataArr.count > 0 {
+//
+//                                self.mainTableArr.removeAllObjects()
+//                                self.mainTableArr.addObjects(from: dataArr)
+//                                self.mainTableView.reloadData()
+//                            }else{
+//                                setToast(str: "返回数据为空")
+//                            }
+//                            tableView.mj_header.beginRefreshing()
+//                        }
+//                        self.view.endLoading()
+//                    }
                 }
                 self.view.endLoading()
             })

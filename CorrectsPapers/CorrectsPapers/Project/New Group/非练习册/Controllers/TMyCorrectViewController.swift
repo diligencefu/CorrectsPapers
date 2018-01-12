@@ -71,8 +71,8 @@ class TMyCorrectViewController: BaseViewController {
             if flag {
                 self.mainTableArr.addObjects(from: datas)
                 self.mainTableView.reloadData()
-                self.mainTableView.mj_header.endRefreshing()
             }
+            
             self.mainTableView.mj_footer.endRefreshing()
         }
         
@@ -170,7 +170,7 @@ class TMyCorrectViewController: BaseViewController {
     
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         
-        return true
+        return false
     }
     
     func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {

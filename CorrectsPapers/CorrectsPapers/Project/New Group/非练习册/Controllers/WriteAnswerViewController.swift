@@ -8,7 +8,7 @@
 
 import UIKit
 
-class WriteAnswerViewController: BaseViewController ,UITextFieldDelegate,UITextViewDelegate{
+class WriteAnswerViewController: BaseViewController ,UITextFieldDelegate,UITextViewDelegate,UIAlertViewDelegate{
 
     var tipTextField = UITextField()
     var content = UITextView()
@@ -20,6 +20,8 @@ class WriteAnswerViewController: BaseViewController ,UITextFieldDelegate,UITextV
 
     var bookId = ""
 
+    var bookDate = "<#value#>"
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         rightBarButton()
@@ -38,11 +40,10 @@ class WriteAnswerViewController: BaseViewController ,UITextFieldDelegate,UITextV
         self.view.addSubview(content)
         
         tipTextField = UITextField.init(frame: CGRect(x: 0, y: 8, width: kSCREEN_WIDTH, height: 21))
-        tipTextField.placeholder = " submitAnswer"
+        tipTextField.placeholder = " 在这里可以书写改作业的答案"
         tipTextField.borderStyle = .none
         tipTextField.delegate = self
         content.addSubview(tipTextField)
-        
     }
     
     
@@ -50,12 +51,80 @@ class WriteAnswerViewController: BaseViewController ,UITextFieldDelegate,UITextV
         
         self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(title: "确认", style: .plain, target: self, action: #selector(submitAnswer(sender:)))
         self.navigationItem.rightBarButtonItem?.tintColor = UIColor.white
-        
     }
     
     
+    var priceTextfield = UITextField()
+    func addAlertTip() {
+        
+        let alert = UIAlertView.init(title: "设置支付学币", message: "单位：（学币）", delegate: self, cancelButtonTitle: "确定", otherButtonTitles: "取消")
+        alert.alertViewStyle = .plainTextInput
+        
+        priceTextfield = alert.textField(at: 0)!
+        priceTextfield.keyboardType = .numberPad
+        
+        let text = priceTextfield.text
+        deBugPrint(item: text!)
+        alert.show()
+    }
+    
+
+    func alertView(_ alertView: UIAlertView, clickedButtonAt buttonIndex: Int) {
+        let buttonTitle = alertView.buttonTitle(at: buttonIndex)
+        if buttonTitle == "确定" {
+            
+            if (priceTextfield.text?.count)! < 1 {
+                setToast(str: "请设置答案价格")
+                return
+            }
+            self.view.beginLoading()
+            var params1 = [String : Any]()
+            
+            if currentType == 1 {
+                params1 =
+                    ["SESSIONID":SESSIONIDT,
+                     "mobileCode":mobileCodeT,
+                     "bookId":bookId,
+                     "answardRes":content.text,
+                     "money":priceTextfield.text!,
+                     "date":bookDate
+                     ] as [String : Any]
+
+            }else{
+                params1 =
+                    ["SESSIONID":SESSIONIDT,
+                     "mobileCode":mobileCodeT,
+                     "bookId":bookId,
+                     "answardRes":content.text,
+                     "money":priceTextfield.text!,
+                     ] as [String : Any]
+            }
+            NetWorkTeacherAddTWorkUploadContent(params: params1, callBack: { (flag) in
+                
+                if flag {
+                    setToast(str: "已提交")
+                    
+                    if self.addTextBlock != nil {
+                        self.addTextBlock!(self.content.text)
+                     }
+                    
+                    self.navigationController?.popViewController(animated: true)
+                }
+                self.view.endLoading()
+            })
+        }
+    }
+    
     //    MARK:提交
     @objc func submitAnswer(sender:UIBarButtonItem) {
+        
+        if content.text.count < 1 {
+            setToast(str: "请编辑答案内容")
+            return
+        }
+        
+        
+        addAlertTip()
 //
 //        if addTextBlock != nil {
 //            addTextBlock!(content.text)
@@ -64,22 +133,6 @@ class WriteAnswerViewController: BaseViewController ,UITextFieldDelegate,UITextV
 //        setToast(str: "已提交")
 //        self.navigationController?.popViewController(animated: true)
         
-        
-        let params1 =
-            ["SESSIONID":SESSIONIDT,
-             "mobileCode":mobileCodeT,
-             "bookId":bookId,
-             "answardRes":content.text,
-             "money":"2",
-             ] as [String : Any]
-        
-        NetWorkTeacherAddTWorkUploadContent(params: params1, callBack: { (flag) in
-            if flag {
-                setToast(str: "已提交")
-                self.navigationController?.popViewController(animated: true)
-            }
-        })
-
     }
     
     

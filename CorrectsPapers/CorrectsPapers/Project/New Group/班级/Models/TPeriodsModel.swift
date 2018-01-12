@@ -24,7 +24,7 @@ class TPeriodsModel: NSObject {
         let model = TPeriodsModel()
         model.periods_id = json["periods_id"].stringValue
         model.orders = json["orders"].stringValue
-        model.name = json["orders"].stringValue
+        model.name = json["name"].stringValue
         return model
     }
 }

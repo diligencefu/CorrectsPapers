@@ -58,12 +58,12 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="作业已交" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hmG-TW-2gI">
-                        <rect key="frame" x="274.5" y="26" width="69.5" height="21"/>
+                        <rect key="frame" x="290.5" y="26" width="53.5" height="21"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="21" id="CQU-h2-1gM"/>
                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="20" id="Rco-fk-2GR"/>
                         </constraints>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
                         <color key="textColor" red="0.99239605665206909" green="0.5945780873298645" blue="0.008475656621158123" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
@@ -90,7 +90,7 @@
                 <outlet property="userName" destination="Zej-XR-nGr" id="8fy-Tz-Okn"/>
                 <outlet property="userNum" destination="NLy-1h-Xq3" id="N1C-vw-NsU"/>
             </connections>
-            <point key="canvasLocation" x="33.5" y="53.5"/>
+            <point key="canvasLocation" x="-96.5" y="53.5"/>
         </tableViewCell>
     </objects>
     <resources>

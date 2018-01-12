@@ -44,4 +44,15 @@ class TStudentModel: NSObject {
         return dataArr
     }
 
+    class func setValueForTStudentModel_Me(json: JSON) -> TStudentModel {
+        let model = TStudentModel()
+        model.apply_type = json["apply_type"].stringValue
+        model.isMe = json["isMe"].stringValue
+        model.ispay = json["ispay"].stringValue
+        model.student_id = json["student_id"].stringValue
+        model.student_name = json["student_name"].stringValue
+        model.student_num = json["student_num"].stringValue
+        model.student_photo = json["student_photo"].stringValue
+        return model
+    }
 }

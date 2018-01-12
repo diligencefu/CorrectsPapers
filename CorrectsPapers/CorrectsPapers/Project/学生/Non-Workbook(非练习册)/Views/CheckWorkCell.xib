@@ -117,7 +117,7 @@
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" text="老师评语：那你含棒棒哦。" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="jbt-Jc-I2Q">
+                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" text="老师评语：那你含棒棒哦。" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="jbt-Jc-I2Q">
                         <rect key="frame" x="16" y="303" width="347" height="31.5"/>
                         <color key="backgroundColor" red="0.89402025938034058" green="0.89417368173599243" blue="0.89401060342788696" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>

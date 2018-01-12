@@ -45,19 +45,19 @@ class GiveMarkView: UIView,UITextFieldDelegate,UITextViewDelegate {
         remark.addSubview(textfield)
     }
     
-//    
-//    func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
-//        
-//        kHiddenTextView = 11111
-//        return true
-//    }
-//    
-//    func textViewShouldEndEditing(_ textView: UITextView) -> Bool {
-//        
-//        kHiddenTextView = 16515
-//        return true
-//    }
-//    
+    
+    func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
+        
+        kHiddenTextView = 111111111
+        return true
+    }
+    
+    func textViewShouldEndEditing(_ textView: UITextView) -> Bool {
+        
+        kHiddenTextView = 11111
+        return true
+    }
+    
     
     
     //    MARK:UITextViewDelegate

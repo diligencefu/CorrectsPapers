@@ -20,13 +20,34 @@ class ClassDetailViewController: BaseViewController,UITextFieldDelegate {
     
     var searchTextfield = UITextField()
 
+    var class_id = ""
+    var class_name = ""
+    
+    //    班级信息
+    var InfoModel = LNClassInfoModel()
+
+    //    课时目录
+    var Periods = NSMutableArray()
+    
+    //    班级成员
+    var assistantArr = NSMutableArray()
+    var studentArr = NSMutableArray()
+    
+    
+    
+    //   成绩统计
+    var Grades = NSMutableArray()
+    
+    var resource = LNClassMemberModel()
+    
+
     override func viewDidLoad() {
         super.viewDidLoad()
     }
     
     override func configSubViews() {
 
-        self.navigationItem.title = "少年班"
+        self.navigationItem.title = class_name
         
         headView = UIView.init(frame: CGRect(x: 0, y: 0, width: kSCREEN_WIDTH, height: 165*kSCREEN_SCALE))
         headView.backgroundColor = UIColor.white
@@ -49,8 +70,27 @@ class ClassDetailViewController: BaseViewController,UITextFieldDelegate {
         mainTableView.register(UINib(nibName: "ShowClassMemberCell", bundle: nil), forCellReuseIdentifier: identyfierTable1)
         mainTableView.register(UINib(nibName: "TClassInfoCell", bundle: nil), forCellReuseIdentifier: identyfierTable2)
         mainTableView.register(UINib(nibName: "ClassGradeCell", bundle: nil), forCellReuseIdentifier: identyfierTable3)
+        mainTableView.register(UINib(nibName: "TClassStudentCell", bundle: nil), forCellReuseIdentifier: identyfierTable5)
+
 
         self.view.addSubview(mainTableView)
+    }
+    
+    override func requestData() {
+        let params = [
+            "SESSIONID":SESSIONIDT,
+            "mobileCode":mobileCodeT,
+            "type":String(currentIndex),
+            "classes_id":class_id
+        ]
+        self.view.beginLoading()
+        netWorkForGetClassContents(params: params) { (datas, flag) in
+            if flag {
+                self.Periods.addObjects(from: datas)
+                self.mainTableView.reloadData()
+            }
+            self.view.endLoading()
+        }
     }
     
     
@@ -92,6 +132,10 @@ class ClassDetailViewController: BaseViewController,UITextFieldDelegate {
             buttonView.addSubview(markBtn)
         }
         
+        let line = UIView.init(frame: CGRect(x: 0, y: 88 * kSCREEN_SCALE+1 , width: kSCREEN_WIDTH, height: 1))
+        line.backgroundColor = kGaryColor(num: 223)
+        buttonView.addSubview(line)
+        
         let view = buttonView.viewWithTag(131) as! UIButton
         view.setTitleColor(kMainColor(), for: .normal)
         underLine = UIView.init(frame: CGRect(x: 0, y: 88 * kSCREEN_SCALE - 1, width: getLabWidth(labelStr: typeArr[0], font: kFont32, height: 1) - 5, height: 2))
@@ -102,7 +146,6 @@ class ClassDetailViewController: BaseViewController,UITextFieldDelegate {
         buttonView.addSubview(underLine)
         
         headView.addSubview(buttonView)
-
     }
 
     
@@ -121,96 +164,260 @@ class ClassDetailViewController: BaseViewController,UITextFieldDelegate {
         UIView.animate(withDuration: 0.3, animations: {
             self.underLine.bounds.size.width = getLabWidth(labelStr: (sender.titleLabel?.text)!, font: kFont32, height: 2)-5
             
-            self.underLine.center = CGPoint(x:  sender.center.x, y:  self.underLine.center.y)
+            self.underLine.center = CGPoint(x: sender.center.x, y:  self.underLine.center.y)
         })
         
         currentIndex = sender.tag - 130
         
-        mainTableView.reloadData()
+        self.view.beginLoading()
+        refreshHeaderAction()
+    }
+    
+    override func refreshHeaderAction() {
+        let params = [
+            "SESSIONID":SESSIONIDT,
+            "mobileCode":mobileCodeT,
+            "type":String(currentIndex),
+            "classes_id":class_id
+        ]
+        netWorkForGetClassContents(params: params) { (datas, flag) in
+            if flag {
+                if self.currentIndex == 1 {
+                    
+                    self.Periods.removeAllObjects()
+                    self.Periods.addObjects(from: datas)
+                    self.mainTableView.reloadData()
+                }else if self.currentIndex == 2 {
+                    
+                    if datas.count > 0{
+                        self.resource = datas[0] as! LNClassMemberModel
+                    }
+                    self.mainTableView.reloadData()
+                }else if self.currentIndex == 3 {
+                    
+                    if datas.count > 0{
+                        
+                        self.InfoModel = datas[0] as! LNClassInfoModel
+                    }
+                    self.mainTableView.reloadData()
+                }else {
+                    
+                    self.Grades.removeAllObjects()
+                    self.Grades.addObjects(from: datas)
+                    self.mainTableView.reloadData()
+                }
+            }
+            self.view.endLoading()
+            self.mainTableView.mj_header.endRefreshing()
+        }
+
     }
     
     
     //MARK:  ******代理 ：UITableViewDataSource,UITableViewDelegate
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
+        if currentIndex == 2 {
+         
+            if section == 0 {
+                
+                if resource.head_teacher == nil {
+                    return 0
+                }
+                return 1
+            }else if section == 1 {
+                
+                if resource.teacher_class == nil {
+                    return 0
+                }
+                return resource.teacher_class.count
+            }else if section == 2{
+                
+                if resource.teacher_help == nil {
+                    return 0
+                }
+                return resource.teacher_help.count
+            }else if section == 3{
+                return 1
+            }else{
+                if resource.student == nil {
+                    return 0
+                }
+                return resource.student.count
+            }
+        }
+        
         if currentIndex == 3 {
             return 1
         }
         
-        return 10
+        if currentIndex == 1 {
+            return Periods.count
+        }
         
+        return Grades.count+1
     }
     
+    
     override func numberOfSections(in tableView: UITableView) -> Int {
+        
+        if currentIndex == 2 {
+            return 5
+        }
         
         return 1
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        
         if currentIndex == 1 {
+            let model = Periods[indexPath.row] as! TPeriodsModel
             let cell : ShowPeriodsCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable, for: indexPath) as! ShowPeriodsCell
-//            cell.setValueForShowPeriodsCell(index: 10-indexPath.row)
+            cell.setValueForShowPeriodsCell(model:model)
             return cell
         }else if currentIndex == 2 {
-            let cell : ShowClassMemberCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable1, for: indexPath) as! ShowClassMemberCell
-            return cell
+            
+            if indexPath.section == 0 {
 
-        }else if currentIndex == 3 {
-            let cell : TClassInfoCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable2, for: indexPath) as! TClassInfoCell
-            cell.TClassInfoCellForStudent()
-            return cell
-            
-        }else{
-            let cell : ClassGradeCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable3, for: indexPath) as! ClassGradeCell
-            
-            if indexPath.row == 0 {
-                cell.is1thCell()
+                let cell : TClassStudentCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable5, for: indexPath) as! TClassStudentCell
+                cell.showHeadTeacherCell(model: resource.head_teacher)
+                return cell
+            }else if indexPath.section == 1{
+                let cell : TClassStudentCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable5, for: indexPath) as! TClassStudentCell
+                cell.showOtherTeachersCell(model: resource.teacher_class[indexPath.row])
+                return cell
+
+            }else if indexPath.section == 2{
+                
+                let cell : TClassStudentCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable5, for: indexPath) as! TClassStudentCell
+                cell.showOtherTeachersCell(model: resource.teacher_help[indexPath.row])
+                return cell
+            }else if indexPath.section == 3{
+                
+                let cell : TClassStudentCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable5, for: indexPath) as! TClassStudentCell
+                if resource.me != nil {
+                    cell.showStudentsCell(model: resource.me)
+                }
+                return cell
             }else{
-                cell.setValueForClassGradeCell(index: 10-indexPath.row)
+                let cell : TClassStudentCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable5, for: indexPath) as! TClassStudentCell
+                cell.showStudentsCell(model: resource.student[indexPath.row])
+                return cell
             }
             
-            return cell
+        }else if currentIndex == 3 {
             
+            let cell : TClassInfoCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable2, for: indexPath) as! TClassInfoCell
+            if InfoModel.class_name != nil {
+                cell.TClassInfoCellForStudent(model: InfoModel,isHeadTeacher: false)
+            }
+            return cell
+        }else{
+            
+            let cell : ClassGradeCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable3, for: indexPath) as! ClassGradeCell
+            if Grades.count == 0{
+                cell.noDatas()
+            }else{
+                if indexPath.row == 0 {
+                    cell.is1thCell()
+                }else{
+                    let model = Grades[indexPath.row-1] as! TShowGradeModel
+                    cell.setValueForClassGradeCell(model:model)
+                }
+            }
+            return cell
         }
-        
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         if currentIndex == 1 {
+            
+            let model = Periods[indexPath.row] as! TPeriodsModel
             let periodsVC = PeriodsDetailViewController()
-            periodsVC.workState = indexPath.row+1
+//            periodsVC.workState = indexPath.row-1
+            periodsVC.pModel = model
             self.navigationController?.pushViewController(periodsVC, animated: true)
         }
     }
 
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        
-        if section == 0 && currentIndex == 2 {
-            //        密码
-            searchTextfield.frame = CGRect(x: 30, y: 150, width: kSCREEN_WIDTH - 110, height: 32)
-            searchTextfield.borderStyle = .roundedRect
-            searchTextfield.leftViewRect(forBounds: CGRect(x: 0, y: 0, width: 26, height: 17))
-            searchTextfield.placeholder = "搜索班级"
-            searchTextfield.leftViewMode = .always
-            searchTextfield.returnKeyType = .search
-            searchTextfield.delegate = self
-            
-            let view = UIView.init(frame: CGRect(x: 0, y: 0, width: 26, height: 17))
-            
-            let leftImage = UIImageView.init(frame: CGRect(x: 8, y: 0, width: 17, height: 17))
-            leftImage.image = #imageLiteral(resourceName: "search_icon_default")
-            
-            view.addSubview(leftImage)
-            searchTextfield.leftView = view
-            return searchTextfield
+        if currentIndex == 2 {
+            if section == 0{
+                
+                let BGiew = UIView.init(frame:CGRect(x: 0, y: 0, width: kSCREEN_WIDTH , height: 43 + 48*kSCREEN_SCALE))
+                BGiew.backgroundColor = UIColor.white
+                searchTextfield.frame = CGRect(x: 15*kSCREEN_SCALE, y: 4, width: kSCREEN_WIDTH-30*kSCREEN_SCALE , height: 35)
+                searchTextfield.borderStyle = .none
+                searchTextfield.layer.cornerRadius = 6*kSCREEN_SCALE
+                searchTextfield.clipsToBounds = true
+                searchTextfield.leftViewRect(forBounds: CGRect(x: 0, y: 0, width: 35, height: 17))
+                searchTextfield.placeholder = "学生姓名/学号"
+                searchTextfield.leftViewMode = .always
+                searchTextfield.returnKeyType = .search
+                searchTextfield.clearButtonMode = .whileEditing
+                searchTextfield.backgroundColor = kGaryColor(num: 243)
+                searchTextfield.addTarget(self, action: #selector(textFieldDidChange(textfield:)), for: .editingChanged)
+                searchTextfield.delegate = self
+                
+                let view = UIView.init(frame: CGRect(x: 0, y: 0, width: 35, height: 17))
+                let leftImage = UIImageView.init(frame: CGRect(x: 11, y: 0, width: 17, height: 17))
+                leftImage.image = #imageLiteral(resourceName: "search_icon_default")
+                view.addSubview(leftImage)
+                searchTextfield.leftView = view
+                BGiew.addSubview(searchTextfield)
+                
+                let textLabel = UILabel.init(frame: CGRect(x: 0, y: 39, width: kSCREEN_WIDTH, height: 48*kSCREEN_SCALE))
+
+                textLabel.text = "   班主任"
+                textLabel.font = kFont24
+                textLabel.textColor = kGaryColor(num: 176)
+                BGiew.addSubview(textLabel)
+                return BGiew
+            }else{
+                
+                let textLabel = UILabel.init(frame: CGRect(x: 0, y: 39, width: kSCREEN_WIDTH, height: 48*kSCREEN_SCALE))
+                if section == 1{
+                    if resource.teacher_class != nil {
+                        if resource.teacher_class.count == 0{
+                            textLabel.text = "   暂无上课老师"
+                        }else{
+                            textLabel.text = "   上课老师"
+                        }
+                    }
+                }else if section == 2{
+                    if resource.teacher_help != nil {
+                        if resource.teacher_help.count == 0{
+                            textLabel.text = "   暂无助教老师"
+                        }else{
+                            textLabel.text = "   助教老师"
+                        }
+                    }
+                }else if section == 3{
+                    textLabel.text = "   我"
+                }else{
+                    textLabel.text = "   其他学生"
+                }
+                
+                textLabel.backgroundColor = kGaryColor(num: 243)
+                textLabel.font = kFont24
+                textLabel.textColor = kGaryColor(num: 176)
+                return textLabel
+            }
         }
-        
         return UIView()
-        
     }
+
+    @objc func textFieldDidChange(textfield:UITextField) {
+        
+        if textfield.text?.count == 0 {
+            setToast(str: "取消搜索")
+            //            isSearching = false
+            mainTableView.reloadData()
+            textfield.resignFirstResponder()
+        }
+    }
+    
     
     override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return 0
@@ -218,19 +425,19 @@ class ClassDetailViewController: BaseViewController,UITextFieldDelegate {
     
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         
-        if section == 0 && currentIndex == 2 {
-            return  80 * kSCREEN_SCALE
+        if currentIndex == 2 {
+            
+            if section == 0 {
+                return  48 * kSCREEN_SCALE+43
+            }else{
+                return 48 * kSCREEN_SCALE
+            }
         }
-        
-        if section == 0 && currentIndex == 2 {
-            return 30
-        }
-        
         return 0
     }
-    
+
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        if indexPath.section == 0 && currentIndex == 2 {
+        if indexPath.section == 3 && currentIndex == 2 {
             return true
         }
         return false
@@ -244,9 +451,20 @@ class ClassDetailViewController: BaseViewController,UITextFieldDelegate {
         
         if editingStyle == .delete {
             
-//            mainTableArr.removeObject(at: indexPath.row)
-//            tableView.reloadData()
-            deBugPrint(item: "删除了---\(indexPath.section)分区-\(indexPath.row)行")
+            let params = [
+                "SESSIONID":SESSIONIDT,
+                "mobileCode":mobileCodeT,
+                "classes_id":class_id
+            ]
+
+            netWorkForQuitClass(params: params, callBack: { (flag) in
+                if flag {
+                    //        通知中心
+                    NotificationCenter.default.post(name: Notification.Name(rawValue: SuccessCorrectDeleteClassNotiS), object: self, userInfo: ["refresh":"begin"])
+                    
+                    self.navigationController?.popViewController(animated: true)
+                }
+            })            
         }
     }
     

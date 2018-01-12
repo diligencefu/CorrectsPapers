@@ -395,7 +395,7 @@ class Non_WorkBookViewController: BaseViewController ,UIPickerViewDelegate,UIPic
         if indexPath.row == 0 {
             cell.is1thCell()
         }else{
-            cell.setValueForClassGradeCell(index: 10-indexPath.row)
+//            cell.setValueForClassGradeCell(index: 10-indexPath.row)
         }
 
         return cell
@@ -946,7 +946,7 @@ class Non_WorkBookViewController: BaseViewController ,UIPickerViewDelegate,UIPic
     //    HBAlertPasswordViewDelegate 密码弹框代理
     func sureAction(with alertPasswordView: HBAlertPasswordView!, password: String!) {
         alertPasswordView.removeFromSuperview()
-        setToast(str: "输入的密码为:"+password)
+
         if currentIndex == 1 {
             
             titleArr1.remove(at: titleArr1.index(of: currentTitle1)!)
@@ -960,7 +960,6 @@ class Non_WorkBookViewController: BaseViewController ,UIPickerViewDelegate,UIPic
         }
     }
 
-    
     
     override func viewWillDisappear(_ animated: Bool) {
         PopViewUtil.share.stopLoading()

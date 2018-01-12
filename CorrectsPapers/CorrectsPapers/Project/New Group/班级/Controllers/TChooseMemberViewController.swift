@@ -12,19 +12,26 @@ class TChooseMemberViewController: BaseViewController {
 
     var selectArr = [String]()
     
-    var chooseMemberBlock:((Array<String>)->())?  //声明闭包
+    var addMembers = [ApplyModel]()
+    
+    var class_id = ""
+    var state = ""
+    var type = ""
+    
+    var action = ""
+    
+    var chooseMemberBlock:((Array<ApplyModel>)->())?  //声明闭包
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         rightBarButton()
+        addImageWhenEmpty()
     }
+    
     
     override func configSubViews() {
         
-        self.navigationItem.title = "选择成员"
-        
-        mainTableArr =  ["","","","","","",""]
+        self.navigationItem.title = action
         
         mainTableView = UITableView.init(frame: CGRect(x: 0, y: 0, width: kSCREEN_WIDTH, height: kSCREEN_HEIGHT - 64 ), style: .plain)
         mainTableView.dataSource = self;
@@ -32,8 +39,59 @@ class TChooseMemberViewController: BaseViewController {
         mainTableView.estimatedRowHeight = 143 * kSCREEN_SCALE;
         mainTableView.register(UINib(nibName: "ShowFridensCell", bundle: nil), forCellReuseIdentifier: identyfierTable)
         self.view.addSubview(mainTableView)
+        mainTableView.tableFooterView = UIView()
+
+    }
+    
+    override func addHeaderRefresh() {
         
     }
+    
+    
+    override func requestData() {
+        
+        
+        if class_id.count>0 {
+            let params = [
+                "SESSIONID":SESSIONID,
+                "mobileCode":mobileCode,
+                "class_id":class_id,
+                "type":type,
+                ]
+            self.view.beginLoading()
+            NetWorkForInvitation(params: params) { (datas, flag) in
+                if flag {
+                    self.mainTableArr.addObjects(from: datas)
+                    self.mainTableView.reloadData()
+                }
+                self.view.endLoading()
+            }
+
+        }else{
+            
+            netWorkForMyFriend { (datas, success) in
+                deBugPrint(item: datas)
+                
+                for index in 0..<datas.count {
+                    
+                    let model = datas[index] as! ApplyModel
+                    
+                    if self.type == "2" {
+                        
+                        if model.user_type == "1" {
+                            self.mainTableArr.add(model)
+                        }
+                    }else{
+                        if model.user_type == "2" {
+                            self.mainTableArr.add(model)
+                        }
+                    }
+                }
+                self.mainTableView.reloadData()
+            }
+        }
+    }
+    
     
     //    右键
     func rightBarButton() {
@@ -43,17 +101,54 @@ class TChooseMemberViewController: BaseViewController {
 
     }
     
+    
     @objc func selectDone(sender:UIBarButtonItem) {
         
-        if chooseMemberBlock != nil {
-            chooseMemberBlock!(selectArr)
+        if class_id.count > 0 {
+            var params = [String:String]()
+            
+            if state == "0" {
+                params = [
+                    "SESSIONID":SESSIONID,
+                    "mobileCode":mobileCode,
+                    "class_id":class_id,
+                    "type":type,
+                    "userId":selectArr.joined(separator: ","),
+                    ]
+            }else{
+                params = [
+                    "SESSIONID":SESSIONID,
+                    "mobileCode":mobileCode,
+                    "state":state,
+                    "class_id":class_id,
+                    "type":type,
+                    "userId":selectArr.joined(separator: ","),
+                    ]
+            }
+            NetWorkTeachersAddToClass(params: params) { (result) in
+                
+                if result {
+                    self.navigationController?.popViewController(animated: true)
+                }
+            }
+        }else{
+            
+            if chooseMemberBlock != nil {
+                chooseMemberBlock!(addMembers)
+            }
+            self.navigationController?.popViewController(animated: true)
         }
-        self.navigationController?.popViewController(animated: true)
     }
     
     //MARK:  ******代理 ：UITableViewDataSource,UITableViewDelegate
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
+        if mainTableArr.count == 0 {
+            self.mainTableView.addSubview(emptyView)
+        }else{
+            emptyView.removeFromSuperview()
+        }
+
         return mainTableArr.count
     }
     
@@ -63,34 +158,60 @@ class TChooseMemberViewController: BaseViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
+        let model = mainTableArr[indexPath.row] as! ApplyModel
+        
         let cell : ShowFridensCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable, for: indexPath) as! ShowFridensCell
         cell.selectionStyle = .default
-//        cell.ShowFridensCellForShowFriend(model: <#ApplyModel#>)
         
-        if selectArr.contains(String(indexPath.row)) {
-            cell.accessoryType = .checkmark
+        var selected = false
+        
+        if class_id.count>0 {
+            if selectArr.contains(model.freind_id) {
+                selected = true
+            }
         }else{
-             cell.accessoryType = .none
+//            if addMembers.contains(model) {
+//                selected = true
+//            }
+            
+            for m in addMembers {
+                if m.freind_id == model.freind_id {
+                    selected = true
+                }
+            }
         }
+        
+        model.user_type = type
+        cell.ShowFridensCellForChooseMembers(model: model, isSelected: selected)
         
         return cell
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        let model = mainTableArr[indexPath.row] as! ApplyModel
 
-        
-        if selectArr.contains(String(indexPath.row)) {
-            selectArr.remove(at: selectArr.index(of: String(indexPath.row))!)
+        if class_id.count>0 {
+            if selectArr.contains(model.freind_id) {
+                selectArr.remove(at: selectArr.index(of: model.freind_id)!)
+            }else{
+                selectArr.append(model.freind_id)
+            }
         }else{
-            selectArr.append(String(indexPath.row))
-        }
-        tableView.reloadData()
-        
-        if selectArr.count == 4 {
-            selectArr.remove(at: 0)
+            
+            var contain = false
+            for m in addMembers {
+                if m.freind_id == model.freind_id {
+                    addMembers.remove(at: addMembers.index(of: m)!)
+                    contain = true
+                }
+            }
+            if !contain {
+                addMembers.append(model)
+            }
         }
 
+        tableView.reloadData()
     }
     
     
@@ -98,6 +219,28 @@ class TChooseMemberViewController: BaseViewController {
         
     }
     
+    
+    var emptyView = UIView()
+    //    当数据为空的时候，显示提示
+    func addImageWhenEmpty() {
+        
+        emptyView = UIView.init(frame: CGRect(x: 0, y: 0, width: kSCREEN_WIDTH, height: kSCREEN_HEIGHT - 46))
+        emptyView.backgroundColor = kBGColor()
+        let imageView = UIImageView.init(frame: CGRect(x: 0, y: 0, width: 200 * kSCREEN_SCALE, height: 200 * kSCREEN_SCALE))
+        imageView.image = #imageLiteral(resourceName: "404_icon_default")
+        imageView.center = CGPoint(x: emptyView.centerX, y: emptyView.centerY - 200 * kSCREEN_SCALE)
+        emptyView.addSubview(imageView)
+        
+        let label = UILabel.init(frame: CGRect(x: 0, y: 0, width: kSCREEN_WIDTH, height: 18))
+        label.textAlignment = .center
+        label.textColor = kGaryColor(num: 163)
+        label.center = CGPoint(x: emptyView.centerX, y: emptyView.centerY-40)
+        label.font = kFont34
+        label.numberOfLines = 2
+        label.text = "暂时没有可选择好友"
+        emptyView.addSubview(label)
+    }
+
 }
 
 

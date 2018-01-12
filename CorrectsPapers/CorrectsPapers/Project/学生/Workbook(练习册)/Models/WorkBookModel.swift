@@ -24,7 +24,9 @@ class WorkBookModel: BaseModel {
     
     ///课程名称
     var subject_name : String!
-    
+    ///课程名称
+    var subject_id : String?
+
     ///是否已添加标签
     var isFollow : String!
     
@@ -52,10 +54,10 @@ class WorkBookModel: BaseModel {
     var id : String?
     
     ///已批改人数
-    var state1 : String?
+    var state1 : String!
     
     ///交作业人数
-    var state2 : String?
+    var state2 : String!
     
     ///批改状态:1、未上传；2、未批改；3、退回；4已批改 5:错题 未批改 6错题退回 7错题已批改
     var correcting_states : String?
@@ -68,6 +70,7 @@ class WorkBookModel: BaseModel {
         model.cover_photo = json["cover_photo"].stringValue
         model.class_name = json["class_name"].stringValue
         model.subject_name = json["subject_name"].stringValue
+        model.subject_id = json["subject_id"].stringValue
         model.isFollow = json["isFollow"].stringValue
         model.teacherName = json["teacherName"].stringValue
         model.userWorkBookId = json["userWorkBookId"].stringValue
@@ -80,7 +83,6 @@ class WorkBookModel: BaseModel {
         model.state1 = json["state1"].stringValue
         model.correcting_states = json["correcting_states"].stringValue
         model.teacher_id = json["teacher_id"].stringValue
-
         return model
     }
 

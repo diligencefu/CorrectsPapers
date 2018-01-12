@@ -43,14 +43,13 @@ class TGetAccountViewController: BaseViewController {
         }
     }
     
-    
+     
     override func configSubViews() {
         
         self.navigationItem.title = "我的学币"
         
         let headView = UINib(nibName:"IncomeHeadView",bundle:nil).instantiate(withOwner: self, options: nil).first as! IncomeHeadView
         headView.frame =  CGRect(x: 0, y: 0, width: kSCREEN_WIDTH, height: 685)
-        
         
         mainTableView = UITableView.init(frame: CGRect(x: 0,
                                                        y: -500,
@@ -64,7 +63,6 @@ class TGetAccountViewController: BaseViewController {
         mainTableView.tableHeaderView = headView
         self.view.addSubview(mainTableView)
         mainTableView.backgroundColor = kSetRGBColor(r: 239, g: 239, b: 244)
-        
     }
     
     //    ******************代理 ： UITableViewDataSource,UITableViewDelegate  ************

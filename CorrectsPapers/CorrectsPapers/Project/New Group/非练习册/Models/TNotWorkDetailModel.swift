@@ -38,6 +38,8 @@ class TNotWorkDetailModel: NSObject {
     var teacher_name : String?
     ///作业名称
     var non_exercise_name : String!
+    ///学生id
+    var student_id : String!
 
     class func setValueForTNotWorkDetailModel(json: JSON) -> TNotWorkDetailModel {
         
@@ -57,6 +59,7 @@ class TNotWorkDetailModel: NSObject {
         model.upd_comment = json["upd_comment"].stringValue
         model.teacher_name = json["teacher_name"].stringValue
         model.non_exercise_name = json["non_exercise_name"].stringValue
+        model.student_id = json["student_id"].stringValue
         return model
     }
     

@@ -10,6 +10,27 @@ import UIKit
 
 let SuccessRefreshNotificationCenter = "SuccessRefreshNotificationCenter"
 
+//批改练习册
+let SuccessCorrectWorkBookNoti = "SuccessCorrectWorkBookNoti"
+
+//批改非练习册
+let SuccessCorrectNoneWorkBookNoti = "SuccessCorrectNoneWorkBookNoti"
+
+//批改班级作业
+let SuccessCorrectClassWorkBookNoti = "SuccessCorrectClassWorkBookNoti"
+
+//创建班级课时
+let SuccessCorrectClassBuildPeriodNoti = "SuccessCorrectClassBuildPeriodNoti"
+
+//老师 退出/解散班级
+let SuccessCorrectDeleteClassNoti = "SuccessCorrectDeleteClassNoti"
+
+//学生退出班级
+let SuccessCorrectDeleteClassNotiS = "SuccessCorrectDeleteClassNoti"
+
+
+//学生上传作业成功
+let SuccessUploadWorkNotiS = "SuccessUploadWorkNotiS"
 
 //protocol SuccessRefreshDelegate:NSObjectProtocol {
 //    func beginRefresh()
@@ -52,6 +73,21 @@ class CreateBookViewController: BaseViewController ,UIPickerViewDelegate,UIPicke
         
         let cell1 = mainTableView.cellForRow(at: IndexPath.init(row: 0, section: 0)) as! CreateBookCell
 
+        if cell1.titleTextField.text!.count < 1 {
+            setToast(str: "请输入练习册名字！")
+            return
+        }
+        
+        if images[0] == cover_photo {
+            setToast(str: "请选择封面图片！")
+            return
+        }
+
+        if images[1] == edition_photo  {
+            setToast(str: "请选择印刷版次图片！")
+            return
+        }
+        
         let params = [
             "SESSIONID":SESSIONID,
             "mobileCode":mobileCode,
@@ -65,17 +101,19 @@ class CreateBookViewController: BaseViewController ,UIPickerViewDelegate,UIPicke
         
         nameArr.append("cover_photo_1_image")
         nameArr.append("edition_photo_2_image")
-        
+        self.view.beginLoading()
+        self.navigationItem.rightBarButtonItem?.isEnabled = false
         netWorkForBulidWrokBook(params: params, data: images, name: nameArr, success: { (success) in
 //            if success["code"] as! String == "1" {
 //                setToast(str: "创建成功")
 //            }
             setToast(str: "创建成功")
             self.createSeccsessful()
-//            self.navigationController?.popViewController(animated: true)
-            
+            self.navigationItem.rightBarButtonItem?.isEnabled = true
+            self.view.endLoading()
         }) { (error) in
-            
+            self.view.endLoading()
+            self.navigationItem.rightBarButtonItem?.isEnabled = true
         }
     }
 

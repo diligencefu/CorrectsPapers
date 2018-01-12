@@ -20,6 +20,11 @@ pod 'SDWebImage'
 pod 'Toast'        #吐司
 pod 'MJRefresh'
 
+#微信支付
+#pod 'WechatOpenSDK'
+pod 'MBProgressHUD'
+pod 'AFNetworking'
+
 
 pod 'RxSwift'
 pod 'RxCocoa'

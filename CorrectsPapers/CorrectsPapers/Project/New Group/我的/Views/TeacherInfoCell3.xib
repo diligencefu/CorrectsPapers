@@ -40,14 +40,14 @@
                         <color key="textColor" red="0.87773513793945312" green="0.52770650386810303" blue="0.013396857306361198" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Upload-photos_yinshuabanci" translatesAutoresizingMaskIntoConstraints="NO" id="uGT-cr-g5s">
+                    <imageView tag="123211" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Upload-photos_yinshuabanci" translatesAutoresizingMaskIntoConstraints="NO" id="uGT-cr-g5s">
                         <rect key="frame" x="38.5" y="50" width="123" height="78"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="78" id="6Um-ST-H6H"/>
                             <constraint firstAttribute="width" constant="123" id="cmj-2a-Zm1"/>
                         </constraints>
                     </imageView>
-                    <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Upload-photos_yinshuabanci" translatesAutoresizingMaskIntoConstraints="NO" id="tu0-cd-nlU">
+                    <imageView tag="123212" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Upload-photos_yinshuabanci" translatesAutoresizingMaskIntoConstraints="NO" id="tu0-cd-nlU">
                         <rect key="frame" x="198.5" y="50" width="123" height="78"/>
                     </imageView>
                 </subviews>

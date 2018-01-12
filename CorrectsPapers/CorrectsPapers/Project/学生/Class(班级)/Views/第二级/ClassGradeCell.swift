@@ -38,18 +38,86 @@ class ClassGradeCell: UITableViewCell {
         periodsLabel.text = "课时"
     }
     
-//    班级详情
-    func  setValueForClassGradeCell(index:NSInteger) {
+    
+    
+//    班级详情 学生
+    func  setValueForClassGradeCell(model:TShowGradeModel) {
         
         label1.isHidden = true
         label2.isHidden = true
         fristGrade.alpha = 1
         doneGrade.alpha = 1
-
-        periodsLabel.text = "\(index)课时"
+        periodsLabel.text = "第" + model.orders! + "课时"
         
+        if model.scores == "1" {
+            fristGrade.image = #imageLiteral(resourceName: "yixing_icon_pressed")
+        }else if model.scores == "2" {
+            fristGrade.image = #imageLiteral(resourceName: "erxing_icon_pressed")
+        }else if model.scores == "3" {
+            fristGrade.image = #imageLiteral(resourceName: "sanxing_icon_pressed")
+        }else if model.scores == "4" {
+            fristGrade.image = #imageLiteral(resourceName: "sixing_icon_pressed")
+        }else if model.scores == "5" {
+            fristGrade.image = #imageLiteral(resourceName: "wuxing_icon_pressed")
+            doneGrade.image = #imageLiteral(resourceName: "not_icon_default")
+        }
+        
+        if model.scores != "5" {
+            if model.scores_next == "1" {
+                doneGrade.image = #imageLiteral(resourceName: "yixing_icon_pressed")
+            }else if model.scores_next == "2" {
+                doneGrade.image = #imageLiteral(resourceName: "erxing_icon_pressed")
+            }else if model.scores_next == "3" {
+                doneGrade.image = #imageLiteral(resourceName: "sanxing_icon_pressed")
+            }else if model.scores_next == "4" {
+                doneGrade.image = #imageLiteral(resourceName: "sixing_icon_pressed")
+            }else if model.scores_next == "5" {
+                doneGrade.image = #imageLiteral(resourceName: "wuxing_icon_pressed")
+            }
+        }
+
     }
     
+    
+    
+    //    班级详情 老师
+    func  setValueForClassGradeCellTeacher(model:TShowGradeModel) {
+        
+        label1.isHidden = true
+        label2.isHidden = true
+        fristGrade.alpha = 1
+        doneGrade.alpha = 1
+        periodsLabel.text = model.user_name
+        
+        if model.scores == "1" {
+            fristGrade.image = #imageLiteral(resourceName: "yixing_icon_pressed")
+        }else if model.scores == "2" {
+            fristGrade.image = #imageLiteral(resourceName: "erxing_icon_pressed")
+        }else if model.scores == "3" {
+            fristGrade.image = #imageLiteral(resourceName: "sanxing_icon_pressed")
+        }else if model.scores == "4" {
+            fristGrade.image = #imageLiteral(resourceName: "sixing_icon_pressed")
+        }else if model.scores == "5" {
+            fristGrade.image = #imageLiteral(resourceName: "wuxing_icon_pressed")
+            doneGrade.image = #imageLiteral(resourceName: "not_icon_default")
+        }
+        
+        if model.scores != "5" {
+            if model.scores_next == "1" {
+                doneGrade.image = #imageLiteral(resourceName: "yixing_icon_pressed")
+            }else if model.scores_next == "2" {
+                doneGrade.image = #imageLiteral(resourceName: "erxing_icon_pressed")
+            }else if model.scores_next == "3" {
+                doneGrade.image = #imageLiteral(resourceName: "sanxing_icon_pressed")
+            }else if model.scores_next == "4" {
+                doneGrade.image = #imageLiteral(resourceName: "sixing_icon_pressed")
+            }else if model.scores_next == "5" {
+                doneGrade.image = #imageLiteral(resourceName: "wuxing_icon_pressed")
+            }
+        }
+        
+    }
+
     
     func is1thCellForWorkBook() {
         fristGrade.alpha = 0
@@ -57,6 +125,8 @@ class ClassGradeCell: UITableViewCell {
         
         label1.isHidden = false
         label2.isHidden = false
+        label1.text = "作业成绩"
+        label2.text = "错题更正成绩"
         periodsLabel.text = "学生姓名"
     }
     
@@ -90,7 +160,9 @@ class ClassGradeCell: UITableViewCell {
         fristGrade.alpha = 1
         doneGrade.alpha = 1
         
-        periodsLabel.text = model.create_date.substring(to: String.Index.init(encodedOffset: 10))
+        if model.create_date != nil {
+            periodsLabel.text = model.create_date.substring(to: String.Index.init(encodedOffset: 10))
+        }
         
         if model.pre_score == "1" {
             fristGrade.image = #imageLiteral(resourceName: "yixing_icon_pressed")
@@ -120,15 +192,19 @@ class ClassGradeCell: UITableViewCell {
         }
         
     }
+    
+    
     ///    非练习册详情（老师）
-    func  setValueForNonBookGradeTeacher(model:TNotWorkDetailModel) {
+    func  setValueForNonBookGradeTeacher(model:TShowGradeModel) {
         
         label1.isHidden = true
         label2.isHidden = true
         fristGrade.alpha = 1
         doneGrade.alpha = 1
         
-        periodsLabel.text = model.student_name
+        if model.update_date != nil {
+            periodsLabel.text = model.update_date?.substring(to: String.Index.init(encodedOffset: 10))
+        }
         
         if model.pre_score == "1" {
             fristGrade.image = #imageLiteral(resourceName: "yixing_icon_pressed")
@@ -195,6 +271,45 @@ class ClassGradeCell: UITableViewCell {
             doneGrade.image = #imageLiteral(resourceName: "wuxing_icon_pressed")
         }
     }
+    
+    
+    //    练习册详情
+    func  setValueForBookGradeClassDetailGrade(model:TShowGradeModel) {
+        
+        label1.isHidden = true
+        label2.isHidden = true
+        fristGrade.alpha = 1
+        doneGrade.alpha = 1
+        
+        periodsLabel.text = model.orders
+        periodsLabel.isHidden = false
+        if model.scores == "1" {
+            fristGrade.image = #imageLiteral(resourceName: "yixing_icon_pressed")
+        }else if model.scores == "2" {
+            fristGrade.image = #imageLiteral(resourceName: "erxing_icon_pressed")
+        }else if model.scores == "3" {
+            fristGrade.image = #imageLiteral(resourceName: "sanxing_icon_pressed")
+        }else if model.scores == "4" {
+            fristGrade.image = #imageLiteral(resourceName: "sixing_icon_pressed")
+        }else if model.scores == "5" {
+            fristGrade.image = #imageLiteral(resourceName: "wuxing_icon_pressed")
+            doneGrade.image = #imageLiteral(resourceName: "not_icon_default")
+        }
+        
+        if model.scores_next == "1" {
+            doneGrade.image = #imageLiteral(resourceName: "yixing_icon_pressed")
+        }else if model.scores_next == "2" {
+            doneGrade.image = #imageLiteral(resourceName: "erxing_icon_pressed")
+        }else if model.scores_next == "3" {
+            doneGrade.image = #imageLiteral(resourceName: "sanxing_icon_pressed")
+        }else if model.scores_next == "4" {
+            doneGrade.image = #imageLiteral(resourceName: "sixing_icon_pressed")
+        }else if model.scores_next == "5" {
+            doneGrade.image = #imageLiteral(resourceName: "wuxing_icon_pressed")
+        }
+    }
+
+    
         
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)

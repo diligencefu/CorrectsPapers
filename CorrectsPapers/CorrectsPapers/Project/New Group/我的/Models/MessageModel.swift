@@ -20,6 +20,10 @@ class MessageModel: NSObject {
     var reason : String!
     ///消息id
     var id : String!
+    ///学生姓名
+    var user_name : String!
+    ///(是否已读状态：0：代表未读，1：已读)
+    var isread : String!
 
     class func setValueForMessageModel(json: JSON) -> MessageModel {
         
@@ -29,6 +33,8 @@ class MessageModel: NSObject {
         model.isNewRecord = json["isNewRecord"].stringValue
         model.reason = json["reason"].stringValue
         model.id = json["id"].stringValue
+        model.user_name = json["user_name"].stringValue
+        model.isread = json["isread"].stringValue
         return model
     }
 }

@@ -15,7 +15,6 @@ class NotWorkViewController: BaseViewController ,QLPreviewControllerDelegate,QLP
     
     var pageNum = 1
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         addFooterRefresh()
@@ -172,8 +171,8 @@ class NotWorkViewController: BaseViewController ,QLPreviewControllerDelegate,QLP
     
     
     func previewController(_ controller: QLPreviewController, previewItemAt index: Int) -> QLPreviewItem {
-        return NSURL.fileURL(withPath: Bundle.main.path(forResource: "批改作业接口 1107(1)", ofType: "docx")!) as QLPreviewItem
-//        return NSURL.fileURL(withPath: "https://pan.baidu.com/s/1eSngSxG") as QLPreviewItem
+//        return NSURL.fileURL(withPath: Bundle.main.path(forResource: "批改作业接口 1107(1)", ofType: "docx")!) as QLPreviewItem
+        return NSURL.fileURL(withPath: "http://192.168.1.191:8080/duties/upload/files/20171207/20171207195522_469.docx") as QLPreviewItem
      }
     
     

@@ -33,12 +33,16 @@ class TShowStuWorksModel: NSObject {
     var comment_next : String!
     //批改状态
     var correcting_states : String!
+    //批改状态
+    var state : String!
     //老师名称
     var teacher_name : String!
     //作业描述
     var result : String!
     //作业id
     var book_details_id : String!
+    //学生id
+    var student_id : String!
 
     
     class func setValueForTShowStuWorksModel(json: JSON) -> TShowStuWorksModel {
@@ -56,11 +60,12 @@ class TShowStuWorksModel: NSObject {
         
         model.scores_next = json["scores_next"].stringValue
         model.comment_next = json["comment_next"].stringValue
-        model.correcting_states = json["correcting_states"].stringValue
+        model.correcting_states = json["state"].stringValue
         model.teacher_name = json["teacher_name"].stringValue
         model.result = json["result"].stringValue
         model.book_details_id = json["book_details_id"].stringValue
-
+        model.student_id = json["student_id"].stringValue
+        model.state = json["correcting_states"].stringValue
         return model
     }
 

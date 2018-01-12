@@ -19,6 +19,10 @@ class CreateHeadCell: UITableViewCell {
     }
 
     
+    func setImageForHeadView(headImage:UIImage) {
+        classImage.image = headImage
+    }
+    
     
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)

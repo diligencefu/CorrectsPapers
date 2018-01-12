@@ -11,13 +11,56 @@ import UIKit
 class TShowBookViewController: BaseViewController {
     
     var model = TShowStuWorksModel()
-    
     var reasonView = ShowTagsView()
+    var book_details_id = ""
+    
+    var correct_date = ""
+    
+    
     var BGView = UIView()
 
     override func viewDidLoad() {
         super.viewDidLoad()
     }
+    
+    
+    override func viewWillAppear(_ animated: Bool) {
+
+    }
+    
+    override func refreshHeaderAction() {
+        let params =
+            ["SESSIONID":SESSIONIDT,
+             "mobileCode":mobileCodeT,
+             "book_details_id":self.book_details_id,
+             ] as [String:Any]
+        NetWorkTeacherGetTStudentWorkDetail(params: params) { (datas, flag) in
+            if flag && datas.count > 0{
+                self.model = datas[0] as! TShowStuWorksModel
+                self.mainTableView.reloadData()
+                self.mainTableView.mj_header.endRefreshing()
+            }
+        }
+    }
+    
+    override func requestData() {
+        let params =
+            ["SESSIONID":SESSIONIDT,
+             "mobileCode":mobileCodeT,
+             "book_details_id":self.book_details_id,
+        ] as [String:Any]
+        self.view.beginLoading()
+        NetWorkTeacherGetTStudentWorkDetail(params: params) { (datas, flag) in
+            if flag && datas.count > 0{
+                self.model = datas[0] as! TShowStuWorksModel
+                self.mainTableView.reloadData()
+                self.mainTableView.mj_header.endRefreshing()
+
+            }
+            self.view.endLoading()
+        }
+    }
+    
     
     override func configSubViews() {
         
@@ -79,14 +122,16 @@ class TShowBookViewController: BaseViewController {
                 let params =
                     ["SESSIONID":SESSIONIDT,
                      "mobileCode":mobileCodeT,
-                     "book_details_id":self.model.book_details_id
+                     "book_id":self.book_details_id,
+                     "student_id":self.model.student_id,
+                     "type":"1",
+                     "reason":$0,
                 ] as [String:Any]
                 self.view.beginLoading()
                 NetWorkTeacherGobackWrokBook(params: params, callBack: { (flag) in
                     self.view.endLoading()
+                    self.mainTableView.mj_header.beginRefreshing()
                 })
-                
-                
             }
             self.hiddenViews()
         }
@@ -129,7 +174,7 @@ class TShowBookViewController: BaseViewController {
         
         var imageArr = [UIImage]()
         
-        if model.correcting_states == "2" {
+        if model.correcting_states == "2" || model.state == "2" {
             let cell = mainTableView.cellForRow(at: IndexPath.init(row: 0, section: 0)) as! TViewBookCell1
             imageArr.append(cell.image2.image!)
             imageArr.append(cell.image3.image!)
@@ -137,12 +182,21 @@ class TShowBookViewController: BaseViewController {
             editorVC.images = imageArr
             editorVC.theName = model.user_name
             editorVC.theNum = "学号 "+model.user_num
-            editorVC.bookid = model.book_details_id
-            editorVC.bookState = model.correcting_states
+            editorVC.bookid = book_details_id
+            if model.correcting_states.count>0 {
+                editorVC.bookState = model.correcting_states
+            }else{
+                editorVC.bookState = model.state
+            }
             editorVC.whereCome = 1
-            self.present(editorVC, animated: true, completion: nil)
-
+            editorVC.student_id = model.student_id
+            editorVC.correct_date = correct_date
             
+            editorVC.correctDoneBlock = {
+                self.navigationController?.popViewController(animated: true)
+            }
+            
+            self.present(editorVC, animated: true, completion: nil)
         }else{
             
             let cell = mainTableView.cellForRow(at: IndexPath.init(row: 1, section: 0)) as! TViewBookCell3
@@ -153,9 +207,20 @@ class TShowBookViewController: BaseViewController {
             editorVC.images = imageArr
             editorVC.theName = model.user_name
             editorVC.theNum = "学号 "+model.user_num
-            editorVC.bookid = model.book_details_id
-            editorVC.bookState = model.correcting_states
+            editorVC.student_id = model.student_id
+            editorVC.bookid = book_details_id
+            if model.correcting_states.count>0 {
+                editorVC.bookState = model.correcting_states
+            }else{
+                editorVC.bookState = model.state
+            }
+            
+            editorVC.correctDoneBlock = {
+                self.navigationController?.popViewController(animated: true)
+            }
+            
             editorVC.whereCome = 1
+            editorVC.correct_date = correct_date
             self.present(editorVC, animated: true, completion: nil)
         }
     }
@@ -168,7 +233,7 @@ class TShowBookViewController: BaseViewController {
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
        
-        if model.correcting_states == "2"  {
+        if model.correcting_states == "2" || model.state == "2" {
             return 1
         }else{
             return 2
@@ -183,7 +248,7 @@ class TShowBookViewController: BaseViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        if model.correcting_states == "2" {
+        if model.correcting_states == "2" || model.state == "2" {
             let cell : TViewBookCell1 = tableView.dequeueReusableCell(withIdentifier: identyfierTable1, for: indexPath) as! TViewBookCell1
             cell.TViewBookCellSetValuesForUndone(model: model)
             return cell

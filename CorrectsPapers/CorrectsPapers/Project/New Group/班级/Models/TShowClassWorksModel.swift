@@ -15,9 +15,11 @@ class TShowClassWorksModel: NSObject {
     ///班级作业标题
     var title : String!
     ///首次上传作业图
-    var photo : String!
+    var photo : Array<String>!
+
     ///再次上传作业图
-    var photo_next : String!
+    var photo_next : Array<String>!
+
     ///班级作业状态
     var type : String!
     ///首次评语
@@ -42,15 +44,17 @@ class TShowClassWorksModel: NSObject {
     var teacher_num : String!
     ///再次批改老师工号)
     var teacher_next_num : String!
-    
+    ///创建时间
+    var create_date : String!
+
     
     class func setValueForTShowClassWorksModel(json: JSON) -> TShowClassWorksModel {
         
         let model = TShowClassWorksModel()
         model.class_book_id = json["class_book_id"].stringValue
         model.title = json["title"].stringValue
-        model.photo = json["photo"].stringValue
-        model.photo_next = json["photo_next"].stringValue
+        model.photo = TNotWorkDetailModel.setValueForTeacherImages(json: json["photo"])
+        model.photo_next = TNotWorkDetailModel.setValueForTeacherImages(json: json["photo_next"])
         model.type = json["type"].stringValue
         model.content = json["content"].stringValue
         model.content_next = json["content_next"].stringValue
@@ -63,6 +67,7 @@ class TShowClassWorksModel: NSObject {
         model.student_num = json["student_num"].stringValue
         model.teacher_num = json["teacher_num"].stringValue
         model.teacher_next_num = json["teacher_next_num"].stringValue
+        model.create_date = json["create_date"].stringValue
         return model
     }
 

@@ -20,6 +20,7 @@ class TShowDoneWorkCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        doneGrade.contentMode = .center
     }
     
     func TShowDoneWorkCellWithData(model:TShowGradeModel){
@@ -38,7 +39,7 @@ class TShowDoneWorkCell: UITableViewCell {
             fristGrade.image = #imageLiteral(resourceName: "sixing_icon_pressed")
         }else if model.scores == "5" {
             fristGrade.image = #imageLiteral(resourceName: "wuxing_icon_pressed")
-            doneGrade.image = #imageLiteral(resourceName: "not_icon_default")
+            doneGrade.image = UIImage.init(name: "not_icon_default")
         }
         
         if model.scores_next == "1" {

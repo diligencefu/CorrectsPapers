@@ -49,7 +49,15 @@ class TViewBookCell3: UITableViewCell {
             if theModel1.correcting_states == nil {
                 return
             }
-            if Int(theModel1.correcting_states)! > 4 {
+            var state = 0
+            
+            if theModel1.correcting_states.count > 0 && Int(theModel1.correcting_states) != nil{
+                state = Int(theModel1.correcting_states)!
+            }else{
+                state = Int(theModel1.state)!
+            }
+            
+            if state > 4{
                 if theModel1.corrected_error_photo.count == 1 {
                     let watchIMGItem = KSPhotoItem.init(sourceView: image1, image: image1.image)
                     images.append(watchIMGItem!)
@@ -122,22 +130,25 @@ class TViewBookCell3: UITableViewCell {
         bookState.text = kGetStateFromString(str: model.correcting_states)
         bookState.textColor = kGetColorFromString(str: bookState.text!)
         
-        if model.photo.count == 1 {
+        if model.corrected_error_photo.count == 1 {
             
-            image1.kf.setImage(with:  URL(string:model.photo[0])!, placeholder: #imageLiteral(resourceName: "photos_image_default"), options: nil, progressBlock: nil, completionHandler: nil)
+            image1.kf.setImage(with: OCTools.getEfficientAddress(model.corrected_error_photo[0]), placeholder: #imageLiteral(resourceName: "class_default"), options: nil, progressBlock: nil, completionHandler: nil)
+            
+//            image1.kf.setImage(with:  URL(string:model.corrected_error_photo[0])!, placeholder: #imageLiteral(resourceName: "class_default"), options: nil, progressBlock: nil, completionHandler: nil)
             image2.isHidden = true
             image3.isHidden = true
             
-        }else  {
+        } else {
+            
             image1.isHidden = true
-            image2.kf.setImage(with:  URL(string:model.photo[0])!, placeholder: #imageLiteral(resourceName: "photos_image_default"), options: nil, progressBlock: nil, completionHandler: nil)
-            image3.kf.setImage(with:  URL(string:model.photo[1])!, placeholder: #imageLiteral(resourceName: "photos_image_default"), options: nil, progressBlock: nil, completionHandler: nil)
+            
+            image2.kf.setImage(with: OCTools.getEfficientAddress(model.corrected_error_photo[0]), placeholder: #imageLiteral(resourceName: "class_default"), options: nil, progressBlock: nil, completionHandler: nil)
+            image3.kf.setImage(with: OCTools.getEfficientAddress(model.corrected_error_photo[1]), placeholder: #imageLiteral(resourceName: "class_default"), options: nil, progressBlock: nil, completionHandler: nil)
+            
             image2.isHidden = false
             image3.isHidden = false
-            
         }
     }
-    
     
     
     func TViewBookCellSetValuesForNorWorkUndone(model:TNotWorkDetailModel) {
@@ -152,14 +163,14 @@ class TViewBookCell3: UITableViewCell {
 
         if model.corrected_photos.count == 1 {
             
-            image1.kf.setImage(with:  URL(string:model.corrected_photos[0])!, placeholder: #imageLiteral(resourceName: "photos_image_default"), options: nil, progressBlock: nil, completionHandler: nil)
+            image1.kf.setImage(with:  URL(string:model.corrected_photos[0])!, placeholder: #imageLiteral(resourceName: "class_default"), options: nil, progressBlock: nil, completionHandler: nil)
             image2.isHidden = true
             image3.isHidden = true
         }else  {
             
             image1.isHidden = true
-            image2.kf.setImage(with:  URL(string:model.corrected_photos[0])!, placeholder: #imageLiteral(resourceName: "photos_image_default"), options: nil, progressBlock: nil, completionHandler: nil)
-            image3.kf.setImage(with:  URL(string:model.corrected_photos[1])!, placeholder: #imageLiteral(resourceName: "photos_image_default"), options: nil, progressBlock: nil, completionHandler: nil)
+            image2.kf.setImage(with:  URL(string:model.corrected_photos[0])!, placeholder: #imageLiteral(resourceName: "class_default"), options: nil, progressBlock: nil, completionHandler: nil)
+            image3.kf.setImage(with:  URL(string:model.corrected_photos[1])!, placeholder: #imageLiteral(resourceName: "class_default"), options: nil, progressBlock: nil, completionHandler: nil)
             image2.isHidden = false
             image3.isHidden = false
         }

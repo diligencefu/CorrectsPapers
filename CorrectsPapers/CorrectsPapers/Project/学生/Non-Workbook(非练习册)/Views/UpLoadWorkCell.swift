@@ -140,14 +140,16 @@ class UpLoadWorkCell: UITableViewCell {
 //        setToast(str: "上传作业")
         
         if CountDown.isHidden {
-            if workDescrip.text?.count == 0 {
+            if workDescrip.text?.count == 0 && sender.titleLabel?.text != "完成更正"{
                 setToast(str: "请输入作业描述")
                 workDescrip.becomeFirstResponder()
                 return
             }
         }        
         
-        if (workDescrip.text?.count)! > 16 {
+    
+        
+        if (workDescrip.text?.count)! > 16 && sender.titleLabel?.text != "完成更正"{
             setToast(str: "作业描述超出字数限制！")
             workDescrip.becomeFirstResponder()
             return
@@ -155,6 +157,7 @@ class UpLoadWorkCell: UITableViewCell {
         
         if chooseImagesAction != nil {
             chooseImagesAction!("uploadAction")
+//            sender.isEnabled = false
         }
 
     }

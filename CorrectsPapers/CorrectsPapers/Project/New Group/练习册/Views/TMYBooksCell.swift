@@ -44,15 +44,15 @@ class TMYBooksCell: UITableViewCell {
         }
         
         proMark.snp.updateConstraints { (make) in
-            make.width.equalTo(getLabWidth(labelStr: model.subject_name, font: kFont24, height: 18) + 20)
+            make.width.equalTo(getLabWidth(labelStr: model.subject_id!, font: kFont24, height: 18) + 20)
         }
 
         gradeMark.setTitle(model.grade, for: .normal)
-        proMark.setTitle(model.subject_name, for: .normal)
+        proMark.setTitle(model.subject_id, for: .normal)
         bookTitle.text = model.work_book_name
         
-        submitCount.text = model.state2
-        doneCount.text = model.state1!
+        submitCount.text = model.state1
+        doneCount.text = model.state2
 
         if model.subject_name == "生物" {
             proMark.layer.borderColor = kSetRGBColor(r: 102, g: 200, b: 205).cgColor

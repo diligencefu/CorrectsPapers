@@ -146,7 +146,13 @@ class LoginViewController: BaseViewController {
     
     
     @objc func clearUserNameText(sender:UIButton) {
-        userName.text = ""
+        
+        
+        if userName.text == "13260646603" {
+            userName.text = "13297079546"
+            passWord.text = "123456"
+        }
+        
     }
 
     

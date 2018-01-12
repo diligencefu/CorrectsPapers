@@ -296,7 +296,7 @@ class PerfectInfoViewController: BaseViewController {
     var projectTagsView = ShowTagsView()
     var gradeTagsView = ShowTagsView()
     var timeView = ShowTagsView()
-    var areaView = ShowTagsView()
+    var areaView = ChooseCityView()
     var academicView = ShowTagsView()
     var totalNum = 1
     
@@ -395,26 +395,25 @@ class PerfectInfoViewController: BaseViewController {
             }
             self.hiddenViews()
         }
-        
         timeView.clipsToBounds = true
         self.view.addSubview(timeView)
         
-        areaView = UINib(nibName:"ShowTagsView",bundle:nil).instantiate(withOwner: self, options: nil).first as! ShowTagsView
-        areaView.ShowTagsViewForChooseEdu(title: "选择地区", index: 0)
+        areaView = UINib(nibName:"ChooseCityView",bundle:nil).instantiate(withOwner: self, options: nil).first as! ChooseCityView
+//        areaView.ShowTagsViewForChooseEdu(title: "选择地区", index: 0)
         areaView.frame =  CGRect(x: 0, y: kSCREEN_HEIGHT, width: kSCREEN_WIDTH, height: 350)
         areaView.layer.cornerRadius = 24*kSCREEN_SCALE
         areaView.selectBlock = {
-            if !$1 {
+            if $1 {
                 
                 if self.isTeacher {
+                    
                     self.infoArr[0][3] = $0
                     self.mainTableView.reloadRows(at: [IndexPath.init(row: 3, section: 0)], with: .automatic)
                 }else{
+                    
                     self.infoArr[0][1] = $0
                     self.mainTableView.reloadRows(at: [IndexPath.init(row: 1, section: 0)], with: .automatic)
-                    
                 }
-                
             }
             self.hiddenViews()
         }

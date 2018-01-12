@@ -71,7 +71,7 @@ class TGoodWorkCell1: UITableViewCell {
             let row =  CGFloat(index%lines)
             
             let imageV = UIImageView.init(frame: CGRect(x:(kWidth + kSpace) * row, y:(kSpace+kHeight)*CGFloat(index/lines), width: kWidth, height: kHeight))
-            imageV.kf.setImage(with: URL(string:typeArr[index] as! String)!, placeholder: #imageLiteral(resourceName: "workBook"), options: nil, progressBlock: nil, completionHandler: nil)
+            imageV.kf.setImage(with: URL(string:typeArr[index] as! String)!, placeholder: #imageLiteral(resourceName: "class_default"), options: nil, progressBlock: nil, completionHandler: nil)
             imageV.contentMode = .scaleAspectFill
             imageV.clipsToBounds = true
             

@@ -28,6 +28,11 @@ class ClassModel: NSObject {
     var counts : String!
     ///是否是班主任
     var is_head_teacher : String!
+    ///（学生段用）  “ByClass”：（“1”：申请中；“2”：已经加入；“3”：拒绝加入；“0”：未申请未加入过）
+    var ByClass : String?
+    ///type=2 含有字段（老师端用）  “isAdd”：“yes"已加入；“no”未加入
+    var isAdd : String?
+
 
     class func setValueForClassModel(json: JSON) -> ClassModel {
         
@@ -41,6 +46,8 @@ class ClassModel: NSObject {
         model.countWorkBookBy = json["countWorkBookBy"].stringValue
         model.counts = json["counts"].stringValue
         model.is_head_teacher = json["is_head_teacher"].stringValue
+        model.ByClass = json["ByClass"].stringValue
+        model.isAdd = json["isAdd"].stringValue
         return model
     }
 

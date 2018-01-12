@@ -61,8 +61,16 @@ class TViewBookCell2: UITableViewCell {
                 return
             }
 
-            if Int(theModel1.correcting_states)! > 4 {
-                
+            var state = 0
+            
+            if theModel1.correcting_states.count > 0 && Int(theModel1.correcting_states) != nil{
+                state = Int(theModel1.correcting_states)!
+            }else{
+                state = Int(theModel1.state)!
+            }
+            
+            if state > 4{
+
                 if theModel1.corrected_error_photo.count == 1 {
                     let watchIMGItem = KSPhotoItem.init(sourceView: image1, image: image1.image)
                     images.append(watchIMGItem!)
@@ -154,14 +162,14 @@ class TViewBookCell2: UITableViewCell {
         
         if model.photo.count == 1 {
             
-            image1.kf.setImage(with:  URL(string:model.photo[0])!, placeholder: #imageLiteral(resourceName: "photos_image_default"), options: nil, progressBlock: nil, completionHandler: nil)
+            image1.kf.setImage(with:  URL(string:model.photo[0])!, placeholder: #imageLiteral(resourceName: "class_default"), options: nil, progressBlock: nil, completionHandler: nil)
             image2.isHidden = true
             image3.isHidden = true
             
         }else {
             image1.isHidden = true
-            image2.kf.setImage(with:  URL(string:model.photo[0])!, placeholder: #imageLiteral(resourceName: "photos_image_default"), options: nil, progressBlock: nil, completionHandler: nil)
-            image3.kf.setImage(with:  URL(string:model.photo[1])!, placeholder: #imageLiteral(resourceName: "photos_image_default"), options: nil, progressBlock: nil, completionHandler: nil)
+            image2.kf.setImage(with:  URL(string:model.photo[0])!, placeholder: #imageLiteral(resourceName: "class_default"), options: nil, progressBlock: nil, completionHandler: nil)
+            image3.kf.setImage(with:  URL(string:model.photo[1])!, placeholder: #imageLiteral(resourceName: "class_default"), options: nil, progressBlock: nil, completionHandler: nil)
             image2.isHidden = false
             image3.isHidden = false
       
@@ -179,7 +187,7 @@ class TViewBookCell2: UITableViewCell {
         doneMark.isHidden = false
         
         remark.isHidden = false
-        remark.text = "老师评语：" + model.upd_score!
+        remark.text = "老师评语：" + model.upd_comment!
         
         if model.upd_score == "1" {
             gradeImage.image = #imageLiteral(resourceName: "yixing_icon_pressed")
@@ -196,14 +204,14 @@ class TViewBookCell2: UITableViewCell {
 
         if model.corrected_photos.count == 1 {
             
-            image1.kf.setImage(with:  URL(string:model.corrected_photos[0])!, placeholder: #imageLiteral(resourceName: "photos_image_default"), options: nil, progressBlock: nil, completionHandler: nil)
+            image1.kf.setImage(with:  URL(string:model.corrected_photos[0])!, placeholder: #imageLiteral(resourceName: "class_default"), options: nil, progressBlock: nil, completionHandler: nil)
             image2.isHidden = true
             image3.isHidden = true
             
         }else {
             image1.isHidden = true
-            image2.kf.setImage(with:  URL(string:model.corrected_photos[0])!, placeholder: #imageLiteral(resourceName: "photos_image_default"), options: nil, progressBlock: nil, completionHandler: nil)
-            image3.kf.setImage(with:  URL(string:model.corrected_photos[1])!, placeholder: #imageLiteral(resourceName: "photos_image_default"), options: nil, progressBlock: nil, completionHandler: nil)
+            image2.kf.setImage(with:  URL(string:model.corrected_photos[0])!, placeholder: #imageLiteral(resourceName: "class_default"), options: nil, progressBlock: nil, completionHandler: nil)
+            image3.kf.setImage(with:  URL(string:model.corrected_photos[1])!, placeholder: #imageLiteral(resourceName: "class_default"), options: nil, progressBlock: nil, completionHandler: nil)
             image2.isHidden = false
             image3.isHidden = false
             

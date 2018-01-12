@@ -35,7 +35,13 @@ class ComplaintCell: UITableViewCell {
         }else{
             selectMark.image = nil
         }
-        
+        selectMark.isHidden = false
+    }
+    
+    
+    func chooseMemberType(title1:String) {
+        title.text = title1
+        selectMark.isHidden = true
     }
     
     

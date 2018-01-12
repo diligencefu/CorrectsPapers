@@ -16,7 +16,7 @@ class TBookHeadView: UIView {
     
     @IBOutlet weak var doneNum: UILabel!
     
-    @IBOutlet weak var image: UIImageView!
+//    @IBOutlet weak var image: UIImageView!
     
     override func awakeFromNib() {
         
@@ -30,7 +30,9 @@ class TBookHeadView: UIView {
         submitNum.text = model.state1
         doneNum.text = model.state2
         
-        image.kf.setImage(with:  URL(string:model.edition_photo)!, placeholder: #imageLiteral(resourceName: "photos_image_default"), options: nil, progressBlock: nil, completionHandler: nil)
+        if model.edition_photo.count>0 {
+//            image.kf.setImage(with:  URL(string:model.edition_photo)!, placeholder: #imageLiteral(resourceName: "class_default"), options: nil, progressBlock: nil, completionHandler: nil)
+        }
 
     }
     

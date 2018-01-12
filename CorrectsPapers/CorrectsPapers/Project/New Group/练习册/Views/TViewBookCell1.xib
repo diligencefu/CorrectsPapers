@@ -150,6 +150,6 @@
     </objects>
     <resources>
         <image name="UserHead_64_default" width="32" height="32"/>
-        <image name="workBook" width="160" height="200"/>
+        <image name="workBook" width="100" height="100"/>
     </resources>
 </document>

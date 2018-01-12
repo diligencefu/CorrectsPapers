@@ -14,7 +14,7 @@ class UrlModel: NSObject {
     ///答案地址
     var address : String!
     ///答案标题
-    var title : Array<String>!
+    var title : String!
     ///学币
     var money : String?
     ///视频 答案类型：1，视频；2，文件；3，手写答案）
@@ -24,27 +24,30 @@ class UrlModel: NSObject {
     ///章节
     var counts : String?
     ///地址
-    var answard_res : Array<String>!
+    var answard_res : String!
 
     ///章节
     var point_title : String?
     ///章节
     var point_address : String?
+    
+    var format : String?
 
+    
     
     class func setValueForUrlModel(json: JSON) -> UrlModel {
         
         let model = UrlModel()
         
         model.address = json["answard"].stringValue
-        model.title = setValueForTitlesAnd(json: json["title"])
+        model.title = json["title"].stringValue
         model.money = json["money"].stringValue
         model.type = json["type"].stringValue
         model.counts = json["counts"].stringValue
-        model.answard_res = setValueForTitlesAnd(json: json["answard_res"])
+        model.answard_res =  json["answard_res"].stringValue
         model.point_title = json["title"].stringValue
         model.point_address = json["address"].stringValue
-
+        model.format = json["format"].stringValue
         return model
     }
     

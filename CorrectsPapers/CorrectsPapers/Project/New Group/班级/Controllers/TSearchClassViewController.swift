@@ -28,6 +28,11 @@ class TSearchClassViewController: BaseViewController,UITextFieldDelegate,UIAlert
         addTagsView()
     }
     
+    override func addHeaderRefresh() {
+        
+    }
+    
+    
     override func configSubViews() {
                 
         mainTableView = UITableView.init(frame: CGRect(x: 0, y: 0, width: kSCREEN_WIDTH, height: kSCREEN_HEIGHT - 64 ), style: .grouped)
@@ -144,8 +149,8 @@ class TSearchClassViewController: BaseViewController,UITextFieldDelegate,UIAlert
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         searchTextfield.endEditing(true)
-        mainTableArr = []
-        tableView.reloadData()
+//        mainTableArr = []
+//        tableView.reloadData()
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -199,13 +204,15 @@ class TSearchClassViewController: BaseViewController,UITextFieldDelegate,UIAlert
     
     @objc func searchBegin() {
 //        setToast(str: "开始搜索")
-//        isSearching = true
+        isSearching = true
 //        mainTableView.reloadData()
+        searchTextfield.endEditing(true)
 
         let params = [
             "SESSIONID":SESSIONIDT,
             "class_name":searchTextfield.text!,
-            "mobileCode":mobileCodeT
+            "mobileCode":mobileCodeT,
+            "type":"2"
             ] as [String : Any]
         self.view.beginLoading()
         netWorkForMyClass(params: params) { (datas,flag) in
@@ -220,13 +227,11 @@ class TSearchClassViewController: BaseViewController,UITextFieldDelegate,UIAlert
         
     }
     
+    
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        
         searchBegin()
         return true
     }
-    
-    
     
     
     var BGView = UIView()
@@ -280,7 +285,9 @@ class TSearchClassViewController: BaseViewController,UITextFieldDelegate,UIAlert
                     ] as [String : Any]
                 
                 NetWorkTeacherTeacherAddToClasses(params: params, callBack: { (flag) in
-                    
+                    if flag {
+                        self.searchBegin()
+                    }
                 })
 
             }

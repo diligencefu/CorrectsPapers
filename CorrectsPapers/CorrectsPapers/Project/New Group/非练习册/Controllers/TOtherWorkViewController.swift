@@ -37,7 +37,7 @@ class TOtherWorkViewController: BaseViewController {
     
     override func refreshHeaderAction() {
         
-        self.view.beginLoading()
+//        self.view.beginLoading()
         NetWorkTeacherGetTAllNotWork { (datas,flag) in
             if flag {
                 self.mainTableArr.removeAllObjects()
@@ -45,7 +45,7 @@ class TOtherWorkViewController: BaseViewController {
                 self.mainTableView.reloadData()
                 self.mainTableView.mj_header.endRefreshing()
             }
-            self.view.endLoading()
+//            self.view.endLoading()
         }
     }
 
@@ -67,7 +67,7 @@ class TOtherWorkViewController: BaseViewController {
     //    右键
     func rightBarButton() {
         
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(image: #imageLiteral(resourceName: "book_icon_default"), style: .plain, target: self, action: #selector(pushToMyBook(sender:)))
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(image: #imageLiteral(resourceName: "my-corrections_icon"), style: .plain, target: self, action: #selector(pushToMyBook(sender:)))
     }
     
     

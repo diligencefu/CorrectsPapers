@@ -24,11 +24,9 @@ class ChooseTeacherCorrectVC: BaseViewController {
         netWorkForMyFriend { (datas, success) in
             
             deBugPrint(item: datas)
-            
             for index in 0..<datas.count {
                 
                 let model = datas[index] as! ApplyModel
-                
                 if model.user_type != "1" {
                     self.teachers.append(model)
                 }

@@ -86,7 +86,7 @@ class CheckWorkCell: UITableViewCell {
         scoreImage.isHidden = true
         
         workDescrip.text = model.result
-        correctTime.text = model.create_date
+        correctTime.text = model.correcting_time
         
         workImage1.snp.updateConstraints { (make) in
             make.bottom.equalToSuperview().offset(-6.5)
@@ -94,17 +94,17 @@ class CheckWorkCell: UITableViewCell {
         
         if model.correcting_states == "2" {
             if model.photo != nil {
-                workImage1.kf.setImage(with:  URL(string:model.photo[0])!, placeholder: #imageLiteral(resourceName: "UserHead_128_default"), options: nil, progressBlock: nil, completionHandler: nil)
+                workImage1.kf.setImage(with:  URL(string:model.photo[0])!, placeholder: #imageLiteral(resourceName: "class_default"), options: nil, progressBlock: nil, completionHandler: nil)
                 if model.photo.count==2 {
-                    workImage2.kf.setImage(with:  URL(string:model.photo[1])!, placeholder: #imageLiteral(resourceName: "UserHead_128_default"), options: nil, progressBlock: nil, completionHandler: nil)
+                    workImage2.kf.setImage(with:  URL(string:model.photo[1])!, placeholder: #imageLiteral(resourceName: "class_default"), options: nil, progressBlock: nil, completionHandler: nil)
                 }
             }
 
         }else if model.correcting_states == "5" {
             if model.photo != nil {
-                workImage1.kf.setImage(with:  URL(string:model.corrected_error_photo[0])!, placeholder: #imageLiteral(resourceName: "UserHead_128_default"), options: nil, progressBlock: nil, completionHandler: nil)
+                workImage1.kf.setImage(with:  URL(string:model.corrected_error_photo[0])!, placeholder: #imageLiteral(resourceName: "class_default"), options: nil, progressBlock: nil, completionHandler: nil)
                 if model.photo.count==2 {
-                    workImage2.kf.setImage(with:  URL(string:model.corrected_error_photo[1])!, placeholder: #imageLiteral(resourceName: "UserHead_128_default"), options: nil, progressBlock: nil, completionHandler: nil)
+                    workImage2.kf.setImage(with:  URL(string:model.corrected_error_photo[1])!, placeholder: #imageLiteral(resourceName: "class_default"), options: nil, progressBlock: nil, completionHandler: nil)
                 }
             }
         }
@@ -129,17 +129,17 @@ class CheckWorkCell: UITableViewCell {
         no_check.textColor = kSetRGBColor(r: 255, g: 78, b: 78)
         if model.correcting_states == "3" {
             if model.photo != nil {
-                workImage1.kf.setImage(with:  URL(string:model.photo[0])!, placeholder: #imageLiteral(resourceName: "UserHead_128_default"), options: nil, progressBlock: nil, completionHandler: nil)
+                workImage1.kf.setImage(with:  URL(string:model.photo[0])!, placeholder: #imageLiteral(resourceName: "class_default"), options: nil, progressBlock: nil, completionHandler: nil)
                 if model.photo.count==2 {
-                    workImage2.kf.setImage(with:  URL(string:model.photo[1])!, placeholder: #imageLiteral(resourceName: "UserHead_128_default"), options: nil, progressBlock: nil, completionHandler: nil)
+                    workImage2.kf.setImage(with:  URL(string:model.photo[1])!, placeholder: #imageLiteral(resourceName: "class_default"), options: nil, progressBlock: nil, completionHandler: nil)
                 }
             }
             
         }else if model.correcting_states == "6" {
             if model.photo != nil {
-                workImage1.kf.setImage(with:  URL(string:model.corrected_error_photo[0])!, placeholder: #imageLiteral(resourceName: "UserHead_128_default"), options: nil, progressBlock: nil, completionHandler: nil)
+                workImage1.kf.setImage(with:  URL(string:model.corrected_error_photo[0])!, placeholder: #imageLiteral(resourceName: "class_default"), options: nil, progressBlock: nil, completionHandler: nil)
                 if model.photo.count==2 {
-                    workImage2.kf.setImage(with:  URL(string:model.corrected_error_photo[1])!, placeholder: #imageLiteral(resourceName: "UserHead_128_default"), options: nil, progressBlock: nil, completionHandler: nil)
+                    workImage2.kf.setImage(with:  URL(string:model.corrected_error_photo[1])!, placeholder: #imageLiteral(resourceName: "class_default"), options: nil, progressBlock: nil, completionHandler: nil)
                 }
             }
         }
@@ -179,9 +179,9 @@ class CheckWorkCell: UITableViewCell {
         }
 
         if model.photo != nil {
-            workImage1.kf.setImage(with:  URL(string:model.photo[0])!, placeholder: #imageLiteral(resourceName: "UserHead_128_default"), options: nil, progressBlock: nil, completionHandler: nil)
+            workImage1.kf.setImage(with:  URL(string:model.photo[0])!, placeholder: #imageLiteral(resourceName: "class_default"), options: nil, progressBlock: nil, completionHandler: nil)
             if model.photo.count==2 {
-                workImage2.kf.setImage(with:  URL(string:model.photo[1])!, placeholder: #imageLiteral(resourceName: "UserHead_128_default"), options: nil, progressBlock: nil, completionHandler: nil)
+                workImage2.kf.setImage(with:  URL(string:model.photo[1])!, placeholder: #imageLiteral(resourceName: "class_default"), options: nil, progressBlock: nil, completionHandler: nil)
             }
         }
 
@@ -202,9 +202,9 @@ class CheckWorkCell: UITableViewCell {
             make.width.equalTo(0)
         }
         if model.photo != nil {
-            workImage1.kf.setImage(with:  URL(string:model.corrected_error_photo[0])!, placeholder: #imageLiteral(resourceName: "UserHead_128_default"), options: nil, progressBlock: nil, completionHandler: nil)
+            workImage1.kf.setImage(with:  URL(string:model.corrected_error_photo[0])!, placeholder: #imageLiteral(resourceName: "class_default"), options: nil, progressBlock: nil, completionHandler: nil)
             if model.photo.count==2 {
-                workImage2.kf.setImage(with:  URL(string:model.corrected_error_photo[1])!, placeholder: #imageLiteral(resourceName: "UserHead_128_default"), options: nil, progressBlock: nil, completionHandler: nil)
+                workImage2.kf.setImage(with:  URL(string:model.corrected_error_photo[1])!, placeholder: #imageLiteral(resourceName: "class_default"), options: nil, progressBlock: nil, completionHandler: nil)
             }
         }
         
@@ -246,17 +246,17 @@ class CheckWorkCell: UITableViewCell {
         
         if model.correct_states == "2" {
             if model.pre_photos != nil {
-                workImage1.kf.setImage(with:  URL(string:model.pre_photos[0])!, placeholder: #imageLiteral(resourceName: "UserHead_128_default"), options: nil, progressBlock: nil, completionHandler: nil)
+                workImage1.kf.setImage(with:  URL(string:model.pre_photos[0])!, placeholder: #imageLiteral(resourceName: "class_default"), options: nil, progressBlock: nil, completionHandler: nil)
                 if model.pre_photos.count==2 {
-                    workImage2.kf.setImage(with:  URL(string:model.pre_photos[1])!, placeholder: #imageLiteral(resourceName: "UserHead_128_default"), options: nil, progressBlock: nil, completionHandler: nil)
+                    workImage2.kf.setImage(with:  URL(string:model.pre_photos[1])!, placeholder: #imageLiteral(resourceName: "class_default"), options: nil, progressBlock: nil, completionHandler: nil)
                 }
             }
             
         }else if model.correct_states == "5" {
             if model.corrected_photos != nil {
-                workImage1.kf.setImage(with:  URL(string:model.corrected_photos[0])!, placeholder: #imageLiteral(resourceName: "UserHead_128_default"), options: nil, progressBlock: nil, completionHandler: nil)
+                workImage1.kf.setImage(with:  URL(string:model.corrected_photos[0])!, placeholder: #imageLiteral(resourceName: "class_default"), options: nil, progressBlock: nil, completionHandler: nil)
                 if model.corrected_photos.count==2 {
-                    workImage2.kf.setImage(with:  URL(string:model.corrected_photos[1])!, placeholder: #imageLiteral(resourceName: "UserHead_128_default"), options: nil, progressBlock: nil, completionHandler: nil)
+                    workImage2.kf.setImage(with:  URL(string:model.corrected_photos[1])!, placeholder: #imageLiteral(resourceName: "class_default"), options: nil, progressBlock: nil, completionHandler: nil)
                 }
             }
         }
@@ -283,18 +283,18 @@ class CheckWorkCell: UITableViewCell {
             no_check.text = "退回" + model.reason
 
             if model.pre_photos != nil {
-                workImage1.kf.setImage(with:  URL(string:model.pre_photos[0])!, placeholder: #imageLiteral(resourceName: "UserHead_128_default"), options: nil, progressBlock: nil, completionHandler: nil)
+                workImage1.kf.setImage(with:  URL(string:model.pre_photos[0])!, placeholder: #imageLiteral(resourceName: "class_default"), options: nil, progressBlock: nil, completionHandler: nil)
                 if model.pre_photos.count==2 {
-                    workImage2.kf.setImage(with:  URL(string:model.pre_photos[1])!, placeholder: #imageLiteral(resourceName: "UserHead_128_default"), options: nil, progressBlock: nil, completionHandler: nil)
+                    workImage2.kf.setImage(with:  URL(string:model.pre_photos[1])!, placeholder: #imageLiteral(resourceName: "class_default"), options: nil, progressBlock: nil, completionHandler: nil)
                 }
             }
             
         }else if model.correct_states == "6" {
             no_check.text = "错题退回" + model.reason
             if model.corrected_photos != nil {
-                workImage1.kf.setImage(with:  URL(string:model.corrected_photos[0])!, placeholder: #imageLiteral(resourceName: "UserHead_128_default"), options: nil, progressBlock: nil, completionHandler: nil)
+                workImage1.kf.setImage(with:  URL(string:model.corrected_photos[0])!, placeholder: #imageLiteral(resourceName: "class_default"), options: nil, progressBlock: nil, completionHandler: nil)
                 if model.corrected_photos.count==2 {
-                    workImage2.kf.setImage(with:  URL(string:model.corrected_photos[1])!, placeholder: #imageLiteral(resourceName: "UserHead_128_default"), options: nil, progressBlock: nil, completionHandler: nil)
+                    workImage2.kf.setImage(with:  URL(string:model.corrected_photos[1])!, placeholder: #imageLiteral(resourceName: "class_default"), options: nil, progressBlock: nil, completionHandler: nil)
                 }
             }
         }

@@ -57,7 +57,7 @@ class WorkBookCell: UITableViewCell {
 
         bookTitle.text = model.work_book_name
         
-        bookImage.kf.setImage(with:  URL(string:model.cover_photo)!, placeholder: #imageLiteral(resourceName: "photos_image_default"), options: nil, progressBlock: nil, completionHandler: nil)
+        bookImage.kf.setImage(with:  URL(string:model.cover_photo)!, placeholder: #imageLiteral(resourceName: "class_default"), options: nil, progressBlock: nil, completionHandler: nil)
         
         
         proName.setTitleColor(kSetRGBColor(r: 255, g: 102, b: 116), for: .normal)

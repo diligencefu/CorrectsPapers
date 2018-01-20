@@ -59,6 +59,12 @@ class WorkBookModel: BaseModel {
     ///交作业人数
     var state2 : String!
     
+    ///价格
+    var money : String!
+
+    ///练习册版本
+    var edition_id : String!
+    
     ///批改状态:1、未上传；2、未批改；3、退回；4已批改 5:错题 未批改 6错题退回 7错题已批改
     var correcting_states : String?
     
@@ -83,6 +89,8 @@ class WorkBookModel: BaseModel {
         model.state1 = json["state1"].stringValue
         model.correcting_states = json["correcting_states"].stringValue
         model.teacher_id = json["teacher_id"].stringValue
+        model.edition_id = json["edition_id"].stringValue
+        model.money = json["money"].stringValue
         return model
     }
 

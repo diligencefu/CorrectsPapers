@@ -7,12 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		180D6B6B1F9456FF00480DEF /* PersonHeadCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180D6B691F9456FF00480DEF /* PersonHeadCell.swift */; };
-		180D6B6C1F9456FF00480DEF /* PersonHeadCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 180D6B6A1F9456FF00480DEF /* PersonHeadCell.xib */; };
-		180D6B6E1F945DA700480DEF /* SuggestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180D6B6D1F945DA700480DEF /* SuggestViewController.swift */; };
-		180D6B701F94654000480DEF /* SwitchRolesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180D6B6F1F94654000480DEF /* SwitchRolesViewController.swift */; };
-		180D6B731F94775500480DEF /* SystemMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180D6B711F94775500480DEF /* SystemMessageCell.swift */; };
-		180D6B741F94775500480DEF /* SystemMessageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 180D6B721F94775500480DEF /* SystemMessageCell.xib */; };
 		180D6B771F949A4400480DEF /* UpLoadWorkCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180D6B751F949A4400480DEF /* UpLoadWorkCell.swift */; };
 		180D6B781F949A4400480DEF /* UpLoadWorkCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 180D6B761F949A4400480DEF /* UpLoadWorkCell.xib */; };
 		180D6B7B1F94A51E00480DEF /* CheckWorkCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180D6B791F94A51E00480DEF /* CheckWorkCell.swift */; };
@@ -45,8 +39,6 @@
 		182EB5C41F9ECD6D00B74F84 /* TUpLoadVideoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 182EB5C21F9ECD6D00B74F84 /* TUpLoadVideoCell.xib */; };
 		182EB5C61F9ED38A00B74F84 /* TTipView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 182EB5C51F9ED38A00B74F84 /* TTipView.xib */; };
 		182EB5C81F9ED6E200B74F84 /* TTipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182EB5C71F9ED6E200B74F84 /* TTipView.swift */; };
-		183BA95A1FAD5310001A3C1D /* FriendsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 183BA9591FAD5310001A3C1D /* FriendsModel.swift */; };
-		183BA95C1FAD54FA001A3C1D /* ApplyModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 183BA95B1FAD54F9001A3C1D /* ApplyModel.swift */; };
 		183C57781FA9AAE00038CA8B /* MyBookDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 183C57771FA9AAE00038CA8B /* MyBookDetailViewController.swift */; };
 		183FEAAD1FA870E40015CE9B /* TeacherInfoCell1.xib in Resources */ = {isa = PBXBuildFile; fileRef = 182181651FA829CD00C2BE89 /* TeacherInfoCell1.xib */; };
 		183FEAAE1FA871060015CE9B /* TeacherInfoCell2.xib in Resources */ = {isa = PBXBuildFile; fileRef = 182181601FA829CC00C2BE89 /* TeacherInfoCell2.xib */; };
@@ -70,15 +62,9 @@
 		18449C7D1FA9556500120FDA /* WorkBookModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18449C7C1FA9556500120FDA /* WorkBookModel.swift */; };
 		18449C7F1FA955CD00120FDA /* BaseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18449C7E1FA955CD00120FDA /* BaseModel.swift */; };
 		18449C811FA9591F00120FDA /* BookDetailModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18449C801FA9591F00120FDA /* BookDetailModel.swift */; };
-		18449C831FA95AB400120FDA /* PersonalModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18449C821FA95AB400120FDA /* PersonalModel.swift */; };
 		184AE5081F90C07B007FE81A /* SearchBooksViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184AE5071F90C07B007FE81A /* SearchBooksViewController.swift */; };
 		184AE50A1F90C156007FE81A /* MyBookViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184AE5091F90C156007FE81A /* MyBookViewController.swift */; };
 		184B3E781FCBAC41002A90D8 /* NotWorkDetailModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184B3E771FCBAC41002A90D8 /* NotWorkDetailModel.swift */; };
-		184BBECC1F9B431500EF65C4 /* EditInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184BBECB1F9B431400EF65C4 /* EditInfoViewController.swift */; };
-		184BBECF1F9B45E900EF65C4 /* EditInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184BBECD1F9B45E900EF65C4 /* EditInfoCell.swift */; };
-		184BBED01F9B45E900EF65C4 /* EditInfoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 184BBECE1F9B45E900EF65C4 /* EditInfoCell.xib */; };
-		184BBED31F9B4CE800EF65C4 /* EditHeadCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184BBED11F9B4CE800EF65C4 /* EditHeadCell.swift */; };
-		184BBED41F9B4CE800EF65C4 /* EditHeadCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 184BBED21F9B4CE800EF65C4 /* EditHeadCell.xib */; };
 		184BC2511FE4B92700239DC4 /* address.plist in Resources */ = {isa = PBXBuildFile; fileRef = 184BC24B1FE4B92700239DC4 /* address.plist */; };
 		184D945E1F97250200C79DBC /* BaseBrush.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184D94291F9724D500C79DBC /* BaseBrush.swift */; };
 		184D945F1F97250200C79DBC /* DBUndoManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184D942A1F9724D500C79DBC /* DBUndoManager.swift */; };
@@ -126,15 +112,6 @@
 		184D948A1F97250200C79DBC /* PhotoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184D941C1F9724D300C79DBC /* PhotoView.swift */; };
 		184D94AA1F97299300C79DBC /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 184D94A81F97298100C79DBC /* Localizable.strings */; };
 		184D94AB1F97299300C79DBC /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 184D94A51F97298100C79DBC /* Localizable.strings */; };
-		184E6DE91F960DEE00C2C3DB /* ShowFridensCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184E6DE71F960DEE00C2C3DB /* ShowFridensCell.swift */; };
-		184E6DEA1F960DEE00C2C3DB /* ShowFridensCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 184E6DE81F960DEE00C2C3DB /* ShowFridensCell.xib */; };
-		184E6DED1F960FDA00C2C3DB /* ApplyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184E6DEB1F960FDA00C2C3DB /* ApplyCell.swift */; };
-		184E6DEE1F960FDA00C2C3DB /* ApplyCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 184E6DEC1F960FDA00C2C3DB /* ApplyCell.xib */; };
-		184E6DF01F96195D00C2C3DB /* IncomeHeadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184E6DEF1F96195D00C2C3DB /* IncomeHeadView.swift */; };
-		184E6DF41F96197000C2C3DB /* IncomeHeadView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 184E6DF31F96197000C2C3DB /* IncomeHeadView.xib */; };
-		184E6DF71F961BC100C2C3DB /* IncomeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184E6DF51F961BC100C2C3DB /* IncomeCell.swift */; };
-		184E6DF81F961BC100C2C3DB /* IncomeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 184E6DF61F961BC100C2C3DB /* IncomeCell.xib */; };
-		184E6DFA1F961C5C00C2C3DB /* IncomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184E6DF91F961C5C00C2C3DB /* IncomeViewController.swift */; };
 		184EC6801FB69EA9007C6BDE /* ShowFileCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184EC67E1FB69EA9007C6BDE /* ShowFileCell.swift */; };
 		184EC6811FB69EA9007C6BDE /* ShowFileCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 184EC67F1FB69EA9007C6BDE /* ShowFileCell.xib */; };
 		184EC6831FB6C425007C6BDE /* TMyWorkDetailModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184EC6821FB6C425007C6BDE /* TMyWorkDetailModel.swift */; };
@@ -155,7 +132,6 @@
 		18520DD21F8C5D9D004EAF99 /* WorkBookViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18520DD11F8C5D9D004EAF99 /* WorkBookViewController.swift */; };
 		18520DD41F8C5DBA004EAF99 /* Non-WorkBookViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18520DD31F8C5DBA004EAF99 /* Non-WorkBookViewController.swift */; };
 		18520DD61F8C5DC6004EAF99 /* ClassViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18520DD51F8C5DC6004EAF99 /* ClassViewController.swift */; };
-		18520DD81F8C5DD7004EAF99 /* PersonnalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18520DD71F8C5DD7004EAF99 /* PersonnalViewController.swift */; };
 		18520DDF1F8C630A004EAF99 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18520DDE1F8C630A004EAF99 /* MainTabBarController.swift */; };
 		18520DF01F8C6997004EAF99 /* WorkBookCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18520DEE1F8C6997004EAF99 /* WorkBookCell.swift */; };
 		18520DF11F8C6997004EAF99 /* WorkBookCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18520DEF1F8C6997004EAF99 /* WorkBookCell.xib */; };
@@ -210,26 +186,63 @@
 		186458A71FC7E971000C6D05 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 186458A61FC7E971000C6D05 /* libz.tbd */; };
 		186458A91FC7E97C000C6D05 /* libstdc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 186458A81FC7E97C000C6D05 /* libstdc++.tbd */; };
 		186458AC1FC7E98C000C6D05 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 186458AB1FC7E98C000C6D05 /* libsqlite3.tbd */; };
-		186458B31FC808E3000C6D05 /* ShareView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186458B21FC808E3000C6D05 /* ShareView.swift */; };
-		186458B51FC808EB000C6D05 /* ShareView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 186458B41FC808EB000C6D05 /* ShareView.xib */; };
 		18673B011FD2962100B1B631 /* PayModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18673B001FD2962100B1B631 /* PayModel.swift */; };
-		1867C40E1F9DA0CB00831A23 /* SystemMsgViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1867C40D1F9DA0CB00831A23 /* SystemMsgViewController.swift */; };
 		1867C4101F9DC65C00831A23 /* TBookDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1867C40F1F9DC65C00831A23 /* TBookDetailViewController.swift */; };
 		1867C4121F9DC6BB00831A23 /* TBookHeadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1867C4111F9DC6BB00831A23 /* TBookHeadView.swift */; };
 		1867C4141F9DC6C700831A23 /* TBookHeadView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1867C4131F9DC6C700831A23 /* TBookHeadView.xib */; };
-		1869A51B2000A7D0000F4F5F /* LNSetPswViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1869A5192000A7D0000F4F5F /* LNSetPswViewController.swift */; };
-		1869A51C2000A7D0000F4F5F /* LNSetPswViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1869A51A2000A7D0000F4F5F /* LNSetPswViewController.xib */; };
-		186A27FD1F96002E00FAA766 /* MessgesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186A27FB1F96002E00FAA766 /* MessgesCell.swift */; };
-		186A27FE1F96002E00FAA766 /* MessgesCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 186A27FC1F96002E00FAA766 /* MessgesCell.xib */; };
-		186A28001F96016000FAA766 /* MessgaeCenterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186A27FF1F96016000FAA766 /* MessgaeCenterViewController.swift */; };
 		186A28021F96035800FAA766 /* ComplaintRecordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186A28011F96035800FAA766 /* ComplaintRecordViewController.swift */; };
-		186A28041F96037300FAA766 /* AddFriendViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186A28031F96037300FAA766 /* AddFriendViewController.swift */; };
-		186A28061F96038500FAA766 /* ApplyListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186A28051F96038500FAA766 /* ApplyListViewController.swift */; };
 		186A28091F96039D00FAA766 /* ComplaintRecordCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186A28071F96039D00FAA766 /* ComplaintRecordCell.swift */; };
 		186A280A1F96039D00FAA766 /* ComplaintRecordCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 186A28081F96039D00FAA766 /* ComplaintRecordCell.xib */; };
-		186A280C1F96077E00FAA766 /* MyFriendViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186A280B1F96077E00FAA766 /* MyFriendViewController.swift */; };
+		186A48FD20102D0D00824405 /* AboutUsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186A48CB20102D0C00824405 /* AboutUsViewController.swift */; };
+		186A48FE20102D0D00824405 /* AddFriendViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186A48CC20102D0C00824405 /* AddFriendViewController.swift */; };
+		186A48FF20102D0D00824405 /* ApplyListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186A48CD20102D0C00824405 /* ApplyListViewController.swift */; };
+		186A490020102D0D00824405 /* CreditRankViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186A48CE20102D0C00824405 /* CreditRankViewController.swift */; };
+		186A490120102D0D00824405 /* EditInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186A48CF20102D0C00824405 /* EditInfoViewController.swift */; };
+		186A490220102D0D00824405 /* IncomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186A48D020102D0C00824405 /* IncomeViewController.swift */; };
+		186A490320102D0D00824405 /* LNChangePassWordVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186A48D120102D0C00824405 /* LNChangePassWordVC.swift */; };
+		186A490420102D0D00824405 /* LNChangWayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186A48D220102D0C00824405 /* LNChangWayViewController.swift */; };
+		186A490520102D0D00824405 /* LNSetPswViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186A48D320102D0C00824405 /* LNSetPswViewController.swift */; };
+		186A490620102D0D00824405 /* LNSetPswViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 186A48D420102D0C00824405 /* LNSetPswViewController.xib */; };
+		186A490720102D0D00824405 /* MessgaeCenterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186A48D520102D0C00824405 /* MessgaeCenterViewController.swift */; };
+		186A490820102D0D00824405 /* MyFriendViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186A48D620102D0C00824405 /* MyFriendViewController.swift */; };
+		186A490920102D0D00824405 /* PersonnalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186A48D720102D0C00824405 /* PersonnalViewController.swift */; };
+		186A490A20102D0D00824405 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186A48D820102D0C00824405 /* SettingViewController.swift */; };
+		186A490B20102D0D00824405 /* SuggestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186A48D920102D0C00824405 /* SuggestViewController.swift */; };
+		186A490C20102D0D00824405 /* SwitchRolesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186A48DA20102D0C00824405 /* SwitchRolesViewController.swift */; };
+		186A490D20102D0D00824405 /* SystemMsgViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186A48DB20102D0C00824405 /* SystemMsgViewController.swift */; };
+		186A490E20102D0D00824405 /* AccountModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186A48DD20102D0C00824405 /* AccountModel.swift */; };
+		186A490F20102D0D00824405 /* ApplyModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186A48DE20102D0C00824405 /* ApplyModel.swift */; };
+		186A491020102D0D00824405 /* FriendsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186A48DF20102D0C00824405 /* FriendsModel.swift */; };
+		186A491120102D0D00824405 /* LNShowRankModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186A48E020102D0C00824405 /* LNShowRankModel.swift */; };
+		186A491220102D0D00824405 /* PersonalModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186A48E120102D0C00824405 /* PersonalModel.swift */; };
+		186A491320102D0D00824405 /* SMessageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186A48E220102D0C00824405 /* SMessageModel.swift */; };
+		186A491420102D0D00824405 /* ApplyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186A48E420102D0C00824405 /* ApplyCell.swift */; };
+		186A491520102D0D00824405 /* ApplyCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 186A48E520102D0C00824405 /* ApplyCell.xib */; };
+		186A491620102D0D00824405 /* EditHeadCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186A48E620102D0C00824405 /* EditHeadCell.swift */; };
+		186A491720102D0D00824405 /* EditHeadCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 186A48E720102D0C00824405 /* EditHeadCell.xib */; };
+		186A491820102D0D00824405 /* EditInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186A48E820102D0C00824405 /* EditInfoCell.swift */; };
+		186A491920102D0D00824405 /* EditInfoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 186A48E920102D0C00824405 /* EditInfoCell.xib */; };
+		186A491A20102D0D00824405 /* IncomeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186A48EA20102D0C00824405 /* IncomeCell.swift */; };
+		186A491B20102D0D00824405 /* IncomeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 186A48EB20102D0C00824405 /* IncomeCell.xib */; };
+		186A491C20102D0D00824405 /* IncomeHeadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186A48EC20102D0C00824405 /* IncomeHeadView.swift */; };
+		186A491D20102D0D00824405 /* IncomeHeadView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 186A48ED20102D0C00824405 /* IncomeHeadView.xib */; };
+		186A491E20102D0D00824405 /* LNRechargeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186A48EE20102D0C00824405 /* LNRechargeView.swift */; };
+		186A491F20102D0D00824405 /* LNRechargeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 186A48EF20102D0C00824405 /* LNRechargeView.xib */; };
+		186A492020102D0D00824405 /* MessgesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186A48F020102D0C00824405 /* MessgesCell.swift */; };
+		186A492120102D0D00824405 /* MessgesCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 186A48F120102D0C00824405 /* MessgesCell.xib */; };
+		186A492220102D0D00824405 /* PersonHeadCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186A48F220102D0C00824405 /* PersonHeadCell.swift */; };
+		186A492320102D0D00824405 /* PersonHeadCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 186A48F320102D0C00824405 /* PersonHeadCell.xib */; };
+		186A492420102D0D00824405 /* RankCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186A48F420102D0C00824405 /* RankCell.swift */; };
+		186A492520102D0D00824405 /* RankCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 186A48F520102D0C00824405 /* RankCell.xib */; };
+		186A492620102D0D00824405 /* ShareView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186A48F620102D0C00824405 /* ShareView.swift */; };
+		186A492720102D0D00824405 /* ShareView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 186A48F720102D0C00824405 /* ShareView.xib */; };
+		186A492820102D0D00824405 /* ShowFridensCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186A48F820102D0C00824405 /* ShowFridensCell.swift */; };
+		186A492920102D0D00824405 /* ShowFridensCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 186A48F920102D0C00824405 /* ShowFridensCell.xib */; };
+		186A492A20102D0D00824405 /* SystemMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186A48FA20102D0C00824405 /* SystemMessageCell.swift */; };
+		186A492B20102D0D00824405 /* SystemMessageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 186A48FB20102D0C00824405 /* SystemMessageCell.xib */; };
 		186D83481FBD27EA00F8E39C /* TComplaintModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186D83471FBD27EA00F8E39C /* TComplaintModel.swift */; };
 		186D834A1FBD29C200F8E39C /* TComplaintDetailModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186D83491FBD29C200F8E39C /* TComplaintDetailModel.swift */; };
+		186F1D5E20099F8500F04060 /* AutoScrollLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 186F1D5C20099F8500F04060 /* AutoScrollLabel.m */; };
 		186F391B1F919EF3009B8927 /* CreateBookViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186F391A1F919EF3009B8927 /* CreateBookViewController.swift */; };
 		186F391E1F919F7C009B8927 /* CreateBookCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186F391C1F919F7C009B8927 /* CreateBookCell.swift */; };
 		186F391F1F919F7C009B8927 /* CreateBookCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 186F391D1F919F7C009B8927 /* CreateBookCell.xib */; };
@@ -338,13 +351,10 @@
 		188D0C5E1F99EA1A0010814C /* SUploadWorkCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 188D0C5C1F99EA1A0010814C /* SUploadWorkCell.xib */; };
 		188D0C611F99F4FB0010814C /* ShowImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188D0C5F1F99F4FB0010814C /* ShowImageCell.swift */; };
 		188D0C621F99F4FB0010814C /* ShowImageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 188D0C601F99F4FB0010814C /* ShowImageCell.xib */; };
-		189101F31FDFC5FC003C3569 /* SMessageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189101F21FDFC5FC003C3569 /* SMessageModel.swift */; };
 		18935EE11FC271AD00BF9651 /* ReloadNotWorkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18935EE01FC271AD00BF9651 /* ReloadNotWorkViewController.swift */; };
 		18935EE41FC2A71200BF9651 /* ShowWorkNotDone.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18935EE21FC2A71200BF9651 /* ShowWorkNotDone.swift */; };
 		18935EE51FC2A71200BF9651 /* ShowWorkNotDone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18935EE31FC2A71200BF9651 /* ShowWorkNotDone.xib */; };
 		1893785B1F943FA600393CB4 /* SearchClassViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1893785A1F943FA600393CB4 /* SearchClassViewController.swift */; };
-		1893785D1F944CCB00393CB4 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1893785C1F944CCB00393CB4 /* SettingViewController.swift */; };
-		1893785F1F944D6900393CB4 /* AboutUsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1893785E1F944D6900393CB4 /* AboutUsViewController.swift */; };
 		189396D82004C46E005E0402 /* LNClassWorkModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189396D72004C46E005E0402 /* LNClassWorkModel.swift */; };
 		1893E2971FBD5F9B0020C6EB /* NotWorkCellCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1893E2951FBD5F9B0020C6EB /* NotWorkCellCell.swift */; };
 		1893E2981FBD5F9B0020C6EB /* NotWorkCellCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1893E2961FBD5F9B0020C6EB /* NotWorkCellCell.xib */; };
@@ -373,16 +383,12 @@
 		189EFF371FE7B4F00038CAC2 /* UIView+Layout.m in Sources */ = {isa = PBXBuildFile; fileRef = 189EFF281FE7B4F00038CAC2 /* UIView+Layout.m */; };
 		18AD150C1FE4CC4900DCEB80 /* ChooseCityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18AD150B1FE4CC4900DCEB80 /* ChooseCityView.swift */; };
 		18AD150E1FE4CC5000DCEB80 /* ChooseCityView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18AD150D1FE4CC5000DCEB80 /* ChooseCityView.xib */; };
-		18B1566F1FB2D3A300396653 /* CreditRankViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B1566E1FB2D3A300396653 /* CreditRankViewController.swift */; };
-		18B156721FB2F23F00396653 /* RankCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B156701FB2F23F00396653 /* RankCell.swift */; };
-		18B156731FB2F23F00396653 /* RankCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18B156711FB2F23F00396653 /* RankCell.xib */; };
 		18B1E6611FB58DC500D1C6F3 /* DrawBoard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B1E6601FB58DC500D1C6F3 /* DrawBoard.swift */; };
 		18B1E6621FB58EE000D1C6F3 /* OCTools.h in Sources */ = {isa = PBXBuildFile; fileRef = 185981A21FB5718A0021EAD9 /* OCTools.h */; };
 		18B1E6631FB58EE000D1C6F3 /* CTImageEditUtil.h in Sources */ = {isa = PBXBuildFile; fileRef = 185981B81FB5885C0021EAD9 /* CTImageEditUtil.h */; };
 		18B1E6641FB58EE000D1C6F3 /* UIImage+EditImageWithColor.h in Sources */ = {isa = PBXBuildFile; fileRef = 185981BA1FB5885C0021EAD9 /* UIImage+EditImageWithColor.h */; };
 		18B1E6651FB58EE000D1C6F3 /* UIView+Ext.h in Sources */ = {isa = PBXBuildFile; fileRef = 185981B01FB588330021EAD9 /* UIView+Ext.h */; };
 		18B1E66C1FB5B10F00D1C6F3 /* ChooseTeacherCorrectVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B1E66B1FB5B10F00D1C6F3 /* ChooseTeacherCorrectVC.swift */; };
-		18C3D2A81FAC1AE3001C295C /* AccountModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C3D2A71FAC1AE3001C295C /* AccountModel.swift */; };
 		18CDFA271FC2ED1400FF4C1C /* WorkPhotoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18CDFA261FC2ED1400FF4C1C /* WorkPhotoModel.swift */; };
 		18D343331F9AF646007CE166 /* CreateClassCell2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D343311F9AF646007CE166 /* CreateClassCell2.swift */; };
 		18D343341F9AF646007CE166 /* CreateClassCell2.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18D343321F9AF646007CE166 /* CreateClassCell2.xib */; };
@@ -411,12 +417,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		180D6B691F9456FF00480DEF /* PersonHeadCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonHeadCell.swift; sourceTree = "<group>"; };
-		180D6B6A1F9456FF00480DEF /* PersonHeadCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PersonHeadCell.xib; sourceTree = "<group>"; };
-		180D6B6D1F945DA700480DEF /* SuggestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestViewController.swift; sourceTree = "<group>"; };
-		180D6B6F1F94654000480DEF /* SwitchRolesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwitchRolesViewController.swift; sourceTree = "<group>"; };
-		180D6B711F94775500480DEF /* SystemMessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemMessageCell.swift; sourceTree = "<group>"; };
-		180D6B721F94775500480DEF /* SystemMessageCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SystemMessageCell.xib; sourceTree = "<group>"; };
 		180D6B751F949A4400480DEF /* UpLoadWorkCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpLoadWorkCell.swift; sourceTree = "<group>"; };
 		180D6B761F949A4400480DEF /* UpLoadWorkCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UpLoadWorkCell.xib; sourceTree = "<group>"; };
 		180D6B791F94A51E00480DEF /* CheckWorkCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckWorkCell.swift; sourceTree = "<group>"; };
@@ -452,8 +452,6 @@
 		182EB5C21F9ECD6D00B74F84 /* TUpLoadVideoCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TUpLoadVideoCell.xib; sourceTree = "<group>"; };
 		182EB5C51F9ED38A00B74F84 /* TTipView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TTipView.xib; sourceTree = "<group>"; };
 		182EB5C71F9ED6E200B74F84 /* TTipView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TTipView.swift; sourceTree = "<group>"; };
-		183BA9591FAD5310001A3C1D /* FriendsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsModel.swift; sourceTree = "<group>"; };
-		183BA95B1FAD54F9001A3C1D /* ApplyModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplyModel.swift; sourceTree = "<group>"; };
 		183C57771FA9AAE00038CA8B /* MyBookDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyBookDetailViewController.swift; sourceTree = "<group>"; };
 		1842B7CD1FBBDA9A00BE6977 /* TNotWorkInfoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TNotWorkInfoCell.swift; sourceTree = "<group>"; };
 		1842B7CE1FBBDA9A00BE6977 /* TNotWorkInfoCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TNotWorkInfoCell.xib; sourceTree = "<group>"; };
@@ -482,16 +480,10 @@
 		18449C7C1FA9556500120FDA /* WorkBookModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkBookModel.swift; sourceTree = "<group>"; };
 		18449C7E1FA955CD00120FDA /* BaseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseModel.swift; sourceTree = "<group>"; };
 		18449C801FA9591F00120FDA /* BookDetailModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookDetailModel.swift; sourceTree = "<group>"; };
-		18449C821FA95AB400120FDA /* PersonalModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalModel.swift; sourceTree = "<group>"; };
 		184621571F8CAA1D00095097 /* CorrectsPapers-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CorrectsPapers-Bridging-Header.h"; sourceTree = "<group>"; };
 		184AE5071F90C07B007FE81A /* SearchBooksViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBooksViewController.swift; sourceTree = "<group>"; };
 		184AE5091F90C156007FE81A /* MyBookViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyBookViewController.swift; sourceTree = "<group>"; };
 		184B3E771FCBAC41002A90D8 /* NotWorkDetailModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotWorkDetailModel.swift; sourceTree = "<group>"; };
-		184BBECB1F9B431400EF65C4 /* EditInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditInfoViewController.swift; sourceTree = "<group>"; };
-		184BBECD1F9B45E900EF65C4 /* EditInfoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditInfoCell.swift; sourceTree = "<group>"; };
-		184BBECE1F9B45E900EF65C4 /* EditInfoCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EditInfoCell.xib; sourceTree = "<group>"; };
-		184BBED11F9B4CE800EF65C4 /* EditHeadCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditHeadCell.swift; sourceTree = "<group>"; };
-		184BBED21F9B4CE800EF65C4 /* EditHeadCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EditHeadCell.xib; sourceTree = "<group>"; };
 		184BC24B1FE4B92700239DC4 /* address.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = address.plist; sourceTree = "<group>"; };
 		184D941C1F9724D300C79DBC /* PhotoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoView.swift; sourceTree = "<group>"; };
 		184D94291F9724D500C79DBC /* BaseBrush.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseBrush.swift; sourceTree = "<group>"; };
@@ -539,15 +531,6 @@
 		184D945C1F9724D500C79DBC /* PencilChooseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PencilChooseView.swift; sourceTree = "<group>"; };
 		184D94A61F97298100C79DBC /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = Localizable.strings; sourceTree = "<group>"; };
 		184D94A91F97298100C79DBC /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = Localizable.strings; sourceTree = "<group>"; };
-		184E6DE71F960DEE00C2C3DB /* ShowFridensCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowFridensCell.swift; sourceTree = "<group>"; };
-		184E6DE81F960DEE00C2C3DB /* ShowFridensCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ShowFridensCell.xib; sourceTree = "<group>"; };
-		184E6DEB1F960FDA00C2C3DB /* ApplyCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplyCell.swift; sourceTree = "<group>"; };
-		184E6DEC1F960FDA00C2C3DB /* ApplyCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ApplyCell.xib; sourceTree = "<group>"; };
-		184E6DEF1F96195D00C2C3DB /* IncomeHeadView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IncomeHeadView.swift; sourceTree = "<group>"; };
-		184E6DF31F96197000C2C3DB /* IncomeHeadView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = IncomeHeadView.xib; sourceTree = "<group>"; };
-		184E6DF51F961BC100C2C3DB /* IncomeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IncomeCell.swift; sourceTree = "<group>"; };
-		184E6DF61F961BC100C2C3DB /* IncomeCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = IncomeCell.xib; sourceTree = "<group>"; };
-		184E6DF91F961C5C00C2C3DB /* IncomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IncomeViewController.swift; sourceTree = "<group>"; };
 		184EC67E1FB69EA9007C6BDE /* ShowFileCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShowFileCell.swift; sourceTree = "<group>"; };
 		184EC67F1FB69EA9007C6BDE /* ShowFileCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ShowFileCell.xib; sourceTree = "<group>"; };
 		184EC6821FB6C425007C6BDE /* TMyWorkDetailModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TMyWorkDetailModel.swift; sourceTree = "<group>"; };
@@ -576,7 +559,6 @@
 		18520DD11F8C5D9D004EAF99 /* WorkBookViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkBookViewController.swift; sourceTree = "<group>"; };
 		18520DD31F8C5DBA004EAF99 /* Non-WorkBookViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Non-WorkBookViewController.swift"; sourceTree = "<group>"; };
 		18520DD51F8C5DC6004EAF99 /* ClassViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassViewController.swift; sourceTree = "<group>"; };
-		18520DD71F8C5DD7004EAF99 /* PersonnalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonnalViewController.swift; sourceTree = "<group>"; };
 		18520DDE1F8C630A004EAF99 /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		18520DEE1F8C6997004EAF99 /* WorkBookCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkBookCell.swift; sourceTree = "<group>"; };
 		18520DEF1F8C6997004EAF99 /* WorkBookCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WorkBookCell.xib; sourceTree = "<group>"; };
@@ -638,26 +620,64 @@
 		186458AB1FC7E98C000C6D05 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
 		186458AD1FC7E997000C6D05 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
 		186458AE1FC7E99E000C6D05 /* Photos.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Photos.framework; path = System/Library/Frameworks/Photos.framework; sourceTree = SDKROOT; };
-		186458B21FC808E3000C6D05 /* ShareView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareView.swift; sourceTree = "<group>"; };
-		186458B41FC808EB000C6D05 /* ShareView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ShareView.xib; sourceTree = "<group>"; };
 		18673B001FD2962100B1B631 /* PayModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayModel.swift; sourceTree = "<group>"; };
-		1867C40D1F9DA0CB00831A23 /* SystemMsgViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemMsgViewController.swift; sourceTree = "<group>"; };
 		1867C40F1F9DC65C00831A23 /* TBookDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TBookDetailViewController.swift; sourceTree = "<group>"; };
 		1867C4111F9DC6BB00831A23 /* TBookHeadView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TBookHeadView.swift; sourceTree = "<group>"; };
 		1867C4131F9DC6C700831A23 /* TBookHeadView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TBookHeadView.xib; sourceTree = "<group>"; };
-		1869A5192000A7D0000F4F5F /* LNSetPswViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LNSetPswViewController.swift; sourceTree = "<group>"; };
-		1869A51A2000A7D0000F4F5F /* LNSetPswViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LNSetPswViewController.xib; sourceTree = "<group>"; };
-		186A27FB1F96002E00FAA766 /* MessgesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessgesCell.swift; sourceTree = "<group>"; };
-		186A27FC1F96002E00FAA766 /* MessgesCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MessgesCell.xib; sourceTree = "<group>"; };
-		186A27FF1F96016000FAA766 /* MessgaeCenterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessgaeCenterViewController.swift; sourceTree = "<group>"; };
 		186A28011F96035800FAA766 /* ComplaintRecordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComplaintRecordViewController.swift; sourceTree = "<group>"; };
-		186A28031F96037300FAA766 /* AddFriendViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFriendViewController.swift; sourceTree = "<group>"; };
-		186A28051F96038500FAA766 /* ApplyListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplyListViewController.swift; sourceTree = "<group>"; };
 		186A28071F96039D00FAA766 /* ComplaintRecordCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComplaintRecordCell.swift; sourceTree = "<group>"; };
 		186A28081F96039D00FAA766 /* ComplaintRecordCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ComplaintRecordCell.xib; sourceTree = "<group>"; };
-		186A280B1F96077E00FAA766 /* MyFriendViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyFriendViewController.swift; sourceTree = "<group>"; };
+		186A48CB20102D0C00824405 /* AboutUsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AboutUsViewController.swift; sourceTree = "<group>"; };
+		186A48CC20102D0C00824405 /* AddFriendViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddFriendViewController.swift; sourceTree = "<group>"; };
+		186A48CD20102D0C00824405 /* ApplyListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApplyListViewController.swift; sourceTree = "<group>"; };
+		186A48CE20102D0C00824405 /* CreditRankViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreditRankViewController.swift; sourceTree = "<group>"; };
+		186A48CF20102D0C00824405 /* EditInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditInfoViewController.swift; sourceTree = "<group>"; };
+		186A48D020102D0C00824405 /* IncomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IncomeViewController.swift; sourceTree = "<group>"; };
+		186A48D120102D0C00824405 /* LNChangePassWordVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LNChangePassWordVC.swift; sourceTree = "<group>"; };
+		186A48D220102D0C00824405 /* LNChangWayViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LNChangWayViewController.swift; sourceTree = "<group>"; };
+		186A48D320102D0C00824405 /* LNSetPswViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LNSetPswViewController.swift; sourceTree = "<group>"; };
+		186A48D420102D0C00824405 /* LNSetPswViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LNSetPswViewController.xib; sourceTree = "<group>"; };
+		186A48D520102D0C00824405 /* MessgaeCenterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessgaeCenterViewController.swift; sourceTree = "<group>"; };
+		186A48D620102D0C00824405 /* MyFriendViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyFriendViewController.swift; sourceTree = "<group>"; };
+		186A48D720102D0C00824405 /* PersonnalViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersonnalViewController.swift; sourceTree = "<group>"; };
+		186A48D820102D0C00824405 /* SettingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
+		186A48D920102D0C00824405 /* SuggestViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SuggestViewController.swift; sourceTree = "<group>"; };
+		186A48DA20102D0C00824405 /* SwitchRolesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwitchRolesViewController.swift; sourceTree = "<group>"; };
+		186A48DB20102D0C00824405 /* SystemMsgViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SystemMsgViewController.swift; sourceTree = "<group>"; };
+		186A48DD20102D0C00824405 /* AccountModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountModel.swift; sourceTree = "<group>"; };
+		186A48DE20102D0C00824405 /* ApplyModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApplyModel.swift; sourceTree = "<group>"; };
+		186A48DF20102D0C00824405 /* FriendsModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendsModel.swift; sourceTree = "<group>"; };
+		186A48E020102D0C00824405 /* LNShowRankModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LNShowRankModel.swift; sourceTree = "<group>"; };
+		186A48E120102D0C00824405 /* PersonalModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersonalModel.swift; sourceTree = "<group>"; };
+		186A48E220102D0C00824405 /* SMessageModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SMessageModel.swift; sourceTree = "<group>"; };
+		186A48E420102D0C00824405 /* ApplyCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApplyCell.swift; sourceTree = "<group>"; };
+		186A48E520102D0C00824405 /* ApplyCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ApplyCell.xib; sourceTree = "<group>"; };
+		186A48E620102D0C00824405 /* EditHeadCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditHeadCell.swift; sourceTree = "<group>"; };
+		186A48E720102D0C00824405 /* EditHeadCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EditHeadCell.xib; sourceTree = "<group>"; };
+		186A48E820102D0C00824405 /* EditInfoCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditInfoCell.swift; sourceTree = "<group>"; };
+		186A48E920102D0C00824405 /* EditInfoCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EditInfoCell.xib; sourceTree = "<group>"; };
+		186A48EA20102D0C00824405 /* IncomeCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IncomeCell.swift; sourceTree = "<group>"; };
+		186A48EB20102D0C00824405 /* IncomeCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IncomeCell.xib; sourceTree = "<group>"; };
+		186A48EC20102D0C00824405 /* IncomeHeadView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IncomeHeadView.swift; sourceTree = "<group>"; };
+		186A48ED20102D0C00824405 /* IncomeHeadView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IncomeHeadView.xib; sourceTree = "<group>"; };
+		186A48EE20102D0C00824405 /* LNRechargeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LNRechargeView.swift; sourceTree = "<group>"; };
+		186A48EF20102D0C00824405 /* LNRechargeView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LNRechargeView.xib; sourceTree = "<group>"; };
+		186A48F020102D0C00824405 /* MessgesCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessgesCell.swift; sourceTree = "<group>"; };
+		186A48F120102D0C00824405 /* MessgesCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MessgesCell.xib; sourceTree = "<group>"; };
+		186A48F220102D0C00824405 /* PersonHeadCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersonHeadCell.swift; sourceTree = "<group>"; };
+		186A48F320102D0C00824405 /* PersonHeadCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PersonHeadCell.xib; sourceTree = "<group>"; };
+		186A48F420102D0C00824405 /* RankCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RankCell.swift; sourceTree = "<group>"; };
+		186A48F520102D0C00824405 /* RankCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RankCell.xib; sourceTree = "<group>"; };
+		186A48F620102D0C00824405 /* ShareView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShareView.swift; sourceTree = "<group>"; };
+		186A48F720102D0C00824405 /* ShareView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ShareView.xib; sourceTree = "<group>"; };
+		186A48F820102D0C00824405 /* ShowFridensCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShowFridensCell.swift; sourceTree = "<group>"; };
+		186A48F920102D0C00824405 /* ShowFridensCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ShowFridensCell.xib; sourceTree = "<group>"; };
+		186A48FA20102D0C00824405 /* SystemMessageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SystemMessageCell.swift; sourceTree = "<group>"; };
+		186A48FB20102D0C00824405 /* SystemMessageCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SystemMessageCell.xib; sourceTree = "<group>"; };
 		186D83471FBD27EA00F8E39C /* TComplaintModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TComplaintModel.swift; sourceTree = "<group>"; };
 		186D83491FBD29C200F8E39C /* TComplaintDetailModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TComplaintDetailModel.swift; sourceTree = "<group>"; };
+		186F1D5C20099F8500F04060 /* AutoScrollLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AutoScrollLabel.m; sourceTree = "<group>"; };
+		186F1D5D20099F8500F04060 /* AutoScrollLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AutoScrollLabel.h; sourceTree = "<group>"; };
 		186F391A1F919EF3009B8927 /* CreateBookViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateBookViewController.swift; sourceTree = "<group>"; };
 		186F391C1F919F7C009B8927 /* CreateBookCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateBookCell.swift; sourceTree = "<group>"; };
 		186F391D1F919F7C009B8927 /* CreateBookCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CreateBookCell.xib; sourceTree = "<group>"; };
@@ -766,13 +786,10 @@
 		188D0C5C1F99EA1A0010814C /* SUploadWorkCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SUploadWorkCell.xib; sourceTree = "<group>"; };
 		188D0C5F1F99F4FB0010814C /* ShowImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowImageCell.swift; sourceTree = "<group>"; };
 		188D0C601F99F4FB0010814C /* ShowImageCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ShowImageCell.xib; sourceTree = "<group>"; };
-		189101F21FDFC5FC003C3569 /* SMessageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SMessageModel.swift; sourceTree = "<group>"; };
 		18935EE01FC271AD00BF9651 /* ReloadNotWorkViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReloadNotWorkViewController.swift; sourceTree = "<group>"; };
 		18935EE21FC2A71200BF9651 /* ShowWorkNotDone.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowWorkNotDone.swift; sourceTree = "<group>"; };
 		18935EE31FC2A71200BF9651 /* ShowWorkNotDone.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ShowWorkNotDone.xib; sourceTree = "<group>"; };
 		1893785A1F943FA600393CB4 /* SearchClassViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchClassViewController.swift; sourceTree = "<group>"; };
-		1893785C1F944CCB00393CB4 /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
-		1893785E1F944D6900393CB4 /* AboutUsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutUsViewController.swift; sourceTree = "<group>"; };
 		189396D72004C46E005E0402 /* LNClassWorkModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LNClassWorkModel.swift; sourceTree = "<group>"; };
 		1893E2951FBD5F9B0020C6EB /* NotWorkCellCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotWorkCellCell.swift; sourceTree = "<group>"; };
 		1893E2961FBD5F9B0020C6EB /* NotWorkCellCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NotWorkCellCell.xib; sourceTree = "<group>"; };
@@ -815,12 +832,8 @@
 		189EFF281FE7B4F00038CAC2 /* UIView+Layout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Layout.m"; sourceTree = "<group>"; };
 		18AD150B1FE4CC4900DCEB80 /* ChooseCityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseCityView.swift; sourceTree = "<group>"; };
 		18AD150D1FE4CC5000DCEB80 /* ChooseCityView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChooseCityView.xib; sourceTree = "<group>"; };
-		18B1566E1FB2D3A300396653 /* CreditRankViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreditRankViewController.swift; sourceTree = "<group>"; };
-		18B156701FB2F23F00396653 /* RankCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RankCell.swift; sourceTree = "<group>"; };
-		18B156711FB2F23F00396653 /* RankCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RankCell.xib; sourceTree = "<group>"; };
 		18B1E6601FB58DC500D1C6F3 /* DrawBoard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DrawBoard.swift; sourceTree = "<group>"; };
 		18B1E66B1FB5B10F00D1C6F3 /* ChooseTeacherCorrectVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseTeacherCorrectVC.swift; sourceTree = "<group>"; };
-		18C3D2A71FAC1AE3001C295C /* AccountModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountModel.swift; sourceTree = "<group>"; };
 		18CDFA261FC2ED1400FF4C1C /* WorkPhotoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkPhotoModel.swift; sourceTree = "<group>"; };
 		18D343311F9AF646007CE166 /* CreateClassCell2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateClassCell2.swift; sourceTree = "<group>"; };
 		18D343321F9AF646007CE166 /* CreateClassCell2.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CreateClassCell2.xib; sourceTree = "<group>"; };
@@ -1167,6 +1180,7 @@
 		18520DC71F8C5C64004EAF99 /* Vander */ = {
 			isa = PBXGroup;
 			children = (
+				1855F1AB200846FE002D2D36 /* 跑马灯 */,
 				189EFF0A1FE7B4D50038CAC2 /* 选择图片 */,
 				186458771FC7E8A6000C6D05 /* ShareSDK */,
 				184EFC1C1FC65BF200DFF6B2 /* 加载动画 */,
@@ -1203,7 +1217,8 @@
 				18520DEC1F8C683C004EAF99 /* Views */,
 				18520DEB1F8C683A004EAF99 /* Controllers */,
 			);
-			path = "Class(班级)";
+			name = "Class(班级)";
+			path = "../New Group1/Class(班级)";
 			sourceTree = "<group>";
 		};
 		18520DCD1F8C5CBD004EAF99 /* Non-Workbook(非练习册) */ = {
@@ -1277,69 +1292,6 @@
 				18449C7C1FA9556500120FDA /* WorkBookModel.swift */,
 				18449C801FA9591F00120FDA /* BookDetailModel.swift */,
 				18CDFA261FC2ED1400FF4C1C /* WorkPhotoModel.swift */,
-			);
-			path = Models;
-			sourceTree = "<group>";
-		};
-		18520DE51F8C6827004EAF99 /* Controllers */ = {
-			isa = PBXGroup;
-			children = (
-				18520DD71F8C5DD7004EAF99 /* PersonnalViewController.swift */,
-				184BBECB1F9B431400EF65C4 /* EditInfoViewController.swift */,
-				18B1566E1FB2D3A300396653 /* CreditRankViewController.swift */,
-				184E6DF91F961C5C00C2C3DB /* IncomeViewController.swift */,
-				186A280B1F96077E00FAA766 /* MyFriendViewController.swift */,
-				186A28051F96038500FAA766 /* ApplyListViewController.swift */,
-				186A28031F96037300FAA766 /* AddFriendViewController.swift */,
-				186A27FF1F96016000FAA766 /* MessgaeCenterViewController.swift */,
-				1867C40D1F9DA0CB00831A23 /* SystemMsgViewController.swift */,
-				180D6B6F1F94654000480DEF /* SwitchRolesViewController.swift */,
-				180D6B6D1F945DA700480DEF /* SuggestViewController.swift */,
-				1893785C1F944CCB00393CB4 /* SettingViewController.swift */,
-				1869A5192000A7D0000F4F5F /* LNSetPswViewController.swift */,
-				1869A51A2000A7D0000F4F5F /* LNSetPswViewController.xib */,
-				1893785E1F944D6900393CB4 /* AboutUsViewController.swift */,
-			);
-			path = Controllers;
-			sourceTree = "<group>";
-		};
-		18520DE61F8C6829004EAF99 /* Views */ = {
-			isa = PBXGroup;
-			children = (
-				180D6B691F9456FF00480DEF /* PersonHeadCell.swift */,
-				180D6B6A1F9456FF00480DEF /* PersonHeadCell.xib */,
-				180D6B711F94775500480DEF /* SystemMessageCell.swift */,
-				180D6B721F94775500480DEF /* SystemMessageCell.xib */,
-				186A27FB1F96002E00FAA766 /* MessgesCell.swift */,
-				186A27FC1F96002E00FAA766 /* MessgesCell.xib */,
-				184E6DE71F960DEE00C2C3DB /* ShowFridensCell.swift */,
-				184E6DE81F960DEE00C2C3DB /* ShowFridensCell.xib */,
-				184E6DEB1F960FDA00C2C3DB /* ApplyCell.swift */,
-				184E6DEC1F960FDA00C2C3DB /* ApplyCell.xib */,
-				184E6DEF1F96195D00C2C3DB /* IncomeHeadView.swift */,
-				184E6DF31F96197000C2C3DB /* IncomeHeadView.xib */,
-				184E6DF51F961BC100C2C3DB /* IncomeCell.swift */,
-				184E6DF61F961BC100C2C3DB /* IncomeCell.xib */,
-				184BBECD1F9B45E900EF65C4 /* EditInfoCell.swift */,
-				184BBECE1F9B45E900EF65C4 /* EditInfoCell.xib */,
-				184BBED11F9B4CE800EF65C4 /* EditHeadCell.swift */,
-				184BBED21F9B4CE800EF65C4 /* EditHeadCell.xib */,
-				18B156701FB2F23F00396653 /* RankCell.swift */,
-				18B156711FB2F23F00396653 /* RankCell.xib */,
-				186458B21FC808E3000C6D05 /* ShareView.swift */,
-				186458B41FC808EB000C6D05 /* ShareView.xib */,
-			);
-			path = Views;
-			sourceTree = "<group>";
-		};
-		18520DE71F8C682B004EAF99 /* Models */ = {
-			isa = PBXGroup;
-			children = (
-				18449C821FA95AB400120FDA /* PersonalModel.swift */,
-				18C3D2A71FAC1AE3001C295C /* AccountModel.swift */,
-				183BA9591FAD5310001A3C1D /* FriendsModel.swift */,
-				183BA95B1FAD54F9001A3C1D /* ApplyModel.swift */,
-				189101F21FDFC5FC003C3569 /* SMessageModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1421,6 +1373,15 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
+		1855F1AB200846FE002D2D36 /* 跑马灯 */ = {
+			isa = PBXGroup;
+			children = (
+				186F1D5D20099F8500F04060 /* AutoScrollLabel.h */,
+				186F1D5C20099F8500F04060 /* AutoScrollLabel.m */,
+			);
+			path = "跑马灯";
+			sourceTree = "<group>";
+		};
 		185981B71FB5885C0021EAD9 /* CTImageEdit */ = {
 			isa = PBXGroup;
 			children = (
@@ -1458,18 +1419,6 @@
 				186A27F91F95E45E00FAA766 /* others */,
 			);
 			path = Expland;
-			sourceTree = "<group>";
-		};
-		185BDD951FE8AA2D00C1A4DE /* Mine(我的) */ = {
-			isa = PBXGroup;
-			children = (
-				186A27FA1F95FFFF00FAA766 /* 一二三分区 */,
-				18520DE71F8C682B004EAF99 /* Models */,
-				18520DE61F8C6829004EAF99 /* Views */,
-				18520DE51F8C6827004EAF99 /* Controllers */,
-			);
-			name = "Mine(我的)";
-			path = "Class(班级)/Mine(我的)";
 			sourceTree = "<group>";
 		};
 		186458771FC7E8A6000C6D05 /* ShareSDK */ = {
@@ -1563,7 +1512,86 @@
 			path = others;
 			sourceTree = "<group>";
 		};
-		186A27FA1F95FFFF00FAA766 /* 一二三分区 */ = {
+		186A48C920102D0C00824405 /* Mine(我的) */ = {
+			isa = PBXGroup;
+			children = (
+				186A48FC20102D0C00824405 /* 一二三分区 */,
+				186A48E320102D0C00824405 /* Views */,
+				186A48DC20102D0C00824405 /* Models */,
+				186A48CA20102D0C00824405 /* Controllers */,
+			);
+			path = "Mine(我的)";
+			sourceTree = "<group>";
+		};
+		186A48CA20102D0C00824405 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				186A48D720102D0C00824405 /* PersonnalViewController.swift */,
+				186A48CB20102D0C00824405 /* AboutUsViewController.swift */,
+				186A48CC20102D0C00824405 /* AddFriendViewController.swift */,
+				186A48CD20102D0C00824405 /* ApplyListViewController.swift */,
+				186A48CE20102D0C00824405 /* CreditRankViewController.swift */,
+				186A48CF20102D0C00824405 /* EditInfoViewController.swift */,
+				186A48D020102D0C00824405 /* IncomeViewController.swift */,
+				186A48D120102D0C00824405 /* LNChangePassWordVC.swift */,
+				186A48D220102D0C00824405 /* LNChangWayViewController.swift */,
+				186A48D320102D0C00824405 /* LNSetPswViewController.swift */,
+				186A48D420102D0C00824405 /* LNSetPswViewController.xib */,
+				186A48D520102D0C00824405 /* MessgaeCenterViewController.swift */,
+				186A48D620102D0C00824405 /* MyFriendViewController.swift */,
+				186A48D820102D0C00824405 /* SettingViewController.swift */,
+				186A48D920102D0C00824405 /* SuggestViewController.swift */,
+				186A48DA20102D0C00824405 /* SwitchRolesViewController.swift */,
+				186A48DB20102D0C00824405 /* SystemMsgViewController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		186A48DC20102D0C00824405 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				186A48DD20102D0C00824405 /* AccountModel.swift */,
+				186A48DE20102D0C00824405 /* ApplyModel.swift */,
+				186A48DF20102D0C00824405 /* FriendsModel.swift */,
+				186A48E020102D0C00824405 /* LNShowRankModel.swift */,
+				186A48E120102D0C00824405 /* PersonalModel.swift */,
+				186A48E220102D0C00824405 /* SMessageModel.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		186A48E320102D0C00824405 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				186A48E420102D0C00824405 /* ApplyCell.swift */,
+				186A48E520102D0C00824405 /* ApplyCell.xib */,
+				186A48E620102D0C00824405 /* EditHeadCell.swift */,
+				186A48E720102D0C00824405 /* EditHeadCell.xib */,
+				186A48E820102D0C00824405 /* EditInfoCell.swift */,
+				186A48E920102D0C00824405 /* EditInfoCell.xib */,
+				186A48EA20102D0C00824405 /* IncomeCell.swift */,
+				186A48EB20102D0C00824405 /* IncomeCell.xib */,
+				186A48EC20102D0C00824405 /* IncomeHeadView.swift */,
+				186A48ED20102D0C00824405 /* IncomeHeadView.xib */,
+				186A48EE20102D0C00824405 /* LNRechargeView.swift */,
+				186A48EF20102D0C00824405 /* LNRechargeView.xib */,
+				186A48F020102D0C00824405 /* MessgesCell.swift */,
+				186A48F120102D0C00824405 /* MessgesCell.xib */,
+				186A48F220102D0C00824405 /* PersonHeadCell.swift */,
+				186A48F320102D0C00824405 /* PersonHeadCell.xib */,
+				186A48F420102D0C00824405 /* RankCell.swift */,
+				186A48F520102D0C00824405 /* RankCell.xib */,
+				186A48F620102D0C00824405 /* ShareView.swift */,
+				186A48F720102D0C00824405 /* ShareView.xib */,
+				186A48F820102D0C00824405 /* ShowFridensCell.swift */,
+				186A48F920102D0C00824405 /* ShowFridensCell.xib */,
+				186A48FA20102D0C00824405 /* SystemMessageCell.swift */,
+				186A48FB20102D0C00824405 /* SystemMessageCell.xib */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		186A48FC20102D0C00824405 /* 一二三分区 */ = {
 			isa = PBXGroup;
 			children = (
 			);
@@ -1585,7 +1613,7 @@
 				18520DCE1F8C5CBF004EAF99 /* Workbook(练习册) */,
 				18520DCD1F8C5CBD004EAF99 /* Non-Workbook(非练习册) */,
 				18520DCC1F8C5CBB004EAF99 /* Class(班级) */,
-				185BDD951FE8AA2D00C1A4DE /* Mine(我的) */,
+				186A48C920102D0C00824405 /* Mine(我的) */,
 			);
 			path = "学生";
 			sourceTree = "<group>";
@@ -2092,6 +2120,7 @@
 				18504F1E1FC5706B00A7252A /* 批改作业接口 1107(1).docx in Resources */,
 				1877A36D1FBAEF7C00F8C9A7 /* TShowTheTipView.xib in Resources */,
 				181F3CFF1FA8744500C484D6 /* TViewBookCell.xib in Resources */,
+				186A491B20102D0D00824405 /* IncomeCell.xib in Resources */,
 				181F3D001FA8744500C484D6 /* TClassCell.xib in Resources */,
 				186458A11FC7E8EE000C6D05 /* ShareSDK.bundle in Resources */,
 				183FEAAE1FA871060015CE9B /* TeacherInfoCell2.xib in Resources */,
@@ -2107,36 +2136,37 @@
 				184D94AA1F97299300C79DBC /* Localizable.strings in Resources */,
 				1853BFD91FB0457300FF2FC5 /* ClassGradeCell.xib in Resources */,
 				184D94AB1F97299300C79DBC /* Localizable.strings in Resources */,
-				18B156731FB2F23F00396653 /* RankCell.xib in Resources */,
-				184E6DEA1F960DEE00C2C3DB /* ShowFridensCell.xib in Resources */,
+				186A491F20102D0D00824405 /* LNRechargeView.xib in Resources */,
 				18D343381F9AFC9E007CE166 /* CreateHeadCell.xib in Resources */,
 				182EB5C61F9ED38A00B74F84 /* TTipView.xib in Resources */,
-				1869A51C2000A7D0000F4F5F /* LNSetPswViewController.xib in Resources */,
 				18E854A61FB931370029E81F /* TShowDoneWorkCell.xib in Resources */,
+				186A492120102D0D00824405 /* MessgesCell.xib in Resources */,
 				184BC2511FE4B92700239DC4 /* address.plist in Resources */,
 				184EC6891FB6E6A0007C6BDE /* TViewBookCell2.xib in Resources */,
+				186A492B20102D0D00824405 /* SystemMessageCell.xib in Resources */,
 				1893E2981FBD5F9B0020C6EB /* NotWorkCellCell.xib in Resources */,
 				186A280A1F96039D00FAA766 /* ComplaintRecordCell.xib in Resources */,
-				184BBED01F9B45E900EF65C4 /* EditInfoCell.xib in Resources */,
-				186458B51FC808EB000C6D05 /* ShareView.xib in Resources */,
 				188D0C621F99F4FB0010814C /* ShowImageCell.xib in Resources */,
 				180D6B781F949A4400480DEF /* UpLoadWorkCell.xib in Resources */,
+				186A490620102D0D00824405 /* LNSetPswViewController.xib in Resources */,
 				18935EE51FC2A71200BF9651 /* ShowWorkNotDone.xib in Resources */,
 				182EB5C41F9ECD6D00B74F84 /* TUpLoadVideoCell.xib in Resources */,
+				186A492520102D0D00824405 /* RankCell.xib in Resources */,
 				1864589A1FC7E8EE000C6D05 /* ShareSDKUI.bundle in Resources */,
 				18759A981F95CFE000B8E851 /* MyBookCell.xib in Resources */,
 				189EFF2F1FE7B4F00038CAC2 /* TZImagePickerController.bundle in Resources */,
-				186A27FE1F96002E00FAA766 /* MessgesCell.xib in Resources */,
 				18E854AE1FB958B80029E81F /* TViewBookCell3.xib in Resources */,
 				18520DC01F8C5BAE004EAF99 /* LaunchScreen.storyboard in Resources */,
+				186A491920102D0D00824405 /* EditInfoCell.xib in Resources */,
 				186F391F1F919F7C009B8927 /* CreateBookCell.xib in Resources */,
 				18749A1B1F9988F600DEB777 /* TShowBooksCell.xib in Resources */,
+				186A491720102D0D00824405 /* EditHeadCell.xib in Resources */,
 				185981981FB558AD0021EAD9 /* AnswerImageCell.xib in Resources */,
+				186A491520102D0D00824405 /* ApplyCell.xib in Resources */,
 				188D0C5E1F99EA1A0010814C /* SUploadWorkCell.xib in Resources */,
 				186F392E1F91FA8D009B8927 /* ComplaintCell.xib in Resources */,
 				1842B7DC1FBC387300BE6977 /* ComplaintDetailcell.xib in Resources */,
 				187977971F9AE280009AC957 /* CreateClassCell.xib in Resources */,
-				184BBED41F9B4CE800EF65C4 /* EditHeadCell.xib in Resources */,
 				185DA00C1FBFD5BD00BF44B7 /* TNotGoodWorkCell1.xib in Resources */,
 				180D6B7C1F94A51E00480DEF /* CheckWorkCell.xib in Resources */,
 				18FDA6A91F998F7A003D61D8 /* TShowBookCell.xib in Resources */,
@@ -2144,34 +2174,33 @@
 				1877A3651FBADE5A00F8C9A7 /* TApplyJoinClassCell.xib in Resources */,
 				185DA0101FBFD75100BF44B7 /* TGoodWorkCell1.xib in Resources */,
 				188D0BF31F99C4C50010814C /* ShowClassMemberCell.xib in Resources */,
-				184E6DF41F96197000C2C3DB /* IncomeHeadView.xib in Resources */,
-				180D6B741F94775500480DEF /* SystemMessageCell.xib in Resources */,
 				1843A2D31FDA38D300E69C6C /* README.txt in Resources */,
 				1842B7D61FBBEFA500BE6977 /* TClassMessageCell.xib in Resources */,
 				1842B7D01FBBDA9A00BE6977 /* TNotWorkInfoCell.xib in Resources */,
 				184EC6811FB69EA9007C6BDE /* ShowFileCell.xib in Resources */,
+				186A492720102D0D00824405 /* ShareView.xib in Resources */,
+				186A492320102D0D00824405 /* PersonHeadCell.xib in Resources */,
 				188D0BFB1F99CF6C0010814C /* TGoodWorkCell.xib in Resources */,
 				18FDA6AF1F9995D0003D61D8 /* TMYBooksCell.xib in Resources */,
 				18520DBD1F8C5BAE004EAF99 /* Assets.xcassets in Resources */,
 				18759A941F95B75F00B8E851 /* showGradeCell.xib in Resources */,
 				18520DBB1F8C5BAE004EAF99 /* Main.storyboard in Resources */,
 				1894DFA71FB152D3003E99FF /* ShowWorkStateCell.xib in Resources */,
-				180D6B6C1F9456FF00480DEF /* PersonHeadCell.xib in Resources */,
 				1859819C1FB5663D0021EAD9 /* ShowWriteAnswerCell.xib in Resources */,
 				18AD150E1FE4CC5000DCEB80 /* ChooseCityView.xib in Resources */,
+				186A491D20102D0D00824405 /* IncomeHeadView.xib in Resources */,
 				18520DF11F8C6997004EAF99 /* WorkBookCell.xib in Resources */,
 				18E854B21FB975B40029E81F /* TViewBookCell0.xib in Resources */,
 				186458971FC7E8EE000C6D05 /* ShareSDKConfigFile.bundle in Resources */,
 				1877A3691FBAE14200F8C9A7 /* TClassStudentCell.xib in Resources */,
 				188D0BF71F99CB480010814C /* TClassInfoCell.xib in Resources */,
+				186A492920102D0D00824405 /* ShowFridensCell.xib in Resources */,
 				185DA0081FBFD40000BF44B7 /* TNotGoodWorkCell.xib in Resources */,
 				186F39341F921561009B8927 /* ClassCell.xib in Resources */,
-				184E6DF81F961BC100C2C3DB /* IncomeCell.xib in Resources */,
 				186F39231F91A9B1009B8927 /* ChooseImageCell.xib in Resources */,
 				18759A8C1F95B5EC00B8E851 /* AnserImageCell.xib in Resources */,
 				18759A901F95B66A00B8E851 /* AnserVideoCell.xib in Resources */,
 				1877A3551FBA978700F8C9A7 /* GiveMarkView.xib in Resources */,
-				184E6DEE1F960FDA00C2C3DB /* ApplyCell.xib in Resources */,
 				18D343341F9AF646007CE166 /* CreateClassCell2.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2278,13 +2307,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				186A491420102D0D00824405 /* ApplyCell.swift in Sources */,
 				1842B7DB1FBC387300BE6977 /* ComplaintDetailcell.swift in Sources */,
 				18B1E6621FB58EE000D1C6F3 /* OCTools.h in Sources */,
 				18B1E6631FB58EE000D1C6F3 /* CTImageEditUtil.h in Sources */,
 				18B1E6641FB58EE000D1C6F3 /* UIImage+EditImageWithColor.h in Sources */,
 				184EFC2E1FC6608000DFF6B2 /* UIColor+Expland.m in Sources */,
+				186A490E20102D0D00824405 /* AccountModel.swift in Sources */,
 				18B1E6651FB58EE000D1C6F3 /* UIView+Ext.h in Sources */,
 				1894DFAC1FB1B45D003E99FF /* HBAlertPasswordView.h in Sources */,
+				186A491820102D0D00824405 /* EditInfoCell.swift in Sources */,
+				186A492220102D0D00824405 /* PersonHeadCell.swift in Sources */,
 				1821816B1FA82A3100C2BE89 /* TeacherInfoCell1.swift in Sources */,
 				189EFF361FE7B4F00038CAC2 /* TZVideoPlayerController.m in Sources */,
 				189EFF321FE7B4F00038CAC2 /* TZPhotoPickerController.m in Sources */,
@@ -2294,6 +2327,7 @@
 				1821816F1FA82A3100C2BE89 /* TeacherInfoCell3.swift in Sources */,
 				182181711FA82A3100C2BE89 /* TeacherInfoCell4.swift in Sources */,
 				189EFF2E1FE7B4F00038CAC2 /* TZImageManager.m in Sources */,
+				186A490C20102D0D00824405 /* SwitchRolesViewController.swift in Sources */,
 				1821815B1FA8296400C2BE89 /* ShowTagsView.swift in Sources */,
 				1821814A1FA8285A00C2BE89 /* LoginViewController.swift in Sources */,
 				1821814B1FA8285A00C2BE89 /* LookPsWViewController.swift in Sources */,
@@ -2311,6 +2345,7 @@
 				1893E2971FBD5F9B0020C6EB /* NotWorkCellCell.swift in Sources */,
 				188D0C371F99D8210010814C /* YYCache.m in Sources */,
 				188D0C381F99D8210010814C /* YYDiskCache.h in Sources */,
+				186A492820102D0D00824405 /* ShowFridensCell.swift in Sources */,
 				188D0C391F99D8210010814C /* YYDiskCache.m in Sources */,
 				1877A3571FBAC25300F8C9A7 /* TShowOneGradeVCViewController.swift in Sources */,
 				188D0C3A1F99D8210010814C /* YYKVStorage.h in Sources */,
@@ -2322,7 +2357,6 @@
 				188D0C3E1F99D8210010814C /* _YYWebImageSetter.h in Sources */,
 				185981A41FB5718A0021EAD9 /* OCTools.m in Sources */,
 				188D0C3F1F99D8210010814C /* _YYWebImageSetter.m in Sources */,
-				18B1566F1FB2D3A300396653 /* CreditRankViewController.swift in Sources */,
 				18935EE11FC271AD00BF9651 /* ReloadNotWorkViewController.swift in Sources */,
 				1853BFDD1FB0632C00FF2FC5 /* MessageModel.swift in Sources */,
 				189EFF2C1FE7B4F00038CAC2 /* TZGifPhotoPreviewController.m in Sources */,
@@ -2335,13 +2369,14 @@
 				1859819B1FB5663D0021EAD9 /* ShowWriteAnswerCell.swift in Sources */,
 				188D0C441F99D8210010814C /* UIButton+YYWebImage.h in Sources */,
 				185981BC1FB5885D0021EAD9 /* CTImageEditUtil.m in Sources */,
+				186A491320102D0D00824405 /* SMessageModel.swift in Sources */,
 				185DA0041FBFD10500BF44B7 /* TShowClassWorkViewController.swift in Sources */,
 				1843A2DF1FDA413D00E69C6C /* MXWechatSignAdaptor.m in Sources */,
+				186A492020102D0D00824405 /* MessgesCell.swift in Sources */,
 				188D0C451F99D8210010814C /* UIButton+YYWebImage.m in Sources */,
 				188D0C461F99D8210010814C /* UIImage+YYWebImage.h in Sources */,
 				188D0C471F99D8210010814C /* UIImage+YYWebImage.m in Sources */,
 				188D0C481F99D8210010814C /* UIImageView+YYWebImage.h in Sources */,
-				184BBECF1F9B45E900EF65C4 /* EditInfoCell.swift in Sources */,
 				185DA0141FBFF9A900BF44B7 /* TMassageCenterModel.swift in Sources */,
 				188D0C491F99D8210010814C /* UIImageView+YYWebImage.m in Sources */,
 				188D0C4A1F99D8210010814C /* YYAnimatedImageView.h in Sources */,
@@ -2354,32 +2389,34 @@
 				184EFC221FC65C1100DFF6B2 /* UIBadgeView.m in Sources */,
 				188D0C501F99D8210010814C /* YYImageCoder.h in Sources */,
 				184EC6801FB69EA9007C6BDE /* ShowFileCell.swift in Sources */,
-				1867C40E1F9DA0CB00831A23 /* SystemMsgViewController.swift in Sources */,
 				1877A36B1FBAEF7400F8C9A7 /* TShowTheTipView.swift in Sources */,
 				189EFF301FE7B4F00038CAC2 /* TZImagePickerController.m in Sources */,
 				188D0C511F99D8210010814C /* YYImageCoder.m in Sources */,
 				188D0C521F99D8210010814C /* YYSpriteSheetImage.h in Sources */,
+				186A490520102D0D00824405 /* LNSetPswViewController.swift in Sources */,
 				188D0C531F99D8210010814C /* YYSpriteSheetImage.m in Sources */,
 				188D0C541F99D8210010814C /* YYImageCache.h in Sources */,
 				188D0C551F99D8210010814C /* YYImageCache.m in Sources */,
 				187B9DB11FBEBDB90096688A /* THeadTeacherModel.swift in Sources */,
 				188D0C561F99D8210010814C /* YYWebImage.h in Sources */,
+				186A490420102D0D00824405 /* LNChangWayViewController.swift in Sources */,
 				188D0C571F99D8210010814C /* YYWebImageManager.h in Sources */,
 				18D3433A1F9B1469007CE166 /* TChooseMemberViewController.swift in Sources */,
 				188D0C581F99D8210010814C /* YYWebImageManager.m in Sources */,
 				185981B21FB588330021EAD9 /* UIViewExt.swift in Sources */,
+				186A491220102D0D00824405 /* PersonalModel.swift in Sources */,
 				188D0C591F99D8210010814C /* YYWebImageOperation.h in Sources */,
 				188D0C5A1F99D8210010814C /* YYWebImageOperation.m in Sources */,
 				188D0C051F99D65E0010814C /* KSPhotoBrowser.h in Sources */,
 				185981901FB546FE0021EAD9 /* WriteAnswerViewController.swift in Sources */,
+				186A492A20102D0D00824405 /* SystemMessageCell.swift in Sources */,
 				189EFF311FE7B4F00038CAC2 /* TZLocationManager.m in Sources */,
+				186A490F20102D0D00824405 /* ApplyModel.swift in Sources */,
 				18D343331F9AF646007CE166 /* CreateClassCell2.swift in Sources */,
 				188D0C061F99D65E0010814C /* KSPhotoBrowser.m in Sources */,
 				188D0C071F99D65E0010814C /* KSPhotoItem.h in Sources */,
 				1877A3591FBACD1A00F8C9A7 /* TNotWorkModel.swift in Sources */,
-				183BA95C1FAD54FA001A3C1D /* ApplyModel.swift in Sources */,
 				188D0C081F99D65E0010814C /* KSPhotoItem.m in Sources */,
-				189101F31FDFC5FC003C3569 /* SMessageModel.swift in Sources */,
 				188D0C091F99D65E0010814C /* KSPhotoView.h in Sources */,
 				188D0C0A1F99D65E0010814C /* KSPhotoView.m in Sources */,
 				1853BFD81FB0457300FF2FC5 /* ClassGradeCell.swift in Sources */,
@@ -2400,24 +2437,27 @@
 				184D94661F97250200C79DBC /* RectangleBrush.swift in Sources */,
 				184D94671F97250200C79DBC /* BundleUtil.swift in Sources */,
 				182181741FA82AA800C2BE89 /* PerfectInfoViewController.swift in Sources */,
+				186A490720102D0D00824405 /* MessgaeCenterViewController.swift in Sources */,
 				184D94681F97250200C79DBC /* Ext.swift in Sources */,
+				186A491A20102D0D00824405 /* IncomeCell.swift in Sources */,
 				184D94691F97250200C79DBC /* CLConfig.swift in Sources */,
 				184D946A1F97250200C79DBC /* CLImagePickersTool.swift in Sources */,
 				184D946B1F97250200C79DBC /* CLPickersTools.swift in Sources */,
 				184D946C1F97250200C79DBC /* CLBaseImagePickerViewController.swift in Sources */,
+				186A492620102D0D00824405 /* ShareView.swift in Sources */,
 				18D343371F9AFC9E007CE166 /* CreateHeadCell.swift in Sources */,
 				184D946D1F97250200C79DBC /* CLCropViewController.swift in Sources */,
-				184BBECC1F9B431500EF65C4 /* EditInfoViewController.swift in Sources */,
 				1893E29E1FBD65930020C6EB /* NotWorkDetailViewController.swift in Sources */,
 				1862C5C11FFF51F400D776C0 /* LNClassInfoModel.swift in Sources */,
 				184D946E1F97250200C79DBC /* CLImagePickerSingleViewController.swift in Sources */,
 				18FDA6A81F998F7A003D61D8 /* TShowBookCell.swift in Sources */,
 				186D834A1FBD29C200F8E39C /* TComplaintDetailModel.swift in Sources */,
 				185981C11FB588980021EAD9 /* CLWebProgressView.swift in Sources */,
+				186A490A20102D0D00824405 /* SettingViewController.swift in Sources */,
 				184D946F1F97250200C79DBC /* CLImagePickerSingleViewController.xib in Sources */,
 				18FDA6B11F99982C003D61D8 /* TSearchBookViewController.swift in Sources */,
+				186A490120102D0D00824405 /* EditInfoViewController.swift in Sources */,
 				184D94701F97250200C79DBC /* CLImagePickersViewController.swift in Sources */,
-				184BBED31F9B4CE800EF65C4 /* EditHeadCell.swift in Sources */,
 				184D94711F97250200C79DBC /* CLPreviewViewController.swift in Sources */,
 				18E854B11FB975B40029E81F /* TViewBookCell0.swift in Sources */,
 				184B3E781FCBAC41002A90D8 /* NotWorkDetailModel.swift in Sources */,
@@ -2428,6 +2468,7 @@
 				184D94751F97250200C79DBC /* PreviewModel.swift in Sources */,
 				18B1E66C1FB5B10F00D1C6F3 /* ChooseTeacherCorrectVC.swift in Sources */,
 				184D94761F97250200C79DBC /* MessageStyleView.swift in Sources */,
+				186A490D20102D0D00824405 /* SystemMsgViewController.swift in Sources */,
 				184EC6851FB6D2E9007C6BDE /* TShowStuWorksModel.swift in Sources */,
 				18E854A51FB931370029E81F /* TShowDoneWorkCell.swift in Sources */,
 				1843A2E11FDA413D00E69C6C /* XMLDictionary.m in Sources */,
@@ -2437,7 +2478,6 @@
 				189EFF371FE7B4F00038CAC2 /* UIView+Layout.m in Sources */,
 				188D0BF21F99C4C50010814C /* ShowClassMemberCell.swift in Sources */,
 				184D94791F97250200C79DBC /* NomalStyleView.xib in Sources */,
-				186458B31FC808E3000C6D05 /* ShareView.swift in Sources */,
 				185981B61FB588330021EAD9 /* UIView+Frame.swift in Sources */,
 				1842B7D81FBC0E5900BE6977 /* TPeriodsDetailViewController.swift in Sources */,
 				184D947A1F97250200C79DBC /* HDAlertViewController.swift in Sources */,
@@ -2446,10 +2486,12 @@
 				184D947D1F97250200C79DBC /* CLCircleView.swift in Sources */,
 				184D947E1F97250200C79DBC /* CLImageAmplifyView.swift in Sources */,
 				184D947F1F97250200C79DBC /* CLImagePickerCamaroCell.swift in Sources */,
+				186A490B20102D0D00824405 /* SuggestViewController.swift in Sources */,
 				187B9DB71FBEF1920096688A /* TShowClassWorksModel.swift in Sources */,
 				184D94801F97250200C79DBC /* CLImagePickerListCell.swift in Sources */,
 				184D94811F97250200C79DBC /* CLImagePickerListCell.xib in Sources */,
 				187977931F9ADA98009AC957 /* TCreateClassViewController.swift in Sources */,
+				186A492420102D0D00824405 /* RankCell.swift in Sources */,
 				1877A35D1FBAD1DB00F8C9A7 /* TNotWorkPointsModel.swift in Sources */,
 				18749A131F99869300DEB777 /* TSearchClassViewController.swift in Sources */,
 				185DA00F1FBFD75100BF44B7 /* TGoodWorkCell1.swift in Sources */,
@@ -2458,6 +2500,7 @@
 				187B9DB31FBEBDCE0096688A /* TStudentModel.swift in Sources */,
 				18E854AD1FB958B80029E81F /* TViewBookCell3.swift in Sources */,
 				184D94831F97250200C79DBC /* CLPreviewVideoCell.swift in Sources */,
+				186A491C20102D0D00824405 /* IncomeHeadView.swift in Sources */,
 				184D94841F97250200C79DBC /* CLSingleTypeCell.swift in Sources */,
 				18FB4A991F999C3E008AD1CB /* TMyBookViewController.swift in Sources */,
 				185981A71FB5877D0021EAD9 /* QQQEditorViewController.swift in Sources */,
@@ -2468,46 +2511,41 @@
 				184EFC2B1FC6603B00DFF6B2 /* NSString+Expland.m in Sources */,
 				184D94871F97250200C79DBC /* ImagePickerChooseImageCell.swift in Sources */,
 				184D94881F97250200C79DBC /* ImagePickerChooseImageCell.xib in Sources */,
-				18449C831FA95AB400120FDA /* PersonalModel.swift in Sources */,
+				186A490220102D0D00824405 /* IncomeViewController.swift in Sources */,
 				184D94891F97250200C79DBC /* PencilChooseView.swift in Sources */,
 				1842B7D21FBBEE7600BE6977 /* TShowClassMessageVC.swift in Sources */,
 				189EFF331FE7B4F00038CAC2 /* TZPhotoPreviewCell.m in Sources */,
 				184D948A1F97250200C79DBC /* PhotoView.swift in Sources */,
+				186A490920102D0D00824405 /* PersonnalViewController.swift in Sources */,
 				184AE50A1F90C156007FE81A /* MyBookViewController.swift in Sources */,
 				186A28091F96039D00FAA766 /* ComplaintRecordCell.swift in Sources */,
 				188D0C5D1F99EA1A0010814C /* SUploadWorkCell.swift in Sources */,
 				18E854A21FB92BA20029E81F /* TShowGradeModel.swift in Sources */,
-				1869A51B2000A7D0000F4F5F /* LNSetPswViewController.swift in Sources */,
 				180D6B771F949A4400480DEF /* UpLoadWorkCell.swift in Sources */,
 				184EFC211FC65C1100DFF6B2 /* UIView+Common.m in Sources */,
 				185DA0121FBFF4FC00BF44B7 /* TGetAccountViewController.swift in Sources */,
 				186F391B1F919EF3009B8927 /* CreateBookViewController.swift in Sources */,
 				184EC6881FB6E6A0007C6BDE /* TViewBookCell2.swift in Sources */,
-				184E6DFA1F961C5C00C2C3DB /* IncomeViewController.swift in Sources */,
-				1893785D1F944CCB00393CB4 /* SettingViewController.swift in Sources */,
 				186A28021F96035800FAA766 /* ComplaintRecordViewController.swift in Sources */,
 				184AE5081F90C07B007FE81A /* SearchBooksViewController.swift in Sources */,
+				186A491020102D0D00824405 /* FriendsModel.swift in Sources */,
 				1823BF461F8E09DE0056C705 /* WorkBookCell.xib in Sources */,
 				1877A3681FBAE14200F8C9A7 /* TClassStudentCell.swift in Sources */,
+				186F1D5E20099F8500F04060 /* AutoScrollLabel.m in Sources */,
 				189EFF2A1FE7B4F00038CAC2 /* TZAssetCell.m in Sources */,
-				180D6B6E1F945DA700480DEF /* SuggestViewController.swift in Sources */,
 				18E854A91FB94D800029E81F /* TViewBookCell1.swift in Sources */,
 				18759A931F95B75F00B8E851 /* showGradeCell.swift in Sources */,
 				1877A3641FBADE5A00F8C9A7 /* TApplyJoinClassCell.swift in Sources */,
-				18C3D2A81FAC1AE3001C295C /* AccountModel.swift in Sources */,
+				186A48FD20102D0D00824405 /* AboutUsViewController.swift in Sources */,
 				182181681FA829D800C2BE89 /* TEditInfoViewController.swift in Sources */,
 				187B9DAB1FBE92B40096688A /* TPeriodsModel.swift in Sources */,
 				18CDFA271FC2ED1400FF4C1C /* WorkPhotoModel.swift in Sources */,
-				186A28041F96037300FAA766 /* AddFriendViewController.swift in Sources */,
 				186F39331F921561009B8927 /* ClassCell.swift in Sources */,
 				18749A0B1F99834F00DEB777 /* TBookViewController.swift in Sources */,
 				185981B41FB588330021EAD9 /* UIView+Ext.m in Sources */,
-				186A28061F96038500FAA766 /* ApplyListViewController.swift in Sources */,
 				186F39301F920602009B8927 /* ComplaintViewController.swift in Sources */,
 				1880C3862005EE6F00F691DA /* LNBuildPeriodViewController.swift in Sources */,
 				18520DD21F8C5D9D004EAF99 /* WorkBookViewController.swift in Sources */,
-				18520DD81F8C5DD7004EAF99 /* PersonnalViewController.swift in Sources */,
-				186A28001F96016000FAA766 /* MessgaeCenterViewController.swift in Sources */,
 				18504F1C1FC55E7E00A7252A /* SNotWorkModel.swift in Sources */,
 				18520DDF1F8C630A004EAF99 /* MainTabBarController.swift in Sources */,
 				189EFF2B1FE7B4F00038CAC2 /* TZAssetModel.m in Sources */,
@@ -2516,19 +2554,20 @@
 				18759A8B1F95B5EC00B8E851 /* AnserImageCell.swift in Sources */,
 				1893785B1F943FA600393CB4 /* SearchClassViewController.swift in Sources */,
 				1843A2DE1FDA413D00E69C6C /* MXWechatPayHandler.m in Sources */,
-				186A27FD1F96002E00FAA766 /* MessgesCell.swift in Sources */,
 				18520DD61F8C5DC6004EAF99 /* ClassViewController.swift in Sources */,
+				186A490820102D0D00824405 /* MyFriendViewController.swift in Sources */,
 				18520DB61F8C5BAE004EAF99 /* AppDelegate.swift in Sources */,
 				1877A35B1FBAD07900F8C9A7 /* TNotWorkDetailModel.swift in Sources */,
 				187B9DA91FBE7C650096688A /* TClassModel.swift in Sources */,
 				184EFC281FC65C9B00DFF6B2 /* UIView+Frames.m in Sources */,
+				186A491E20102D0D00824405 /* LNRechargeView.swift in Sources */,
 				189EFF2D1FE7B4F00038CAC2 /* TZImageCropManager.m in Sources */,
+				186A491120102D0D00824405 /* LNShowRankModel.swift in Sources */,
 				18FDA6A51F998E8C003D61D8 /* TDetailBookViewController.swift in Sources */,
 				185981C31FB588BE0021EAD9 /* AppConfig.swift in Sources */,
 				1843A2E01FDA413D00E69C6C /* WXApiManager.m in Sources */,
 				18759A971F95CFE000B8E851 /* MyBookCell.swift in Sources */,
 				189EFF291FE7B4F00038CAC2 /* NSBundle+TZImagePicker.m in Sources */,
-				1893785F1F944D6900393CB4 /* AboutUsViewController.swift in Sources */,
 				186F391E1F919F7C009B8927 /* CreateBookCell.swift in Sources */,
 				1893E2A01FBD79780020C6EB /* ClassModel.swift in Sources */,
 				1843A2E51FDA889D00E69C6C /* WebViewController.m in Sources */,
@@ -2536,19 +2575,14 @@
 				189EFF351FE7B4F00038CAC2 /* TZProgressView.m in Sources */,
 				1853BFD41FB03FFB00FF2FC5 /* ShowPeriodsCell.swift in Sources */,
 				18520DD41F8C5DBA004EAF99 /* Non-WorkBookViewController.swift in Sources */,
-				183BA95A1FAD5310001A3C1D /* FriendsModel.swift in Sources */,
 				188D0C611F99F4FB0010814C /* ShowImageCell.swift in Sources */,
-				18B156721FB2F23F00396653 /* RankCell.swift in Sources */,
-				180D6B701F94654000480DEF /* SwitchRolesViewController.swift in Sources */,
 				180D6B7B1F94A51E00480DEF /* CheckWorkCell.swift in Sources */,
 				18749A1A1F9988F600DEB777 /* TShowBooksCell.swift in Sources */,
-				184E6DE91F960DEE00C2C3DB /* ShowFridensCell.swift in Sources */,
+				186A491620102D0D00824405 /* EditHeadCell.swift in Sources */,
 				187977961F9AE280009AC957 /* CreateClassCell.swift in Sources */,
-				186A280C1F96077E00FAA766 /* MyFriendViewController.swift in Sources */,
-				184E6DED1F960FDA00C2C3DB /* ApplyCell.swift in Sources */,
 				187B9DB51FBEBDE00096688A /* TTeacherModel.swift in Sources */,
+				186A48FF20102D0D00824405 /* ApplyListViewController.swift in Sources */,
 				18520DF01F8C6997004EAF99 /* WorkBookCell.swift in Sources */,
-				180D6B6B1F9456FF00480DEF /* PersonHeadCell.swift in Sources */,
 				1859818C1FB543600021EAD9 /* UrlModel.swift in Sources */,
 				1867C4101F9DC65C00831A23 /* TBookDetailViewController.swift in Sources */,
 				1877A3611FBADD5500F8C9A7 /* TClassDetailViewController.swift in Sources */,
@@ -2557,6 +2591,7 @@
 				1842B7CF1FBBDA9A00BE6977 /* TNotWorkInfoCell.swift in Sources */,
 				1893E29A1FBD65300020C6EB /* NotWorkViewController.swift in Sources */,
 				1853BFDB1FB04BF100FF2FC5 /* PeriodsDetailViewController.swift in Sources */,
+				186A490020102D0D00824405 /* CreditRankViewController.swift in Sources */,
 				188D0BFA1F99CF6C0010814C /* TGoodWorkCell.swift in Sources */,
 				189EFF341FE7B4F00038CAC2 /* TZPhotoPreviewController.m in Sources */,
 				18FDA6AB1F99950D003D61D8 /* TMyCorrectViewController.swift in Sources */,
@@ -2564,20 +2599,19 @@
 				18449C7D1FA9556500120FDA /* WorkBookModel.swift in Sources */,
 				182EB5C81F9ED6E200B74F84 /* TTipView.swift in Sources */,
 				18749A0F1F99838400DEB777 /* TClassViewController.swift in Sources */,
-				180D6B731F94775500480DEF /* SystemMessageCell.swift in Sources */,
 				18759A8F1F95B66A00B8E851 /* AnserVideoCell.swift in Sources */,
 				18B1E6611FB58DC500D1C6F3 /* DrawBoard.swift in Sources */,
 				1877A3531FBA977900F8C9A7 /* GiveMarkView.swift in Sources */,
 				185DA00B1FBFD5BD00BF44B7 /* TNotGoodWorkCell1.swift in Sources */,
 				189396D82004C46E005E0402 /* LNClassWorkModel.swift in Sources */,
 				187B9DB91FBEF7EC0096688A /* TClassApplyModel.swift in Sources */,
+				186A490320102D0D00824405 /* LNChangePassWordVC.swift in Sources */,
 				185DA0071FBFD40000BF44B7 /* TNotGoodWorkCell.swift in Sources */,
-				184E6DF01F96195D00C2C3DB /* IncomeHeadView.swift in Sources */,
-				184E6DF71F961BC100C2C3DB /* IncomeCell.swift in Sources */,
 				183C57781FA9AAE00038CA8B /* MyBookDetailViewController.swift in Sources */,
 				185981C01FB588980021EAD9 /* BoardInputView.swift in Sources */,
 				18449C811FA9591F00120FDA /* BookDetailModel.swift in Sources */,
 				18673B011FD2962100B1B631 /* PayModel.swift in Sources */,
+				186A48FE20102D0D00824405 /* AddFriendViewController.swift in Sources */,
 				186F392D1F91FA8D009B8927 /* ComplaintCell.swift in Sources */,
 				1867C4121F9DC6BB00831A23 /* TBookHeadView.swift in Sources */,
 			);

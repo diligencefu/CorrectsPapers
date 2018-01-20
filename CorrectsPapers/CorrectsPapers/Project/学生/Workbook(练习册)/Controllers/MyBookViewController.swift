@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SwiftyUserDefaults
 
 class MyBookViewController: BaseViewController{
     
@@ -15,7 +16,7 @@ class MyBookViewController: BaseViewController{
     override func viewDidLoad() {
         super.viewDidLoad()
         addImageWhenEmpty()
-        //        接收创建练习册成功的通知
+        //        接收上传练习册作业成功的通知
         NotificationCenter.default.addObserver(self, selector: #selector(receiveNitification(nitofication:)), name: NSNotification.Name(rawValue: SuccessUploadWorkNotiS), object: nil)
     }
     
@@ -150,7 +151,7 @@ class MyBookViewController: BaseViewController{
             let params =
                 [
                     "userWorkBookId":model.userWorkBookId!,
-                    "SESSIONID":SESSIONID,
+                    "SESSIONID":Defaults[userToken]!,
                     "mobileCode":mobileCode
             ] as [String:Any]
             

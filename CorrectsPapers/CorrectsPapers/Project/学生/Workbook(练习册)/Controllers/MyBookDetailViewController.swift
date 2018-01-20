@@ -9,6 +9,7 @@
 import UIKit
 import SwiftyJSON
 import SwiftyUserDefaults
+import Alamofire
 
 class MyBookDetailViewController: BaseViewController,HBAlertPasswordViewDelegate {
     var typeArr = NSMutableArray()
@@ -58,6 +59,11 @@ class MyBookDetailViewController: BaseViewController,HBAlertPasswordViewDelegate
     var noAnswerTypes = [String]()
 
     
+    var isUpload = false
+    
+    var bookTitle = ""
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         addTimeSelector()
@@ -96,7 +102,7 @@ class MyBookDetailViewController: BaseViewController,HBAlertPasswordViewDelegate
         let params =
             [
                 "userWorkBookId":model.userWorkBookId!,
-                "SESSIONID":SESSIONID,
+                "SESSIONID":Defaults[userToken]!,
                 "time":formatter.string(from: date as Date),
                 "mobileCode":mobileCode
         ] as [String:Any]
@@ -140,7 +146,7 @@ class MyBookDetailViewController: BaseViewController,HBAlertPasswordViewDelegate
             let params1 =
                 [
                     "bookId":model.work_book_Id,
-                    "SESSIONID":SESSIONID,
+                    "SESSIONID":Defaults[userToken]!,
                     "mobileCode":mobileCode
                     ] as [String:Any]
             NetWorkStudentCheckPay(params: params1) { (pays,flag) in
@@ -201,7 +207,7 @@ class MyBookDetailViewController: BaseViewController,HBAlertPasswordViewDelegate
             let params =
                 [
                     "userWorkBookId":model.userWorkBookId!,
-                    "SESSIONID":SESSIONID,
+                    "SESSIONID":Defaults[userToken]!,
                     "time":selectDate,
                     "mobileCode":mobileCode
                     ]
@@ -225,7 +231,7 @@ class MyBookDetailViewController: BaseViewController,HBAlertPasswordViewDelegate
                 [
                     "workBookId":model.work_book_Id,
                     "date":selectDate,
-                    "SESSIONID":SESSIONID,
+                    "SESSIONID":Defaults[userToken]!,
                     "mobileCode":mobileCode
                     ] as [String:Any]
             NetWorkStudentGetKnowledgePoint(params: params, callBack: { (datas, flag) in
@@ -238,15 +244,19 @@ class MyBookDetailViewController: BaseViewController,HBAlertPasswordViewDelegate
                 
             })
         }else if currentIndex == 3 {
+            let type = self.type.joined(separator: ",")
+
             let params =
                 [
                     "bookId":model.work_book_Id,
-                    "type":"1",
-                    "SESSIONID":SESSIONID,
+                    "type":type,
+                    "date":selectDate,
+                    "SESSIONID":Defaults[userToken]!,
                     "mobileCode":mobileCode
                     ] as [String:Any]
             NetWorkStudentGetAnswrs(params: params) { (datas, flag) in
                 if flag {
+                    self.answerArr.removeAllObjects()
                     self.answerArr.addObjects(from: datas)
                     self.mainTableView.reloadData()
                 }
@@ -255,7 +265,25 @@ class MyBookDetailViewController: BaseViewController,HBAlertPasswordViewDelegate
             }
             
         }else if currentIndex == 4 {
+            let params1 =
+                [
+                    "workBook_id":model.work_book_Id,
+                    "type":"1",
+                    "SESSIONID":Defaults[userToken]!,
+                    "mobileCode":mobileCode
+                    ] as! [String:String]
             
+            NetWorkTeacherGetScroes(params: params1, callBack: { (datas, flag) in
+                
+                if flag {
+                    self.gradeArr.removeAllObjects()
+                    self.gradeArr.addObjects(from: datas)
+                    self.mainTableView.reloadData()
+                }
+                self.mainTableView.mj_header.endRefreshing()
+                self.view.endLoading()
+            })
+
         }
 
         
@@ -322,7 +350,7 @@ class MyBookDetailViewController: BaseViewController,HBAlertPasswordViewDelegate
         mainTableView.register(UINib(nibName: "UpLoadWorkCell", bundle: nil), forCellReuseIdentifier: identyfierTable1)
         mainTableView.register(UINib(nibName: "CheckWorkCell", bundle: nil), forCellReuseIdentifier: identyfierTable2)
         mainTableView.register(UINib(nibName: "AnserVideoCell", bundle: nil), forCellReuseIdentifier: identyfierTable3)
-        mainTableView.register(UINib(nibName: "showGradeCell", bundle: nil), forCellReuseIdentifier: identyfierTable4)
+        mainTableView.register(UINib(nibName: "ClassGradeCell", bundle: nil), forCellReuseIdentifier: identyfierTable4)
         mainTableView.register(UINib(nibName: "ShowFileCell", bundle: nil), forCellReuseIdentifier: identyfierTable7)
         mainTableView.register(UINib(nibName: "ShowWriteAnswerCell", bundle: nil), forCellReuseIdentifier: identyfierTable8)
         mainTableView.register(UINib(nibName: "AnswerImageCell", bundle: nil), forCellReuseIdentifier: identyfierTable12)
@@ -371,7 +399,7 @@ class MyBookDetailViewController: BaseViewController,HBAlertPasswordViewDelegate
             let params =
                 [
                     "userWorkBookId":model.userWorkBookId!,
-                    "SESSIONID":SESSIONID,
+                    "SESSIONID":Defaults[userToken]!,
                     "time":selectDate,
                     "mobileCode":mobileCode
                     ] as [String:Any]
@@ -397,7 +425,7 @@ class MyBookDetailViewController: BaseViewController,HBAlertPasswordViewDelegate
                 [
                     "workBookId":model.work_book_Id,
                     "date":selectDate,
-                    "SESSIONID":SESSIONID,
+                    "SESSIONID":Defaults[userToken]!,
                     "mobileCode":mobileCode
                     ] as [String:Any]
             self.view.beginLoading()
@@ -410,11 +438,14 @@ class MyBookDetailViewController: BaseViewController,HBAlertPasswordViewDelegate
                 self.view.endLoading()
             })
         }else if currentIndex == 3 {
+            let type = self.type.joined(separator: ",")
+
             let params =
                 [
                     "bookId":model.work_book_Id,
-                    "type":"1",
-                    "SESSIONID":SESSIONID,
+                    "type":type,
+                    "date":selectDate,
+                    "SESSIONID":Defaults[userToken]!,
                     "mobileCode":mobileCode
                     ] as [String:Any]
             NetWorkStudentGetAnswrs(params: params) { (datas, flag) in
@@ -423,14 +454,32 @@ class MyBookDetailViewController: BaseViewController,HBAlertPasswordViewDelegate
                     self.answerArr.addObjects(from: datas)
                     self.mainTableView.reloadData()
                 }
+                self.view.endLoading()
             }
 
         }else if currentIndex == 4 {
+            let params1 =
+                [
+                    "workBook_id":model.work_book_Id,
+                    "type":"1",
+                    "SESSIONID":Defaults[userToken]!,
+                    "mobileCode":mobileCode
+                    ] as [String:String]
             
+            NetWorkTeacherGetScroes(params: params1, callBack: { (datas, flag) in
+                
+                if flag {
+                    self.gradeArr.removeAllObjects()
+                    self.gradeArr.addObjects(from: datas)
+                    self.mainTableView.reloadData()
+                }
+                self.view.endLoading()
+            })
+
         }
         
 //        self.mainTableView.mj_header.endRefreshing()
-        mainTableView.reloadData()
+//        mainTableView.reloadData()
     }
     
     
@@ -490,6 +539,8 @@ class MyBookDetailViewController: BaseViewController,HBAlertPasswordViewDelegate
     //MARK:下载视频点击事件
     @objc func showDownloadBtn(sender:UIButton) {
         
+        isUpload = false
+        
         if sender.titleLabel?.text == "作业视频讲解" {
             downloadType = 1
         }
@@ -535,39 +586,69 @@ class MyBookDetailViewController: BaseViewController,HBAlertPasswordViewDelegate
     func sureAction(with alertPasswordView: HBAlertPasswordView!, password: String!) {
         alertPasswordView.removeFromSuperview()
         
-        var theModel = PayModel()
-        
-        for model11 in payModels {
-            let m = model11 as! PayModel
-            if m.type == String(downloadType) {
-                theModel = m
+        if isUpload {
+            let params =
+                [
+                    "SESSIONID":Defaults[userToken]!,
+                    "mobileCode":mobileCode,
+                    "PasswordAgo":password,
+                    ] as [String : Any]
+            Alamofire.request(kCheck_Password,
+                              method: .post, parameters: params,
+                              encoding: URLEncoding.default, headers: nil).responseJSON { (response) in
+                                deBugPrint(item: response.result)
+                                switch response.result {
+                                case .success:
+                                    if let j = response.result.value {
+                                        let JSOnDictory = JSON(j)
+                                        if JSOnDictory["code"].stringValue == "1" {
+                                            self.beginUploadWorl(text: self.bookTitle)
+                                        }else{
+                                            setToast(str: JSOnDictory["message"].stringValue)
+                                        }
+                                    }
+                                    break
+                                case .failure(let error):
+                                    deBugPrint(item: error)
+                                }
             }
-        }
-        
-        let params = [
-            "SESSIONID":SESSIONID,
-            "mobileCode":mobileCode,
-            "teacher_id":theModel.teacher_id!,
-            "money":theModel.money,
-            "PasswordAgo":password,
-            "bookId":model.work_book_Id,
-            "type":downloadType
-            ] as [String : Any]
-        self.view.beginLoading()
-        NetWorkStudentUpdownAnswrs(params: params) { (flag) in
-            if flag {
-                setToast(str: "下载成功！")
-                self.view.endLoading()
-                self.requestData()
-            }
-            self.view.endLoading()
-        }
-        
-        if currentIndex == 3 {
             
-            footView(titles: titleArr3)
+        }else{
+            var theModel = PayModel()
+            
+            for model11 in payModels {
+                let m = model11 as! PayModel
+                if m.type == String(downloadType) {
+                    theModel = m
+                }
+            }
+            
+            let params = [
+                "SESSIONID":Defaults[userToken]!,
+                "mobileCode":mobileCode,
+                "teacher_id":theModel.teacher_id!,
+                "money":theModel.money,
+                "PasswordAgo":password,
+                "bookId":model.work_book_Id,
+                "type":downloadType
+                ] as [String : Any]
+            self.view.beginLoading()
+            NetWorkStudentUpdownAnswrs(params: params) { (flag) in
+                if flag {
+                    setToast(str: "下载成功！")
+                    self.view.endLoading()
+                    self.requestData()
+                }
+                self.view.endLoading()
+            }
+            
+            //        if currentIndex == 3 {
+            //
+            //            footView(titles: titleArr3)
+            //        }
         }
     }
+        
 
     
 //    //MARK:下载视频点击事件
@@ -614,7 +695,7 @@ class MyBookDetailViewController: BaseViewController,HBAlertPasswordViewDelegate
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         if currentIndex == 4 {
-            return 20
+            return gradeArr.count+1
         }
         
         if currentIndex == 3 {
@@ -657,46 +738,47 @@ class MyBookDetailViewController: BaseViewController,HBAlertPasswordViewDelegate
             cell.chooseImagesAction = {
 
                 if $0 == "uploadAction" {
-                    let params =
-                        [
-                            "SESSIONID":SESSIONID,
-                            "mobileCode":mobileCode,
-                            "result":cell.workDescrip.text!,
-                            "userWorkBookId":self.model.userWorkBookId
-                            ] as! [String : String]
-                    
-                    var nameArr = [String]()
-                    for index in 0..<self.images.count {
-                        nameArr.append("image\(index)")
+                    let date = NSDate.init()
+                    let formatter = DateFormatter()
+                    //日期样式
+                    formatter.dateFormat = "yyyy-MM-dd"
+                    if formatter.string(from: date as Date) == self.selectDate {
+                        
+                        self.isUpload = true
+                        self.bookTitle = cell.workDescrip.text!
+                        let passwd = HBAlertPasswordView.init(frame: self.view.bounds)
+                        passwd.delegate = self
+                        passwd.titleLabel.text = "请支付"+self.model.money+"学币"
+                        self.view.addSubview(passwd)
+                    }else{
+                        
+                        setToast(str: "只能上传当天的作业")
                     }
-                    netWorkForUploadWorkBook(params: params , data: self.images as! [UIImage], name: nameArr, success: { (datas) in
-                        let json = JSON(datas)
-                        deBugPrint(item: json)
-//
-//                        if json["code"] == "1" {
-                        
-//                            setToast(str: "上传成功")
-                        self.uploadSucceed(datas: json.arrayValue)
-                        
-                        
-//                        }
-                        deBugPrint(item: datas)
-                    }, failture: { (error) in
-                        deBugPrint(item: error)
-                    })
-                    
                 }else{
                     self.setupPhoto1(count: 2,currentIndex: Int($0)!)
                 }
             }
-            
             return cell
         }
         
         if currentIndex == 1 && workState == "2" && indexPath.row == 0{
             let cell : CheckWorkCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable2, for: indexPath) as! CheckWorkCell
-            
             cell.checkWorkCellSetValues1(model:theModel)
+            cell.cancelAction = {
+                
+                let alert = UIAlertController.init(title: "提示", message: "撤回之后将会原数返回学币到你的账户，并且可以再次上传。", preferredStyle: .alert)
+                
+                let action1 = UIAlertAction.init(title: "确定撤回", style: .destructive) { (alertAction) in
+                    self.cancelUploadWork()
+                }
+                let action2 = UIAlertAction.init(title: "取消", style: .cancel, handler: nil)
+                
+                alert.addAction(action1)
+                alert.addAction(action2)
+                
+                self.present(alert, animated: true, completion: nil)
+
+            }
             return cell
         }
         
@@ -711,6 +793,7 @@ class MyBookDetailViewController: BaseViewController,HBAlertPasswordViewDelegate
                 }
                 cell.complainAction = {
                     let complianVC = ComplaintViewController()
+                    complianVC.teacher_id = self.theModel.teacher_id!
                     self.navigationController?.pushViewController(complianVC, animated: true)
                 }
                 return cell
@@ -724,6 +807,7 @@ class MyBookDetailViewController: BaseViewController,HBAlertPasswordViewDelegate
                 cell.checkWorkCellSetValues3(model:theModel)
                 cell.complainAction = {
                     let complianVC = ComplaintViewController()
+                    complianVC.teacher_id = self.theModel.teacher_id!
                     self.navigationController?.pushViewController(complianVC, animated: true)
                 }
                 
@@ -731,30 +815,34 @@ class MyBookDetailViewController: BaseViewController,HBAlertPasswordViewDelegate
             }
             
             let cell : UpLoadWorkCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable1, for: indexPath) as! UpLoadWorkCell
-            cell.upLoadImagesForResubmit(images: images as! Array<UIImage>)
+            
+            if theModel.times == nil {
+                theModel.times = "2018-05-15 12:00:00"
+            }
+            
+            cell.upLoadImagesForResubmit(images: images as! Array<UIImage>,timeStr: theModel.times)
             
             cell.chooseImagesAction = {
                 if $0 == "uploadAction" {
                     
-                    let date = NSDate.init()
-                    let formatter = DateFormatter()
-                    //日期样式
-                    formatter.dateFormat = "yyyy/MM/dd"
-//                    let createDate = formatter.date(from: self.selectDate)
-                    
-                    let dateStr = self.selectDate.substring(to: String.Index.init(encodedOffset: 10))
-                    
-                    if formatter.string(from: date as Date) != dateStr {
-                        setToast(str: "只能上传当天的作业")
-                        return
-                    }
+//                    let date = NSDate.init()
+//                    let formatter = DateFormatter()
+//                    //日期样式
+//                    formatter.dateFormat = "yyyy-MM-dd"
+////                    let createDate = formatter.date(from: self.selectDate)
+//                    
+//                    let dateStr = self.selectDate.substring(to: String.Index.init(encodedOffset: 10))
+//                    
+//                    if formatter.string(from: date as Date) != dateStr {
+//                        setToast(str: "只能上传当天的作业")
+//                        return
+//                    }
                     
                     let params =
                         [
-                            "bookId":self.theModel.book_details_id,
-                            "type":"2",
-                            "SESSIONID":SESSIONID,
-                            "mobileCode":mobileCode
+                            "book_details_id":self.theModel.book_details_id,
+                            "SESSIONID":Defaults[userToken]!,
+                            "mobileCode":Defaults[mCode]!
                     ]
                     var nameArr = [String]()
                     
@@ -762,20 +850,34 @@ class MyBookDetailViewController: BaseViewController,HBAlertPasswordViewDelegate
                         nameArr.append("image\(index)")
                     }
                     self.view.beginLoading()
-                    netWorkForUploadWorkBookSecondBulidBook(params: params as! [String : String], data: self.images as! [UIImage], name: nameArr, success: { (datas) in
+                    netWorkForUploadWorkBookNext(params: params as! [String : String], data: self.images as! [UIImage], name: nameArr, success: { (datas) in
                         deBugPrint(item: datas)
                         let json = JSON(datas)
                         deBugPrint(item: json)
-                        if json["code"] == "1" {
-                            
+                        if json["code"].stringValue == "1" {
                             setToast(str: "上传成功")
                             self.uploadSucceed(datas: json.arrayValue)
                         }
                         self.view.endLoading()
                     }, failture: { (error) in
                         deBugPrint(item: error)
-                        self.view.endLoading()
+                         self.view.endLoading()
                     })
+
+//                    netWorkForUploadWorkBookSecondBulidBook(params: params as! [String : String], data: self.images as! [UIImage], name: nameArr, success: { (datas) in
+//                        deBugPrint(item: datas)
+//                        let json = JSON(datas)
+//                        deBugPrint(item: json)
+//                        if json["code"].stringValue == "1" {
+//
+//                            setToast(str: "上传成功")
+//                            self.uploadSucceed(datas: json.arrayValue)
+//                        }
+//                        self.view.endLoading()
+//                    }, failture: { (error) in
+//                        deBugPrint(item: error)
+//                        self.view.endLoading()
+//                    })
                 }else{
                     self.setupPhoto1(count: 2,currentIndex: Int($0)!)
                 }
@@ -789,6 +891,12 @@ class MyBookDetailViewController: BaseViewController,HBAlertPasswordViewDelegate
             if  indexPath.row == 0 {
                 
                 cell.checkWorkCellSetValues3(model:theModel)
+                cell.complainAction = {
+                    let complianVC = ComplaintViewController()
+                    complianVC.teacher_id = self.theModel.teacher_id!
+                    self.navigationController?.pushViewController(complianVC, animated: true)
+                }
+
                 return cell
             }
             cell.checkWorkCellSetValues1(model:theModel)
@@ -801,6 +909,12 @@ class MyBookDetailViewController: BaseViewController,HBAlertPasswordViewDelegate
             if  indexPath.row == 0 {
                 
                 cell.checkWorkCellSetValues3(model:theModel)
+                cell.complainAction = {
+                    let complianVC = ComplaintViewController()
+                    complianVC.teacher_id = self.theModel.teacher_id!
+                    self.navigationController?.pushViewController(complianVC, animated: true)
+                }
+
                 return cell
             }
             
@@ -814,6 +928,11 @@ class MyBookDetailViewController: BaseViewController,HBAlertPasswordViewDelegate
                 
                 let cell : CheckWorkCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable2, for: indexPath) as! CheckWorkCell
                 cell.checkWorkCellSetValues3(model:theModel)
+                cell.complainAction = {
+                    let complianVC = ComplaintViewController()
+                    complianVC.teacher_id = self.theModel.teacher_id!
+                    self.navigationController?.pushViewController(complianVC, animated: true)
+                }
                 return cell
             }
             let cell : CheckWorkCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable2, for: indexPath) as! CheckWorkCell
@@ -830,31 +949,70 @@ class MyBookDetailViewController: BaseViewController,HBAlertPasswordViewDelegate
             return cell
         }else if currentIndex == 3 {
             
-            let model = answerArr[indexPath.row] as! UrlModel
             
+            let model = answerArr[indexPath.row] as! UrlModel
+            deBugPrint(item: model.type!)
+            deBugPrint(item: model.format!)
             if model.type == "1" {
-                let cell : AnserVideoCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable3, for: indexPath) as! AnserVideoCell
-                cell.AnserVideoCellSetValues(model: model)
-                return cell
                 
-            }else if model.type == "2" {
-                let cell : ShowFileCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable7, for: indexPath) as! ShowFileCell
+                let cell : AnserVideoCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable3, for: indexPath) as! AnserVideoCell
+                cell.AnserVideoCellSetValuesForAnswer(title: model.title)
                 return cell
-            }else if model.type == "3" {
+            }else  if model.type == "2" {
+                
+                if model.format == "doc" || model.format == "xls"{
+                    let cell : ShowFileCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable7, for: indexPath) as! ShowFileCell
+                    cell.setValues(model: model)
+                    return cell
+                }else{
+                    
+                    let cell : AnswerImageCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable12, for: indexPath) as! AnswerImageCell
+                    cell.showWithImage(image: model.answard_res)
+                    cell.selectionStyle = .none
+                    return cell
+                }
+                
+            }else  if model.type == "3" {
                 let cell : ShowWriteAnswerCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable8, for: indexPath) as! ShowWriteAnswerCell
-                return cell
-            }else{
-                let cell : AnswerImageCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable12, for: indexPath) as! AnswerImageCell
+                cell.showAnswer(text: model.answard_res)
+                cell.selectionStyle = .none
                 return cell
             }
+
         }
         
-        let cell : showGradeCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable4, for: indexPath) as! showGradeCell
-        if indexPath.row == 0 {
-            cell.showGrade(isTitle: true)
+        
+        let cell : ClassGradeCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable4, for: indexPath) as! ClassGradeCell
+        
+        
+        if gradeArr.count>0 {
+            if indexPath.row == 0 {
+                cell.is1thCellForWorkBook()
+            }else{
+                let model = gradeArr[indexPath.row-1] as! TShowGradeModel
+                cell.setValueForBookGrade(model: model)
+            }
         }else{
-            cell.showGrade(isTitle: false)
+            cell.noDatas()
         }
+
+        
+        
+//        if Int(model.correct_states)! == 4 || Int(model.correct_states)! == 7 {
+//            
+//        }else{
+//            
+//            cell.noDatas()
+//        }
+//
+//        
+//        let cell : showGradeCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable4, for: indexPath) as! showGradeCell
+//        if indexPath.row == 0 {
+//            cell.showGrade(isTitle: true)
+//        }else{
+//            let model = gradeArr[indexPath.row-1] as! TShowGradeModel
+//            cell.showGrade(isTitle: false)
+//        }
         return cell
     }
     
@@ -896,18 +1054,6 @@ class MyBookDetailViewController: BaseViewController,HBAlertPasswordViewDelegate
                 }
             }
         }
-
-//            let url = NSURL.init(string: "http://m.youku.com/video/id_XMzA4MDYxNzQ2OA==.html?spm=a2hww.20022069.m_215416.5~5%212~5~5%212~A&source=http%3A%2F%2Fyouku.com%2Fu%2F13656654646%3Fscreen%3Dphone")
-//
-//            if #available(iOS 10.0, *) {
-//                UIApplication.shared.open(url! as URL, options: [:],
-//                                          completionHandler: {
-//                                            (success) in
-//                })
-//            } else {
-//                // Fallback on earlier versions
-//            }
-        
     }
     
     
@@ -1176,7 +1322,7 @@ class MyBookDetailViewController: BaseViewController,HBAlertPasswordViewDelegate
                 [
                     "userWorkBookId":self.model.userWorkBookId!,
                     "time":formatter.string(from: self.datePicker.date),
-                    "SESSIONID":SESSIONID,
+                    "SESSIONID":Defaults[userToken]!,
                     "mobileCode":mobileCode
                     ] as [String:Any]
             self.view.beginLoading()
@@ -1217,11 +1363,54 @@ class MyBookDetailViewController: BaseViewController,HBAlertPasswordViewDelegate
             self.datePickerView.transform = .init(translationX: 0, y: -y)
             self.BGView.alpha = 1
         }
-        
     }
     
     
     override func viewWillDisappear(_ animated: Bool) {
         PopViewUtil.share.stopLoading()
+    }
+    
+    func cancelUploadWork() {
+        let params =
+            [
+                "book_id":self.theModel.book_details_id,
+                "type":"1",
+                "SESSIONID":Defaults[userToken]!,
+                "mobileCode":Defaults[mCode]!
+                ] as [String:String]
+        
+        NetWorkStudentBackWorkBook(params: params, callBack: { (flag) in
+            if flag {
+                self.mainTableView.mj_header.beginRefreshing()
+            }
+        })
+    }
+    
+    func beginUploadWorl(text:String) {
+        let params =
+            [
+                "SESSIONID":Defaults[userToken]!,
+                "mobileCode":Defaults[mCode]!,
+                "result":text,
+                "userWorkBookId":self.model.userWorkBookId
+                ] as! [String : String]
+        
+        var nameArr = [String]()
+        for index in 0..<self.images.count {
+            nameArr.append("image\(index)")
+        }
+        netWorkForUploadWorkBook(params: params , data: self.images as! [UIImage], name: nameArr, success: { (datas) in
+            let json = JSON(datas)
+            deBugPrint(item: json)
+            //
+            if json["code"].stringValue == "1" {
+                self.uploadSucceed(datas: json.arrayValue)
+            }else {
+                setToast(str: json["message"].stringValue)
+            }
+            deBugPrint(item: datas)
+        }, failture: { (error) in
+            deBugPrint(item: error)
+        })
     }
 }

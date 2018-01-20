@@ -25,13 +25,25 @@ class CreateClassCell2: UITableViewCell {
 
     
     func CreateClassCell2ShowAll(title:String,info:String,placeholder:String) {
+        
         theTitle.text = title
         subTitle.text = info
         textField.placeholder = placeholder
     }
     
     
+    func CreateClassCellEdit(title:String,info:String,text:String,placeholder:String) {
+        
+        theTitle.text = title
+        subTitle.text = text
+        textField.text = info
+        textField.isHidden = false
+        textField.placeholder = placeholder
+    }
+    
+    
     func CreateClassCell2(title:String,member:String) {
+        
         theTitle.text = title
         textField.isHidden = true
         subTitle.text = member

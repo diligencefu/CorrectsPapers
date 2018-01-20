@@ -8,6 +8,7 @@
 
 import UIKit
 import SwiftyJSON
+import SwiftyUserDefaults
 
 class TBookDetailViewController: BaseViewController,UITextFieldDelegate,UIAlertViewDelegate {
     
@@ -81,8 +82,8 @@ class TBookDetailViewController: BaseViewController,UITextFieldDelegate,UIAlertV
     override func requestData() {
         
         let params =
-            ["SESSIONID":SESSIONIDT,
-             "mobileCode":mobileCodeT,
+            ["SESSIONID":Defaults[userToken]!,
+             "mobileCode":mobileCode,
              "id":book_id,
              "date":selectDate
              ]
@@ -191,8 +192,8 @@ class TBookDetailViewController: BaseViewController,UITextFieldDelegate,UIAlertV
         isSearching = false
 
         let params =
-            ["SESSIONID":SESSIONIDT,
-             "mobileCode":mobileCodeT,
+            ["SESSIONID":Defaults[userToken]!,
+             "mobileCode":mobileCode,
              "id":book_id,
              "date":selectDate,
              ]
@@ -229,8 +230,8 @@ class TBookDetailViewController: BaseViewController,UITextFieldDelegate,UIAlertV
         }else if currentIndex == 3 {
             
             let params11 =
-                ["SESSIONID":SESSIONIDT,
-                 "mobileCode":mobileCodeT,
+                ["SESSIONID":Defaults[userToken]!,
+                 "mobileCode":mobileCode,
                  "date":selectDate,
                  "workBookId":book_id
             ]
@@ -249,8 +250,8 @@ class TBookDetailViewController: BaseViewController,UITextFieldDelegate,UIAlertV
             }
         }else if currentIndex == 4{
             let params1 =
-                ["SESSIONID":SESSIONIDT,
-                 "mobileCode":mobileCodeT,
+                ["SESSIONID":Defaults[userToken]!,
+                 "mobileCode":mobileCode,
                  "date":selectDate,
                  "bookId":book_id
                     ] as [String:Any]
@@ -281,9 +282,9 @@ class TBookDetailViewController: BaseViewController,UITextFieldDelegate,UIAlertV
         }else{
             
             let params111 =
-                ["SESSIONID":SESSIONIDT,
-                 "mobileCode":mobileCodeT,
-                 "id":book_id,
+                ["SESSIONID":Defaults[userToken]!,
+                 "mobileCode":mobileCode,
+                 "workBook_id":book_id,
                  "date":selectDate,
                  "type":"1"
                  ]
@@ -356,8 +357,8 @@ class TBookDetailViewController: BaseViewController,UITextFieldDelegate,UIAlertV
         
         currentIndex = sender.tag - 130
         let params =
-            ["SESSIONID":SESSIONIDT,
-             "mobileCode":mobileCodeT,
+            ["SESSIONID":Defaults[userToken]!,
+             "mobileCode":mobileCode,
              "id":book_id,
              "date":selectDate,
              ]
@@ -394,8 +395,8 @@ class TBookDetailViewController: BaseViewController,UITextFieldDelegate,UIAlertV
         }else if currentIndex == 3 {
             
             let params1 =
-                ["SESSIONID":SESSIONIDT,
-                 "mobileCode":mobileCodeT,
+                ["SESSIONID":Defaults[userToken]!,
+                 "mobileCode":mobileCode,
                  "date":selectDate,
                  "workBookId":book_id
             ]
@@ -413,8 +414,8 @@ class TBookDetailViewController: BaseViewController,UITextFieldDelegate,UIAlertV
             }
         }else if currentIndex == 4{
             let params1 =
-                ["SESSIONID":SESSIONIDT,
-                 "mobileCode":mobileCodeT,
+                ["SESSIONID":Defaults[userToken]!,
+                 "mobileCode":mobileCode,
                  "bookId":book_id,
                  "date":selectDate
                     ] as [String:Any]
@@ -446,11 +447,11 @@ class TBookDetailViewController: BaseViewController,UITextFieldDelegate,UIAlertV
         }else{
 
             let params1 =
-                ["SESSIONID":SESSIONIDT,
-                 "mobileCode":mobileCodeT,
+                ["SESSIONID":Defaults[userToken]!,
+                 "mobileCode":mobileCode,
                  "type":"1",
                  "date":selectDate,
-                 "id":book_id,
+                 "workBook_id":book_id,
             ]
             
             NetWorkTeacherGetStudentScroes(params: params1) { (datas,flag) in
@@ -884,8 +885,8 @@ class TBookDetailViewController: BaseViewController,UITextFieldDelegate,UIAlertV
         textField.resignFirstResponder()
 
         let params1 =
-            ["SESSIONID":SESSIONIDT,
-             "mobileCode":mobileCodeT,
+            ["SESSIONID":Defaults[userToken]!,
+             "mobileCode":mobileCode,
              "date":selectDate,
              "studentId":textField.text!,
              "id":book_id
@@ -907,7 +908,7 @@ class TBookDetailViewController: BaseViewController,UITextFieldDelegate,UIAlertV
     
     private func setupPhoto1(count:NSInteger) {
         let imagePickTool = CLImagePickersTool()
-        
+        self.imageArr.removeAll()
         imagePickTool.isHiddenVideo = true
         
         imagePickTool.setupImagePickerWith(MaxImagesCount: count, superVC: self) { (assetArr,cutImage) in
@@ -999,8 +1000,8 @@ class TBookDetailViewController: BaseViewController,UITextFieldDelegate,UIAlertV
 
             self.view.beginLoading()
             let params1 =
-                ["SESSIONID":SESSIONIDT,
-                 "mobileCode":mobileCodeT,
+                ["SESSIONID":Defaults[userToken]!,
+                 "mobileCode":mobileCode,
                  "workId":self.book_id,
                  "money":priceTextfield.text!,
                  ] as [String : String]

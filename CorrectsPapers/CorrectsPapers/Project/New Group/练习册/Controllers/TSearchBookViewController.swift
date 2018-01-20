@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SwiftyUserDefaults
 
 class TSearchBookViewController: BaseViewController,UITextFieldDelegate{
     
@@ -55,8 +56,8 @@ class TSearchBookViewController: BaseViewController,UITextFieldDelegate{
         setToast(str: "开始搜索")
 
         let params =
-            ["SESSIONID":SESSIONIDT,
-             "mobileCode":mobileCodeT,
+            ["SESSIONID":Defaults[userToken]!,
+             "mobileCode":mobileCode,
              "workName":searchTextfield.text!,
              ] as [String : Any]
         

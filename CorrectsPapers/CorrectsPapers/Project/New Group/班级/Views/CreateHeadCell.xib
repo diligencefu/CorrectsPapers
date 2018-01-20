@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -16,11 +17,11 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="70"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="287" height="69.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="286" height="69.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="班级头像" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="miF-PS-SBu">
-                        <rect key="frame" x="13" y="24.5" width="62" height="21"/>
+                        <rect key="frame" x="21" y="24.5" width="62" height="21"/>
                         <constraints>
                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="20" id="gku-bg-Kdq"/>
                             <constraint firstAttribute="height" constant="21" id="jfn-GY-8be"/>
@@ -30,7 +31,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="UserHead_64_default" translatesAutoresizingMaskIntoConstraints="NO" id="mzj-nE-pX9">
-                        <rect key="frame" x="231" y="6.5" width="56" height="56"/>
+                        <rect key="frame" x="230" y="6.5" width="56" height="56"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="56" id="98Q-bP-Zi9"/>
                             <constraint firstAttribute="width" constant="56" id="olH-LR-2nr"/>
@@ -38,11 +39,12 @@
                     </imageView>
                 </subviews>
                 <constraints>
+                    <constraint firstItem="miF-PS-SBu" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="13.5" id="00o-f8-hyv"/>
                     <constraint firstItem="miF-PS-SBu" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="4mu-i1-nxP"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="miF-PS-SBu" secondAttribute="bottom" constant="13.5" id="BBZ-aX-aas"/>
                     <constraint firstItem="miF-PS-SBu" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="5" id="a1K-pa-Mgi"/>
                     <constraint firstItem="mzj-nE-pX9" firstAttribute="centerY" secondItem="miF-PS-SBu" secondAttribute="centerY" id="pTN-ur-PRM"/>
                     <constraint firstAttribute="trailing" secondItem="mzj-nE-pX9" secondAttribute="trailing" id="poo-wP-mwJ"/>
-                    <constraint firstAttribute="bottomMargin" secondItem="miF-PS-SBu" secondAttribute="bottom" constant="16" id="udY-w6-lay"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>

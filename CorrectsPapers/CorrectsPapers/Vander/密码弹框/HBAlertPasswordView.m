@@ -193,7 +193,10 @@
 #pragma mark - 按钮的执行方法
 // 取消按钮
 - (void)cancelButtonAction {
-    
+    if ([self.delegate respondsToSelector:@selector(cancelAction)]) {
+        [self.delegate cancelAction];
+    }
+
     [self removeFromSuperview];
 }
 

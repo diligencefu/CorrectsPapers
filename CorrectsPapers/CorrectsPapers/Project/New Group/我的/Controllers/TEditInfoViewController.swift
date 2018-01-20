@@ -51,9 +51,13 @@ class TEditInfoViewController: BaseViewController {
     
     @objc func saveInfo(sender:UIBarButtonItem) {
         
-        if idStr == "" {
-            setToast(str: "请输入身份证号")
-            return
+        if model.haveIdentity == "no"{
+            
+            if idStr == "" {
+                setToast(str: "请输入身份证号")
+                return
+            }
+
         }
 //        if certStr == "" {
 //            setToast(str: "请输入教师资格证号")
@@ -84,7 +88,7 @@ class TEditInfoViewController: BaseViewController {
         self.view.beginLoading()
         let params =
             [
-                "SESSIONID":SESSIONID,
+                "SESSIONID":Defaults[userToken]!,
                 "mobileCode":mobileCode,
                 "grade":infoArr[2][1],
                 "identity":idStr,
@@ -100,6 +104,9 @@ class TEditInfoViewController: BaseViewController {
         ] as [String:Any]
         NetWorkTeachersEditorTeacher(params: params) { (flag) in
             if flag {
+                //        通知中心 ,学生编辑资料成功
+                NotificationCenter.default.post(name: Notification.Name(rawValue: SuccessEditNotiTeacher), object: self, userInfo: ["refresh":"begin"])
+
                 self.navigationController?.popViewController(animated: true)
             }else{
                 self.navigationItem.rightBarButtonItem?.isEnabled = false
@@ -116,11 +123,11 @@ class TEditInfoViewController: BaseViewController {
             
             dataArr = [["我的头像"],["我的名称","联系方式","所在地区"],["批改科目","我的年级","工作时间"],["我的工号"],["身份证号码:",""],["教师资格证号:",""]]
             infoArr = [[""],[model.user_name,model.user_phone,model.user_area],[model.user_correct_subject,model.user_fit_class,model.user_job_time],[model.user_num],["",""],["",""]]
-        }else if model.haveIdentity == "no" && model.haveCeltyl == "yes"{
+        }else if model.haveIdentity == "yes" && model.haveCeltyl == "no"{
             
             dataArr = [["我的头像"],["我的名称","联系方式","所在地区"],["批改科目","我的年级","工作时间"],["我的工号"],["教师资格证号:",""]]
             infoArr = [[""],[model.user_name,model.user_phone,model.user_area],[model.user_correct_subject,model.user_fit_class,model.user_job_time],[model.user_num],["",""]]
-        }else if model.haveIdentity == "yes" && model.haveCeltyl == "no"{
+        }else if model.haveIdentity == "no" && model.haveCeltyl == "yes"{
             
             dataArr = [["我的头像"],["我的名称","联系方式","所在地区"],["批改科目","我的年级","工作时间"],["我的工号"],["身份证号码:",""]]
             infoArr = [[""],[model.user_name,model.user_phone,model.user_area],[model.user_correct_subject,model.user_fit_class,model.user_job_time],[model.user_num],["",""]]
@@ -188,7 +195,12 @@ class TEditInfoViewController: BaseViewController {
                 cell.endEditBlock = {
                     if $1{
                         deBugPrint(item: $0)
-                        self.idStr = $0
+                        
+                        if self.model.haveIdentity == "no"{
+                            self.idStr = $0
+                        }else{
+                            self.certStr = $0
+                        }
                     }
                 }
                 cell.selectionStyle = .none
@@ -228,6 +240,10 @@ class TEditInfoViewController: BaseViewController {
             }
         }else{
             cell.TeacherInfoCellForNormal(title: title, subStr: subTitle)
+            if indexPath.section == 2 && indexPath.row == 2 {
+                cell.accessoryType = .none
+                cell.selectionStyle = .none
+            }
         }
         
         return cell
@@ -254,7 +270,7 @@ class TEditInfoViewController: BaseViewController {
             
             if indexPath.row == 2 {
                 
-                showTimeView()
+//                showTimeView()
             }
         }
     }
@@ -504,8 +520,8 @@ class TEditInfoViewController: BaseViewController {
                 }
                 
                 let params = [
-                    "SESSIONID":SESSIONID,
-                    "mobileCode":mobileCode,
+                    "SESSIONID":Defaults[userToken]!,
+                    "mobileCode":Defaults[mCode]!,
                     "type":type
                 ]
                 let arr = [image]

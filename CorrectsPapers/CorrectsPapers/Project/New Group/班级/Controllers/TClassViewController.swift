@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SwiftyUserDefaults
 
 class TClassViewController: BaseViewController {
     var emptyView = UIView()
@@ -17,7 +18,7 @@ class TClassViewController: BaseViewController {
         rightBarButton()
         addImageWhenEmpty()
 
-        //        接收创建练习册成功的通知
+        //        接收删除班级成功的通知
         NotificationCenter.default.addObserver(self, selector: #selector(receiveNitification(nitofication:)), name: NSNotification.Name(rawValue: SuccessCorrectDeleteClassNoti), object: nil)
     }
     
@@ -32,8 +33,8 @@ class TClassViewController: BaseViewController {
     
     override func requestData() {
         let params = [
-            "SESSIONID":SESSIONIDT,
-            "mobileCode":mobileCodeT,
+            "SESSIONID":Defaults[userToken]!,
+            "mobileCode":mobileCode,
             "type":"1"
         ]
         self.view.beginLoading()
@@ -50,8 +51,8 @@ class TClassViewController: BaseViewController {
     
     override func refreshHeaderAction() {
         let params = [
-            "SESSIONID":SESSIONIDT,
-            "mobileCode":mobileCodeT,
+            "SESSIONID":Defaults[userToken]!,
+            "mobileCode":mobileCode,
             "type":"1"
         ]
         netWorkForMyClass(params: params) { (datas,flag) in
@@ -206,8 +207,8 @@ class TClassViewController: BaseViewController {
         if editingStyle == .delete {
             let model = mainTableArr[indexPath.row] as! ClassModel
             let params = [
-                "SESSIONID":SESSIONIDT,
-                "mobileCode":mobileCodeT,
+                "SESSIONID":Defaults[userToken]!,
+                "mobileCode":mobileCode,
                 "classes_id":model.classes_id
             ] as [String:Any]
             

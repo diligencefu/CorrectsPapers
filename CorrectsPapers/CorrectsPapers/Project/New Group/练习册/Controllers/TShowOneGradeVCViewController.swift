@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SwiftyUserDefaults
 
 class TShowOneGradeVCViewController: BaseViewController {
 
@@ -49,17 +50,17 @@ class TShowOneGradeVCViewController: BaseViewController {
         
         if type == 3 {
             params11 = [
-                "SESSIONID":SESSIONIDT,
+                "SESSIONID":Defaults[userToken]!,
+                "mobileCode":mobileCode,
                 "classes_id":classid,
                 "student_id":user_num,
-                "mobileCode":mobileCodeT,
                 "type":"3"
             ]
         }else{
             params11 = [
-                "SESSIONID":SESSIONIDT,
+                "SESSIONID":Defaults[userToken]!,
                 "student_id":user_num,
-                "mobileCode":mobileCodeT,
+                "mobileCode":mobileCode,
                 "type":"3"
             ]
         }

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SwiftyUserDefaults
 
 class TSearchClassViewController: BaseViewController,UITextFieldDelegate,UIAlertViewDelegate{
     var emptyView = UIView()
@@ -209,9 +210,9 @@ class TSearchClassViewController: BaseViewController,UITextFieldDelegate,UIAlert
         searchTextfield.endEditing(true)
 
         let params = [
-            "SESSIONID":SESSIONIDT,
+            "SESSIONID":Defaults[userToken]!,
             "class_name":searchTextfield.text!,
-            "mobileCode":mobileCodeT,
+            "mobileCode":mobileCode,
             "type":"2"
             ] as [String : Any]
         self.view.beginLoading()
@@ -278,10 +279,10 @@ class TSearchClassViewController: BaseViewController,UITextFieldDelegate,UIAlert
         chooseType.selectBlock = {
             if !$1 {
                 let params = [
-                    "SESSIONID":SESSIONIDT,
+                    "SESSIONID":Defaults[userToken]!,
                     "classes_id":self.class_id,
                     "type":$0,
-                    "mobileCode":mobileCodeT
+                    "mobileCode":Defaults[mCode]!
                     ] as [String : Any]
                 
                 NetWorkTeacherTeacherAddToClasses(params: params, callBack: { (flag) in

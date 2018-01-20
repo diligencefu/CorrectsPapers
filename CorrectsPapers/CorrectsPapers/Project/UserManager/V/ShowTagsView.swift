@@ -102,6 +102,12 @@ class ShowTagsView: UIView ,UIPickerViewDelegate,UIPickerViewDataSource{
         
         totalNum = total
         
+        if total == 1 {
+            tipLabel.text = "最多选择一个"
+        }else{
+            tipLabel.text = "最多选择三个"
+        }
+        
         which = 1
         
         viewTitle.text =  title

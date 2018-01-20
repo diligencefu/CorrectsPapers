@@ -15,6 +15,9 @@ let mCode = DefaultsKey<String?>("mCode")
 let userPhone = DefaultsKey<String?>("userPhone")
 let userNum = DefaultsKey<String?>("userNum")
 
+let messageCount = DefaultsKey<String?>("messageCount")
+
+
 let userIdentity = DefaultsKey<String?>("userIdentity")
 
 let userGrade = DefaultsKey<String?>("userGrade")
@@ -143,7 +146,6 @@ func getNavigationView(_ height: NSInteger,fromColor:UIColor,toColor:UIColor) ->
 
 
 //MARK: 设置一个提醒
-
 func setToast(str:String) {
     
     let window = UIApplication.shared.keyWindow
@@ -250,7 +252,7 @@ func kGetStateFromString(str:String) -> (String){
     }
 
     if str == "4" {
-        return "已批改"
+        return "已批改-待更正错题"
     }
 
     if str == "5" {
@@ -283,7 +285,7 @@ func kGetColorFromString(str:String) -> (UIColor){
 //        return kSetRGBColor(r: 255, g: 78, b: 78)
 //    }
 //    
-//    if str == "已批改" {
+//    if str == "已批改-待更正错题" {
 //        return kSetRGBColor(r: 102, g: 204, b: 0)
 //    }
 //    
@@ -301,6 +303,50 @@ func kGetColorFromString(str:String) -> (UIColor){
     
     return kSetRGBColor(r: 255, g: 78, b: 78)
     
+}
+
+
+
+//MARK:获取班级type
+func kGetClassTypeFromString(str:String) -> (String){
+    
+    if str.contains("一年级") {
+        return "1"
+    }
+    if str.contains("二年级") {
+        return "2"
+    }
+    if str.contains("三年级") {
+        return "3"
+    }
+    if str.contains("四年级") {
+        return "4"
+    }
+    if str.contains("五年级") {
+        return "5"
+    }
+    if str.contains("六年级") {
+        return "6"
+    }
+    if str.contains("七年级") {
+        return "7"
+    }
+    if str.contains("八年级") {
+        return "8"
+    }
+    if str.contains("九年级") {
+        return "9"
+    }
+    if str.contains("高一") {
+        return "10"
+    }
+    if str.contains("高二") {
+        return "11"
+    }
+    if str.contains("高三") {
+        return "12"
+    }
+    return ""
 }
 
 

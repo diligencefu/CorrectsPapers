@@ -21,6 +21,7 @@ class MyBookCell: UITableViewCell {
     
     @IBOutlet weak var bookState: UILabel!
     
+    @IBOutlet weak var versionMark: UIButton!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -36,39 +37,42 @@ class MyBookCell: UITableViewCell {
         classMark.layer.cornerRadius = 9
         classMark.clipsToBounds = true
         classMark.setTitle(model.grade, for: .normal)
-        
+        classMark.snp.updateConstraints { (make) in
+            make.width.equalTo(getLabWidth(labelStr: model.grade!, font: kFont24, height: 18) + 20)
+        }
+
         objName.clipsToBounds = true
         objName.layer.cornerRadius = 9
         objName.layer.borderWidth = 1
+        objName.setTitleColor(kSetRGBColor(r: 255, g: 102, b: 116), for: .normal)
+        objName.layer.borderColor = kSetRGBColor(r: 255, g: 102, b: 116).cgColor
         objName.setTitle(model.subject_name, for: .normal)
+        objName.snp.updateConstraints { (make) in
+            make.width.equalTo(getLabWidth(labelStr: model.subject_name, font: kFont24, height: 18) + 20)
+        }
+        
+        versionMark.layer.borderColor = kGaryColor(num: 176).cgColor
+        versionMark.setTitleColor(kGaryColor(num: 176), for: .normal)
+        versionMark.layer.borderWidth = 1
+        versionMark.layer.cornerRadius = 9
+        versionMark.clipsToBounds = true
+        versionMark.setTitle(model.edition_id, for: .normal)
+        versionMark.snp.updateConstraints { (make) in
+            make.width.equalTo(getLabWidth(labelStr: model.edition_id, font: kFont24, height: 18) + 20)
+        }
         
         bookImage.kf.setImage(with:  URL(string:model.cover_photo)!, placeholder: #imageLiteral(resourceName: "class_default"), options: nil, progressBlock: nil, completionHandler: nil)
 
         bookTitle.text = model.work_book_name
         
         if (model.teacherName != "") {
-            
             correctTeacher.text = model.teacherName
         }else{
-            
             correctTeacher.text = "未分配老师"
-        }
-        
-        classMark.snp.updateConstraints { (make) in
-            make.width.equalTo(getLabWidth(labelStr: model.grade!, font: kFont24, height: 18) + 20)
-        }
-        
-        objName.snp.updateConstraints { (make) in
-            make.width.equalTo(getLabWidth(labelStr: model.subject_name, font: kFont24, height: 18) + 20)
         }
         
         bookState.text = kGetStateFromString(str:model.correcting_states!)
         bookState.textColor = kGetColorFromString(str: bookState.text!)
-        
-        objName.setTitleColor(kSetRGBColor(r: 255, g: 102, b: 116), for: .normal)
-        objName.layer.borderColor = kSetRGBColor(r: 255, g: 102, b: 116).cgColor
-        objName.layer.borderWidth = 1
-
     }
     
     

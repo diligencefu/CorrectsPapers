@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SwiftyUserDefaults
 
 class TMyBookViewController: BaseViewController {
     var emptyView = UIView()
@@ -33,8 +34,8 @@ class TMyBookViewController: BaseViewController {
     override func requestData() {
         
         let params =
-            ["SESSIONID":SESSIONIDT,
-             "mobileCode":mobileCodeT,
+            ["SESSIONID":Defaults[userToken]!,
+             "mobileCode":mobileCode,
              ]
         self.view.beginLoading()
         NetWorkTeacherGetMyWorkList(params: params) { (datas,flag) in
@@ -49,8 +50,8 @@ class TMyBookViewController: BaseViewController {
     
     override func refreshHeaderAction() {
         let params =
-            ["SESSIONID":SESSIONIDT,
-             "mobileCode":mobileCodeT,
+            ["SESSIONID":Defaults[userToken]!,
+             "mobileCode":mobileCode,
              ]
         self.view.beginLoading()
         NetWorkTeacherGetMyWorkList(params: params) { (datas,flag) in
@@ -169,8 +170,8 @@ class TMyBookViewController: BaseViewController {
         if editingStyle == .delete {
             
             let params =
-                ["SESSIONID":SESSIONIDT,
-                 "mobileCode":mobileCodeT,
+                ["SESSIONID":Defaults[userToken]!,
+                 "mobileCode":mobileCode,
                  "workId":model.id
                     ] as! [String:String]
             self.view.beginLoading()
@@ -178,8 +179,8 @@ class TMyBookViewController: BaseViewController {
                 
                 if flag {
                     let params =
-                        ["SESSIONID":SESSIONIDT,
-                         "mobileCode":mobileCodeT,
+                        ["SESSIONID":Defaults[userToken]!,
+                         "mobileCode":Defaults[mCode]!,
                          ]
                     NetWorkTeacherGetMyWorkList(params: params) { (datas,flag) in
                         

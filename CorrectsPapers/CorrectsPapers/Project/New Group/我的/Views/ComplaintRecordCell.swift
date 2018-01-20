@@ -37,8 +37,8 @@ class ComplaintRecordCell: UITableViewCell {
     func changeState(model:TComplaintModel,isOn:Bool) -> Void {
         
         userName.text = model.user_name
-        userNum.text = model.user_num
-        headImage.kf.setImage(with:  URL(string:model.user_photo)!, placeholder: #imageLiteral(resourceName: "UserHead_64_default"), options: nil, progressBlock: nil, completionHandler: nil)
+        userNum.text = "学号 "+model.user_num
+        headImage.kf.setImage(with: OCTools.getEfficientAddress(model.user_photo), placeholder: #imageLiteral(resourceName: "UserHead_64_default"), options: nil, progressBlock: nil, completionHandler: nil)
         complaintCount.text = "\(model.coms.count)"
 
         if isOn {
@@ -46,7 +46,7 @@ class ComplaintRecordCell: UITableViewCell {
         }else{
             showState.image = #imageLiteral(resourceName: "dropdown-arrow_icon")
         }
-    }
+    } 
     
 
     override func setSelected(_ selected: Bool, animated: Bool) {

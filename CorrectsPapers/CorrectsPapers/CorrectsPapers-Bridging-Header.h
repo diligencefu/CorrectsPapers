@@ -36,4 +36,8 @@
 
 #import "TZImagePickerController.h"
 
+///跑马灯
+#import "AutoScrollLabel.h"
+
+
 #endif /* CorrectsPapers_Bridging_Header_h */

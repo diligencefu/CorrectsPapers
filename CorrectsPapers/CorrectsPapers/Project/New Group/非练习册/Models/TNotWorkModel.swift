@@ -42,6 +42,8 @@ class TNotWorkModel: NSObject {
     var teacher_name : String!
     ///科目
     var subject_id : String!
+    ///创建时间
+    var create_date : String!
 
     class func setValueForTNotWorkModel(json: JSON) -> TNotWorkModel {
         
@@ -62,6 +64,7 @@ class TNotWorkModel: NSObject {
         model.reason = json["reason"].stringValue
         model.teacher_name = json["teacher_name"].stringValue
         model.subject_id = json["subject_id"].stringValue
+        model.create_date = json["create_date"].stringValue
         return model
     }
 

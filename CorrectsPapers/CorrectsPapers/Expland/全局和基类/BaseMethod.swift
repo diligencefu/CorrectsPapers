@@ -11,7 +11,7 @@ import UIKit
 //  验证身份证号
 func validateIdentityCardNumber(identityCard:String) -> Bool {
     
-    if identityCard.characters.count > 0 {
+    if identityCard.count > 0 {
         let regex2 = "^(\\d{14}|\\d{17})(\\d|[xX])$"
         let identityCardPredicate = NSPredicate.init(format: "SELF MATCHES"+regex2, CVarArg.self as! CVarArg)
         return identityCardPredicate.evaluate(with: identityCard)
@@ -20,12 +20,34 @@ func validateIdentityCardNumber(identityCard:String) -> Bool {
 }
 
 
+
+
+
 //*  分割字符串，并且取第一个字符串
 func compareDateWithChar(date:String,char:String) -> String {
     
     let arr = date.components(separatedBy: char)
     return arr[0]
     
+}
+
+
+func checkoutPhoneNum(for regex: String, in phoneNum: String) -> Bool {
+    do {
+        let regex = try NSRegularExpression(pattern: regex)
+        let nsString = phoneNum as NSString
+        let results = regex.matches(in: phoneNum, range: NSRange(location: 0, length: nsString.length))
+        let resultArray = results.map { nsString.substring(with: $0.range) }
+        print(resultArray.count)
+        if resultArray.count > 0 {
+            return true
+        } else {
+            return false
+        }
+    } catch let error {
+        print("无效正则表达式: \(error.localizedDescription)")
+        return false
+    }
 }
 
 
@@ -64,16 +86,15 @@ func validateTelNumber(num:NSString)->Bool
 
 
 //  验证邮箱
-func validateEmail(identityCard:String) -> Bool {
+func validateEmail(email: String) -> Bool {
     
-    if identityCard.characters.count > 0 {
-        let regex2 = "^([a-z0-9_\\.-]+)@([\\da-z\\.-]+)\\.([a-z\\.]{2,6})$"
-        let identityCardPredicate = NSPredicate.init(format: "SELF MATCHES"+regex2, CVarArg.self as! CVarArg)
-        return identityCardPredicate.evaluate(with: identityCard)
-    }
-    return false
+    let emailRegex = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}"
+    
+    let emailTest:NSPredicate = NSPredicate(format: "SELF MATCHES %@", emailRegex)
+    
+    return emailTest.evaluate(with: email)
+    
 }
-
 
 class BaseMethod: NSObject {
 

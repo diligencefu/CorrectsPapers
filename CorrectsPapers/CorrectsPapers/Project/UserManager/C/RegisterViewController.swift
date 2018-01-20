@@ -11,7 +11,7 @@ import SnapKit
 import SDAutoLayout
 import SwiftyUserDefaults
 
-class RegisterViewController: BaseViewController {
+class RegisterViewController: UIViewController {
     @IBOutlet weak var phoneNum: UITextField!
     
     @IBOutlet weak var verifyCode: UITextField!
@@ -38,10 +38,28 @@ class RegisterViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        configSubViews()
+        
+        self.navigationController?.navigationBar.setBackgroundImage(getNavigationIMG(64, fromColor: kSetRGBColor(r: 0, g: 200, b: 255), toColor: kSetRGBColor(r: 0, g: 160, b: 255)), for: .default)
+        
+        self.navigationItem.leftBarButtonItem?.tintColor = kSetRGBColor(r: 255, g: 255, b: 255)
+        self.navigationItem.rightBarButtonItem?.tintColor = UIColor.white
+        UIApplication.shared.statusBarStyle = .lightContent
+
+        
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem.init(image: #imageLiteral(resourceName: "back_icon_default"), style: .done, target: self, action: #selector(backAction(sender:)))
+        //        返回手势
+        
+        self.navigationController?.interactivePopGestureRecognizer?.delegate = self as? UIGestureRecognizerDelegate
         
     }
     
-    override func configSubViews() {
+    //    返回事件
+    @objc func backAction(sender:UIBarButtonItem) -> Void {
+        self.navigationController?.popViewController(animated: true)
+    }
+    
+    func configSubViews() {
         self.navigationItem.title = "注册"
         
         self.view.backgroundColor = UIColor.white
@@ -60,7 +78,7 @@ class RegisterViewController: BaseViewController {
         
         //        MARK:验证码
         verifyCode.clipsToBounds = true
-        verifyCode.rightViewRect(forBounds: CGRect(x: 0, y: 0, width: 135, height: 25))
+        verifyCode.rightViewRect(forBounds: CGRect(x: 0, y: 0, width: 135+20, height: 25))
         verifyCode.rightViewMode = .always
 
         //        MARK:密码
@@ -77,7 +95,7 @@ class RegisterViewController: BaseViewController {
         rePassWord.keyboardType = .namePhonePad
         
         //        MARK:发送验证码按钮
-        sendCode = UIButton.init(frame: CGRect(x: 0, y: 0, width: 160*kSCREEN_SCALE, height: 54*kSCREEN_SCALE))
+        sendCode = UIButton.init(frame: CGRect(x: 0, y: 0, width: 200*kSCREEN_SCALE, height: 54*kSCREEN_SCALE))
         sendCode.setTitle("发送验证码", for: .normal)
         sendCode.titleLabel?.font = kFont26
         sendCode.setTitleColor(UIColor.white, for: .normal)
@@ -118,9 +136,29 @@ class RegisterViewController: BaseViewController {
     
     
     @objc func sendVertifiCode(sender:UIButton) {
-     
+        
+        if phoneNum.text?.count == 0 {
+            setToast(str: "请输入手机号")
+        }
+
+        if !OCTools.checkoutPhoneNum(phoneNum.text!) {
+            setToast(str: "请输入正确的账号")
+            return
+        }
+        
+//        if !validateTelNumber(num: phoneNum.text! as NSString) {
+//            setToast(str: "请输入正确的账号")
+//            return
+//        }
+        
 //        发送验证码
         netWorkForSendCode(phoneNumber: phoneNum.text!) { (code,flag) in
+            
+            if !flag{
+                self.sendCode.isEnabled = true
+                self.sendCode.setTitle("发送验证码", for: .normal)
+                self.invalidateTimer()
+            }
         }
         
         invalidateTimer()
@@ -131,7 +169,6 @@ class RegisterViewController: BaseViewController {
         DispatchQueue.main.async {
             self.timer = Timer.scheduledTimer(timeInterval: TimeInterval(1), target: self, selector: #selector(self.changeBtnTitle), userInfo: nil, repeats: true)
             RunLoop.main.add(self.timer, forMode: .commonModes)
-
         }
     }
     
@@ -195,7 +232,7 @@ class RegisterViewController: BaseViewController {
     
     @IBAction func nextAction(_ sender: UIButton) {
         
-        if !validateTelNumber(num: phoneNum.text! as NSString) {
+        if !OCTools.checkoutPhoneNum(phoneNum.text!) {
             setToast(str: "请输入正确的账号")
             return
         }
@@ -220,9 +257,7 @@ class RegisterViewController: BaseViewController {
                     perfecVC.Thecode = self.verifyCode.text!
                     self.navigationController?.pushViewController(perfecVC, animated: true)
                 }
-            })
-            
-            
+            })            
         }else{
             setToast(str: "两次密码输入不一致")
             return

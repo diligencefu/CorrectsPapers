@@ -76,6 +76,18 @@
                             <action selector="addBookAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="nvT-wW-dKA"/>
                         </connections>
                     </button>
+                    <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="byU-Jj-3Te">
+                        <rect key="frame" x="217" y="49" width="40" height="18"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="31" id="Efu-5h-rFt"/>
+                            <constraint firstAttribute="height" constant="18" id="mwf-5R-m0O"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                        <state key="normal" title="人教版">
+                            <color key="titleColor" red="0.096586210699999994" green="0.097319232180000007" blue="0.099518296630000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        </state>
+                    </button>
                 </subviews>
                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                 <constraints>
@@ -84,10 +96,12 @@
                     <constraint firstItem="kwF-4Q-azp" firstAttribute="centerY" secondItem="bi7-We-b6A" secondAttribute="centerY" id="Ewq-ly-ql8"/>
                     <constraint firstItem="xZ0-pS-MAB" firstAttribute="leading" secondItem="dlC-pQ-mpc" secondAttribute="trailing" constant="8" id="FgV-ur-rc7"/>
                     <constraint firstItem="yUM-87-unk" firstAttribute="centerX" secondItem="aI3-H4-1Zy" secondAttribute="centerX" id="Hwy-YQ-GBC"/>
+                    <constraint firstItem="byU-Jj-3Te" firstAttribute="leading" secondItem="kwF-4Q-azp" secondAttribute="trailing" constant="8" id="LhL-jM-v6z"/>
                     <constraint firstItem="aI3-H4-1Zy" firstAttribute="height" secondItem="yUM-87-unk" secondAttribute="height" id="O6B-9S-ABK"/>
                     <constraint firstItem="yUM-87-unk" firstAttribute="trailing" secondItem="H2p-sc-9uM" secondAttribute="trailingMargin" constant="5" id="QlP-bF-gEi"/>
                     <constraint firstItem="dlC-pQ-mpc" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="Sw0-MA-pZx"/>
                     <constraint firstItem="bi7-We-b6A" firstAttribute="leading" secondItem="xZ0-pS-MAB" secondAttribute="leading" id="VeY-Ld-z1w"/>
+                    <constraint firstItem="byU-Jj-3Te" firstAttribute="centerY" secondItem="kwF-4Q-azp" secondAttribute="centerY" id="W9s-WV-bFK"/>
                     <constraint firstItem="xZ0-pS-MAB" firstAttribute="top" secondItem="dlC-pQ-mpc" secondAttribute="top" id="aCj-wG-2nb"/>
                     <constraint firstItem="dlC-pQ-mpc" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="amD-ze-fsI"/>
                     <constraint firstItem="yUM-87-unk" firstAttribute="centerY" secondItem="aI3-H4-1Zy" secondAttribute="centerY" id="dIF-0a-Zuz"/>
@@ -106,11 +120,12 @@
                 <outlet property="btnBGImage" destination="aI3-H4-1Zy" id="h5H-aX-YTc"/>
                 <outlet property="classMark" destination="kwF-4Q-azp" id="ger-lr-80C"/>
                 <outlet property="proName" destination="bi7-We-b6A" id="8Iq-Tm-sLw"/>
+                <outlet property="versionMark" destination="byU-Jj-3Te" id="LU7-su-6cg"/>
             </connections>
             <point key="canvasLocation" x="-9" y="119"/>
         </tableViewCell>
     </objects>
     <resources>
-        <image name="workBook" width="160" height="200"/>
+        <image name="workBook" width="100" height="100"/>
     </resources>
 </document>

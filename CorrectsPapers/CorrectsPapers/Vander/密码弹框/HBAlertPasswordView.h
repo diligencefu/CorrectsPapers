@@ -17,6 +17,9 @@
  */
 - (void)sureActionWithAlertPasswordView:(HBAlertPasswordView *)alertPasswordView password:(NSString *)password;
 
+@optional
+-(void)cancelAction;
+
 @end
 
 @interface HBAlertPasswordView : UIView

@@ -8,9 +8,10 @@
 
 import UIKit
 import SwiftyJSON
+import SwiftyUserDefaults
 
 class ReloadNotWorkViewController: BaseViewController {
-    
+
     var non_exercise_Id = ""
     var images = NSMutableArray()
 
@@ -24,7 +25,7 @@ class ReloadNotWorkViewController: BaseViewController {
         
         let params =
             [
-                "SESSIONID":SESSIONID,
+                "SESSIONID":Defaults[userToken]!,
                 "mobileCode":mobileCode,
                 "non_exercise_Id":non_exercise_Id
         ]
@@ -76,15 +77,15 @@ class ReloadNotWorkViewController: BaseViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell : UpLoadWorkCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable, for: indexPath) as! UpLoadWorkCell
-        cell.upLoadImagesForResubmit(images: images as! Array<UIImage>)
+        cell.upLoadImagesForResubmit(images: images as! Array<UIImage>, timeStr: "")
         
         cell.chooseImagesAction = {
             if $0 == "uploadAction" {
                 let params =
                     [
                         "non_exercise_Id":self.non_exercise_Id,
-                        "SESSIONID":SESSIONID,
-                        "mobileCode":mobileCode
+                        "SESSIONID":Defaults[userToken]!,
+                        "mobileCode":Defaults[mCode]!
                 ]
                 
                 var nameArr = [String]()

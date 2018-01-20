@@ -8,6 +8,7 @@
 
 import UIKit
 import SwiftyJSON
+import SwiftyUserDefaults
 
 class QQQEditorViewController: UIViewController {
     
@@ -66,6 +67,7 @@ class QQQEditorViewController: UIViewController {
     var lastScaleFactor : CGFloat! = 1  //放大、缩小
     
     var correctDoneBlock:(()->())?  //声明闭包
+    
 
     
     lazy var choosePencilView: PencilChooseView = {
@@ -178,13 +180,14 @@ class QQQEditorViewController: UIViewController {
     
     //MARK: - 选择画笔颜色
     @objc func clickPencilImageView(){
-        self.view.addSubview(self.choosePencilView)
-        self.view.bringSubview(toFront: self.settingView)
-        self.choosePencilView.cl_y = self.settingView.cl_y
-        UIView.animate(withDuration: 0.3) {
-            self.choosePencilView.cl_y = self.settingView.cl_y-40
-        }
+//        self.view.addSubview(self.choosePencilView)
+//        self.view.bringSubview(toFront: self.settingView)
+//        self.choosePencilView.cl_y = self.settingView.cl_y
+//        UIView.animate(withDuration: 0.3) {
+//            self.choosePencilView.cl_y = self.settingView.cl_y-40
+//        }
     }
+    
     //MARK: - 选择画笔结束
     func choosePencilViewDismiss() {
         UIView.animate(withDuration: 0.3, animations: {
@@ -400,7 +403,13 @@ class QQQEditorViewController: UIViewController {
         self.view.addSubview(BGView)
         
         markView = UINib(nibName:"GiveMarkView",bundle:nil).instantiate(withOwner: self, options: nil).first as! GiveMarkView
-        markView.frame =  CGRect(x: 0, y: kSCREEN_HEIGHT, width: kSCREEN_WIDTH, height: 236)
+        
+        if kSCREEN_WIDTH == 375 {
+            markView.frame =  CGRect(x: 0, y: kSCREEN_HEIGHT, width: kSCREEN_WIDTH, height: 236)
+        }else{
+            markView.frame =  CGRect(x: 0, y: kSCREEN_HEIGHT, width: 375, height: 500)
+        }
+        
         markView.layer.cornerRadius = 24*kSCREEN_SCALE
         markView.selectBlock = {
             if $1 {
@@ -413,8 +422,8 @@ class QQQEditorViewController: UIViewController {
                     if self.bookState == "2" {
                         //   第一次
                         let params =
-                            ["SESSIONID":SESSIONIDT,
-                             "mobileCode":mobileCodeT,
+                            ["SESSIONID":Defaults[userToken]!,
+                             "mobileCode":Defaults[mCode]!,
                              "book_details_id":self.bookid,
                              "student_id":self.student_id,
                              "scores":$2,
@@ -432,8 +441,8 @@ class QQQEditorViewController: UIViewController {
                     }else if self.bookState == "5" {
                         //   第二次
                         let params =
-                            ["SESSIONID":SESSIONIDT,
-                             "mobileCode":mobileCodeT,
+                            ["SESSIONID":Defaults[userToken]!,
+                             "mobileCode":Defaults[mCode]!,
                              "book_details_id":self.bookid,
                              "scores":$2,
                              "student_id":self.student_id,
@@ -456,8 +465,8 @@ class QQQEditorViewController: UIViewController {
                     if self.bookState == "2" {
                         //   第一次
                         let params =
-                            ["SESSIONID":SESSIONIDT,
-                             "mobileCode":mobileCodeT,
+                            ["SESSIONID":Defaults[userToken]!,
+                             "mobileCode":Defaults[mCode]!,
                              "non_exercise_Id":self.bookid,
                              "scores":$2,
                              "student_id":self.student_id,
@@ -474,8 +483,8 @@ class QQQEditorViewController: UIViewController {
                     }else if self.bookState == "5" {
                         //   第二次
                         let params =
-                            ["SESSIONID":SESSIONIDT,
-                             "mobileCode":mobileCodeT,
+                            ["SESSIONID":Defaults[userToken]!,
+                             "mobileCode":Defaults[mCode]!,
                              "non_exercise_Id":self.bookid,
                              "scores":$2,
                              "student_id":self.student_id,
@@ -493,8 +502,8 @@ class QQQEditorViewController: UIViewController {
                     if self.bookState == "2" {
                         //   第一次
                         let params =
-                            ["SESSIONID":SESSIONIDT,
-                             "mobileCode":mobileCodeT,
+                            ["SESSIONID":Defaults[userToken]!,
+                             "mobileCode":Defaults[mCode]!,
                              "class_book_id":self.bookid,
                              "scores":$2,
                              "student_id":self.student_id,
@@ -510,8 +519,8 @@ class QQQEditorViewController: UIViewController {
                     }else if self.bookState == "5" {
                         //   第二次
                         let params =
-                            ["SESSIONID":SESSIONIDT,
-                             "mobileCode":mobileCodeT,
+                            ["SESSIONID":Defaults[userToken]!,
+                             "mobileCode":Defaults[mCode]!,
                              "class_book_id":self.bookid,
                              "scores":$2,
                              "student_id":self.student_id,
@@ -537,8 +546,10 @@ class QQQEditorViewController: UIViewController {
         let json = JSON(success)
         deBugPrint(item: json)
         
+         setToast(str: json["message"].stringValue)
+        
         if json["code"].stringValue == "1" {
-            setToast(str: "批改成功")
+//            setToast(str: "批改成功")
             
             if self.correctDoneBlock != nil {
                 self.correctDoneBlock!()

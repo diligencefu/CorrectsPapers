@@ -9,7 +9,7 @@
 import UIKit
 import SwiftyUserDefaults
 
-class PerfectInfoViewController: BaseViewController {
+class PerfectInfoViewController: UIViewController ,UITableViewDataSource,UITableViewDelegate{
 
     var isTeacher = false
     
@@ -29,19 +29,25 @@ class PerfectInfoViewController: BaseViewController {
     var proArr = [String]()
     var gradeArr = [String]()
     
+    let identyfierTable  = "identyfierTable"
+    let identyfierTable1 = "identyfierTable1"
+    let identyfierTable2 = "identyfierTable2"
+    let identyfierTable3 = "identyfierTable3"
+    let identyfierTable4 = "identyfierTable4"
+    let identyfierTable5 = "identyfierTable5"
+
+    var mainTableView = UITableView()
+    //    数据源
+    var mainTableArr = NSMutableArray()
+
     override func viewDidLoad() {
         super.viewDidLoad()
+        configSubViews()
         addTagsView()
-        
     }
-    
-    
-    override func addHeaderRefresh() {
         
-    }
     
-    
-    override func configSubViews() {
+    func configSubViews() {
         
         mainTableArr =  []
         
@@ -78,11 +84,27 @@ class PerfectInfoViewController: BaseViewController {
         footView.addSubview(login)
         mainTableView.tableFooterView = footView
         
+        self.navigationController?.navigationBar.setBackgroundImage(getNavigationIMG(64, fromColor: kSetRGBColor(r: 0, g: 200, b: 255), toColor: kSetRGBColor(r: 0, g: 160, b: 255)), for: .default)
+        
+        self.navigationItem.leftBarButtonItem?.tintColor = kSetRGBColor(r: 255, g: 255, b: 255)
+        self.navigationItem.rightBarButtonItem?.tintColor = UIColor.white
+        UIApplication.shared.statusBarStyle = .lightContent
+
+        
+        self.navigationController?.navigationBar.isTranslucent = false
+        self.view.backgroundColor = kBGColor()
+
+        
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem.init(image: #imageLiteral(resourceName: "back_icon_default"), style: .done, target: self, action: #selector(backAction(sender:)))
+        //        返回手势
+        
+        self.navigationController?.interactivePopGestureRecognizer?.delegate = self as? UIGestureRecognizerDelegate
+        
     }
     
-    
-    override func requestData() {
-        
+    //    返回事件
+    @objc func backAction(sender:UIBarButtonItem) -> Void {
+        self.navigationController?.popViewController(animated: true)
     }
     
     @objc func loginAction() {
@@ -100,15 +122,51 @@ class PerfectInfoViewController: BaseViewController {
         var params = [String:Any]()
         let cell = mainTableView.cellForRow(at: IndexPath.init(row: 0, section: 0)) as! TeacherInfoCell1
         let cell1 = mainTableView.cellForRow(at: IndexPath.init(row: 1, section: 0)) as! TeacherInfoCell1
+        
+        if cell.textField.text?.count == 0{
+            setToast(str: "请输入姓名")
+            return
+        }
 
         if isTeacher {
+            
+            if !validateEmail(email: cell1.textField.text!) {
+                setToast(str: "请输入正确的邮箱账号")
+                return
+            }
+            
+            if infoArr[0][2] == "选择我的学历" {
+                setToast(str: "请选择学历")
+                return
+            }
+
+            if infoArr[0][3] == "选择所在地" {
+                setToast(str: "请选择所在地")
+                return
+            }
+            
+            if infoArr[1][0] == "选择适合科目" {
+                setToast(str: "请选择适合科目")
+                return
+            }
+            
+            if infoArr[1][1] == "选择适合年级" {
+                setToast(str: "请选择适合年级")
+                return
+            }
+            
+            if infoArr[1][2] == "选择我的工作时间" {
+                setToast(str: "请选择工作时间")
+                return
+            }
+            
             params =
                 ["phone":phoneNum,
                  "password":passWord,
                  "content":Thecode,
                  "name":cell.textField.text!,
                  "area_id":infoArr[0][3],
-                 "class_id":infoArr[1][1],
+                 "userFitClass":infoArr[1][1],
                  "email":cell1.textField.text!,
                  "subject_id":infoArr[1][0],
                  "education":infoArr[0][2],
@@ -118,13 +176,23 @@ class PerfectInfoViewController: BaseViewController {
             ]
         }else{
             
+            if infoArr[0][1] == "选择所在地" {
+                setToast(str: "请选择所在地")
+                return
+            }
+            
+            if infoArr[0][2] == "选择我的年级" {
+                setToast(str: "请选择所在年级")
+                return
+            }
+
             params =
                 ["phone":phoneNum,
                  "password":passWord,
                  "content":Thecode,
                  "name":cell.textField.text!,
                  "area_id":infoArr[0][1],
-                 "class_id":infoArr[0][2],
+                 "userFitClass":infoArr[0][2],
                  "user_type":"1",
                  "type":"1"
             ]
@@ -140,6 +208,7 @@ class PerfectInfoViewController: BaseViewController {
                     Defaults[userArea] = self.infoArr[0][1]
 //                    Defaults[userId] = "学号 008"
                     Defaults[userGrade] = self.infoArr[0][2]
+                    
                 }else{
 //                    老师
                     Defaults[userIdentity] = kTeacher
@@ -180,12 +249,12 @@ class PerfectInfoViewController: BaseViewController {
     
     
     //MARK:  ******代理 ：UITableViewDataSource,UITableViewDelegate
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         return dataArr[section].count
     }
     
-    override func numberOfSections(in tableView: UITableView) -> Int {
+     func numberOfSections(in tableView: UITableView) -> Int {
         
         if isTeacher {
             return 2
@@ -193,7 +262,7 @@ class PerfectInfoViewController: BaseViewController {
         return 1
     }
     
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell : TeacherInfoCell1 = tableView.dequeueReusableCell(withIdentifier: identyfierTable, for: indexPath) as! TeacherInfoCell1
         
@@ -220,7 +289,7 @@ class PerfectInfoViewController: BaseViewController {
         return cell
     }
     
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         
         if isTeacher {
@@ -257,12 +326,9 @@ class PerfectInfoViewController: BaseViewController {
             }else if indexPath.row == 2 {
                 showGradeTagsView()
             }
-            
         }
-        
-        
-        
     }
+    
     
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         
@@ -279,7 +345,7 @@ class PerfectInfoViewController: BaseViewController {
         return view
     }
     
-    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         
         if section == 0 {
             return 0
@@ -287,7 +353,7 @@ class PerfectInfoViewController: BaseViewController {
         return 19 * kSCREEN_SCALE
     }
     
-    override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return 0.01 * kSCREEN_SCALE
     }
     
@@ -314,6 +380,7 @@ class PerfectInfoViewController: BaseViewController {
         }
     }
     
+    
     func hiddenViews() {
         UIView.animate(withDuration: 0.5) {
             self.BGView.alpha = 0
@@ -323,7 +390,6 @@ class PerfectInfoViewController: BaseViewController {
             self.areaView.transform = .identity
             self.academicView.transform = .identity
         }
-        
     }
     
     
@@ -336,16 +402,17 @@ class PerfectInfoViewController: BaseViewController {
             totalNum = 1
         }
         //        弹出视图弹出来之后的背景蒙层
-        BGView = UIView.init(frame: self.view.frame)
+        BGView = UIView.init(frame: self.view.bounds)
         BGView.backgroundColor = kSetRGBAColor(r: 5, g: 5, b: 5, a: 0.5)
         BGView.alpha = 0
-        //        BGView.isHidden = true
+
         
         let tapGes1 = UITapGestureRecognizer.init(target: self, action: #selector(showChooseCondi(tap:)))
         tapGes1.numberOfTouchesRequired = 1
         BGView.addGestureRecognizer(tapGes1)
         self.view.addSubview(BGView)
         
+
         
         projectTagsView = UINib(nibName:"ShowTagsView",bundle:nil).instantiate(withOwner: self, options: nil).first as! ShowTagsView
         projectTagsView.ShowTagsViewForProjects(title: "选择批改科目")
@@ -360,6 +427,8 @@ class PerfectInfoViewController: BaseViewController {
         }
         projectTagsView.clipsToBounds = true
         self.view.addSubview(projectTagsView)
+        
+        
         
         gradeTagsView = UINib(nibName:"ShowTagsView",bundle:nil).instantiate(withOwner: self, options: nil).first as! ShowTagsView
         gradeTagsView.ShowTagsViewForGrades(title: "选择适合年级",total: totalNum)
@@ -376,13 +445,13 @@ class PerfectInfoViewController: BaseViewController {
                     self.infoArr[0][2] = $0
                     self.mainTableView.reloadSections([0], with: .automatic)
                 }
-                
             }
             self.hiddenViews()
         }
-        
         gradeTagsView.clipsToBounds = true
         self.view.addSubview(gradeTagsView)
+        
+        
         
         timeView = UINib(nibName:"ShowTagsView",bundle:nil).instantiate(withOwner: self, options: nil).first as! ShowTagsView
         timeView.ShowTagsViewForChooseEdu(title: "选择工作时间", index: 1)
@@ -397,6 +466,8 @@ class PerfectInfoViewController: BaseViewController {
         }
         timeView.clipsToBounds = true
         self.view.addSubview(timeView)
+        
+        
         
         areaView = UINib(nibName:"ChooseCityView",bundle:nil).instantiate(withOwner: self, options: nil).first as! ChooseCityView
 //        areaView.ShowTagsViewForChooseEdu(title: "选择地区", index: 0)
@@ -417,9 +488,10 @@ class PerfectInfoViewController: BaseViewController {
             }
             self.hiddenViews()
         }
-        
         areaView.clipsToBounds = true
         self.view.addSubview(areaView)
+        
+        
         
         academicView = UINib(nibName:"ShowTagsView",bundle:nil).instantiate(withOwner: self, options: nil).first as! ShowTagsView
         academicView.ShowTagsViewForChooseEdu(title: "选择学历", index: 10002)
@@ -435,8 +507,8 @@ class PerfectInfoViewController: BaseViewController {
         
         academicView.clipsToBounds = true
         self.view.addSubview(academicView)
-
     }
+    
     
     
     func showTheProjectTagsView() -> Void {
@@ -446,7 +518,6 @@ class PerfectInfoViewController: BaseViewController {
             self.projectTagsView.transform = .init(translationX: 0, y: -y)
             self.BGView.alpha = 1
         }
-        
     }
     
     
@@ -460,6 +531,7 @@ class PerfectInfoViewController: BaseViewController {
     }
     
     
+    
     func showTimeView() -> Void {
         let y = CGFloat(265)
         UIView.animate(withDuration: 0.5) {
@@ -468,6 +540,7 @@ class PerfectInfoViewController: BaseViewController {
         }
         
     }
+    
     
     
     func showAreaView() -> Void {
@@ -479,6 +552,7 @@ class PerfectInfoViewController: BaseViewController {
     }
     
     
+    
     func showAcademicView() -> Void {
         let y = CGFloat(265)
         UIView.animate(withDuration: 0.5) {
@@ -487,6 +561,3 @@ class PerfectInfoViewController: BaseViewController {
         }
     }
 }
-
-
-      

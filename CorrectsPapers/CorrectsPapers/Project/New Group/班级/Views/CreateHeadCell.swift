@@ -16,6 +16,8 @@ class CreateHeadCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        classImage.clipsToBounds = true
+        classImage.layer.cornerRadius = 8*kSCREEN_SCALE
     }
 
     

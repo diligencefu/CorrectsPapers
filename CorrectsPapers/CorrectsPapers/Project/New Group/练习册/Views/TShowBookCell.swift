@@ -26,6 +26,9 @@ class TShowBookCell: UITableViewCell {
     
     @IBOutlet weak var addBtn: UIButton!
     
+    @IBOutlet weak var versionMark: UIButton!
+    
+    
     var addWorkBlock:(()->())?  //声明闭包
 
     override func awakeFromNib() {
@@ -34,15 +37,15 @@ class TShowBookCell: UITableViewCell {
         addBtn.layer.cornerRadius = 5
         addBtn.clipsToBounds = true
         
-    }
-    func TShowBookCellSetValue(model:WorkBookModel) {
-        
         gradeMark.layer.borderColor = kGaryColor(num: 111).cgColor
         gradeMark.setTitleColor(kGaryColor(num: 111), for: .normal)
         
+        versionMark.layer.borderColor = kGaryColor(num: 111).cgColor
+        versionMark.setTitleColor(kGaryColor(num: 111), for: .normal)
+        
         proMark.layer.borderColor = kSetRGBColor(r: 255, g: 102, b: 116).cgColor
         proMark.setTitleColor(kSetRGBColor(r: 255, g: 102, b: 116), for: .normal)
-
+        
         gradeMark.layer.borderWidth = 1
         gradeMark.layer.cornerRadius = 9
         gradeMark.clipsToBounds = true
@@ -50,6 +53,14 @@ class TShowBookCell: UITableViewCell {
         proMark.clipsToBounds = true
         proMark.layer.cornerRadius = 9
         proMark.layer.borderWidth = 1
+
+        versionMark.clipsToBounds = true
+        versionMark.layer.cornerRadius = 9
+        versionMark.layer.borderWidth = 1
+
+    }
+    func TShowBookCellSetValue(model:WorkBookModel) {
+        
         
         gradeMark.snp.updateConstraints { (make) in
             make.width.equalTo(getLabWidth(labelStr: model.class_name, font: kFont24, height: 18) + 20)
@@ -59,6 +70,10 @@ class TShowBookCell: UITableViewCell {
             make.width.equalTo(getLabWidth(labelStr: model.subject_name, font: kFont24, height: 18) + 20)
         }
         
+        versionMark.snp.updateConstraints { (make) in
+            make.width.equalTo(getLabWidth(labelStr: model.edition_id, font: kFont24, height: 18) + 20)
+        }
+
         
         gradeMark.setTitle(model.class_name, for: .normal)
         
@@ -95,16 +110,6 @@ class TShowBookCell: UITableViewCell {
     
     func TShowBookCellForSearch(index:NSInteger) {
         
-        gradeMark.layer.borderColor = kGaryColor(num: 111).cgColor
-        gradeMark.setTitleColor(kGaryColor(num: 111), for: .normal)
-        gradeMark.layer.borderWidth = 1
-        gradeMark.layer.cornerRadius = 9
-        gradeMark.clipsToBounds = true
-        
-        proMark.clipsToBounds = true
-        proMark.layer.cornerRadius = 9
-        proMark.layer.borderWidth = 1
-        
         studentCount.isHidden = true
         termDate.isHidden = true
         label1.isHidden = true
@@ -118,6 +123,10 @@ class TShowBookCell: UITableViewCell {
             make.width.equalTo(getLabWidth(labelStr: "语文", font: kFont24, height: 18) + 20)
         }
         
+//        versionMark.snp.updateConstraints { (make) in
+//            make.width.equalTo(getLabWidth(labelStr: model.edition_id, font: kFont24, height: 18) + 20)
+////        }
+
         if index%4 > 2 {
             proMark.layer.borderColor = kSetRGBColor(r: 102, g: 200, b: 205).cgColor
             proMark.setTitleColor(kSetRGBColor(r: 102, g: 200, b: 205), for: .normal)

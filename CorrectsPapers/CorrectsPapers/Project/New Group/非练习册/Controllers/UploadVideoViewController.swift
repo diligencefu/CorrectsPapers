@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SwiftyUserDefaults
 
 class UploadVideoViewController: BaseViewController ,UIAlertViewDelegate{
 
@@ -92,8 +93,8 @@ class UploadVideoViewController: BaseViewController ,UIAlertViewDelegate{
                 
                 if currentType == 1 {
                     params1 =
-                        ["SESSIONID":SESSIONIDT,
-                         "mobileCode":mobileCodeT,
+                        ["SESSIONID":Defaults[userToken]!,
+                         "mobileCode":mobileCode,
                          "bookId":bookId,
                          "counts":textfield1.text!,
                          "title":textfield2.text!,
@@ -103,8 +104,8 @@ class UploadVideoViewController: BaseViewController ,UIAlertViewDelegate{
                         ] as [String : Any]
                 }else{
                     params1 =
-                        ["SESSIONID":SESSIONIDT,
-                         "mobileCode":mobileCodeT,
+                        ["SESSIONID":Defaults[userToken]!,
+                         "mobileCode":mobileCode,
                          "bookId":bookId,
                          "counts":textfield1.text!,
                          "title":textfield2.text!,
@@ -137,41 +138,62 @@ class UploadVideoViewController: BaseViewController ,UIAlertViewDelegate{
                 }
                 self.view.beginLoading()
                 
-                var params1 = [String : Any]()
-                
-                if currentType == 1 {
-                    params1 =
-                        ["SESSIONID":SESSIONIDT,
-                         "mobileCode":mobileCodeT,
-                         "bookId":bookId,
+                if currentType == 4 {
+                    let params =
+                        ["SESSIONID":Defaults[userToken]!,
+                         "mobileCode":mobileCode,
+                         "periods_id":bookId,
                          "title":textfield1.text!,
-                         "answardRes":textfield2.text!,
-                         "date":bookDate,
+                         "address":textfield2.text!,
                          "money":priceTextfield.text!
                         ] as [String : Any]
-                }else{
-                    params1 =
-                        ["SESSIONID":SESSIONIDT,
-                         "mobileCode":mobileCodeT,
-                         "bookId":bookId,
-                         "title":textfield1.text!,
-                         "answardRes":textfield2.text!,
-                         "money":priceTextfield.text!
-                        ] as [String : Any]
-                }
-
-                NetWorkTeacherGetTWorkUploadVideo(params: params1, callBack: { (flag) in
-                    
-                    if flag {
-                        setToast(str: "已提交")
-                        if self.addUrlBlock != nil {
-                            self.addUrlBlock!()
+                    NetWorkTeacherUpLoadInClass(params: params, callBack: { (flag) in
+                        if flag {
+                            setToast(str: "已提交")
+                            if self.addUrlBlock != nil {
+                                self.addUrlBlock!()
+                            }
+                            self.navigationController?.popViewController(animated: true)
                         }
-                        self.navigationController?.popViewController(animated: true)
-                    }
-                    self.view.endLoading()
-                })
+                    })
+                    
+                }else{
+                    
+                    var params1 = [String : Any]()
 
+                    if currentType == 1 {
+                        params1 =
+                            ["SESSIONID":Defaults[userToken]!,
+                             "mobileCode":mobileCode,
+                             "bookId":bookId,
+                             "title":textfield1.text!,
+                             "answardRes":textfield2.text!,
+                             "date":bookDate,
+                             "money":priceTextfield.text!
+                            ] as [String : Any]
+                    }else{
+                        params1 =
+                            ["SESSIONID":Defaults[userToken]!,
+                             "mobileCode":mobileCode,
+                             "bookId":bookId,
+                             "title":textfield1.text!,
+                             "answardRes":textfield2.text!,
+                             "money":priceTextfield.text!
+                            ] as [String : Any]
+                    }
+                    
+                    NetWorkTeacherGetTWorkUploadVideo(params: params1, callBack: { (flag) in
+                        
+                        if flag {
+                            setToast(str: "已提交")
+                            if self.addUrlBlock != nil {
+                                self.addUrlBlock!()
+                            }
+                            self.navigationController?.popViewController(animated: true)
+                        }
+                        self.view.endLoading()
+                    })
+                }
             }
         }else{
             setToast(str: "取消了")

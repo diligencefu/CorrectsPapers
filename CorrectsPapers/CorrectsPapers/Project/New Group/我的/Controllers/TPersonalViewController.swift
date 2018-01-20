@@ -23,14 +23,52 @@ class TPersonalViewController: BaseViewController {
         mainTableView.mj_header = MJRefreshNormalHeader.init(refreshingBlock: {
             self.refreshHeaderAction()
         })
+        //        学生编辑资料成功
+        NotificationCenter.default.addObserver(self, selector: #selector(receiveNitification(nitofication:)), name: NSNotification.Name(rawValue: SuccessEditNotiStudent), object: nil)
     }
+    
+    @objc func receiveNitification(nitofication:Notification) {
+//        let params = [
+//            "SESSIONID":Defaults[userToken]!,
+//            "mobileCode":mobileCode
+//        ]
+//        netWorkForMyData(params: params) { (dataArr,flag) in
+//            
+//            if flag {
+//                if dataArr.count > 0{
+//                    self.model = dataArr[0] as! PersonalModel
+//                    self.infoArr = [[""],[self.model.coin_count!+"学币"],[self.model.friendCount+"人",""],[self.model.num,"",""]]
+//                    
+//                    Defaults[username] = self.model.user_name
+//                    Defaults[userArea] = self.model.user_area
+//                    Defaults[userId] = self.model.user_num
+//                    Defaults[userAccount] = OCTools.init().positiveFormat(self.model.coin_count!)
+//                    Defaults[messageNum] = self.model.num
+//                    Defaults[userAccount] = self.model.coin_count
+//                    Defaults[userFriendCount] = self.model.friendCount
+//                    Defaults[userGrade] = self.model.user_fit_class
+//                    
+//                    if Int(self.model.num)! > 0{
+//                        self.tabBarItem.badgeValue = self.model.num
+//                    }else{
+//                        self.tabBarItem.badgeValue = nil
+//                    }
+//                    self.mainTableView.reloadData()
+//
+//                }
+//                self.mainTableView.reloadData()
+//            }
+//        }
+    }
+    
+    
     
     override func requestData() {
         
         self.view.beginLoading()
         let params = [
-            "SESSIONID":SESSIONIDT,
-            "mobileCode":mobileCodeT
+            "SESSIONID":Defaults[userToken]!,
+            "mobileCode":mobileCode
         ]
         netWorkForMyData(params: params) { (dataArr,flag) in
 
@@ -38,18 +76,33 @@ class TPersonalViewController: BaseViewController {
                 if dataArr.count > 0{
                     self.model = dataArr[0] as! PersonalModel
                     self.infoArr = [[""],[self.model.coin_count!+"学币"],[self.model.friendCount+"人",""],[self.model.num,"",""]]
+                    
                     Defaults[username] = self.model.user_name
                     Defaults[userArea] = self.model.user_area
-                    Defaults[userPhone] = self.model.user_phone
                     Defaults[userId] = self.model.user_num
-                    //Defaults[userGrade]! = self.model.user_fit_class
+                    Defaults[userAccount] = OCTools.init().positiveFormat(self.model.coin_count!)
+                    Defaults[messageNum] = self.model.num
                     Defaults[userAccount] = self.model.coin_count
+                    Defaults[userFriendCount] = self.model.friendCount
+                    Defaults[userGrade] = self.model.user_fit_class
                     
+                    if Int(self.model.num)! > 0{
+                        if Int(self.model.num)!>99{
+                            self.tabBarItem.badgeValue = "99+"
+                        }else{
+                            self.tabBarItem.badgeValue = self.model.num
+                        }
+                    }else{
+                        self.tabBarItem.badgeValue = nil
+                    }
+                    self.mainTableView.reloadData()
+
                 }
                 self.mainTableView.reloadData()
             }
             self.view.endLoading()
         }
+        addShareView()
     }
     
     
@@ -57,8 +110,8 @@ class TPersonalViewController: BaseViewController {
         
         self.view.beginLoading()
         let params = [
-            "SESSIONID":SESSIONIDT,
-            "mobileCode":mobileCodeT
+            "SESSIONID":Defaults[userToken]!,
+            "mobileCode":mobileCode
         ]
         netWorkForMyData(params: params) { (dataArr,flag) in
             
@@ -70,9 +123,23 @@ class TPersonalViewController: BaseViewController {
                     Defaults[username] = self.model.user_name
                     Defaults[userArea] = self.model.user_area
                     Defaults[userId] = self.model.user_num
-                    Defaults[userPhone] = self.model.user_phone
-                    //Defaults[userGrade]! = self.model.user_fit_class
+                    Defaults[userAccount] = OCTools.init().positiveFormat(self.model.coin_count!)
+                    Defaults[messageNum] = self.model.num
                     Defaults[userAccount] = self.model.coin_count
+                    Defaults[userFriendCount] = self.model.friendCount
+                    Defaults[userGrade] = self.model.user_fit_class
+
+                    if Int(self.model.num)! > 0{
+                        if Int(self.model.num)!>99{
+                            self.tabBarItem.badgeValue = "99+"
+                        }else{
+                            self.tabBarItem.badgeValue = self.model.num
+                        }
+                    }else{
+                        self.tabBarItem.badgeValue = nil
+                    }
+                    self.mainTableView.reloadData()
+
                 }
                 
                 self.mainTableView.mj_header.endRefreshing()
@@ -104,12 +171,17 @@ class TPersonalViewController: BaseViewController {
         model.user_name = Defaults[username]
         model.user_area = Defaults[userArea]
         model.user_num = Defaults[userId]
-        //model.user_fit_class = Defaults[userGrade]!
         
+        if Defaults[userGrade] != nil {
+            model.user_fit_class = Defaults[userGrade]!
+        }else{
+            model.user_fit_class = "一年级"
+        }
+
         if Defaults[messageNum] != nil {
             model.num = Defaults[messageNum]
         }else{
-            model.num = "100"
+            model.num = "1"
         }
         if Defaults[userAccount] != nil{
             model.coin_count = Defaults[userAccount]
@@ -241,10 +313,8 @@ class TPersonalViewController: BaseViewController {
                 self.navigationController?.pushViewController(friendsVC, animated: true)
                 break
             case 1:
-                let perfecVC = PerfectInfoViewController()
-                perfecVC.isTeacher = false
-                self.navigationController?.pushViewController(perfecVC, animated: true)
 
+                showShareView()
                 break
             default:
                 break
@@ -271,4 +341,153 @@ class TPersonalViewController: BaseViewController {
             }
         }
     }
+    
+    
+    var BGView = UIView()
+    var shareView = ShareView()
+    
+    func addShareView()  {
+        //        弹出视图弹出来之后的背景蒙层
+        BGView = UIView.init(frame: self.view.frame)
+        BGView.backgroundColor = kSetRGBAColor(r: 5, g: 5, b: 5, a: 0.5)
+        BGView.alpha = 0
+        //        BGView.isHidden = true
+        
+        let tapGes1 = UITapGestureRecognizer.init(target: self, action: #selector(showChooseCondi(tap:)))
+        tapGes1.numberOfTouchesRequired = 1
+        BGView.addGestureRecognizer(tapGes1)
+        self.view.addSubview(BGView)
+        
+        shareView = UINib(nibName:"ShareView",bundle:nil).instantiate(withOwner: self, options: nil).first as! ShareView
+        shareView.frame =  CGRect(x: 0, y: kSCREEN_HEIGHT, width: kSCREEN_WIDTH, height: 278)
+        shareView.layer.cornerRadius = 30*kSCREEN_SCALE
+        shareView.clipsToBounds = true
+        shareView.chooseShareTypeAction = {
+            
+            // 1.创建分享参数
+            let shareParames = NSMutableDictionary()
+            shareParames.ssdkSetupShareParams(byText: Defaults[username]!+"邀请您加入思而邀请您加入思而慧！",
+                                              images : UIImage(named: "AppIcon.png"),
+                                              url : NSURL(string:"https://github.com/diligencefu/CorrectsPapers/commits/master") as URL!,
+                                              title : "思而慧，让孩子们从此独立完成作业！",
+                                              type : SSDKContentType.auto)
+            
+            switch $0 {
+            case .ShareTypeWechat:
+                //2.进行分享
+                ShareSDK.share(SSDKPlatformType.subTypeWechatSession, parameters: shareParames) { (state : SSDKResponseState, nil, entity : SSDKContentEntity?, error :Error?) in
+                    
+                    switch state{
+                    case SSDKResponseState.success: setToast(str: "分享成功")
+                    case SSDKResponseState.fail:    setToast(str: "分享失败")
+                    case SSDKResponseState.cancel:  setToast(str: "取消分享")
+                    default:
+                        break
+                    }
+                }
+                
+                break
+            case .ShareTypeQQ:
+                //2.进行分享
+                ShareSDK.share(SSDKPlatformType.subTypeQQFriend, parameters: shareParames) { (state : SSDKResponseState, nil, entity : SSDKContentEntity?, error :Error?) in
+                    
+                    switch state{
+                    case SSDKResponseState.success: setToast(str: "分享成功")
+                    case SSDKResponseState.fail:    setToast(str: "分享失败")
+                    case SSDKResponseState.cancel:  setToast(str: "取消分享")
+                    default:
+                        break
+                    }
+                }
+                
+                break
+            case .ShareTypeQQZone:
+                //2.进行分享
+                ShareSDK.share(SSDKPlatformType.subTypeQZone, parameters: shareParames) { (state : SSDKResponseState, nil, entity : SSDKContentEntity?, error :Error?) in
+                    
+                    switch state{
+                    case SSDKResponseState.success: setToast(str: "分享成功")
+                    case SSDKResponseState.fail:    setToast(str: "分享失败")
+                    case SSDKResponseState.cancel:  setToast(str: "取消分享")
+                    default:
+                        break
+                    }
+                }
+                break
+            default:
+                break
+            }
+            self.hiddenViews()
+        }
+        self.view.addSubview(shareView)
+    }
+    
+    
+    @objc func showChooseCondi(tap:UITapGestureRecognizer) -> Void {
+        if tap.view?.alpha == 1 {
+            
+            UIView.animate(withDuration: 0.5) {
+                tap.view?.alpha = 0
+                self.shareView.transform = .identity
+            }
+        }
+    }
+    
+    
+    func showShareView() -> Void {
+        let y = 235+49
+        
+        UIView.animate(withDuration: 0.5) {
+            self.shareView.transform = .init(translationX: 0, y: CGFloat(-y))
+            self.BGView.alpha = 1
+        }
+    }
+    
+    
+    func hiddenViews() {
+        
+        UIView.animate(withDuration: 0.5) {
+            self.BGView.alpha = 0
+            self.shareView.transform = .identity
+        }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        
+        let params = [
+            "SESSIONID":Defaults[userToken]!,
+            "mobileCode":mobileCode
+        ]
+        netWorkForMyData(params: params) { (dataArr,flag) in
+            
+            if flag {
+                if dataArr.count > 0{
+                    self.model = dataArr[0] as! PersonalModel
+                    self.infoArr = [[""],[self.model.coin_count!+"学币"],[self.model.friendCount+"人",""],[self.model.num,"",""]]
+                    
+                    Defaults[username] = self.model.user_name
+                    Defaults[userArea] = self.model.user_area
+                    Defaults[userId] = self.model.user_num
+                    Defaults[userAccount] = OCTools.init().positiveFormat(self.model.coin_count!)
+                    Defaults[messageNum] = self.model.num
+                    Defaults[userAccount] = self.model.coin_count
+                    Defaults[userFriendCount] = self.model.friendCount
+                    Defaults[userGrade] = self.model.user_fit_class
+                    
+                    if Int(self.model.num)! > 0{
+                        if Int(self.model.num)!>99{
+                            self.tabBarItem.badgeValue = "99+"
+                        }else{
+                            self.tabBarItem.badgeValue = self.model.num
+                        }
+                    }else{
+                        self.tabBarItem.badgeValue = nil
+                    }
+                }
+                self.mainTableView.reloadData()
+            }
+        }
+    }
+
+    
 }

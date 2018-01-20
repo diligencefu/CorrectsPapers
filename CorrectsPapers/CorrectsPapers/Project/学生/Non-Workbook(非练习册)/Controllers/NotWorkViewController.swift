@@ -8,24 +8,32 @@
 
 import UIKit
 import QuickLook
+import SwiftyUserDefaults
 
 class NotWorkViewController: BaseViewController ,QLPreviewControllerDelegate,QLPreviewControllerDataSource,refreshDelegate{
     
     let viewFile = QLPreviewController()
-    
     var pageNum = 1
     
     override func viewDidLoad() {
         super.viewDidLoad()
         addFooterRefresh()
         rightBarButton()
+        
+        
+//        接收 学生撤回非练习册作业的通知
+        NotificationCenter.default.addObserver(self, selector: #selector(receiveNitification(nitofication:)), name: NSNotification.Name(rawValue: SuccesscallBackNonWorkNotiS), object: nil)
     }
     
+    @objc func receiveNitification(nitofication:Notification) {
+        self.mainTableView.mj_header.beginRefreshing()
+    }
+
+    
     override func requestData() {
-        
         let param =
             [
-                "SESSIONID":SESSIONID,
+                "SESSIONID":Defaults[userToken]!,
                 "mobileCode":mobileCode,
                 "pageNo":"1",
                 ]
@@ -45,7 +53,7 @@ class NotWorkViewController: BaseViewController ,QLPreviewControllerDelegate,QLP
         pageNum = 1
         let param =
             [
-                "SESSIONID":SESSIONID,
+                "SESSIONID":Defaults[userToken]!,
                 "mobileCode":mobileCode,
                 "pageNo":"1",
                 ]
@@ -65,7 +73,7 @@ class NotWorkViewController: BaseViewController ,QLPreviewControllerDelegate,QLP
         pageNum = pageNum+1
         let param =
             [
-                "SESSIONID":SESSIONID,
+                "SESSIONID":Defaults[userToken]!,
                 "mobileCode":mobileCode,
                 "pageNo":String(pageNum),
                 ]
@@ -81,13 +89,13 @@ class NotWorkViewController: BaseViewController ,QLPreviewControllerDelegate,QLP
             }
             self.mainTableView.mj_footer.endRefreshing()
         }
-
     }
     
     
     override func leftBarButton() {
         
     }
+    
     
     override func configSubViews() {
         
@@ -101,12 +109,14 @@ class NotWorkViewController: BaseViewController ,QLPreviewControllerDelegate,QLP
         self.view.addSubview(mainTableView)
     }
     
+    
     //    右键
     func rightBarButton() {
         
         self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(image: #imageLiteral(resourceName: "book_icon_default"), style: .plain, target: self, action: #selector(createNotWork(sender:)))
         self.navigationItem.rightBarButtonItem?.tintColor = UIColor.white
     }
+    
     
     @objc func createNotWork(sender:UIBarButtonItem) {
 
@@ -144,8 +154,8 @@ class NotWorkViewController: BaseViewController ,QLPreviewControllerDelegate,QLP
     
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
         tableView.deselectRow(at: indexPath, animated: true)
+        
         if indexPath.row == 100 {
             
             viewFile.delegate = self
@@ -174,6 +184,4 @@ class NotWorkViewController: BaseViewController ,QLPreviewControllerDelegate,QLP
 //        return NSURL.fileURL(withPath: Bundle.main.path(forResource: "批改作业接口 1107(1)", ofType: "docx")!) as QLPreviewItem
         return NSURL.fileURL(withPath: "http://192.168.1.191:8080/duties/upload/files/20171207/20171207195522_469.docx") as QLPreviewItem
      }
-    
-    
 }

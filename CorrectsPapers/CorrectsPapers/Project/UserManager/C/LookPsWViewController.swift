@@ -7,8 +7,11 @@
 //
 
 import UIKit
+import SwiftyJSON
+import Alamofire
+import SwiftyUserDefaults
 
-class LookPsWViewController: BaseViewController {
+class LookPsWViewController: UIViewController {
 
     @IBOutlet weak var phoneNum: UITextField!
     
@@ -31,10 +34,29 @@ class LookPsWViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        configSubViews()
+        
+        
+        self.navigationController?.navigationBar.setBackgroundImage(getNavigationIMG(64, fromColor: kSetRGBColor(r: 0, g: 200, b: 255), toColor: kSetRGBColor(r: 0, g: 160, b: 255)), for: .default)
+        
+        self.navigationItem.leftBarButtonItem?.tintColor = kSetRGBColor(r: 255, g: 255, b: 255)
+        self.navigationItem.rightBarButtonItem?.tintColor = UIColor.white
+        UIApplication.shared.statusBarStyle = .lightContent
+
+        
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem.init(image: #imageLiteral(resourceName: "back_icon_default"), style: .done, target: self, action: #selector(backAction(sender:)))
+        //        返回手势
+        
+        self.navigationController?.interactivePopGestureRecognizer?.delegate = self as? UIGestureRecognizerDelegate
         
     }
     
-    override func configSubViews() {
+    //    返回事件
+    @objc func backAction(sender:UIBarButtonItem) -> Void {
+        self.navigationController?.popViewController(animated: true)
+    }
+    
+    func configSubViews() {
         self.navigationItem.title = "找回密码"
         
         self.view.backgroundColor = UIColor.white
@@ -53,7 +75,7 @@ class LookPsWViewController: BaseViewController {
         
         //        MARK:验证码
         verifyCode.clipsToBounds = true
-        verifyCode.rightViewRect(forBounds: CGRect(x: 0, y: 0, width: 135, height: 25))
+        verifyCode.rightViewRect(forBounds: CGRect(x: 0, y: 0, width: 135+20, height: 25))
         verifyCode.rightViewMode = .always
         
         //        MARK:密码
@@ -70,7 +92,7 @@ class LookPsWViewController: BaseViewController {
         rePassWord.keyboardType = .namePhonePad
         
         //        MARK:发送验证码按钮
-        sendCode = UIButton.init(frame: CGRect(x: 0, y: 0, width: 160*kSCREEN_SCALE, height: 54*kSCREEN_SCALE))
+        sendCode = UIButton.init(frame: CGRect(x: 0, y: 0, width: 200*kSCREEN_SCALE, height: 54*kSCREEN_SCALE))
         sendCode.setTitle("发送验证码", for: .normal)
         sendCode.titleLabel?.font = kFont26
         sendCode.setTitleColor(UIColor.white, for: .normal)
@@ -112,6 +134,38 @@ class LookPsWViewController: BaseViewController {
     
     @objc func sendVertifiCode(sender:UIButton) {
         
+        if phoneNum.text?.count == 0 {
+            setToast(str: "请输入手机号")
+        }
+        
+        if !validateTelNumber(num: phoneNum.text! as NSString) {
+            setToast(str: "请输入正确的账号")
+            return
+        }
+        
+        //        发送验证码
+        let params =
+            [
+                "phone":phoneNum.text!,
+                ] as [String : Any]
+        Alamofire.request(kSend_SmsGetPassWord,
+                          method: .get, parameters: params,
+                          encoding: URLEncoding.default, headers: nil).responseJSON { (response) in
+                            deBugPrint(item: response.result)
+                            switch response.result {
+                            case .success:
+                                if let j = response.result.value {
+                                    //SwiftyJSON解析数据
+                                    let JSOnDictory = JSON(j)
+                                    let Message =  JSOnDictory["message"].stringValue
+                                    setToast(str: Message)
+                                }
+                                break
+                            case .failure(let error):
+                                deBugPrint(item: error)
+                            }
+        }
+
         invalidateTimer()
         timeNow = 60
         sender.isEnabled = false
@@ -134,8 +188,9 @@ class LookPsWViewController: BaseViewController {
         }else{
             sendCode.setTitle("\(timeNow)s重新发送", for: .normal)
         }
-        
     }
+    
+    
     
     //    定时器失效
     fileprivate func invalidateTimer() {
@@ -173,11 +228,11 @@ class LookPsWViewController: BaseViewController {
         
         let params =
             [
-                "content":"456855",
-                "phone":"18939636603",
-                "password":"123456",
+                "content":verifyCode.text!,
+                "phone":phoneNum.text!,
+                "password":rePassWord.text!,
                 "type":"2",
-                ]
+                ] as [String : Any]
         
         if passWord.text?.count == 0 {
             setToast(str: "请输入密码")
@@ -185,10 +240,12 @@ class LookPsWViewController: BaseViewController {
         }
 
         if passWord.text == rePassWord.text {
-            netWorkForRegistAccount(params: params) { (code) in
-                
+            netWorkForRegistAccount(params: params) { (flag) in
+                if flag {
+                    self.navigationController?.popViewController(animated: true)
+                }
             }
-            
+
         }else{
             setToast(str: "两次密码输入不一致")
         }

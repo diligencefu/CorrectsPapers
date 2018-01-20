@@ -14,123 +14,51 @@
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.SwiftErrorBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "CorrectsPapers/Expand/HttpTools/NetWorkTools.swift"
-            timestampString = "535283084.419208"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2280"
-            endingLineNumber = "2280"
-            landmarkName = "netWorkForMyWorkBook(callBack:)"
-            landmarkType = "9">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "CorrectsPapers/Project/New Group/&#x7ec3;&#x4e60;&#x518c;/Views/TViewBookCell3.swift"
-            timestampString = "537098748.8990099"
+            filePath = "CorrectsPapers/Expland/ImageEditTools/QQQEditorViewController.swift"
+            timestampString = "538049375.725438"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "94"
-            endingLineNumber = "94"
-            landmarkName = "moveToBigImage(tap:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "CorrectsPapers/Expand/ImageEditTools/QQQEditorViewController.swift"
-            timestampString = "533558807.639552"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "468"
-            endingLineNumber = "468"
+            startingLineNumber = "453"
+            endingLineNumber = "453"
             landmarkName = "addMarkView()"
             landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "CorrectsPapers/Expand/ImageEditTools/QQQEditorViewController.swift"
-            timestampString = "533558807.639613"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "470"
-            endingLineNumber = "470"
-            landmarkName = "addMarkView()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "CorrectsPapers/Expand/HttpTools/NetWorkTools.swift"
-            timestampString = "535283084.419503"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "547"
-            endingLineNumber = "547"
-            landmarkName = "NetWorkTeacherGetTPeriodAnswers(params:callBack:)"
-            landmarkType = "9">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "CorrectsPapers/Expand/HttpTools/NetWorkTools.swift"
-            timestampString = "535283084.419552"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "98"
-            endingLineNumber = "98"
-            landmarkName = "netWorkForRegistAccount(params:callBack:)"
-            landmarkType = "9">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "CorrectsPapers/Expand/HttpTools/NetWorkTools.swift"
-            timestampString = "535283084.419631"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1271"
-            endingLineNumber = "1271"
-            landmarkName = "NetWorkTeacherGobackWrokBook(params:callBack:)"
-            landmarkType = "9">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.String, Swift.Bool, Swift.String) -&gt; () in CorrectsPapers.QQQEditorViewController.addMarkView() -&gt; ()"
+                  moduleName = "CorrectsPapers"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/rongxingwangluo/Desktop/%E6%80%9D%E8%80%8C%E6%85%A7/CorrectsPapers/CorrectsPapers/Expland/ImageEditTools/QQQEditorViewController.swift"
+                  timestampString = "538106460.953234"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "453"
+                  endingLineNumber = "453"
+                  offsetFromSymbolStart = "2888">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #3 (Swift.Dictionary&lt;Swift.String, Swift.AnyObject&gt;) -&gt; () in closure #1 (Swift.String, Swift.Bool, Swift.String) -&gt; () in CorrectsPapers.QQQEditorViewController.addMarkView() -&gt; ()"
+                  moduleName = "CorrectsPapers"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/rongxingwangluo/Desktop/%E6%80%9D%E8%80%8C%E6%85%A7/CorrectsPapers/CorrectsPapers/Expland/ImageEditTools/QQQEditorViewController.swift"
+                  timestampString = "538106460.954546"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "454"
+                  endingLineNumber = "454"
+                  offsetFromSymbolStart = "24">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -140,13 +68,29 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CorrectsPapers/Expland/HttpTools/NetWorkTools.swift"
-            timestampString = "537359263.128456"
+            timestampString = "538049375.725497"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "4102"
-            endingLineNumber = "4102"
-            landmarkName = "unknown"
-            landmarkType = "0">
+            startingLineNumber = "2648"
+            endingLineNumber = "2648"
+            landmarkName = "netWorkForSuggestion(params:callBack:)"
+            landmarkType = "9">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "CorrectsPapers/Project/&#x5b66;&#x751f;/Non-Workbook(&#x975e;&#x7ec3;&#x4e60;&#x518c;)/Controllers/CreateNotWorkViewController.swift"
+            timestampString = "538044042.734585"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "476"
+            endingLineNumber = "476"
+            landmarkName = "uploadWorkImage()"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

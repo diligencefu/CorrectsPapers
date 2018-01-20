@@ -478,6 +478,7 @@ extension DrawBoard {
                 self.drawIputView.cl_y = KScreenHeight-self.kBoardH-self.drawIputView.cl_height
             }
         }
+        
     }
     
     //键盘的隐藏

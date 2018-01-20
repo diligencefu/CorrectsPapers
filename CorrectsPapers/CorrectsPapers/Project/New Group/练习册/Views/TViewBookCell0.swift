@@ -11,6 +11,7 @@ import UIKit
 class TViewBookCell0: UITableViewCell {
 
     @IBOutlet weak var userIcon: UIImageView!
+    
     @IBOutlet weak var userName: UILabel!
     
     @IBOutlet weak var userNum: UILabel!
@@ -29,7 +30,12 @@ class TViewBookCell0: UITableViewCell {
 
     func TViewBookCell0SetValuesForShowWork(model:TShowStuWorksModel) {
         
-        bookTitle.text = model.result
+        if model.result.count>0 {
+            bookTitle.text = model.result
+        }else{
+            bookTitle.text = "已提交作业，等待您批改！"
+        }
+        
         if model.user_photo.count>0 {
             userIcon.kf.setImage(with:  URL(string:model.user_photo)!, placeholder: #imageLiteral(resourceName: "UserHead_128_default"), options: nil, progressBlock: nil, completionHandler: nil)
         }
@@ -50,9 +56,15 @@ class TViewBookCell0: UITableViewCell {
         bookState.textColor = kGetColorFromString(str:bookState.text!)
     }
     
+    
     func TViewBookCell0SetValuesForShowClassWork(model:TShowClassWorksModel) {
-        
-        bookTitle.text = model.title
+
+        if model.title.count>0 {
+            bookTitle.text = model.title
+        }else{
+            bookTitle.text = "已提交作业，等待您批改！"
+        }
+
         userIcon.kf.setImage(with:  URL(string:model.user_photo)!, placeholder: #imageLiteral(resourceName: "UserHead_128_default"), options: nil, progressBlock: nil, completionHandler: nil)
         userNum.text =  model.student_num
         userName.text = model.user_name

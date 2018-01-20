@@ -8,9 +8,12 @@
 
 import UIKit
 import MJRefresh
+import SwiftyUserDefaults
 
 class BaseViewController: UIViewController,UITableViewDataSource,UITableViewDelegate {
  
+    var mobileCode = Defaults[mCode]!
+
     var mainTableView = UITableView()
     //    数据源
     var mainTableArr = NSMutableArray()
@@ -30,7 +33,7 @@ class BaseViewController: UIViewController,UITableViewDataSource,UITableViewDele
         leftBarButton()
         self.navigationController?.navigationBar.isTranslucent = false
         self.view.backgroundColor = kBGColor()
-        self.navigationItem.rightBarButtonItem?.tintColor = UIColor.black
+//        self.navigationItem.rightBarButtonItem?.tintColor = UIColor.black
         configNavigationBarMainColor()
         requestData()
         addHeaderRefresh()

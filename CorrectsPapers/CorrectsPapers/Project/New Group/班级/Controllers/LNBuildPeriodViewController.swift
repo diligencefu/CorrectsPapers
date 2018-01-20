@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SwiftyUserDefaults
 
 class LNBuildPeriodViewController: BaseViewController {
 
@@ -104,8 +105,8 @@ class LNBuildPeriodViewController: BaseViewController {
         }
 
         let params =
-            ["SESSIONID":SESSIONIDT,
-             "mobileCode":mobileCodeT,
+            ["SESSIONID":Defaults[userToken]!,
+             "mobileCode":mobileCode,
              "periods_id":period_id,
              "name":textfield.text!,
              "scores_one":textfield1.text!,

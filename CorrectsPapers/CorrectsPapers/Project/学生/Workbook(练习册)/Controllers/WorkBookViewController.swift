@@ -8,6 +8,7 @@
 
 import UIKit
 import MJRefresh
+import SwiftyUserDefaults
 
 class WorkBookViewController: BaseViewController ,UISearchBarDelegate{
 
@@ -209,8 +210,8 @@ class WorkBookViewController: BaseViewController ,UISearchBarDelegate{
             deBugPrint(item: $0)
             //MARK:添加练习册
             let params =
-                ["SESSIONID":SESSIONID,
-                 "mobileCode":mobileCode,
+                ["SESSIONID":Defaults[userToken]!,
+                 "mobileCode":Defaults[mCode]!,
                  "workBookId":model.work_book_Id
             ]
             self.view.beginLoading()

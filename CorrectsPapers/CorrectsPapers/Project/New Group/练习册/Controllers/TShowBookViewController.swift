@@ -7,13 +7,15 @@
 //
 
 import UIKit
+import SwiftyUserDefaults
 
 class TShowBookViewController: BaseViewController {
     
     var model = TShowStuWorksModel()
     var reasonView = ShowTagsView()
     var book_details_id = ""
-    
+    var student_id = ""
+
     var correct_date = ""
     
     
@@ -30,8 +32,8 @@ class TShowBookViewController: BaseViewController {
     
     override func refreshHeaderAction() {
         let params =
-            ["SESSIONID":SESSIONIDT,
-             "mobileCode":mobileCodeT,
+            ["SESSIONID":Defaults[userToken]!,
+             "mobileCode":mobileCode,
              "book_details_id":self.book_details_id,
              ] as [String:Any]
         NetWorkTeacherGetTStudentWorkDetail(params: params) { (datas, flag) in
@@ -45,8 +47,8 @@ class TShowBookViewController: BaseViewController {
     
     override func requestData() {
         let params =
-            ["SESSIONID":SESSIONIDT,
-             "mobileCode":mobileCodeT,
+            ["SESSIONID":Defaults[userToken]!,
+             "mobileCode":mobileCode,
              "book_details_id":self.book_details_id,
         ] as [String:Any]
         self.view.beginLoading()
@@ -120,8 +122,8 @@ class TShowBookViewController: BaseViewController {
             if !$1 {
                 deBugPrint(item: $0)
                 let params =
-                    ["SESSIONID":SESSIONIDT,
-                     "mobileCode":mobileCodeT,
+                    ["SESSIONID":Defaults[userToken]!,
+                     "mobileCode":Defaults[mCode]!,
                      "book_id":self.book_details_id,
                      "student_id":self.model.student_id,
                      "type":"1",
@@ -129,8 +131,14 @@ class TShowBookViewController: BaseViewController {
                 ] as [String:Any]
                 self.view.beginLoading()
                 NetWorkTeacherGobackWrokBook(params: params, callBack: { (flag) in
-                    self.view.endLoading()
-                    self.mainTableView.mj_header.beginRefreshing()
+                    
+                    if flag {
+                        self.view.endLoading()
+//                        self.mainTableView.mj_header.beginRefreshing()
+                        NotificationCenter.default.post(name: Notification.Name(rawValue: SuccessCorrectWorkBookNoti), object: self, userInfo: ["refresh":"begin"])
+
+                        self.navigationController?.popViewController(animated: true)
+                    }
                 })
             }
             self.hiddenViews()
@@ -176,8 +184,14 @@ class TShowBookViewController: BaseViewController {
         
         if model.correcting_states == "2" || model.state == "2" {
             let cell = mainTableView.cellForRow(at: IndexPath.init(row: 0, section: 0)) as! TViewBookCell1
-            imageArr.append(cell.image2.image!)
-            imageArr.append(cell.image3.image!)
+            
+            if model.photo.count == 2{
+                imageArr.append(cell.image2.image!)
+                imageArr.append(cell.image3.image!)
+            }else{
+                imageArr.append(cell.image1.image!)
+            }
+
             let editorVC = QQQEditorViewController(nibName: "QQQEditorViewController", bundle: nil)
             editorVC.images = imageArr
             editorVC.theName = model.user_name
@@ -200,9 +214,14 @@ class TShowBookViewController: BaseViewController {
         }else{
             
             let cell = mainTableView.cellForRow(at: IndexPath.init(row: 1, section: 0)) as! TViewBookCell3
+            
+            if model.corrected_error_photo.count == 2{
+                imageArr.append(cell.image2.image!)
+                imageArr.append(cell.image3.image!)
+            }else{
+                imageArr.append(cell.image1.image!)
+            }
 
-            imageArr.append(cell.image2.image!)
-            imageArr.append(cell.image3.image!)
             let editorVC = QQQEditorViewController(nibName: "QQQEditorViewController", bundle: nil)
             editorVC.images = imageArr
             editorVC.theName = model.user_name

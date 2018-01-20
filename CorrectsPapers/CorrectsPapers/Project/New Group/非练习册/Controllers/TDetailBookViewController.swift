@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SwiftyUserDefaults
 
 class TDetailBookViewController: BaseViewController,UIAlertViewDelegate {
     var footBtnView = UIView()
@@ -60,8 +61,8 @@ class TDetailBookViewController: BaseViewController,UIAlertViewDelegate {
     override func requestData() {
         
         let params1 =
-            ["SESSIONID":SESSIONIDT,
-             "mobileCode":mobileCodeT,
+            ["SESSIONID":Defaults[userToken]!,
+             "mobileCode":mobileCode,
              "non_exercise_Id":model1.id
         ] as [String:Any]
         
@@ -196,8 +197,8 @@ class TDetailBookViewController: BaseViewController,UIAlertViewDelegate {
         }else if currentIndex == 2 {
             
             let params =
-                ["SESSIONID":SESSIONIDT,
-                 "mobileCode":mobileCodeT,
+                ["SESSIONID":Defaults[userToken]!,
+                 "mobileCode":mobileCode,
                  "workBookId":model1.id
                     ] as [String:Any]
             NetWorkTeacherGetTMyNotWorkDatailPoints(params: params) { (datas,flag) in
@@ -213,8 +214,8 @@ class TDetailBookViewController: BaseViewController,UIAlertViewDelegate {
         }else if currentIndex == 3 {
             
             let params1 =
-                ["SESSIONID":SESSIONIDT,
-                 "mobileCode":mobileCodeT,
+                ["SESSIONID":Defaults[userToken]!,
+                 "mobileCode":mobileCode,
                  "bookId":model1.id
                     ] as [String:Any]
             NetWorkTeacherGetTMyNotWorkDatailAnswers(params: params1) { (datas,flag) in
@@ -238,8 +239,8 @@ class TDetailBookViewController: BaseViewController,UIAlertViewDelegate {
         }else if currentIndex == 4{
             
             let params1 =
-                ["SESSIONID":SESSIONIDT,
-                 "mobileCode":mobileCodeT,
+                ["SESSIONID":Defaults[userToken]!,
+                 "mobileCode":mobileCode,
                  "workId":model1.id
                     ] as [String:Any]
             NetWorkTeacherGetTMyNotWorkDatailGrades(params: params1) { (datas,flag) in
@@ -739,7 +740,6 @@ class TDetailBookViewController: BaseViewController,UIAlertViewDelegate {
             // 内部提供的方法可以异步获取图片，同步获取的话时间比较长，不建议！，如果是iCloud中的照片就直接从icloud中下载，下载完成后返回图片,同时也提供了下载失败的方法
             CLImagePickersTool.convertAssetArrToOriginImage(assetArr: assetArr, scale: 0.1, successClouse: {[weak self] (image,assetItem) in
                 imageArr.append(image)
-                
                 self?.imageArr.append(image)
                 self?.dealImage(imageArr: imageArr, index: index)
 //                self.currentImage = iamge
@@ -794,8 +794,8 @@ class TDetailBookViewController: BaseViewController,UIAlertViewDelegate {
 
             self.view.beginLoading()
             let params1 =
-                ["SESSIONID":SESSIONIDT,
-                 "mobileCode":mobileCodeT,
+                ["SESSIONID":Defaults[userToken]!,
+                 "mobileCode":mobileCode,
                  "workId":self.model1.id!,
                  "money":priceTextfield.text!,
                  ] as [String : String]
@@ -837,9 +837,9 @@ class TDetailBookViewController: BaseViewController,UIAlertViewDelegate {
                 deBugPrint(item: $0)
           
                 let params =
-                    ["SESSIONID":SESSIONIDT,
-                     "mobileCode":mobileCodeT,
-                     "student_id":self.model1.student_id,
+                    ["SESSIONID":Defaults[userToken]!,
+                     "mobileCode":Defaults[mCode]!,
+                     "student_id":self.model.student_id,
                      "type":"2",
                      "reason":$0,
                      "book_id":self.model1.non_exercise_Id,

@@ -9,33 +9,20 @@
 import SwiftyUserDefaults
 
 //MARK:必要参数
-//var SESSIONIDT = "8956ssd4785955665ddddfggfg452f"
-//var mobileCodeT = "sion"
-var SESSIONIDT = Defaults[userToken]!
 
-var mobileCodeT = Defaults[mCode]!
-//let SESSIONIDT = "12345689piosid"
-//let mobileCodeT = "sam"
+//var SESSIONID = Defaults[userToken]!
 
-//var SESSIONID = "562564455ffg5451vvc5565874512112"
-//var mobileCode = "com"
+let kBaseUrl = "http://192.168.1.191:8080/duties/m/rongxing/"
+//let kBaseUrl = "http://101.132.120.174:8080/duties/m/rongxing/"
 
-//let SESSIONID = "1"
-//let mobileCode = "on"
-
-//let header = [
-//    "SESSIONID":SESSIONID,
-//    "mobileCode":mobileCode
-//]
-
-var SESSIONID = Defaults[userToken]!
-var mobileCode = Defaults[mCode]!
-
-//let kBaseUrl = "http://192.168.1.191:8080/duties/m/rongxing/"
-let kBaseUrl = "http://101.132.120.174:8080/duties/m/rongxing/"
+//let kBaseUrlTest = "http://101.132.120.174:8080/duties/m/rongxing/"
 
 //MARK:注册验证码
 let kGet_Sms = kBaseUrl + "user/getSms"
+
+//MARK:发送短信验证码(重置登录密码)
+let kSend_SmsGetPassWord = kBaseUrl + "user/sendSmsGetPassWord"
+
 //MARK:验证验证码
 let kcheak_Text = kBaseUrl + "user/cheakText"
 //MARK:注册账号
@@ -44,14 +31,15 @@ let kUser_Signup = kBaseUrl +  "user/UserSignup"
 //MARK:登录
 let kLogin_api = kBaseUrl +  "user/login"
 
-let kBaseUrlTest = "http://101.132.120.174:8080/duties/m/rongxing/"
-//let kBaseUrlTest = "http://192.168.1.191:8080/duties/m/rongxing/"
+
+
 //let kBaseUrlTest = kBaseUrl
 //MARK: *****************老师端接口**************
 //MARK: *****************老师端接口**************
 //MARK: *****************老师端接口**************
 //MARK: *****************老师端接口**************
 //MARK: *****************老师端接口**************
+
 
 
 //MARK:(1-0 和 1-2 获取所有的练习册)接口
@@ -106,13 +94,13 @@ let kAdd_TWorkChapter = kBaseUrl +  "teacherNext/addTWorkChapter"
 let kGet_TScoresByStudentId = kBaseUrl +  "teacherNext/getTScoresByStudentId"
 
 //MARK:(2-0 查询所有非练习册数据 (不属于自己的所有fei练习册))接口
-let kGet_TAllNotWork = kBaseUrlTest +  "teacher/getAllNonExercise"
+let kGet_TAllNotWork = kBaseUrl +  "teacher/getAllNonExercise"
 
 //MARK:(2-1 查询所有非练习册数据 (属于自己的所有fei练习册，所有状态))接口
-let kGet_TMyAllNotWork = kBaseUrlTest +  "teacher/getMyNonExercise"
+let kGet_TMyAllNotWork = kBaseUrl +  "teacher/getMyNonExercise"
 
 //MARK:2-2 非练习册-详情 - 作业
-let kGet_TMyNotWorkDatail = kBaseUrlTest +  "teacher/getNonExerciseList"
+let kGet_TMyNotWorkDatail = kBaseUrl +  "teacher/getNonExerciseList"
 
 //MARK: 2-2    非练习册-详情-知识点讲解
 let kGet_TMyNotWorkDatail2 = kBaseUrl +  "teacherNext/getTMyNotWorkDatail2"
@@ -136,14 +124,14 @@ let kAdd_TNotWorkContent = kBaseUrl +  "teacherNext/addTNotWorkContent"
 let kAdd_TNotWorkChapter = kBaseUrl +  "teacherNext/addTNotWorkChapter"
 
 //MARK: 22   我来批改
-let kBulid_NonByTeacher = kBaseUrlTest +  "teacher/bulidNonByTeacher"
+let kBulid_NonByTeacher = kBaseUrl +  "teacher/bulidNonByTeacher"
 
 ////MARK: 3-0 班级
 //let kMy_Classes = kBaseUrl11 +  "teacher/myClasses"
 
 
 //MARK:接口说明 ：4  老师第一次批改练习册
-let kCorrect_WrokBook = kBaseUrlTest +  "teacher/correctWrokBook"
+let kCorrect_WrokBook = kBaseUrl +  "teacher/correctWrokBook"
 
 //MARK:接口说明 ： 5  照片模糊退回状态
 let kgoback_WrokBook = kBaseUrl +  "teacher/gobackWrokBook"
@@ -161,50 +149,54 @@ let kCorrect_NonExercise = kBaseUrl +  "teacher/correctNonExercise"
 let kCorrect_NonExerciseNext = kBaseUrl +  "teacher/correctNonExerciseNext"
 
 //MARK:12  接口说明 ：    我的班级
-let kMy_Classes = kBaseUrlTest +  "teacher/Myclasses"
+let kMy_Classes = kBaseUrl +  "teacher/Myclasses"
 
 //MARK:13  接口说明 ：  解散班级
-let kDelete_Myclasses = kBaseUrlTest +  "teacher/deleteMyclasses"
+let kDelete_Myclasses = kBaseUrl +  "teacher/deleteMyclasses"
 
 //MARK: 14  接口说明 ：  老师申请加入班级
-let kTeacher_AddToClasses = kBaseUrlTest +  "teacher/teacherAddToClasses"
+let kTeacher_AddToClasses = kBaseUrl +  "teacher/teacherAddToClasses"
 
 //MARK: 15 接口说明 ：   创建班级
-let kBulidClasses = kBaseUrlTest +  "teacher/bulidClasses"
+let kBulidClasses = kBaseUrl +  "teacher/bulidClasses"
 
 //MARK: 16 接口说明 ：  查询每个班级的课时目录
-let kSelect_AllPeriods = kBaseUrlTest +  "teacher/selectAllPeriods"
+let kSelect_AllPeriods = kBaseUrl +  "teacher/selectAllPeriods"
 
 //MARK: 17 接口说明 ：  兴建课时名称
-let kBulid_periods = kBaseUrlTest +  "teacher/bulidperiods"
+let kBulid_periods = kBaseUrl +  "teacher/bulidperiods"
 
 //MARK: 18 接口说明 ：  查查询班级作业
-let kSelect_ClassBook = kBaseUrlTest +  "teacher/selectClassBook"
+let kSelect_ClassBook = kBaseUrl +  "teacher/selectClassBook"
 
 //MARK: 19 接口说明 ：  首次批改班级作业
-let kCorrec_ClassBook = kBaseUrlTest +  "teacher/correcClassBook"
+let kCorrec_ClassBook = kBaseUrl +  "teacher/correcClassBook"
 
 //MARK: 20 接口说明 ：  再次批改班级作业
-let kCorrec_ClassBookNext = kBaseUrlTest +  "teacher/correcClassBookNext"
+let kCorrec_ClassBookNext = kBaseUrl +  "teacher/correcClassBookNext"
 
 //MARK: 21 接口说明 ：  获取班级成员
-let kGet_ClassMember = kBaseUrlTest +  "teacher/getClassMember"
+let kGet_ClassMember = kBaseUrl +  "teacher/getClassMember"
 
 //MARK: 23 接口说明 ：    老师获取练习册学生成绩，班级学生成绩（最近大课时），班级学生往期成绩列表，通用接口
-let kGet_StudentScroes = kBaseUrlTest +  "teacher/getStudentScroes"
+let kGet_StudentScroes = kBaseUrl +  "teacher/getStudentScroes"
 
 //MARK: 25 接口说明 ：  接口说明 ：  老师退出班级
-let kGet_OutOfClass = kBaseUrlTest +  "teacher/outOfClass"
+let kGet_OutOfClass = kBaseUrl +  "teacher/outOfClass"
+
+
+//MARK: 27 接口说明 ：    编辑资料辅助接口
+let kEditor_TeacherHelp = kBaseUrl +  "teacher/potoHelp"
 
 
 //MARK:(学生端4-6、老师端4-7意见和建议)接口
-let kInsert_Suggestion = kBaseUrl +  "mine/insertSuggestion"
+let kAdd_Suggestion = kBaseUrl +  "workBook/addSuggestion"
 
 //MARK:(老师端4-3-2好友申请添加)接口
 let kInsert_Friend = kBaseUrl +  "mine/insertFriend"
 
 //MARK:照片模糊退回状态
-let kGo_backWrokBookfei = kBaseUrlTest +  "teacher/gobackWrokBook"
+let kGo_backWrokBookfei = kBaseUrl +  "teacher/gobackWrokBook"
 
 //MARK:(老师端4-4消息中心)接口
 let kGet_MsgbyTeacher = kBaseUrl +  "teacher/getMsgbyTeacher"
@@ -218,14 +210,17 @@ let kGet_Users = kBaseUrl +  "mine/getUsers"
 //MARK:(老师端 编辑资料)接))接口
 let kUpdate_Users = kBaseUrl +  "mine/updateUsers"
 
+//MARK:28     接口说明 ：     老师端获取投诉
+let kComplaint_By = kBaseUrl +  "teacher/complaintBy"
+
+//MARK:29     接口说明 ：     删除个别消息(通用接口)，传msgId则单删除，不传msgId,删除全部
+let kDel_Msg = kBaseUrl +  "teacher/delMsg"
+
 //MARK:31 获取消息详情（学生）
 let kGet_MsgDetailsS = kBaseUrl +  "teacher/getMsgDetails"
 
 //MARK:31 获取消息详情（老师）
 let kGet_getMsgByTeacher = kBaseUrl +  "teacher/getMsgByTeacher"
-
-//MARK:29     接口说明 ：     删除个别消息(通用接口)，传msgId则单删除，不传msgId,删除全部
-let kDel_Msg = kBaseUrl +  "teacher/delMsg"
 
 //MARK:34     接口说明 ：    创建班级通知
 let kAdd_Notify = kBaseUrl +  "teacher/addNotify"
@@ -251,6 +246,22 @@ let kGet_ClassBookList = kBaseUrl +  "teacher/getClassBookList"
 //MARK:41     接口说明 ：    课时内上传课程视频
 let kLoad_InClass = kBaseUrl +  "teacher/loadInClass"
 
+//MARK:42     接口说明 ：    课时内上传课程讲义文件和作业
+let kLoad_InClassDoc = kBaseUrl +  "teacher/loadInClassDoc"
+
+//MARK:43     接口说明 ：   老师端获取自己上传过的课时内容
+let kGet_PreiodsByteacher = kBaseUrl +  "teacher/getPreiodsByteacher"
+
+
+//MARK: 44 接口说明 ：    班级编辑
+let kEditor_Classes = kBaseUrl +  "teacher/editoClasses"
+
+
+
+//MARK: 45 接口说明 ：    班级编辑辅助接口
+let kEditor_ClassesHelp = kBaseUrl +  "teacher/editoClassesHelp"
+
+
 //MARK:48     接口说明 ：    除班级成员
 let kDel_classPel = kBaseUrl +  "teacher/delclassPel"
 
@@ -265,17 +276,24 @@ let kDel_classPel = kBaseUrl +  "teacher/delclassPel"
 
 
 
-//MARK:1  接口说明 ：    创建支付和提现密码
+//MARK:5  接口说明 ：    创建支付和提现密码
 let kcreat_Password = kBaseUrl +  "user/creatPassword"
 
-//MARK:1  接口说明 ：    校验支付和提现密码的正确性
+
+//MARK:6  接口说明 ：    校验支付和提现密码的正确性
 let kCheck_Password = kBaseUrl +  "user/checkPassword"
 
-//MARK:1  接口说明 ：   修改支付和提现密码
+
+//MARK:7  接口说明 ：   修改支付和提现密码
 let kCorrectPassword = kBaseUrl +  "user/correctPassword"
 
 
+//MARK:9  接口说明 ：   验证身份证号码
+let kCheck_Number = kBaseUrl +  "user/checkNumber"
 
+
+//MARK:10  接口说明 ：  重置支付密码
+let kNew_Password = kBaseUrl +  "user/newPassword"
 
 
 //MARK:1  接口说明 ：    获取所有的练习册
@@ -321,9 +339,6 @@ let kMy_Data = kBaseUrl +  "workBook/myData"
 //MARK: 10 接口说明 ：    编辑资料
 let kEditor_Teacher = kBaseUrl +  "teacher/editorTeacher"
 
-//MARK: 10 接口说明 ：    编辑资料辅助接口
-let kEditor_TeacherHelp = kBaseUrl +  "teacher/potoHelp"
-
 
 //MARK: 11 接口说明 ：    查询我的学币使用
 let kMy_Coin = kBaseUrl +  "workBook/myCoin"
@@ -357,7 +372,7 @@ let kdel_MyFriend = kBaseUrl +  "workBook/delMyFriend"
 let kModle_exercise = kBaseUrl +  "workBook/modle_exercise"
 
 //MARK: 21 接口说明 ：    创建非练习册
-let kBulidnon_exercise = kBaseUrlTest +  "workBook/bulidnon_exercise"
+let kBulidnon_exercise = kBaseUrl +  "workBook/bulidnon_exercise"
 
 //MARK:22  接口说明 ：    再次提交非练习册练习
 let kAdd_NonExerciseNext = kBaseUrl +  "workBook/addNonExerciseNext"
@@ -434,6 +449,9 @@ let kGet_PeriodsList = kBaseUrl +  "workBook/getPeriodsList"
 
 //MARK: 45接口说明 ： 判断课时是否已开通单次作业
 let kCheck_BuyClassBook = kBaseUrl +  "workBook/checkBuyClassBook"
+
+//MARK: 47接口说明 ： 撤销上传的练习册或者非练习册
+let kBack_WorkBook = kBaseUrl +  "workBook/backWorkBook"
 
 class TheUrls: NSObject {
 

@@ -15,6 +15,9 @@ class WorkBookCell: UITableViewCell {
     
     @IBOutlet weak var proName: UIButton!
     @IBOutlet weak var classMark: UIButton!
+    @IBOutlet weak var versionMark: UIButton!
+    
+    
     
     @IBOutlet weak var bookTitle: UILabel!
     
@@ -42,24 +45,36 @@ class WorkBookCell: UITableViewCell {
         classMark.layer.cornerRadius = 9
         classMark.clipsToBounds = true
         
-        proName.clipsToBounds = true
-        proName.layer.cornerRadius = 9
-        proName.layer.borderWidth = 1
+        versionMark.layer.borderColor = kGaryColor(num: 176).cgColor
+        versionMark.setTitleColor(kGaryColor(num: 176), for: .normal)
+        versionMark.layer.borderWidth = 1
+        versionMark.layer.cornerRadius = 9
+        versionMark.clipsToBounds = true
+
 
         classMark.snp.updateConstraints { (make) in
             make.width.equalTo(getLabWidth(labelStr: model.class_name, font: kFont24, height: 18) + 20)
         }
         classMark.setTitle(model.class_name, for: .normal)
+        
         proName.snp.updateConstraints { (make) in
             make.width.equalTo(getLabWidth(labelStr: model.subject_name, font: kFont24, height: 18) + 20)
         }
         proName.setTitle(model.subject_name, for: .normal)
+        
+        
+        versionMark.snp.updateConstraints { (make) in
+            make.width.equalTo(getLabWidth(labelStr: model.edition_id, font: kFont24, height: 18) + 20)
+        }
+        versionMark.setTitle(model.edition_id, for: .normal)
 
         bookTitle.text = model.work_book_name
         
         bookImage.kf.setImage(with:  URL(string:model.cover_photo)!, placeholder: #imageLiteral(resourceName: "class_default"), options: nil, progressBlock: nil, completionHandler: nil)
         
-        
+        proName.clipsToBounds = true
+        proName.layer.cornerRadius = 9
+
         proName.setTitleColor(kSetRGBColor(r: 255, g: 102, b: 116), for: .normal)
         proName.layer.borderColor = kSetRGBColor(r: 255, g: 102, b: 116).cgColor
         proName.layer.borderWidth = 1

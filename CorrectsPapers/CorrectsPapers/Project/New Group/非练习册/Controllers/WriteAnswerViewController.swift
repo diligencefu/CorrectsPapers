@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SwiftyUserDefaults
 
 class WriteAnswerViewController: BaseViewController ,UITextFieldDelegate,UITextViewDelegate,UIAlertViewDelegate{
 
@@ -82,8 +83,8 @@ class WriteAnswerViewController: BaseViewController ,UITextFieldDelegate,UITextV
             
             if currentType == 1 {
                 params1 =
-                    ["SESSIONID":SESSIONIDT,
-                     "mobileCode":mobileCodeT,
+                    ["SESSIONID":Defaults[userToken]!,
+                     "mobileCode":mobileCode,
                      "bookId":bookId,
                      "answardRes":content.text,
                      "money":priceTextfield.text!,
@@ -92,8 +93,8 @@ class WriteAnswerViewController: BaseViewController ,UITextFieldDelegate,UITextV
 
             }else{
                 params1 =
-                    ["SESSIONID":SESSIONIDT,
-                     "mobileCode":mobileCodeT,
+                    ["SESSIONID":Defaults[userToken]!,
+                     "mobileCode":mobileCode,
                      "bookId":bookId,
                      "answardRes":content.text,
                      "money":priceTextfield.text!,

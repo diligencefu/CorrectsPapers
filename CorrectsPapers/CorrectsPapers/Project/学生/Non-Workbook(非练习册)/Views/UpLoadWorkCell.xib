@@ -30,13 +30,13 @@
                         <color key="textColor" red="0.69011962413787842" green="0.69024020433425903" blue="0.69011199474334717" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入作业描述（16字以内）" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="YWT-qm-akp">
+                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="我要给老师留言(16字以内)" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="YWT-qm-akp">
                         <rect key="frame" x="31" y="48" width="298" height="25"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="25" id="VNo-ey-frc"/>
                         </constraints>
                         <color key="textColor" red="0.27767939069999997" green="0.28060233159999998" blue="0.28060233159999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
                         <textInputTraits key="textInputTraits"/>
                     </textField>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="（请确认拍照清晰，模糊将会退回）" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="w14-gT-2le">

@@ -22,7 +22,8 @@ class NotWorkCellCell: UITableViewCell {
     
     @IBOutlet weak var bookState: UILabel!
 
-
+    @IBOutlet weak var crateDate: UIButton!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -30,6 +31,8 @@ class NotWorkCellCell: UITableViewCell {
 
     
     func setDataWithModel(model:SNotWorkModel) {
+    
+        crateDate.setTitle(model.create_date, for: .normal)
         
         bookImage.kf.setImage(with:  URL(string:model.pre_photos)!, placeholder: #imageLiteral(resourceName: "photos_image_default"), options: nil, progressBlock: nil, completionHandler: nil)
         

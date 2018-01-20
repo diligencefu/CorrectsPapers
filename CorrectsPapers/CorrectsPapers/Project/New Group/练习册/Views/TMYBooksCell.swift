@@ -21,6 +21,7 @@ class TMYBooksCell: UITableViewCell {
     @IBOutlet weak var submitCount: UILabel!
     @IBOutlet weak var doneCount: UILabel!
     
+    @IBOutlet weak var versionMark: UIButton!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -29,12 +30,20 @@ class TMYBooksCell: UITableViewCell {
     
     func TMYBooksCellSetValue(model:WorkBookModel) {
         
+        bookImage.kf.setImage(with:  URL(string:model.cover_photo)!, placeholder: #imageLiteral(resourceName: "class_default"), options: nil, progressBlock: nil, completionHandler: nil)
+
         gradeMark.layer.borderColor = kGaryColor(num: 111).cgColor
         gradeMark.setTitleColor(kGaryColor(num: 111), for: .normal)
         gradeMark.layer.borderWidth = 1
         gradeMark.layer.cornerRadius = 9
         gradeMark.clipsToBounds = true
-        
+
+        versionMark.layer.borderColor = kGaryColor(num: 111).cgColor
+        versionMark.setTitleColor(kGaryColor(num: 111), for: .normal)
+        versionMark.layer.borderWidth = 1
+        versionMark.layer.cornerRadius = 9
+        versionMark.clipsToBounds = true
+
         proMark.clipsToBounds = true
         proMark.layer.cornerRadius = 9
         proMark.layer.borderWidth = 1
@@ -43,12 +52,17 @@ class TMYBooksCell: UITableViewCell {
             make.width.equalTo(getLabWidth(labelStr: model.grade!, font: kFont24, height: 18) + 20)
         }
         
+        versionMark.snp.updateConstraints { (make) in
+            make.width.equalTo(getLabWidth(labelStr: model.edition_id, font: kFont24, height: 18) + 20)
+        }
+
         proMark.snp.updateConstraints { (make) in
             make.width.equalTo(getLabWidth(labelStr: model.subject_id!, font: kFont24, height: 18) + 20)
         }
 
         gradeMark.setTitle(model.grade, for: .normal)
         proMark.setTitle(model.subject_id, for: .normal)
+        versionMark.setTitle(model.edition_id, for: .normal)
         bookTitle.text = model.work_book_name
         
         submitCount.text = model.state1

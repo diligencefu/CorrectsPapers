@@ -20,15 +20,18 @@ class TComplaintModel: NSObject {
     var coms : Array<TComplaintDetailModel>!
     ///记录id
     var id : String!
-    
+    ///次数
+    var counts : String!
+
     class func setValueForTComplaintModel(json: JSON) -> TComplaintModel {
         
         let model = TComplaintModel()
         model.user_name = json["user_name"].stringValue
         model.user_num = json["user_num"].stringValue
         model.user_photo = json["user_photo"].stringValue
-        model.coms = TComplaintDetailModel.setValueForTComplaintDetailModel(json: json["coms"])
+        model.coms = TComplaintDetailModel.setValueForTComplaintDetailModel(json: json["thing"])
         model.id = json["id"].stringValue
+        model.counts = json["counts"].stringValue
         return model
     }
 }

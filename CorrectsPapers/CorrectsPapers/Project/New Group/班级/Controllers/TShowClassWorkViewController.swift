@@ -7,22 +7,24 @@
 //
 
 import UIKit
+import SwiftyUserDefaults
 
 class TShowClassWorkViewController: BaseViewController {
 
     var model = TShowClassWorksModel()
+    var class_book_id = ""
     
     var reasonView = ShowTagsView()
     var BGView = UIView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //        接收创建练习册成功的通知
+        //        接收批改班级作业成功的通知
         NotificationCenter.default.addObserver(self, selector: #selector(receiveNitification(nitofication:)), name: NSNotification.Name(rawValue: SuccessCorrectClassWorkBookNoti), object: nil)
     }
     
     @objc func receiveNitification(nitofication:Notification) {
-        self.navigationController?.popViewController(animated: true)
+        self.mainTableView.mj_header.beginRefreshing()
     }
 
     override func configSubViews() {
@@ -82,12 +84,12 @@ class TShowClassWorkViewController: BaseViewController {
             if !$1 {
                 deBugPrint(item: $0)
                 let params =
-                    ["SESSIONID":SESSIONIDT,
-                     "mobileCode":mobileCodeT,
+                    ["SESSIONID":Defaults[userToken]!,
+                     "mobileCode":Defaults[mCode]!,
                      "student_id":self.model.student_id,
-                     "type":"1",
+                     "type":"3",
                      "reason":"$0",
-                     "book_id":self.model.class_book_id
+                     "book_id":self.class_book_id
                         ] as [String:Any]
 
                 NetWorkTeacherGobackWrokBook(params: params, callBack: { (flag) in
@@ -108,9 +110,9 @@ class TShowClassWorkViewController: BaseViewController {
     
     override func requestData() {
         let params =
-            ["SESSIONID":SESSIONIDT,
-             "mobileCode":mobileCodeT,
-             "class_book_id":model.class_book_id,
+            ["SESSIONID":Defaults[userToken]!,
+             "mobileCode":mobileCode,
+             "class_book_id":class_book_id,
              ] as [String:Any]
         NetWorkTeacherGetClassBookList(params: params) { (datas, flag) in
             if flag && datas.count > 0{
@@ -165,11 +167,16 @@ class TShowClassWorkViewController: BaseViewController {
             editorVC.images = cell.editArr
             editorVC.theName = model.user_name
             editorVC.theNum = "学号 "+model.student_num
-            editorVC.bookid = model.class_book_id
+            editorVC.bookid = class_book_id
             editorVC.student_id = model.student_id
             editorVC.bookState = model.type
             editorVC.whereCome = 3
-            self.present(editorVC, animated: true, completion: nil)
+            
+            if cell.editArr.count>0{
+                self.present(editorVC, animated: true, completion: nil)
+            }else{
+                setToast(str: "图片加载中...")
+            }
         }else{
             
             let cell = mainTableView.cellForRow(at: IndexPath.init(row: 1, section: 0)) as! TNotGoodWorkCell
@@ -177,11 +184,15 @@ class TShowClassWorkViewController: BaseViewController {
             editorVC.images = cell.editArr
             editorVC.theName = model.user_name
             editorVC.theNum = "学号 "+model.student_num
-            editorVC.bookid = model.class_book_id
+            editorVC.bookid = class_book_id
             editorVC.bookState = model.type
             editorVC.student_id = model.student_id
             editorVC.whereCome = 3
-            self.present(editorVC, animated: true, completion: nil)
+            if cell.editArr.count>0{
+                self.present(editorVC, animated: true, completion: nil)
+            }else{
+                setToast(str: "图片加载中...")
+            }
         }
     }
     

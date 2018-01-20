@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SwiftyUserDefaults
 
 class TOtherWorkViewController: BaseViewController {
     var emptyView = UIView()
@@ -123,8 +124,8 @@ class TOtherWorkViewController: BaseViewController {
         cell.selectionStyle = .default
         cell.addWorkBlock = {
             let params =
-                ["SESSIONID":SESSIONIDT,
-                 "mobileCode":mobileCodeT,
+                ["SESSIONID":Defaults[userToken]!,
+                 "mobileCode":Defaults[mCode]!,
                  "non_exercise_Id":model.non_exercise_Id
             ] as [String:Any]
 

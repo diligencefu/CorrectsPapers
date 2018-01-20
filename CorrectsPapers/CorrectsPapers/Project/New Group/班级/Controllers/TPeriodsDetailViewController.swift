@@ -7,13 +7,14 @@
 //
 
 import UIKit
+import SwiftyUserDefaults
 
 class TPeriodsDetailViewController: BaseViewController,UITextFieldDelegate ,UIAlertViewDelegate{
     
     var typeArr = ["学生作业","已批改","课程视频","作业答案"]
     var underLine = UIView()
     var headView = UIView()
-    var NofitICLabel = UILabel()
+    var NofitICLabel = AutoScrollLabel()
     var buttonView = UIView()
 
     var currentIndex = 1
@@ -22,7 +23,7 @@ class TPeriodsDetailViewController: BaseViewController,UITextFieldDelegate ,UIAl
     //    已批改
     var doneWorks = NSMutableArray()
     //    知识点
-    var videoArr = [UrlModel]()
+    var videoArr = NSMutableArray()
     //    参考答案数据
     var answerArr = NSMutableArray()
     //    成绩
@@ -36,9 +37,14 @@ class TPeriodsDetailViewController: BaseViewController,UITextFieldDelegate ,UIAl
     
     var periodsName = ""
 
-    
+    var class_id = ""
+
     var loadImages = [UIImage]()
     
+    
+    let titles4 = ["上传视频版","上传图片版","书写答案版"]
+    let titles3 = ["上传课程视频","上传图片","上传作业"]
+
     
     let identyfierTable6 = "identyfierTable6"
     let identyfierTable7 = "identyfierTable7"
@@ -54,10 +60,13 @@ class TPeriodsDetailViewController: BaseViewController,UITextFieldDelegate ,UIAl
     var footBtnView = UIView()
     
     
+//    上传图片的类型：；1课程视频图片；2.课程视频作业；3.参考答案图片
+    var uploadType = 3
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        footView()
-        //        接收创建练习册成功的通知
+        //        接收批改班级作业成功的通知
         NotificationCenter.default.addObserver(self, selector: #selector(receiveNitification(nitofication:)), name: NSNotification.Name(rawValue: SuccessCorrectClassWorkBookNoti), object: nil)
     }
     
@@ -68,8 +77,8 @@ class TPeriodsDetailViewController: BaseViewController,UITextFieldDelegate ,UIAl
     override func requestData() {
         
         let params =
-            ["SESSIONID":SESSIONIDT,
-             "mobileCode":mobileCodeT,
+            ["SESSIONID":Defaults[userToken]!,
+             "mobileCode":mobileCode,
              "periods_id":periods_id
         ] as [String:Any]
         self.view.beginLoading()
@@ -83,7 +92,25 @@ class TPeriodsDetailViewController: BaseViewController,UITextFieldDelegate ,UIAl
         })
         
     }
+
     
+    override func viewWillAppear(_ animated: Bool) {
+        
+        let params1 = [
+            "SESSIONID":Defaults[userToken]!,
+            "class_id":class_id,
+            "mobileCode":mobileCode,
+            ] as [String:Any]
+        
+        NetWorkTeachersGetNotify(params: params1) { (text, flag) in
+            if flag {
+                
+                self.NofitICLabel.setText(text)
+            }
+        }
+        
+    }
+
     
     override func configSubViews() {
         
@@ -94,12 +121,13 @@ class TPeriodsDetailViewController: BaseViewController,UITextFieldDelegate ,UIAl
         headView = UIView.init(frame: CGRect(x: 0, y: 0, width: kSCREEN_WIDTH, height: 165*kSCREEN_SCALE))
         headView.backgroundColor = UIColor.white
         
-        NofitICLabel = UILabel.init(frame: CGRect(x: 0, y: 0, width: kSCREEN_WIDTH, height: 64 * kSCREEN_SCALE))
+        NofitICLabel = AutoScrollLabel.init(frame: CGRect(x: 0, y: 0, width: kSCREEN_WIDTH, height: 64 * kSCREEN_SCALE))
         NofitICLabel.textColor = kSetRGBColor(r: 255, g: 153, b: 0)
-        NofitICLabel.textAlignment = .center
-        NofitICLabel.text = "通知栏信息通知栏信息通知栏信息通知栏信息通知栏信息通知栏信息"
-        NofitICLabel.font = kFont34
+        NofitICLabel.setText("通知消息")
+        NofitICLabel.backgroundColor = UIColor.white
         headView.addSubview(NofitICLabel)
+
+        
         updateButtons(titleArr: typeArr)
         self.view.addSubview(headView)
         
@@ -192,18 +220,11 @@ class TPeriodsDetailViewController: BaseViewController,UITextFieldDelegate ,UIAl
     override func refreshHeaderAction() {
         isSearching = false
         
-        if currentIndex == 4 {
-            self.view.addSubview(footBtnView)
-        }else{
-            footBtnView.removeFromSuperview()
-        }
-        
         let params =
-            ["SESSIONID":SESSIONIDT,
-             "mobileCode":mobileCodeT,
+            ["SESSIONID":Defaults[userToken]!,
+             "mobileCode":mobileCode,
              "periods_id":periods_id
         ]
-        self.view.beginLoading()
         if currentIndex == 1 {
             NetWorkTeacherSelectClassBook(params: params, callBack: { (datas,flag) in
                 if flag {
@@ -218,8 +239,8 @@ class TPeriodsDetailViewController: BaseViewController,UITextFieldDelegate ,UIAl
         }else if currentIndex == 2 {
             
             let params =
-                ["SESSIONID":SESSIONIDT,
-                 "mobileCode":mobileCodeT,
+                ["SESSIONID":Defaults[userToken]!,
+                 "mobileCode":mobileCode,
                  "periods_id":periods_id
             ]
 
@@ -233,17 +254,35 @@ class TPeriodsDetailViewController: BaseViewController,UITextFieldDelegate ,UIAl
                 self.view.endLoading()
             })
         }else if currentIndex == 3 {
-            
+            let params =
+                ["SESSIONID":Defaults[userToken]!,
+                 "mobileCode":mobileCode,
+                 "bookId":periods_id
+            ]
+
 //            40、41号接口
-            
+            NetWorkTeacherGetPreiodsByteacher(params: params, callBack: { (datas, flag) in
+                if flag {
+                    self.videoArr.removeAllObjects()
+                    self.videoArr.addObjects(from: datas)
+                    for model in self.videoArr {
+                        let m = model as! UrlModel
+                        let markBtn = self.footBtnView.viewWithTag(180+Int(m.type!)!) as! UIButton
+                        markBtn.setBackgroundImage(getNavigationIMG(27, fromColor: kGaryColor(num: 220), toColor: kGaryColor(num: 220)), for: .normal)
+                        markBtn.isEnabled = false
+                    }
+
+                    self.mainTableView.reloadData()
+                }
+            })
             
             self.mainTableView.mj_header.endRefreshing()
             self.view.endLoading()
         }else if currentIndex == 4{
             
             let params1 =
-                ["SESSIONID":SESSIONIDT,
-                 "mobileCode":mobileCodeT,
+                ["SESSIONID":Defaults[userToken]!,
+                 "mobileCode":mobileCode,
                  "bookId":periods_id
                     ] as [String:Any]
             NetWorkTeacherGetTMyNotWorkDatailAnswers(params: params1) { (datas,flag) in
@@ -297,14 +336,13 @@ class TPeriodsDetailViewController: BaseViewController,UITextFieldDelegate ,UIAl
         })
         
         currentIndex = sender.tag - 130
-        
-        if currentIndex == 4 {
-            self.view.addSubview(footBtnView)
-        }else{
-            footBtnView.removeFromSuperview()
-        }
 
         if currentIndex == 4 {
+            footView(titles: titles4)
+            mainTableView.height = kSCREEN_HEIGHT - 64 - 96*kSCREEN_SCALE-10
+            self.view.addSubview(footBtnView)
+        }else if currentIndex == 3{
+            footView(titles: titles3)
             mainTableView.height = kSCREEN_HEIGHT - 64 - 96*kSCREEN_SCALE-10
             self.view.addSubview(footBtnView)
         }else{
@@ -312,6 +350,7 @@ class TPeriodsDetailViewController: BaseViewController,UITextFieldDelegate ,UIAl
             mainTableView.height = kSCREEN_HEIGHT - 64
         }
         
+        self.view.beginLoading()
         refreshHeaderAction()
         
 //        isSearching = false
@@ -338,20 +377,14 @@ class TPeriodsDetailViewController: BaseViewController,UITextFieldDelegate ,UIAl
         }
         
         if currentIndex == 3 {
-            if section == 1 {
-                return videoArr.count
-            }else{
-                return 1
-            }
+            
+            return videoArr.count
         }
         return answerArr.count
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
         
-        if currentIndex == 3 {
-            return 2
-        }
         if currentIndex == 2 {
             return doneWorks.count
         }
@@ -384,35 +417,39 @@ class TPeriodsDetailViewController: BaseViewController,UITextFieldDelegate ,UIAl
             return cell
         }else if currentIndex == 2 {
             
-            let model = doneWorks[indexPath.row] as! TShowGradeModel
+            let model = doneWorks[indexPath.section] as! TShowGradeModel
             
             let cell : TShowDoneWorkCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable7, for: indexPath) as! TShowDoneWorkCell
             cell.TShowDoneWorkCellWithData(model: model)
             return cell
-        }else if currentIndex == 3 {
-            
-            if indexPath.section == 0 {
-                
-                let cell : TUpLoadVideoCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable5, for: indexPath) as! TUpLoadVideoCell
-                cell.selectionStyle = .none
-                return cell
-            }else{
-                let model = videoArr[indexPath.row]
-                let cell : AnserVideoCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable3, for: indexPath) as! AnserVideoCell
-                cell.AnserVideoCellSetValues(model: model)
-                return cell
-            }
             
         }else{
-            let model = answerArr[indexPath.row] as! UrlModel
+//        }else if currentIndex == 3 {
+            
+//            if indexPath.section == 0 {
+//
+//                let model = videoArr[indexPath.row] as! UrlModel
+//                let cell : AnserVideoCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable3, for: indexPath) as! AnserVideoCell
+//                cell.AnserVideoCellSetValues(model: model)
+//                return cell
+//            }
+            
+//        }else{
+            var model = UrlModel()
+            if currentIndex == 3 {
+                model = videoArr[indexPath.row] as! UrlModel
+            }else{
+                model = answerArr[indexPath.row] as! UrlModel
+            }
+            
             deBugPrint(item: model.type!)
             deBugPrint(item: model.format!)
-            if model.type == "1" {
+            if model.type == "1" || model.type == "4"{
                 
                 let cell : AnserVideoCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable3, for: indexPath) as! AnserVideoCell
                 cell.AnserVideoCellSetValuesForAnswer(title: model.title)
                 return cell
-            }else  if model.type == "2" {
+            }else  if model.type == "2" || model.type == "5" || model.type == "6"{
                 
                 if model.format == "doc" || model.format == "xls"{
                     let cell : ShowFileCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable9, for: indexPath) as! ShowFileCell
@@ -450,7 +487,7 @@ class TPeriodsDetailViewController: BaseViewController,UITextFieldDelegate ,UIAl
                 let viewC = TShowClassWorkViewController()
                 let model = works[indexPath.row] as! TShowClassWorksModel
                 viewC.model = model
-                
+                viewC.class_book_id = model.class_book_id
                 self.navigationController?.pushViewController(viewC, animated: true)
             }
         }
@@ -468,7 +505,7 @@ class TPeriodsDetailViewController: BaseViewController,UITextFieldDelegate ,UIAl
                 self.navigationController?.pushViewController(nextVC, animated: true)
             }else{
                 
-                let model = videoArr[indexPath.row]
+                let model = videoArr[indexPath.row] as! UrlModel
                 let webVc = WebViewController()
                 webVc.webUrl = model.point_address
                 webVc.theTitle = model.point_title
@@ -570,9 +607,8 @@ class TPeriodsDetailViewController: BaseViewController,UITextFieldDelegate ,UIAl
     }
     
     
-    func footView() {
+    func footView(titles:[String]) {
         
-        let titles = ["上传视频","上传图片","书写答案"]
         
         footBtnView.removeFromSuperview()
         _ = footBtnView.subviews.map {
@@ -596,7 +632,13 @@ class TPeriodsDetailViewController: BaseViewController,UITextFieldDelegate ,UIAl
             markBtn.layer.cornerRadius = 10*kSCREEN_SCALE
             markBtn.clipsToBounds = true
             markBtn.setTitleColor(UIColor.white, for: .normal)
-            markBtn.tag = 181 + index
+            
+            if currentIndex == 4 {
+                markBtn.tag = 181 + index
+            }else{
+                markBtn.tag = 181 + index + 3
+            }
+            
             footBtnView.addSubview(markBtn)
         }
     }
@@ -618,6 +660,7 @@ class TPeriodsDetailViewController: BaseViewController,UITextFieldDelegate ,UIAl
             self.navigationController?.pushViewController(nextVC, animated: true)
         }else  if sender.tag == 182{
             
+            uploadType = 3
             setupPhoto1(count: 100)
         }else  if sender.tag == 183{
             
@@ -629,6 +672,23 @@ class TPeriodsDetailViewController: BaseViewController,UITextFieldDelegate ,UIAl
                 self.mainTableView.mj_header.beginRefreshing()
             }
             self.navigationController?.pushViewController(nextVC, animated: true)
+        }else  if sender.tag == 184{
+
+            let nextVC = UploadVideoViewController()
+            nextVC.isAnswer = true
+            nextVC.bookId = periods_id
+            nextVC.currentType = 4
+            nextVC.addUrlBlock = {
+                self.mainTableView.mj_header.beginRefreshing()
+            }
+            self.navigationController?.pushViewController(nextVC, animated: true)
+
+        }else  if sender.tag == 185{
+            uploadType = 1
+            setupPhoto1(count: 100)
+        }else  if sender.tag == 186{
+            uploadType = 2
+            setupPhoto1(count: 100)
         }
     }
     
@@ -645,7 +705,8 @@ class TPeriodsDetailViewController: BaseViewController,UITextFieldDelegate ,UIAl
     
     private func setupPhoto1(count:NSInteger) {
         let imagePickTool = CLImagePickersTool()
-        
+        self.loadImages.removeAll()
+
         imagePickTool.isHiddenVideo = true
         
         imagePickTool.setupImagePickerWith(MaxImagesCount: count, superVC: self) { (assetArr,cutImage) in
@@ -661,7 +722,7 @@ class TPeriodsDetailViewController: BaseViewController,UITextFieldDelegate ,UIAl
             // 内部提供的方法可以异步获取图片，同步获取的话时间比较长，不建议！，如果是iCloud中的照片就直接从icloud中下载，下载完成后返回图片,同时也提供了下载失败的方法
             CLImagePickersTool.convertAssetArrToOriginImage(assetArr: assetArr, scale: 0.1, successClouse: {[weak self] (image,assetItem) in
                 imageArr.append(image)
-                
+
                 self?.loadImages.append(image)
                 self?.dealImage(imageArr: imageArr, index: index)
                 
@@ -713,18 +774,36 @@ class TPeriodsDetailViewController: BaseViewController,UITextFieldDelegate ,UIAl
             }
             
             self.view.beginLoading()
-            let params1 =
-                ["SESSIONID":SESSIONIDT,
-                 "mobileCode":mobileCodeT,
-                 "workId":periods_id,
-                 "money":priceTextfield.text!,
-                 ] as [String : String]
             
-            NetWorkTeacherAddTNotWorkUploadFile(params: params1, data: loadImages, vc: self, success: { (data) in
-                self.mainTableView.mj_header.beginRefreshing()
-            }, failture: { (error) in
+            
+            if uploadType == 3 {
+                let params1 =
+                    ["SESSIONID":Defaults[userToken]!,
+                     "mobileCode":mobileCode,
+                     "workId":periods_id,
+                     "money":priceTextfield.text!,
+                     ] as [String : String]
                 
-            })
+                NetWorkTeacherAddTNotWorkUploadFile(params: params1, data: loadImages, vc: self, success: { (data) in
+                    self.mainTableView.mj_header.beginRefreshing()
+                }, failture: { (error) in
+                    
+                })
+            }else{
+                let params1 =
+                    ["SESSIONID":Defaults[userToken]!,
+                     "mobileCode":mobileCode,
+                     "periods_id":periods_id,
+                     "money":priceTextfield.text!,
+                     "type":String(uploadType),
+                     ] as [String : String]
+                
+                NetWorkTeacherAddClassFiles(params: params1, data: loadImages, vc: self, success: { (data) in
+                    self.mainTableView.mj_header.beginRefreshing()
+                }, failture: { (error) in
+                    
+                })
+            }
             
             self.mainTableView.reloadData()
         }

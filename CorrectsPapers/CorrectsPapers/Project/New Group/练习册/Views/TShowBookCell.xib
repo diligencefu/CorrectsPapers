@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -17,7 +17,7 @@
             <rect key="frame" x="0.0" y="0.0" width="360" height="119"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="360" height="118.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="360" height="119"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="workBook" translatesAutoresizingMaskIntoConstraints="NO" id="vSa-K9-1DP">
@@ -119,9 +119,23 @@
                             <action selector="addWorkAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="QY1-nh-mlM"/>
                         </connections>
                     </button>
+                    <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uic-2k-dFR">
+                        <rect key="frame" x="217" y="56" width="40" height="18"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="18" id="6zb-5W-iGE"/>
+                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="31" id="8uA-72-erO"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                        <state key="normal" title="人教版">
+                            <color key="titleColor" red="0.096586210699999994" green="0.097319232180000007" blue="0.099518296630000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        </state>
+                    </button>
                 </subviews>
                 <constraints>
+                    <constraint firstItem="uic-2k-dFR" firstAttribute="leading" secondItem="ok3-Qj-fWI" secondAttribute="trailing" constant="8" id="2VF-HA-dPM"/>
                     <constraint firstAttribute="bottom" secondItem="vSa-K9-1DP" secondAttribute="bottom" constant="9.5" id="9BV-OD-lfo"/>
+                    <constraint firstItem="uic-2k-dFR" firstAttribute="centerY" secondItem="ok3-Qj-fWI" secondAttribute="centerY" id="EWu-xK-ZWw"/>
                     <constraint firstItem="eMo-Ez-brd" firstAttribute="centerY" secondItem="2QL-KA-kdK" secondAttribute="centerY" id="FFh-gy-CBR"/>
                     <constraint firstItem="ok3-Qj-fWI" firstAttribute="leading" secondItem="50K-aJ-K66" secondAttribute="trailing" constant="8" id="IZw-sy-051"/>
                     <constraint firstItem="iAX-kM-GPO" firstAttribute="top" secondItem="vSa-K9-1DP" secondAttribute="top" id="ImQ-cg-26V"/>
@@ -154,6 +168,7 @@
                 <outlet property="proMark" destination="50K-aJ-K66" id="8bB-C1-HKV"/>
                 <outlet property="studentCount" destination="cXp-q5-VKS" id="xI7-oq-fSW"/>
                 <outlet property="termDate" destination="eMo-Ez-brd" id="HuO-nY-ytH"/>
+                <outlet property="versionMark" destination="uic-2k-dFR" id="93v-Sn-YTV"/>
             </connections>
             <point key="canvasLocation" x="-94" y="38"/>
         </tableViewCell>

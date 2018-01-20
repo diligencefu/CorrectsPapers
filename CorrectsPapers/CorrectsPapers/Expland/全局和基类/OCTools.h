@@ -14,11 +14,27 @@
 //渲染动画
 - (void)animationWithView:(UIView *)view duration:(CFTimeInterval)duration;
 
+
 //获取有效地址
 +(NSURL *)getEfficientAddress:(NSString *)string;
 
 
 //多位数加,号
 - (NSString *)positiveFormat:(NSString *)text;
+
+
+//手机号正则
++(BOOL)checkoutPhoneNum:(NSString *)phoneNum;
+
 - (BOOL)isUrl;
+
+/**
+ *  验证身份证号
+ *
+ *  @param cardNo 身份证号
+ *
+ *  @return 是否正确
+ */
++(BOOL)checkIdentityCardNo:(NSString*)cardNo;
+
 @end

@@ -10,6 +10,8 @@ import UIKit
 
 class TGetAccountViewController: BaseViewController {
 
+    var headView = IncomeHeadView()
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -19,10 +21,12 @@ class TGetAccountViewController: BaseViewController {
     override func requestData() {
         
         self.view.beginLoading()
-        netWorkForMyCoin { (datas,flag) in
+        netWorkForMyCoin { (datas,sumCoin,flag) in
             if flag {
                 self.mainTableArr.removeAllObjects()
                 self.mainTableArr.addObjects(from: datas)
+                self.headView.setAccount(num:sumCoin)
+
                 self.mainTableView.reloadData()
             }
             self.view.endLoading()
@@ -32,9 +36,10 @@ class TGetAccountViewController: BaseViewController {
     
     override func refreshHeaderAction() {
         self.view.beginLoading()
-        netWorkForMyCoin { (datas,flag) in
+        netWorkForMyCoin { (datas,sumCoin,flag) in
             if flag {
                 self.mainTableArr.removeAllObjects()
+                self.mainTableArr.addObjects(from: datas)
                 self.mainTableArr.addObjects(from: datas)
                 self.mainTableView.mj_header.endRefreshing()
                 self.mainTableView.reloadData()
@@ -48,8 +53,11 @@ class TGetAccountViewController: BaseViewController {
         
         self.navigationItem.title = "我的学币"
         
-        let headView = UINib(nibName:"IncomeHeadView",bundle:nil).instantiate(withOwner: self, options: nil).first as! IncomeHeadView
+        headView = UINib(nibName:"IncomeHeadView",bundle:nil).instantiate(withOwner: self, options: nil).first as! IncomeHeadView
         headView.frame =  CGRect(x: 0, y: 0, width: kSCREEN_WIDTH, height: 685)
+        headView.chooseImagesAction = {
+            
+        }
         
         mainTableView = UITableView.init(frame: CGRect(x: 0,
                                                        y: -500,
@@ -79,13 +87,12 @@ class TGetAccountViewController: BaseViewController {
         let model = mainTableArr[indexPath.row] as! AccountModel
         let cell = tableView.dequeueReusableCell(withIdentifier: identyfierTable, for: indexPath) as! IncomeCell
         cell.setValuesForIncomeCell(model: model)
-        return cell
         
+        return cell
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        
     }
 
 }

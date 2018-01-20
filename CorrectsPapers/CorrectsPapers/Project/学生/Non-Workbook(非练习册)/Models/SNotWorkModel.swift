@@ -32,7 +32,9 @@ class SNotWorkModel: NSObject {
     var non_exercise_id : String!
     ///退回原因
     var reason : String!
-
+    ///创建时间
+    var create_date : String!
+    
     
     class func setValueForSNotWorkModel(json: JSON) -> SNotWorkModel {
         
@@ -48,6 +50,7 @@ class SNotWorkModel: NSObject {
         model.sumPage = json["sumPage"].stringValue
         model.non_exercise_id = json["non_exercise_id"].stringValue
         model.reason = json["reason"].stringValue
+        model.create_date = json["create_date"].stringValue
         return model
     }
 

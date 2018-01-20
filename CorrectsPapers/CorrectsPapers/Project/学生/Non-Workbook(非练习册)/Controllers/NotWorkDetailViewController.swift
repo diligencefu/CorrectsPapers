@@ -10,7 +10,7 @@ import UIKit
 import SwiftyJSON
 import SwiftyUserDefaults
 
-class NotWorkDetailViewController: BaseViewController,HBAlertPasswordViewDelegate{
+class NotWorkDetailViewController: BaseViewController,HBAlertPasswordViewDelegate,refreshDelegate{
     
     var typeArr = NSMutableArray()
     var headView = UIView()
@@ -51,7 +51,7 @@ class NotWorkDetailViewController: BaseViewController,HBAlertPasswordViewDelegat
 
     var downloadType = 100
     
-    var state = ""
+    var state = ""    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -63,7 +63,7 @@ class NotWorkDetailViewController: BaseViewController,HBAlertPasswordViewDelegat
         let params =
             [
                 "non_exercise_Id":model.non_exercise_id,
-                "SESSIONID":SESSIONID,
+                "SESSIONID":Defaults[userToken]!,
                 "mobileCode":mobileCode
         ] as [String:Any]
 
@@ -87,7 +87,7 @@ class NotWorkDetailViewController: BaseViewController,HBAlertPasswordViewDelegat
             let params1 =
                 [
                     "bookId":model.non_exercise_id,
-                    "SESSIONID":SESSIONID,
+                    "SESSIONID":Defaults[userToken]!,
                     "mobileCode":mobileCode
                     ] as [String:Any]
             NetWorkStudentCheckPay(params: params1) { (pays,flag) in
@@ -141,7 +141,7 @@ class NotWorkDetailViewController: BaseViewController,HBAlertPasswordViewDelegat
             let params =
                 [
                     "non_exercise_Id":model.non_exercise_id,
-                    "SESSIONID":SESSIONID,
+                    "SESSIONID":Defaults[userToken]!,
                     "mobileCode":mobileCode
                     ] as [String:Any]
             
@@ -163,7 +163,7 @@ class NotWorkDetailViewController: BaseViewController,HBAlertPasswordViewDelegat
             let params =
                 [
                     "NonExcrcise_id":model.non_exercise_id,
-                    "SESSIONID":SESSIONID,
+                    "SESSIONID":Defaults[userToken]!,
                     "mobileCode":mobileCode
                     ] as [String:Any]
             NetWorkStudentGetKnowledgePoint(params: params, callBack: { (datas, flag) in
@@ -182,7 +182,7 @@ class NotWorkDetailViewController: BaseViewController,HBAlertPasswordViewDelegat
                 [
                     "bookId":model.non_exercise_id,
                     "type":type,
-                    "SESSIONID":SESSIONID,
+                    "SESSIONID":Defaults[userToken]!,
                     "mobileCode":mobileCode
                     ] as [String:Any]
             NetWorkStudentGetOtherAnswrs(params: params) { (datas, flag) in
@@ -305,7 +305,7 @@ class NotWorkDetailViewController: BaseViewController,HBAlertPasswordViewDelegat
             let params =
                 [
                     "non_exercise_Id":model.non_exercise_id,
-                    "SESSIONID":SESSIONID,
+                    "SESSIONID":Defaults[userToken]!,
                     "mobileCode":mobileCode
                     ] as [String:Any]
             
@@ -325,7 +325,7 @@ class NotWorkDetailViewController: BaseViewController,HBAlertPasswordViewDelegat
             let params =
                 [
                     "NonExcrcise_id":model.non_exercise_id,
-                    "SESSIONID":SESSIONID,
+                    "SESSIONID":Defaults[userToken]!,
                     "mobileCode":mobileCode
                     ] as [String:Any]
             self.view.beginLoading()
@@ -345,7 +345,7 @@ class NotWorkDetailViewController: BaseViewController,HBAlertPasswordViewDelegat
                 [
                     "bookId":model.non_exercise_id,
                     "type":type,
-                    "SESSIONID":SESSIONID,
+                    "SESSIONID":Defaults[userToken]!,
                     "mobileCode":mobileCode
                     ] as [String:Any]
             NetWorkStudentGetOtherAnswrs(params: params) { (datas, flag) in
@@ -478,7 +478,7 @@ class NotWorkDetailViewController: BaseViewController,HBAlertPasswordViewDelegat
         }
         
         let params = [
-            "SESSIONID":SESSIONID,
+            "SESSIONID":Defaults[userToken]!,
             "mobileCode":mobileCode,
             "teacher_id":theModel.teacher_id!,
             "money":theModel.money,
@@ -558,8 +558,8 @@ class NotWorkDetailViewController: BaseViewController,HBAlertPasswordViewDelegat
                     if $0 == "uploadAction" {
                         
                         let params = [
-                            "SESSIONID":SESSIONID,
-                            "mobileCode":mobileCode,
+                            "SESSIONID":Defaults[userToken]!,
+                            "mobileCode":Defaults[mCode]!,
                             "non_exercise_name":cell.workDescrip.text!,
                             "correct_way":self.workModel.correct_way,
                             "classes_id":self.workModel.pre_comment,
@@ -579,8 +579,8 @@ class NotWorkDetailViewController: BaseViewController,HBAlertPasswordViewDelegat
                             let params =
                                 [
                                     "non_exercise_Id":self.model.non_exercise_id,
-                                    "SESSIONID":SESSIONID,
-                                    "mobileCode":mobileCode
+                                    "SESSIONID":Defaults[userToken]!,
+                                    "mobileCode":Defaults[mCode]!
                                     ] as [String:Any]
                             
                             NetWorkStudentGetAllnon_exercise(params: params) { (dataArr,flag) in
@@ -611,6 +611,26 @@ class NotWorkDetailViewController: BaseViewController,HBAlertPasswordViewDelegat
                 let cell : CheckWorkCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable2, for: indexPath) as! CheckWorkCell
                 
                 cell.checkWorkCellSetValues1NotWork(model:workModel)
+                cell.cancelAction = {
+                    let params =
+                        [
+                            "book_id":self.model.non_exercise_id,
+                            "type":"2",
+                            "SESSIONID":Defaults[userToken]!,
+                            "mobileCode":Defaults[mCode]!
+                            ] as [String:String]
+                    
+                    NetWorkStudentBackWorkBook(params: params, callBack: { (flag) in
+                        if flag {
+//                            self.mainTableView.mj_header.beginRefreshing()
+                            //        通知中心
+                            NotificationCenter.default.post(name: Notification.Name(rawValue: SuccesscallBackNonWorkNotiS), object: self, userInfo: ["refresh":"begin"])
+
+                            self.navigationController?.popViewController(animated: true)
+                        }
+                    })
+                }
+
                 return cell
             }
             
@@ -623,10 +643,14 @@ class NotWorkDetailViewController: BaseViewController,HBAlertPasswordViewDelegat
 //                        self.state = "0"
 //                        tableView.reloadData()
                         let VC = CreateNotWorkViewController()
+                        VC.name = self.workModel.non_exercise_name
+                        VC.non_exercise_Id = self.model.non_exercise_id
+                        VC.delegate = self
                         self.navigationController?.pushViewController(VC, animated: true)
                     }
                     cell.complainAction = {
                         let complianVC = ComplaintViewController()
+                        complianVC.teacher_id = self.workModel.teacher_id
                         self.navigationController?.pushViewController(complianVC, animated: true)
                     }
                     return cell
@@ -640,6 +664,7 @@ class NotWorkDetailViewController: BaseViewController,HBAlertPasswordViewDelegat
                     cell.checkWorkCellSetValues3NotWork(model:workModel)
                     cell.complainAction = {
                         let complianVC = ComplaintViewController()
+                        complianVC.teacher_id = self.workModel.teacher_id
                         self.navigationController?.pushViewController(complianVC, animated: true)
                     }
                     
@@ -647,15 +672,20 @@ class NotWorkDetailViewController: BaseViewController,HBAlertPasswordViewDelegat
                 }
                 
                 let cell : UpLoadWorkCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable1, for: indexPath) as! UpLoadWorkCell
-                cell.upLoadImagesForResubmit(images: images as! Array<UIImage>)
+                
+                if workModel.times == nil {
+                    workModel.times = "2018-05-15 12:00:00"
+                }
+
+                cell.upLoadImagesForResubmit(images: images as! Array<UIImage>, timeStr: self.workModel.times)
                 
                 cell.chooseImagesAction = {
                     if $0 == "uploadAction" {
                         
                         let params =
                             [
-                                "SESSIONID":SESSIONID,
-                                "mobileCode":mobileCode,
+                                "SESSIONID":Defaults[userToken]!,
+                                "mobileCode":Defaults[mCode]!,
                                 "non_exercise_Id":self.model.non_exercise_id
                         ] as! [String : String]
                         
@@ -681,6 +711,11 @@ class NotWorkDetailViewController: BaseViewController,HBAlertPasswordViewDelegat
                 if  indexPath.row == 0 {
                     
                     cell.checkWorkCellSetValues3NotWork(model:workModel)
+                    cell.complainAction = {
+                        let complaintVC = ComplaintViewController()
+                        complaintVC.teacher_id = self.workModel.teacher_id
+                        self.navigationController?.pushViewController(complaintVC, animated: true)
+                    }
                     return cell
                 }
                 cell.checkWorkCellSetValues1NotWork(model:workModel)
@@ -693,6 +728,12 @@ class NotWorkDetailViewController: BaseViewController,HBAlertPasswordViewDelegat
                 if  indexPath.row == 0 {
                     
                     cell.checkWorkCellSetValues3NotWork(model:workModel)
+                    cell.complainAction = {
+                        let complaintVC = ComplaintViewController()
+                        complaintVC.teacher_id = self.workModel.teacher_id
+                        self.navigationController?.pushViewController(complaintVC, animated: true)
+                    }
+
                     return cell
                 }
                 
@@ -703,10 +744,6 @@ class NotWorkDetailViewController: BaseViewController,HBAlertPasswordViewDelegat
                     tableView.reloadData()
                 }
                 
-                cell.complainAction = {
-                    let complaintVC = ComplaintViewController()
-                    self.navigationController?.pushViewController(complaintVC, animated: true)
-                }
                 
                 return cell
             }
@@ -717,6 +754,12 @@ class NotWorkDetailViewController: BaseViewController,HBAlertPasswordViewDelegat
                     
                     let cell : CheckWorkCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable2, for: indexPath) as! CheckWorkCell
                     cell.checkWorkCellSetValues3NotWork(model:workModel)
+                    cell.complainAction = {
+                        let complaintVC = ComplaintViewController()
+                        complaintVC.teacher_id = self.workModel.teacher_id
+                        self.navigationController?.pushViewController(complaintVC, animated: true)
+                    }
+
                     return cell
                 }
                 let cell : CheckWorkCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable2, for: indexPath) as! CheckWorkCell
@@ -917,4 +960,9 @@ class NotWorkDetailViewController: BaseViewController,HBAlertPasswordViewDelegat
     override func viewWillDisappear(_ animated: Bool) {
         PopViewUtil.share.stopLoading()
     }
+    
+    func beginRefresh() {
+        self.mainTableView.mj_header.beginRefreshing()
+    }
+    
 }

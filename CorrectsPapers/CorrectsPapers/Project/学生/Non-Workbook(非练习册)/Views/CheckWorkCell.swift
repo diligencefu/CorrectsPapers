@@ -42,10 +42,12 @@ class CheckWorkCell: UITableViewCell {
     
     var complainAction:(()->())?  //声明闭包
     var resubmitAction:(()->())?  //声明闭包
-    
+    var cancelAction:(()->())?  //声明闭包
+
     var theModel = BookDetailModel()
     var theModel1 = NotWorkDetailModel()
     var whereCome = 0
+    
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -75,9 +77,11 @@ class CheckWorkCell: UITableViewCell {
     }
     
     
+    
 //    未批改
     func checkWorkCellSetValues1(model:BookDetailModel) {
         theModel = model
+        
         label1.isHidden = true
         teachermark.isHidden = true
         remark.isHidden = true
@@ -85,7 +89,17 @@ class CheckWorkCell: UITableViewCell {
         score.isHidden = true
         scoreImage.isHidden = true
         
-        workDescrip.text = model.result
+        if model.result == nil || model.result.count == 0 {
+            workDescrip.snp.updateConstraints { (make) in
+                make.height.equalTo(0)
+            }
+        }else{
+            workDescrip.text = model.result
+            workDescrip.snp.updateConstraints { (make) in
+                make.height.equalTo(21)
+            }
+        }
+        
         correctTime.text = model.correcting_time
         
         workImage1.snp.updateConstraints { (make) in
@@ -99,6 +113,9 @@ class CheckWorkCell: UITableViewCell {
                     workImage2.kf.setImage(with:  URL(string:model.photo[1])!, placeholder: #imageLiteral(resourceName: "class_default"), options: nil, progressBlock: nil, completionHandler: nil)
                 }
             }
+            
+            resubmit.isHidden = false
+            resubmit.setTitle("撤回作业", for: .normal)
 
         }else if model.correcting_states == "5" {
             if model.photo != nil {
@@ -107,13 +124,15 @@ class CheckWorkCell: UITableViewCell {
                     workImage2.kf.setImage(with:  URL(string:model.corrected_error_photo[1])!, placeholder: #imageLiteral(resourceName: "class_default"), options: nil, progressBlock: nil, completionHandler: nil)
                 }
             }
+            resubmit.isHidden = true
+
         }
-        resubmit.isHidden = true
         complain.isHidden = true
     }
     
 //    退回
     func checkWorkCellSetValues2(model:BookDetailModel) {
+        
         theModel = model
         label1.isHidden = true
         teachermark.isHidden = true
@@ -122,7 +141,16 @@ class CheckWorkCell: UITableViewCell {
         score.isHidden = true
         scoreImage.isHidden = true
         
-        workDescrip.text = model.result
+        if model.result == nil || model.result.count == 0 {
+            workDescrip.snp.updateConstraints { (make) in
+                make.height.equalTo(0)
+            }
+        }else{
+            workDescrip.text = model.result
+            workDescrip.snp.updateConstraints { (make) in
+                make.height.equalTo(21)
+            }
+        }
         correctTime.text = model.create_date
 
         no_check.text = "退回-照片模糊"
@@ -152,6 +180,7 @@ class CheckWorkCell: UITableViewCell {
 //    批改，等待改正
     func checkWorkCellSetValues3(model:BookDetailModel) {
         theModel = model
+        
         remark.text = "状态3：已批改后显示等待更正错题如果成绩为满分则不出现更正错题页面等待更等待更等待更等待更等待更等待更等待更等待更等待更"
         resubmit.snp.updateConstraints { (make) in
             make.width.equalTo(0)
@@ -160,11 +189,25 @@ class CheckWorkCell: UITableViewCell {
             make.width.equalTo(0)
         }
 
-        workDescrip.text = model.result
+        if model.result == nil || model.result.count == 0 {
+            workDescrip.snp.updateConstraints { (make) in
+                make.height.equalTo(0)
+            }
+        }else{
+            workDescrip.text = model.result
+            workDescrip.snp.updateConstraints { (make) in
+                make.height.equalTo(21)
+            }
+        }
         correctTime.text = model.create_date
 
         teachermark.text = model.teacher_name
-        remark.text = model.comment
+        
+        if model.comment == nil{
+            remark.text = "老师评语:老师觉得你的作业很棒！"
+        }else{
+            remark.text = "老师评语:" + model.comment!
+        }
         
         if model.scores == "1" {
             scoreImage.image = #imageLiteral(resourceName: "yixing_icon_pressed")
@@ -192,6 +235,7 @@ class CheckWorkCell: UITableViewCell {
 
 //    都完成
     func checkWorkCellSetValues4(model:BookDetailModel) {
+
         theModel = model
         remark.text = "状态3：已批改后显示等待更正错题如果成绩为满分则不出现更正错题页面等待更等待更等待更等待更等待更等待更等待更等待更等待更"
         complain.isHidden = true
@@ -221,13 +265,13 @@ class CheckWorkCell: UITableViewCell {
         }
 
     }
-    
-    
+
     
     // MARK:   非练习册
     
     //    未批改
     func checkWorkCellSetValues1NotWork(model:NotWorkDetailModel) {
+
         theModel1 = model
         whereCome = 1
         label1.isHidden = true
@@ -237,7 +281,17 @@ class CheckWorkCell: UITableViewCell {
         score.isHidden = true
         scoreImage.isHidden = true
         
-        workDescrip.text = model.non_exercise_name
+        if model.non_exercise_name == nil || model.non_exercise_name.count == 0 {
+            workDescrip.snp.updateConstraints { (make) in
+                make.height.equalTo(0)
+            }
+        }else{
+            workDescrip.text = model.non_exercise_name
+            workDescrip.snp.updateConstraints { (make) in
+                make.height.equalTo(21)
+            }
+        }
+
         correctTime.text = model.create_date
         
         workImage1.snp.updateConstraints { (make) in
@@ -251,7 +305,9 @@ class CheckWorkCell: UITableViewCell {
                     workImage2.kf.setImage(with:  URL(string:model.pre_photos[1])!, placeholder: #imageLiteral(resourceName: "class_default"), options: nil, progressBlock: nil, completionHandler: nil)
                 }
             }
-            
+            resubmit.isHidden = false
+            resubmit.setTitle("撤回作业", for: .normal)
+
         }else if model.correct_states == "5" {
             if model.corrected_photos != nil {
                 workImage1.kf.setImage(with:  URL(string:model.corrected_photos[0])!, placeholder: #imageLiteral(resourceName: "class_default"), options: nil, progressBlock: nil, completionHandler: nil)
@@ -259,8 +315,8 @@ class CheckWorkCell: UITableViewCell {
                     workImage2.kf.setImage(with:  URL(string:model.corrected_photos[1])!, placeholder: #imageLiteral(resourceName: "class_default"), options: nil, progressBlock: nil, completionHandler: nil)
                 }
             }
+            resubmit.isHidden = true
         }
-        resubmit.isHidden = true
         complain.isHidden = true
     }
     
@@ -275,7 +331,16 @@ class CheckWorkCell: UITableViewCell {
         score.isHidden = true
         scoreImage.isHidden = true
         
-        workDescrip.text = model.non_exercise_name
+        if model.non_exercise_name == nil || model.non_exercise_name.count == 0 {
+            workDescrip.snp.updateConstraints { (make) in
+                make.height.equalTo(0)
+            }
+        }else{
+            workDescrip.text = model.non_exercise_name
+            workDescrip.snp.updateConstraints { (make) in
+                make.height.equalTo(21)
+            }
+        }
         correctTime.text = model.create_date
         
         no_check.textColor = kSetRGBColor(r: 255, g: 78, b: 78)
@@ -316,7 +381,16 @@ class CheckWorkCell: UITableViewCell {
             make.width.equalTo(0)
         }
         
-        workDescrip.text = model.non_exercise_name
+        if model.non_exercise_name == nil || model.non_exercise_name.count == 0 {
+            workDescrip.snp.updateConstraints { (make) in
+                make.height.equalTo(0)
+            }
+        }else{
+            workDescrip.text = model.non_exercise_name
+            workDescrip.snp.updateConstraints { (make) in
+                make.height.equalTo(21)
+            }
+        }
         correctTime.text = model.create_date
         
         teachermark.text = model.teacher_name
@@ -388,10 +462,29 @@ class CheckWorkCell: UITableViewCell {
                 
     }
     
-    @IBAction func resubmitAction(_ sender: UIButton) {        
-        if resubmitAction != nil {
-            resubmitAction!()
-        }        
+    @IBAction func resubmitAction(_ sender: UIButton) {
+        
+        if whereCome == 0 {
+            if theModel.correcting_states == "2" {
+                if cancelAction != nil {
+                    cancelAction!()
+                }
+            }else{
+                if resubmitAction != nil {
+                    resubmitAction!()
+                }
+            }
+        }else{
+            if theModel1.correct_states == "2" {
+                if cancelAction != nil {
+                    cancelAction!()
+                }
+            }else{
+                if resubmitAction != nil {
+                    resubmitAction!()
+                }
+            }
+        }
     }
     
     
@@ -407,14 +500,26 @@ class CheckWorkCell: UITableViewCell {
             if theModel.correcting_states == nil {
                 return
             }
+            
             if Int(theModel.correcting_states)! > 4 {
                 
-                let watchIMGItem = KSPhotoItem.init(sourceView: workImage1, image: workImage1.image)
-                images.append(watchIMGItem!)
-                if theModel.corrected_error_photo.count == 2 {
-                    let watchIMGItem = KSPhotoItem.init(sourceView: workImage2, image: workImage2.image)
+                
+                if theModel.scores == "5" {
+                    let watchIMGItem = KSPhotoItem.init(sourceView: workImage1, image: workImage1.image)
                     images.append(watchIMGItem!)
+                    if theModel.photo.count == 2 {
+                        let watchIMGItem = KSPhotoItem.init(sourceView: workImage2, image: workImage2.image)
+                        images.append(watchIMGItem!)
+                    }
+                }else{
+                    let watchIMGItem = KSPhotoItem.init(sourceView: workImage1, image: workImage1.image)
+                    images.append(watchIMGItem!)
+                    if theModel.corrected_error_photo.count == 2 {
+                        let watchIMGItem = KSPhotoItem.init(sourceView: workImage2, image: workImage2.image)
+                        images.append(watchIMGItem!)
+                    }
                 }
+                
             }else{
                 
                 let watchIMGItem = KSPhotoItem.init(sourceView: workImage1, image: workImage1.image)
@@ -442,11 +547,20 @@ class CheckWorkCell: UITableViewCell {
             }
             if Int(theModel1.correct_states)! > 4 {
                 
-                let watchIMGItem = KSPhotoItem.init(sourceView: workImage1, image: workImage1.image)
-                images.append(watchIMGItem!)
-                if theModel1.corrected_photos.count == 2 {
-                    let watchIMGItem = KSPhotoItem.init(sourceView: workImage2, image: workImage2.image)
+                if theModel.scores == "5" {
+                    let watchIMGItem = KSPhotoItem.init(sourceView: workImage1, image: workImage1.image)
                     images.append(watchIMGItem!)
+                    if theModel.photo.count == 2 {
+                        let watchIMGItem = KSPhotoItem.init(sourceView: workImage2, image: workImage2.image)
+                        images.append(watchIMGItem!)
+                    }
+                }else{
+                    let watchIMGItem = KSPhotoItem.init(sourceView: workImage1, image: workImage1.image)
+                    images.append(watchIMGItem!)
+                    if theModel1.corrected_photos.count == 2 {
+                        let watchIMGItem = KSPhotoItem.init(sourceView: workImage2, image: workImage2.image)
+                        images.append(watchIMGItem!)
+                    }
                 }
             }else{
                 

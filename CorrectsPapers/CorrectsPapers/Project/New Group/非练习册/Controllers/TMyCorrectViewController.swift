@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SwiftyUserDefaults
 
 class TMyCorrectViewController: BaseViewController {
     var emptyView = UIView()    
@@ -22,8 +23,8 @@ class TMyCorrectViewController: BaseViewController {
     override func requestData() {
         self.view.beginLoading()
         let params =
-            ["SESSIONID":SESSIONIDT,
-             "mobileCode":mobileCodeT,
+            ["SESSIONID":Defaults[userToken]!,
+             "mobileCode":mobileCode,
 //             "pageNo":String(pageNum)
                 ] as [String : Any]
 
@@ -40,11 +41,10 @@ class TMyCorrectViewController: BaseViewController {
     
     override func refreshHeaderAction() {
 
-        self.view.beginLoading()
         pageNum = 0
         let params =
-            ["SESSIONID":SESSIONIDT,
-             "mobileCode":mobileCodeT,
+            ["SESSIONID":Defaults[userToken]!,
+             "mobileCode":mobileCode,
 //             "pageNo":String(pageNum)
                 ] as [String : Any]
         
@@ -55,7 +55,6 @@ class TMyCorrectViewController: BaseViewController {
                 self.mainTableView.reloadData()
                 self.mainTableView.mj_header.endRefreshing()
             }
-            self.view.endLoading()
         }
     }
 
@@ -63,7 +62,7 @@ class TMyCorrectViewController: BaseViewController {
         pageNum = pageNum+1
         let param =
             [
-                "SESSIONID":SESSIONID,
+                "SESSIONID":Defaults[userToken]!,
                 "mobileCode":mobileCode,
 //                "pageNo":String(pageNum),
                 ]

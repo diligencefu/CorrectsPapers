@@ -9,7 +9,7 @@
 import UIKit
 import SwiftyUserDefaults
 
-class LoginViewController: BaseViewController {
+class LoginViewController: UIViewController {
 
     var canBack = false
     
@@ -23,13 +23,19 @@ class LoginViewController: BaseViewController {
         self.view.backgroundColor = kBGColor()
         
         configSubViews()
+        
+        self.navigationController?.navigationBar.setBackgroundImage(getNavigationIMG(64, fromColor: kSetRGBColor(r: 0, g: 200, b: 255), toColor: kSetRGBColor(r: 0, g: 160, b: 255)), for: .default)
+        
+        self.navigationItem.leftBarButtonItem?.tintColor = kSetRGBColor(r: 255, g: 255, b: 255)
+        self.navigationItem.rightBarButtonItem?.tintColor = UIColor.white
+        UIApplication.shared.statusBarStyle = .lightContent
     }
 
-    override func leftBarButton() {
+     func leftBarButton() {
         
     }
     
-    override func configSubViews() {
+     func configSubViews() {
 //        账号
         userName.frame = CGRect(x: 30, y: 30, width: kSCREEN_WIDTH - 30 * 2, height: 45)
         userName.borderStyle = .none
@@ -75,7 +81,7 @@ class LoginViewController: BaseViewController {
         passWord.textColor = kGaryColor(num: 117)
         passWord.isSecureTextEntry = true
 //        passWord.keyboardType = .namePhonePad
-        passWord.text = "qwerty"
+        passWord.text = "123456"
         self.view.addSubview(passWord)
         
         let leftBG2 = UIView.init(frame: CGRect(x: 0, y: 0, width: 35, height: 45))
@@ -149,7 +155,13 @@ class LoginViewController: BaseViewController {
         
         
         if userName.text == "13260646603" {
-            userName.text = "13297079546"
+            userName.text = "18749025700"
+            passWord.text = "123456"
+        }else if userName.text == "18749025700" {
+            userName.text = "15607185232"
+            passWord.text = "123456"
+        }else if userName.text == "15607185232" {
+            userName.text = "17607157668"
             passWord.text = "123456"
         }
         

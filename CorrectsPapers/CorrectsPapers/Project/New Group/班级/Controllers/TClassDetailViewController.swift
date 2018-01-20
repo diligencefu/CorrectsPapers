@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SwiftyUserDefaults
 
 class TClassDetailViewController: BaseViewController,UITextFieldDelegate {
 
@@ -15,7 +16,7 @@ class TClassDetailViewController: BaseViewController,UITextFieldDelegate {
     var buttonView = UIView()
 
     var underLine = UIView()
-    var NofitICLabel = UILabel()
+    var NofitICLabel = AutoScrollLabel()
     
     var currentIndex = 1
     
@@ -58,9 +59,9 @@ class TClassDetailViewController: BaseViewController,UITextFieldDelegate {
     
     override func requestData() {
         let params = [
-            "SESSIONID":SESSIONIDT,
+            "SESSIONID":Defaults[userToken]!,
             "classes_id":classid,
-            "mobileCode":mobileCodeT,
+            "mobileCode":mobileCode,
             "type":type
             ] as [String:Any]
         
@@ -80,19 +81,25 @@ class TClassDetailViewController: BaseViewController,UITextFieldDelegate {
             self.view.endLoading()
         }
         
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        
         let params1 = [
-            "SESSIONID":SESSIONIDT,
+            "SESSIONID":Defaults[userToken]!,
             "class_id":classid,
-            "mobileCode":mobileCodeT,
+            "mobileCode":mobileCode,
             ] as [String:Any]
-
+        
         NetWorkTeachersGetNotify(params: params1) { (text, flag) in
             if flag {
-                self.NofitICLabel.text = text
+                
+                self.NofitICLabel.setText(text)
             }
         }
         
     }
+    
     
     override func configSubViews() {
         
@@ -101,13 +108,19 @@ class TClassDetailViewController: BaseViewController,UITextFieldDelegate {
         headView = UIView.init(frame: CGRect(x: 0, y: 0, width: kSCREEN_WIDTH, height: 165*kSCREEN_SCALE))
         headView.backgroundColor = UIColor.white
         
+//        let scroll = UIScrollView.init(frame: CGRect(x: 0, y: 0, width: kSCREEN_WIDTH, height: 64 * kSCREEN_SCALE))
+//        scroll.backgroundColor = UIColor.white
+//        scroll.contentSize = CGSize(width: kSCREEN_WIDTH, height: 64 * kSCREEN_SCALE)
+//        scroll.bounces = false
+//        headView.addSubview(scroll)
         
-        NofitICLabel = UILabel.init(frame: CGRect(x: 0, y: 0, width: kSCREEN_WIDTH, height: 64 * kSCREEN_SCALE))
+        NofitICLabel = AutoScrollLabel.init(frame: CGRect(x: 0, y: 0, width: kSCREEN_WIDTH, height: 64 * kSCREEN_SCALE))
         NofitICLabel.textColor = kSetRGBColor(r: 255, g: 153, b: 0)
-        NofitICLabel.textAlignment = .center
-        NofitICLabel.text = "通知栏信息通知栏信息通知栏信息通知栏信息通知栏信息通知栏信息"
-        NofitICLabel.font = kFont34
+        NofitICLabel.setText("通知消息")
+        NofitICLabel.backgroundColor = UIColor.white
         headView.addSubview(NofitICLabel)
+        
+        //添加顶部按钮
         updateButtons(titleArr: typeArr)
         self.view.addSubview(headView)
         
@@ -136,10 +149,14 @@ class TClassDetailViewController: BaseViewController,UITextFieldDelegate {
         let searchClass = UIBarButtonItem.init(image: #imageLiteral(resourceName: "AddFriends_icon_default"), style: .plain, target: self, action: #selector(pushSearchClass(sender:)))
         searchClass.tag = 10068
         
-        self.navigationItem.rightBarButtonItems = [searchClass,createClass,]
+        
+        if type == "1" {
+            self.navigationItem.rightBarButtonItems = [searchClass,createClass,]
+        }else{
+            self.navigationItem.rightBarButtonItems = [createClass]
+        }
         
         self.navigationItem.rightBarButtonItem?.tintColor = UIColor.white
-        
     }
     
     @objc func pushSearchClass(sender:UIBarButtonItem) {
@@ -150,6 +167,9 @@ class TClassDetailViewController: BaseViewController,UITextFieldDelegate {
                 let notiVC = SuggestViewController()
                 notiVC.class_id = classid
                 notiVC.isSuggest = false
+                notiVC.createNtifiAction = {
+                    self.requestData()
+                }
                 self.navigationController?.pushViewController(notiVC, animated: true)
             }else{
                 let classMassage = TShowClassMessageVC()
@@ -231,9 +251,9 @@ class TClassDetailViewController: BaseViewController,UITextFieldDelegate {
         if currentIndex == 1 {
             
             let params = [
-                "SESSIONID":SESSIONIDT,
+                "SESSIONID":Defaults[userToken]!,
                 "classes_id":classid,
-                "mobileCode":mobileCodeT,
+                "mobileCode":mobileCode,
                 "type":type
             ]
             NetWorkTeacherTeacherSelectAllPeriods(params: params) { (datas,flag) in
@@ -249,9 +269,9 @@ class TClassDetailViewController: BaseViewController,UITextFieldDelegate {
         }else if currentIndex == 2 {
             
             let params = [
-                "SESSIONID":SESSIONIDT,
+                "SESSIONID":Defaults[userToken]!,
                 "classes_id":classid,
-                "mobileCode":mobileCodeT,
+                "mobileCode":mobileCode,
                 ]
             NetWorkTeacherGetClassMember(params: params, callBack: { (datas,flag) in
                 
@@ -268,8 +288,8 @@ class TClassDetailViewController: BaseViewController,UITextFieldDelegate {
         }else if currentIndex == 3 {
             
             let params = [
-                "SESSIONID":SESSIONIDT,
-                "mobileCode":mobileCodeT,
+                "SESSIONID":Defaults[userToken]!,
+                "mobileCode":mobileCode,
                 "type":"3",
                 "classes_id":classid
             ]
@@ -277,6 +297,7 @@ class TClassDetailViewController: BaseViewController,UITextFieldDelegate {
                 if datas.count > 0{
                     
                     self.InfoModel = datas[0] as! LNClassInfoModel
+                    self.navigationItem.title = self.InfoModel.class_name
                     self.mainTableView.reloadData()
                 }
                 self.view.endLoading()
@@ -285,9 +306,9 @@ class TClassDetailViewController: BaseViewController,UITextFieldDelegate {
         }else if currentIndex == 4{
             
             let params11 = [
-                "SESSIONID":SESSIONIDT,
+                "SESSIONID":Defaults[userToken]!,
                 "classes_id":classid,
-                "mobileCode":mobileCodeT,
+                "mobileCode":mobileCode,
                 "type":"2"
             ]
             NetWorkTeacherGetStudentScroes(params: params11) { (datas,flag) in
@@ -442,8 +463,8 @@ class TClassDetailViewController: BaseViewController,UITextFieldDelegate {
                         }
 
                         let params = [
-                            "SESSIONID":SESSIONIDT,
-                            "mobileCode":mobileCodeT,
+                            "SESSIONID":Defaults[userToken]!,
+                            "mobileCode":Defaults[mCode]!,
                             "userId":userid,
                             "class_id":self.classid,
                             "state":$0,
@@ -505,6 +526,14 @@ class TClassDetailViewController: BaseViewController,UITextFieldDelegate {
                     isHeadTeacher = true
                 }
                 
+                cell.editActionBlock = {
+                    let editClassVC = TCreateClassViewController()
+                    editClassVC.classInfo = self.InfoModel
+                    editClassVC.headImage = cell.classIcon.image!
+                    editClassVC.class_id = self.classid
+                    self.navigationController?.pushViewController(editClassVC, animated: true)
+                }
+                
                 cell.TClassInfoCellForStudent(model: InfoModel,isHeadTeacher:isHeadTeacher)
             }
             return cell
@@ -540,6 +569,7 @@ class TClassDetailViewController: BaseViewController,UITextFieldDelegate {
                 let periodsVC = TPeriodsDetailViewController()
                 periodsVC.periods_id = model.periods_id
                 periodsVC.periodsName = model.name
+                periodsVC.class_id = classid
                 self.navigationController?.pushViewController(periodsVC, animated: true)
             }
         }
@@ -551,6 +581,7 @@ class TClassDetailViewController: BaseViewController,UITextFieldDelegate {
                 showVC.user_num = model.studentId
                 showVC.classid = classid
                 showVC.user_name = model.user_name
+                showVC.user_num = model.student_id!
                 self.navigationController?.pushViewController(showVC, animated: true)
             }
         }
@@ -711,8 +742,8 @@ class TClassDetailViewController: BaseViewController,UITextFieldDelegate {
         if editingStyle == .delete {
             
             let params = [
-                "SESSIONID":SESSIONIDT,
-                "mobileCode":mobileCodeT,
+                "SESSIONID":Defaults[userToken]!,
+                "mobileCode":mobileCode,
                 "classes_id":classid
             ]
             if type == "1" {
@@ -734,8 +765,8 @@ class TClassDetailViewController: BaseViewController,UITextFieldDelegate {
                         user_id = resource.student[indexPath.row].student_id
                     }
                     let params = [
-                        "SESSIONID":SESSIONIDT,
-                        "mobileCode":mobileCodeT,
+                        "SESSIONID":Defaults[userToken]!,
+                        "mobileCode":mobileCode,
                         "userId":user_id,
                         "classes_id":classid
                     ]

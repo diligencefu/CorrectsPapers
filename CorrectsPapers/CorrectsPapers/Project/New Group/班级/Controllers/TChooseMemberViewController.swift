@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SwiftyUserDefaults
 
 class TChooseMemberViewController: BaseViewController {
 
@@ -53,7 +54,7 @@ class TChooseMemberViewController: BaseViewController {
         
         if class_id.count>0 {
             let params = [
-                "SESSIONID":SESSIONID,
+                "SESSIONID":Defaults[userToken]!,
                 "mobileCode":mobileCode,
                 "class_id":class_id,
                 "type":type,
@@ -109,7 +110,7 @@ class TChooseMemberViewController: BaseViewController {
             
             if state == "0" {
                 params = [
-                    "SESSIONID":SESSIONID,
+                    "SESSIONID":Defaults[userToken]!,
                     "mobileCode":mobileCode,
                     "class_id":class_id,
                     "type":type,
@@ -117,7 +118,7 @@ class TChooseMemberViewController: BaseViewController {
                     ]
             }else{
                 params = [
-                    "SESSIONID":SESSIONID,
+                    "SESSIONID":Defaults[userToken]!,
                     "mobileCode":mobileCode,
                     "state":state,
                     "class_id":class_id,
@@ -128,7 +129,7 @@ class TChooseMemberViewController: BaseViewController {
             NetWorkTeachersAddToClass(params: params) { (result) in
                 
                 if result {
-                    self.navigationController?.popViewController(animated: true)
+                    self.navigationController?.popToViewController((self.navigationController?.viewControllers[1])!, animated: true)
                 }
             }
         }else{

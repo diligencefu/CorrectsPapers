@@ -32,7 +32,13 @@ class TShowGradeModel: NSObject {
     var orders : String?
     ///批改时间
     var update_date : String?
+    ///id
+    var student_id : String?
 
+    ///时间
+    var create_date : String?
+
+    
     class func setValueForTMyWorkTShowGradeModel(json: JSON) -> TShowGradeModel {
         
         let model = TShowGradeModel()
@@ -47,6 +53,8 @@ class TShowGradeModel: NSObject {
         model.user_num = json["user_num"].stringValue
         model.orders = json["orders"].stringValue
         model.update_date = json["update_date"].stringValue
+        model.student_id = json["student_id"].stringValue
+        model.create_date = json["create_date"].stringValue
         return model
     }
 }

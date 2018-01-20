@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SwiftyUserDefaults
 
 class ComplaintViewController: BaseViewController ,UITextFieldDelegate,UITextViewDelegate{
     
@@ -14,6 +15,10 @@ class ComplaintViewController: BaseViewController ,UITextFieldDelegate,UITextVie
     var content = UITextView()
     
     var selectArr = NSMutableArray()
+    
+    var selectIndex=0
+
+    var teacher_id = ""
     
     
     override func viewDidLoad() {
@@ -30,10 +35,12 @@ class ComplaintViewController: BaseViewController ,UITextFieldDelegate,UITextVie
     
         let params =
             [
-                "teacher_id":"2",
-                "SESSIONID":SESSIONID,
+                "teacher_id":teacher_id,
+                "SESSIONID":Defaults[userToken]!,
+                "complaints_type":String(selectIndex),
+                "other":content.text,
                 "mobileCode":mobileCode
-        ]
+                ] as [String : Any]
         
         netWorkForBulidComplaint(params: params) { (result) in
             
@@ -92,7 +99,7 @@ class ComplaintViewController: BaseViewController ,UITextFieldDelegate,UITextVie
         
         var isSelect = false
         
-        if selectArr.contains(mainTableArr[indexPath.row] as! String) {
+        if selectIndex == indexPath.row {
             isSelect = true
         }
         
@@ -104,14 +111,16 @@ class ComplaintViewController: BaseViewController ,UITextFieldDelegate,UITextVie
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         
-        if selectArr.contains( mainTableArr[indexPath.row] as! String) {
-            selectArr.remove(mainTableArr[indexPath.row])
-            
-        }else{
-            selectArr.add(mainTableArr[indexPath.row])
-        }
+//        if selectArr.contains( mainTableArr[indexPath.row] as! String) {
+//            selectArr.remove(mainTableArr[indexPath.row])
+//
+//        }else{
+//            selectArr.add(mainTableArr[indexPath.row])
+//        }
+
+        selectIndex = indexPath.row
         
-        if selectArr.contains("其他") {
+        if selectIndex == 3 {
             content.isHidden = false
         }else{
             content.isHidden = true

@@ -8,6 +8,9 @@
 
 import UIKit
 import SwiftyUserDefaults
+
+
+
 class MainTabBarController: UITabBarController {
 
     var workBookVC  = WorkBookViewController()
@@ -19,6 +22,13 @@ class MainTabBarController: UITabBarController {
     var tOtherWorkVC  = TOtherWorkViewController()
     var tClassVC    = TClassViewController()
     var tPersonVC    = TPersonalViewController()
+    
+    
+    var model = PersonalModel()
+
+    
+    var currentCount = ""
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -102,7 +112,88 @@ class MainTabBarController: UITabBarController {
             self.viewControllers = [Nav0,Nav1,Nav2,Nav3]
         }
         
+        _ = Timer.scheduledTimer(timeInterval: 2000, target: self, selector: #selector(countDown(timer:)), userInfo: nil, repeats: true)
+
+        let params = [
+            "SESSIONID":Defaults[userToken]!,
+            "mobileCode":Defaults[mCode]!
+        ]
+        netWorkForMyData(params: params) { (dataArr,flag) in
+            
+            if flag {
+                if dataArr.count > 0{
+                    self.model = dataArr[0] as! PersonalModel
+                    if Defaults[userIdentity] != kTeacher {
+
+                        if Int(self.model.num)! > 0{
+                            self.personVC.tabBarItem.badgeValue = self.model.num
+                            //        通知中心
+                            NotificationCenter.default.post(name: Notification.Name(rawValue: SuccessEditNotiStudent), object: self, userInfo: ["refresh":"begin"])
+                        }else{
+                            self.tabBarItem.badgeValue = nil
+                        }
+                        Defaults[messageCount] = self.model.num
+                        
+                    }else{
+                        
+                        if Int(self.model.num)! > 0{
+                            self.tPersonVC.tabBarItem.badgeValue = self.model.num
+                            //        通知中心
+                            NotificationCenter.default.post(name: Notification.Name(rawValue: SuccessEditNotiTeacher), object: self, userInfo: ["refresh":"begin"])
+                        }else{
+                            self.tabBarItem.badgeValue = nil
+                        }
+
+                    }
+                    Defaults[messageCount] = self.model.num
+                }
+            }
+        }
+        
         self.selectedIndex = 0
+    }
+    
+    
+    
+    @objc func countDown(timer:Timer) {
+        let params = [
+            "SESSIONID":Defaults[userToken]!,
+            "mobileCode":Defaults[mCode]!
+        ]
+        netWorkForMyData(params: params) { (dataArr,flag) in
+            if flag {
+                if dataArr.count > 0{
+                    self.model = dataArr[0] as! PersonalModel
+
+                    if Defaults[userIdentity] != kTeacher {
+                        
+                        if Int(self.model.num)! > 0{
+                            self.personVC.tabBarItem.badgeValue = self.model.num
+                        }else{
+                            self.tabBarItem.badgeValue = nil
+                        }
+                        //        通知中心
+                        NotificationCenter.default.post(name: Notification.Name(rawValue: SuccessEditNotiStudent), object: self, userInfo: ["refresh":"begin"])
+                        
+                    }else{
+                        
+                        if Int(self.model.num)! > 0{
+                            self.tPersonVC.tabBarItem.badgeValue = self.model.num
+                        }else{
+                            self.tabBarItem.badgeValue = nil
+                        }
+                        //        通知中心
+                        NotificationCenter.default.post(name: Notification.Name(rawValue: SuccessEditNotiTeacher), object: self, userInfo: ["refresh":"begin"])
+                    }
+                    
+                    if Int(self.model.num)! > Int(Defaults[messageCount]!)! {
+                        setToast(str: "你有"+String(Int(self.model.num)!-Int(Defaults[messageCount]!)!)+"条新的通知消息")
+                    }
+                    Defaults[messageCount] = self.model.num
+                    
+                }
+            }
+        }
     }
 
     func unSelectedTapTabBarItems(tabBarItem:UITabBarItem) {

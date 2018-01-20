@@ -8,6 +8,7 @@
 
 import UIKit
 import SwiftyJSON
+import SwiftyUserDefaults
 
 protocol refreshDelegate:NSObjectProtocol {
     func beginRefresh()
@@ -23,9 +24,11 @@ class CreateNotWorkViewController: BaseViewController,UIPickerViewDelegate,UIPic
     var images = [UIImage]()
     var model = ApplyModel()
     
-    var bookState = 0
-    
     var way = "1"
+    
+    var non_exercise_Id = ""
+    var name = ""
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,7 +48,13 @@ class CreateNotWorkViewController: BaseViewController,UIPickerViewDelegate,UIPic
     
     override func configSubViews() {
         
-        self.navigationItem.title = "创建非练习册"
+        
+        if non_exercise_Id.count==0 {
+            self.navigationItem.title = "创建非练习册"
+        }else{
+            self.navigationItem.title = name
+        }
+        
         titles = [[""],["批改方式","选择老师"],["练习册科目","适用年纪"]]
         contents = [[""],["请好友帮忙",""],["语文","六年级 下册"]]
 
@@ -61,6 +70,7 @@ class CreateNotWorkViewController: BaseViewController,UIPickerViewDelegate,UIPic
         self.view.addSubview(mainTableView)
     }
     
+    
     //    右键
     func rightBarButton() {
         
@@ -68,26 +78,40 @@ class CreateNotWorkViewController: BaseViewController,UIPickerViewDelegate,UIPic
         self.navigationItem.rightBarButtonItem?.tintColor = UIColor.white
     }
     
+    
     @objc func createNotWork(sender:UIBarButtonItem) {
         
         let bookVc = CreateNotWorkViewController()
         self.navigationController?.pushViewController(bookVc, animated: true)
     }
     
+    
     //MARK:  ******代理 ：UITableViewDataSource,UITableViewDelegate
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return contents[section].count
     }
     
+    
     override func numberOfSections(in tableView: UITableView) -> Int {
+        
+        if non_exercise_Id.count>0 {
+            return 1
+        }
         return contents.count
     }
+    
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         if  indexPath.section == 0 {
             let cell : UpLoadWorkCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable, for: indexPath) as! UpLoadWorkCell
-            cell.upLoadImagesForWorkBook(images: images)
+            
+            if non_exercise_Id.count>0{
+                cell.upLoadImagesForWorkBookNonWork(images: images, isFirst: false)
+            }else{
+                cell.upLoadImagesForWorkBookNonWork(images: images, isFirst: true)
+            }
+            
             cell.chooseImagesAction = {
                 deBugPrint(item: $0)
                 
@@ -98,7 +122,6 @@ class CreateNotWorkViewController: BaseViewController,UIPickerViewDelegate,UIPic
                     if self.images.count < 2 {
                     }
                     self.setupPhoto1(count: 2, index: Int($0)!-1)
-
                 }
                 
             }
@@ -119,6 +142,7 @@ class CreateNotWorkViewController: BaseViewController,UIPickerViewDelegate,UIPic
         cell.selectionStyle = .none
         return cell
     }
+    
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
@@ -162,12 +186,10 @@ class CreateNotWorkViewController: BaseViewController,UIPickerViewDelegate,UIPic
                 
                 titleLabel.text = "请练习册版本"
             }
-            
         }
         
         pickerView.reloadAllComponents()
         showTheTagView()
-
     }
     
     
@@ -188,7 +210,6 @@ class CreateNotWorkViewController: BaseViewController,UIPickerViewDelegate,UIPic
         if section != 0{
             return 12
         }
-        
         return 0
     }
 
@@ -205,15 +226,12 @@ class CreateNotWorkViewController: BaseViewController,UIPickerViewDelegate,UIPic
     var wayArr = [String]()
     var titleLabel = UILabel()
     
-    
     func addBGViewAndPickerView() {
-        
         
         proArr = ["语文","数学","英语"]
         gradeArr = ["八年级","七年级","六年级"]
         detailArr = ["全册","上册","下册"]
         wayArr = ["悬赏学币","请好友帮忙"]
-        
         
         //        弹出视图弹出来之后的背景蒙层
         BGView = UIView.init(frame: self.view.frame)
@@ -226,13 +244,10 @@ class CreateNotWorkViewController: BaseViewController,UIPickerViewDelegate,UIPic
         BGView.addGestureRecognizer(tapGes1)
         self.view.addSubview(BGView)
         
-        
-        
         //MARK:   时间选择器背景
         datePickerView = UIView.init(frame: CGRect(x: 0, y: kSCREEN_HEIGHT, width: kSCREEN_WIDTH, height: DateHeight))
         datePickerView.backgroundColor = UIColor.white
         datePickerView.layer.cornerRadius = 16 * kSCREEN_SCALE
-        
         
         pickerView = UIPickerView()
         //将dataSource设置成自己
@@ -278,7 +293,6 @@ class CreateNotWorkViewController: BaseViewController,UIPickerViewDelegate,UIPic
         titleLabel.center = topView.center
         
         topView.addSubview(titleLabel)
-        
         datePickerView.addSubview(topView)
         
         //MARK:  因为需要设置圆角 还是只能上面有，所以我又给下面盖了一个。。。
@@ -287,7 +301,6 @@ class CreateNotWorkViewController: BaseViewController,UIPickerViewDelegate,UIPic
         datePickerView.addSubview(theView)
         
         self.view.addSubview(datePickerView)
-        
     }
     
     
@@ -299,13 +312,13 @@ class CreateNotWorkViewController: BaseViewController,UIPickerViewDelegate,UIPic
         }
     }
     
+    
     @objc func containAction(sender:UIButton) {
         UIView.animate(withDuration: 0.5) {
             self.datePickerView.transform = .identity
             self.BGView.alpha = 0
             
         }
-        
         
         if currentCount == 1 {
             deBugPrint(item: proArr[pickerView.selectedRow(inComponent: 0)])
@@ -314,14 +327,12 @@ class CreateNotWorkViewController: BaseViewController,UIPickerViewDelegate,UIPic
             
         }
         
-        
         if currentCount == 2 {
             deBugPrint(item: gradeArr[pickerView.selectedRow(inComponent: 0)] + " " + detailArr[pickerView.selectedRow(inComponent: 1)])
             contents[2][1] = gradeArr[pickerView.selectedRow(inComponent: 0)] + " " + detailArr[pickerView.selectedRow(inComponent: 1)]
             mainTableView.reloadSections([2], with: .none)
             
         }
-        
         
         if currentCount == 0 {
             deBugPrint(item: wayArr[pickerView.selectedRow(inComponent: 0)])
@@ -353,7 +364,6 @@ class CreateNotWorkViewController: BaseViewController,UIPickerViewDelegate,UIPic
     
     
     //    弹出视图TagView的出现事件
-    
     func showTheTagView() -> Void {
         let y = DateHeight - 40 * kSCREEN_SCALE
         
@@ -374,13 +384,13 @@ class CreateNotWorkViewController: BaseViewController,UIPickerViewDelegate,UIPic
         return 1
     }
     
+    
     //设置选择框的行数为9行，继承于UIPickerViewDataSource协议
     func pickerView(_ pickerView: UIPickerView,numberOfRowsInComponent component: Int) -> Int {
         
         if currentCount == 1 {
             return proArr.count
         }
-        
         
         if currentCount == 2 {
             
@@ -389,11 +399,10 @@ class CreateNotWorkViewController: BaseViewController,UIPickerViewDelegate,UIPic
             }else{
                 return detailArr.count
             }
-            
         }
-        
         return wayArr.count
     }
+    
     
     //设置选择框各选项的内容，继承于UIPickerViewDelegate协议
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int,
@@ -411,9 +420,9 @@ class CreateNotWorkViewController: BaseViewController,UIPickerViewDelegate,UIPic
                 return detailArr[row]
             }
         }
-        
         return wayArr[row]
     }
+    
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         //将在滑动停止后触发，并打印出选中列和行索引
@@ -447,58 +456,97 @@ class CreateNotWorkViewController: BaseViewController,UIPickerViewDelegate,UIPic
     
     //   MARK: 请求网络上传作业
     func uploadWorkImage() {
-        self.view.beginLoading()
+        
+        if non_exercise_Id.count>0 {
+            
+            let params = [
+                "SESSIONID":Defaults[userToken]!,
+                "mobileCode":mobileCode,
+                "non_exercise_Id":non_exercise_Id,
+            ]
+            deBugPrint(item: params)
+            var nameArr = [String]()
+            nameArr.append("pre_photos1")
+            nameArr.append("pre_photos2")
+            self.view.beginLoading()
 
-        let cell = mainTableView.cellForRow(at: IndexPath.init(row: 1, section: 1)) as! CreateBookCell
-        let cell2 = mainTableView.cellForRow(at: IndexPath.init(row: 0, section: 0)) as! UpLoadWorkCell
-        
-        var params = [String:String]()
-        
-        if way == "1" {
-            if model.userId == nil {
-                setToast(str: "请选择好友")
-                return
-            }
-        }
-        
-        if model.freind_id == nil {
-            model.freind_id = "123456"
-        }
-        
-        params = [
-            "SESSIONID":SESSIONID,
-            "mobileCode":mobileCode,
-            "non_exercise_name":cell2.workDescrip.text!,
-            "correct_way":way,
-            "subject_id":contents[2][0],
-            "classes_id":contents[2][1],
-            "rewards":cell.titleTextField.text!,
-            "freind_id":model.freind_id
-        ]
-        
-        deBugPrint(item: params)
-        var nameArr = [String]()
-        nameArr.append("pre_photos1")
-        nameArr.append("pre_photos2")
-        
-        netWorkForBulidnon_exercise(params: params, data: images, name: nameArr, success: { (datas) in
+            netWorkForAddNonExerciseNext(params: params, data: images, name: nameArr, success: { (datas) in
+                let json = JSON(datas)
+                
+                if json["code"].stringValue == "1" {
+                    if self.delegate != nil {
+                        self.delegate?.beginRefresh()
+                        self.navigationController?.popViewController(animated: true)
+                    }
+                }else{
+                    setToast(str: "上传失败")
+                    self.view.endLoading()
+                }
+
+            }, failture: { (error) in
+                self.view.endLoading()
+            })
             
-            let json = JSON(datas)
             
-            if json["code"].stringValue == "1" {
-                if self.delegate != nil {
-                    self.delegate?.beginRefresh()
-                    self.navigationController?.popViewController(animated: true)
+        }else{
+            let cell = mainTableView.cellForRow(at: IndexPath.init(row: 1, section: 1)) as! CreateBookCell
+            let cell2 = mainTableView.cellForRow(at: IndexPath.init(row: 0, section: 0)) as! UpLoadWorkCell
+            
+            var params = [String:String]()
+            
+            if way == "1" {
+                if model.userId == nil {
+                    setToast(str: "请选择好友")
+                    return
                 }
             }else{
-                setToast(str: "上传失败")
+                
+                if Int(cell.titleTextField.text!) == nil  {
+                    setToast(str: "请填写有效数字的学币")
+                    return
+                }
             }
             
-            self.view.endLoading()
-        }) { (error) in
-            self.view.endLoading()
+            if model.freind_id == nil {
+                model.freind_id = "123456"
+            }
+            
+            params = [
+                "SESSIONID":Defaults[userToken]!,
+                "mobileCode":mobileCode,
+                "non_exercise_name":cell2.workDescrip.text!,
+                "correct_way":way,
+                "subject_id":contents[2][0],
+                "classes_id":contents[2][1],
+                "rewards":cell.titleTextField.text!,
+                "freind_id":model.freind_id
+            ]
+            
+            deBugPrint(item: params)
+            var nameArr = [String]()
+            nameArr.append("pre_photos1")
+            nameArr.append("pre_photos2")
+            self.view.beginLoading()
+            
+            netWorkForBulidnon_exercise(params: params, data: images, name: nameArr, success: { (datas) in
+                
+                let json = JSON(datas)
+                
+                if json["code"].stringValue == "1" {
+                    if self.delegate != nil {
+                        self.delegate?.beginRefresh()
+                        self.navigationController?.popViewController(animated: true)
+                    }
+                }else{
+                    setToast(str: "上传失败")
+                }
+                
+                self.view.endLoading()
+            }) { (error) in
+                self.view.endLoading()
+            }
+
         }
-        
     }
     
     

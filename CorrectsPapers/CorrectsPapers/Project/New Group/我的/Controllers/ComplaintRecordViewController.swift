@@ -20,24 +20,34 @@ class ComplaintRecordViewController: BaseViewController {
     
     override func requestData() {
         self.view.beginLoading()
+        refreshHeaderAction()
+    }
+    
+    
+    override func refreshHeaderAction() {
         NetWorkTeacherGetComplaintRecord { (datas,flag) in
             if flag {
+                
                 self.mainTableArr.removeAllObjects()
                 self.mainTableArr.addObjects(from: datas)
+                
+                //    记录当前每个分组的状态0关闭，1打开
+                self.stateArr.removeAll()
+                for _ in 0..<self.mainTableArr.count {
+                    self.stateArr.append("0")
+                }
+
                 self.mainTableView.reloadData()
             }
             self.view.endLoading()
+            self.mainTableView.mj_header.endRefreshing()
         }
+
     }
     
     
     //    布局
     override func configSubViews() {
-        //    记录当前每个分组的状态0关闭，1打开
-        stateArr.removeAll()
-        for _ in 0..<20 {
-            stateArr.append("0")
-        }
         
         mainTableView = UITableView.init(frame: CGRect(x: 0, y: 0, width: kSCREEN_WIDTH, height: kSCREEN_HEIGHT-64), style: .plain)
         

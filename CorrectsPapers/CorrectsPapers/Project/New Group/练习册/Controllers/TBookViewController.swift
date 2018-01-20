@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SwiftyUserDefaults
 
 class TBookViewController: BaseViewController {
 
@@ -45,12 +46,11 @@ class TBookViewController: BaseViewController {
     override func requestData() {
         
         let params =
-            ["SESSIONID":SESSIONIDT,
-             "mobileCode":mobileCodeT,
+            ["SESSIONID":Defaults[userToken]!,
+             "mobileCode":mobileCode,
              ]
         self.view.beginLoading()
         NetWorkTeacherGetTAllWorkList(params: params) { (datas,flag) in
-            
             if flag {
                 self.mainTableArr.removeAllObjects()
                 self.mainTableArr.addObjects(from: datas)
@@ -64,10 +64,9 @@ class TBookViewController: BaseViewController {
     override func refreshHeaderAction() {
         
         let params =
-            ["SESSIONID":SESSIONIDT,
-             "mobileCode":mobileCodeT,
+            ["SESSIONID":Defaults[userToken]!,
+             "mobileCode":mobileCode,
              ]
-        self.view.beginLoading()
         NetWorkTeacherGetTAllWorkList(params: params) { (datas,flag) in
             
             if flag {
@@ -76,7 +75,6 @@ class TBookViewController: BaseViewController {
                 self.mainTableView.reloadData()
             }
             self.mainTableView.mj_header.endRefreshing()
-            self.view.endLoading()
         }
     }
     
@@ -150,8 +148,6 @@ class TBookViewController: BaseViewController {
         searchClass.tag = 10068
         
         self.navigationItem.rightBarButtonItems = [searchClass,createClass,]
-
-        
     }
     
     
@@ -168,7 +164,6 @@ class TBookViewController: BaseViewController {
     
     
     //    当数据为空的时候，显示提示
-    
     func addImageWhenEmpty() {
         
         emptyView = UIView.init(frame: CGRect(x: 0, y: 0, width: kSCREEN_WIDTH, height: kSCREEN_HEIGHT - 46))
@@ -195,7 +190,6 @@ class TBookViewController: BaseViewController {
         creatBook.clipsToBounds = true
                 creatBook.addTarget(self, action: #selector(createBookAction(sender:)), for: .touchUpInside)
         emptyView.addSubview(creatBook)
-        
     }
     
     
@@ -306,8 +300,8 @@ class TBookViewController: BaseViewController {
         tipView.chooseBlock = {
             if !$0 {
                 let params =
-                    ["SESSIONID":SESSIONIDT,
-                     "mobileCode":mobileCodeT,
+                    ["SESSIONID":Defaults[userToken]!,
+                     "mobileCode":Defaults[mCode]!,
                      "workId":self.book_id,
                 ] as [String:Any]
 

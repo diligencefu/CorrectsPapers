@@ -7,6 +7,9 @@
 //
 
 import UIKit
+import SwiftyUserDefaults
+import SwiftyJSON
+
 
 let SuccessRefreshNotificationCenter = "SuccessRefreshNotificationCenter"
 
@@ -28,9 +31,17 @@ let SuccessCorrectDeleteClassNoti = "SuccessCorrectDeleteClassNoti"
 //学生退出班级
 let SuccessCorrectDeleteClassNotiS = "SuccessCorrectDeleteClassNoti"
 
-
 //学生上传作业成功
 let SuccessUploadWorkNotiS = "SuccessUploadWorkNotiS"
+
+//学生撤回非练习册作业成功
+let SuccesscallBackNonWorkNotiS = "SuccesscallBackNonWorkNotiS"
+
+//学生编辑资料成功
+let SuccessEditNotiStudent = "SuccessEditNotiStudent"
+
+//老师编辑资料成功
+let SuccessEditNotiTeacher = "SuccessEditNotiTeacher"
 
 //protocol SuccessRefreshDelegate:NSObjectProtocol {
 //    func beginRefresh()
@@ -89,12 +100,13 @@ class CreateBookViewController: BaseViewController ,UIPickerViewDelegate,UIPicke
         }
         
         let params = [
-            "SESSIONID":SESSIONID,
+            "SESSIONID":Defaults[userToken]!,
             "mobileCode":mobileCode,
             "work_book_name":cell1.titleTextField.text!,
             "subject_id":mainTableArr[0],
             "classes_id":mainTableArr[1],
             "edition_id":mainTableArr[2],
+            "type":kGetClassTypeFromString(str: mainTableArr[1] as! String)
         ] as! [String : String]
         
         var nameArr = [String]()
@@ -104,12 +116,15 @@ class CreateBookViewController: BaseViewController ,UIPickerViewDelegate,UIPicke
         self.view.beginLoading()
         self.navigationItem.rightBarButtonItem?.isEnabled = false
         netWorkForBulidWrokBook(params: params, data: images, name: nameArr, success: { (success) in
-//            if success["code"] as! String == "1" {
-//                setToast(str: "创建成功")
-//            }
-            setToast(str: "创建成功")
-            self.createSeccsessful()
-            self.navigationItem.rightBarButtonItem?.isEnabled = true
+            let json = JSON(success)
+            
+            if json["code"].stringValue == "1" {
+                setToast(str: "创建成功")
+                self.createSeccsessful()
+                self.navigationItem.rightBarButtonItem?.isEnabled = false
+            }else{
+                self.navigationItem.rightBarButtonItem?.isEnabled = true
+            }
             self.view.endLoading()
         }) { (error) in
             self.view.endLoading()
@@ -374,7 +389,6 @@ class CreateBookViewController: BaseViewController ,UIPickerViewDelegate,UIPicke
             
         }
         
-        
         if currentCount == 0 {
             deBugPrint(item: proArr[pickerView.selectedRow(inComponent: 0)])
             mainTableArr[currentCount] = proArr[pickerView.selectedRow(inComponent: 0)]
@@ -384,7 +398,6 @@ class CreateBookViewController: BaseViewController ,UIPickerViewDelegate,UIPicke
         if currentCount == 1 {
             deBugPrint(item: gradeArr[pickerView.selectedRow(inComponent: 0)] + " " + detailArr[pickerView.selectedRow(inComponent: 1)])
             mainTableArr[currentCount] = gradeArr[pickerView.selectedRow(inComponent: 0)] + " " + detailArr[pickerView.selectedRow(inComponent: 1)]
-            
         }
         
         if currentCount == 2 {

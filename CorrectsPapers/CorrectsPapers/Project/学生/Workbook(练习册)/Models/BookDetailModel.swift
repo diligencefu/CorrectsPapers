@@ -38,6 +38,8 @@ class BookDetailModel: BaseModel {
     var create_date : String?
     ///id
     var book_details_id : String!
+    ///id
+    var times : String!
 
 
     class func setValueForBookDetailModel(json: JSON) -> BookDetailModel {
@@ -57,6 +59,7 @@ class BookDetailModel: BaseModel {
         model.comment_next = json["comment_next"].stringValue
         model.create_date = json["create_date"].stringValue
         model.book_details_id = json["book_details_id"].stringValue
+        model.times = json["times"].stringValue
         return model
     }
     

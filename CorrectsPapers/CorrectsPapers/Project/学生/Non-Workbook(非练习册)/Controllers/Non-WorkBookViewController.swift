@@ -8,6 +8,7 @@
 
 import UIKit
 import SwiftyJSON
+import SwiftyUserDefaults
 
 
 class Non_WorkBookViewController: BaseViewController ,UIPickerViewDelegate,UIPickerViewDataSource,HBAlertPasswordViewDelegate{
@@ -352,7 +353,7 @@ class Non_WorkBookViewController: BaseViewController ,UIPickerViewDelegate,UIPic
             }
             
             let cell : UpLoadWorkCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable1, for: indexPath) as! UpLoadWorkCell
-            cell.upLoadImagesForResubmit(images: images as! Array<UIImage>)
+            cell.upLoadImagesForResubmit(images: images as! Array<UIImage>, timeStr: "<#String#>")
             
             cell.chooseImagesAction = {
                 deBugPrint(item: $0)
@@ -912,7 +913,7 @@ class Non_WorkBookViewController: BaseViewController ,UIPickerViewDelegate,UIPic
 
         let params =
             [
-                "SESSIONID":SESSIONID,
+                "SESSIONID":Defaults[userToken]!,
                 "mobileCode":mobileCode,
                 "non_exercise_name":cell2.workDescrip.text!,
 //                "correct_way":contents[1][0],

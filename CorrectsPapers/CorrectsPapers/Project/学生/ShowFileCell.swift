@@ -9,7 +9,6 @@
 import UIKit
 
 class ShowFileCell: UITableViewCell {
-
     
     var url = ""
     

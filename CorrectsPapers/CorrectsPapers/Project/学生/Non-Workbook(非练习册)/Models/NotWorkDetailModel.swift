@@ -47,10 +47,16 @@ class NotWorkDetailModel: NSObject {
     
     ///老师
     var teacher_name : String!
+    
+    ///老师id
+    var teacher_id : String!
 
     ///退回原因
     var reason : String!
-    
+
+    ///截止时间
+    var times : String!
+
 
     class func setValueForNotWorkDetailModel(json: JSON) -> NotWorkDetailModel {
         
@@ -68,6 +74,8 @@ class NotWorkDetailModel: NSObject {
         model.create_date = json["create_date"].stringValue
         model.teacher_name = json["teacher_name"].stringValue
         model.reason = json["reason"].stringValue
+        model.teacher_id = json["teacher_id"].stringValue
+        model.times = json["times"].stringValue
         return model
     }
     

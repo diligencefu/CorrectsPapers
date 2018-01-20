@@ -20,6 +20,9 @@ class TShowBooksCell: UITableViewCell {
     @IBOutlet weak var label1: UILabel!
     @IBOutlet weak var addbtn: UIButton!
     
+    @IBOutlet weak var theDate: UILabel!
+    
+    
     var addWorkBlock:(()->())?  //声明闭包
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -39,6 +42,7 @@ class TShowBooksCell: UITableViewCell {
         model.state = "2"
         bookState.text = kGetStateFromString(str: model.state!)
         bookState.textColor = kGetColorFromString(str:bookState.text!)
+        theDate.text = model.create_date
     }
     
     
@@ -48,7 +52,8 @@ class TShowBooksCell: UITableViewCell {
         studentName.text = model.user_name
         proName.text = model.subject_id
         bookTitle.text = model.non_exercise_name
-        
+        theDate.text = model.create_date
+
         if model.correct_way == "2" {
             priceLabel.text = model.rewards
             label.setTitle("悬赏学币：", for: .normal)

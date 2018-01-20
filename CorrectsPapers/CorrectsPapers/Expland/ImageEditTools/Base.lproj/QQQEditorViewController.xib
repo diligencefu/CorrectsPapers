@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -251,7 +252,6 @@
                     <constraints>
                         <constraint firstItem="vxt-8P-wum" firstAttribute="centerX" secondItem="Ab3-tU-aNK" secondAttribute="centerX" id="HhC-3u-87f"/>
                         <constraint firstItem="OL7-Fu-zT9" firstAttribute="top" secondItem="vxt-8P-wum" secondAttribute="bottom" constant="2" id="bOe-jV-1yl"/>
-                        <constraint firstAttribute="width" constant="240" id="iOA-xW-rYf"/>
                         <constraint firstItem="vxt-8P-wum" firstAttribute="top" secondItem="Ab3-tU-aNK" secondAttribute="top" constant="3" id="mhQ-UK-Exz"/>
                         <constraint firstAttribute="height" constant="40" id="nKh-wL-qb9"/>
                         <constraint firstItem="OL7-Fu-zT9" firstAttribute="centerX" secondItem="Ab3-tU-aNK" secondAttribute="centerX" id="rAx-UC-C56"/>
@@ -267,6 +267,7 @@
                 <constraint firstAttribute="trailing" secondItem="VJt-Sz-UFM" secondAttribute="trailing" constant="16" id="76G-Sq-4uQ"/>
                 <constraint firstItem="C3e-xn-w8t" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="20" id="7CL-UO-rke"/>
                 <constraint firstItem="Ab3-tU-aNK" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="GBj-Ps-36a"/>
+                <constraint firstItem="Ab3-tU-aNK" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" multiplier="240/375" id="P8d-dS-dMH"/>
                 <constraint firstAttribute="trailing" secondItem="IAx-0d-PZ5" secondAttribute="trailing" id="Rqz-Yw-Ftm"/>
                 <constraint firstItem="C3e-xn-w8t" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="16" id="TY1-r3-T5w"/>
                 <constraint firstItem="IAx-0d-PZ5" firstAttribute="top" secondItem="0Ed-Ab-V5w" secondAttribute="bottom" id="UEt-ys-CZM"/>

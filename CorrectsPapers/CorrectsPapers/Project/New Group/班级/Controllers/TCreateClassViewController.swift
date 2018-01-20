@@ -8,6 +8,7 @@
 
 import UIKit
 import SwiftyJSON
+import SwiftyUserDefaults
 
 class TCreateClassViewController: BaseViewController {
     
@@ -27,10 +28,13 @@ class TCreateClassViewController: BaseViewController {
     var teachers2 = [String]()
     var teachers2Added = [ApplyModel]()
 
+    var classInfo = LNClassInfoModel()
+    var class_id = ""
     
     
     var headImage = #imageLiteral(resourceName: "UserHead_128_default")
     
+    var headImageStr = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,21 +46,16 @@ class TCreateClassViewController: BaseViewController {
         
         self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(title: "完成", style: .plain, target: self, action: #selector(classCreateDone(sender:)))
         self.navigationItem.rightBarButtonItem?.tintColor = UIColor.white
-        
     }
     
     
     @objc func classCreateDone(sender:UIBarButtonItem) {
         
+        
         let cell = self.mainTableView.cellForRow(at: IndexPath.init(row: 1, section: 0)) as! CreateClassCell2
         
         let cell1 = self.mainTableView.cellForRow(at: IndexPath.init(row: 2, section: 1)) as! CreateClassCell2
 
-        if headImage == #imageLiteral(resourceName: "UserHead_128_default") {
-            setToast(str: "请选择班级头像")
-            return
-        }
-        
         if cell.textField.text?.count == 0 {
             setToast(str: "请输入班级名字")
             return
@@ -66,70 +65,119 @@ class TCreateClassViewController: BaseViewController {
             setToast(str: "班级名字长度超过限制")
             return
         }
-
-        if cell1.textField.text?.count == 0 {
-            setToast(str: "请输入课时数")
-            return
-        }
         
-        if Int(cell1.textField.text!) == nil {
-            setToast(str: "请输入正确的课时数")
-            return
-        }
-        
-        var class_t = [String]()
-        var help_t = [String]()
-        var student = [String]()
-        
-        for model in teachers2Added {
-            class_t.append(model.freind_id)
-        }
-        
-        for model in teachers1Added {
-            help_t.append(model.freind_id)
-        }
-        
-        for model in addedStudents {
-            student.append(model.freind_id)
-        }
-        
-        let params = [
-            "SESSIONID":SESSIONID,
-            "mobileCode":mobileCode,
-            "class_name":cell.textField.text!,
-            "periods":cell1.textField.text!,
-            "delivery_cycle":infoArr[1][0],
-            "work_times":infoArr[1][1],
-            "deadline":infoArr[1][2],
-            "teachers":class_t.joined(separator: ","),
-            "teachers_help":help_t.joined(separator: ","),
-            "students":student.joined(separator: ",")
-        ]
-        
-        netWorkForInsertClasses(params: params, data: [headImage], name: [], success: { (datas) in
+        if classInfo.class_name == nil {
             
-            let json = JSON(datas)
-            deBugPrint(item: json)
-            if json["code"].stringValue == "0" {
-                setToast(str: "创建失败")
-            }else{
-                setToast(str: "创建成功")
-                self.navigationController?.popViewController(animated: true)
+            if headImage == #imageLiteral(resourceName: "UserHead_128_default") {
+                setToast(str: "请选择班级头像")
+                return
+            }
+            
+            if cell1.textField.text?.count == 0 {
+                setToast(str: "请输入课时数")
+                return
+            }
+            
+            if Int(cell1.textField.text!) == nil {
+                setToast(str: "请输入正确的课时数")
+                return
             }
 
-            deBugPrint(item: datas)
-        }) { (error) in
+            var class_t = [String]()
+            var help_t = [String]()
+            var student = [String]()
+            
+            for model in teachers2Added {
+                class_t.append(model.freind_id)
+            }
+            
+            for model in teachers1Added {
+                help_t.append(model.freind_id)
+            }
+            
+            for model in addedStudents {
+                student.append(model.freind_id)
+            }
+            
+            let params = [
+                "SESSIONID":Defaults[userToken]!,
+                "mobileCode":mobileCode,
+                "class_name":cell.textField.text!,
+                "periods":cell1.textField.text!,
+                "delivery_cycle":infoArr[1][0],
+                "work_times":infoArr[1][1],
+                "deadline":infoArr[1][2],
+                "teachers":class_t.joined(separator: ","),
+                "teachers_help":help_t.joined(separator: ","),
+                "students":student.joined(separator: ",")
+            ]
+            
+            netWorkForInsertClasses(params: params, data: [headImage], name: [], success: { (datas) in
+                
+                let json = JSON(datas)
+                deBugPrint(item: json)
+                if json["code"].stringValue == "0" {
+                    setToast(str: "创建失败")
+                }else{
+                    setToast(str: "创建成功")
+                    self.navigationController?.popViewController(animated: true)
+                }
+                
+                deBugPrint(item: datas)
+            }) { (error) in
+                
+            }
+        }else{
+            
+            let params = [
+                "SESSIONID":Defaults[userToken]!,
+                "mobileCode":mobileCode,
+                "className":cell.textField.text!,
+//                "periods":cell1.textField.text!,
+                
+                "deliveryCycle":infoArr[1][0],
+                "workTimes":infoArr[1][1],
+                "deadline":infoArr[1][2],
+                "classPhoto":headImageStr,
+                "id":class_id,
+            ]
+            NetWorkTeacherEditoClasses(params: params, callBack: { (flag) in
+                if flag {
+                    
+                    NotificationCenter.default.post(name: Notification.Name(rawValue: SuccessCorrectClassBuildPeriodNoti), object: self, userInfo: ["refresh":"begin"])
+                    self.navigationController?.popViewController(animated: true)
+                }
+            })
             
         }
     }
     
     
+    override func addHeaderRefresh() {
+        
+    }
+    
+    
     override func configSubViews() {
         
-        self.navigationItem.title = "创建班级"
+        if classInfo.class_name != nil {
+            headImageStr = classInfo.class_photo
+        }
         
         dataArr = [["班级头像","班级名字"],["交作业周期","交作业截止时间","课时数"],teachers,students]
-        infoArr = [["",""],["按天","18:00前","次"],["",""],[""]]
+        
+        if classInfo.class_name == nil {
+            
+            self.navigationItem.title = "创建班级"
+
+            infoArr = [["",""],["按天","18:00前","次"],["",""],[""]]
+            dataArr = [["班级头像","班级名字"],["交作业周期","交作业截止时间","课时数"],teachers,students]
+        }else{
+            
+            self.navigationItem.title = "编辑班级资料"
+            dataArr = [["班级头像","班级名字"],["交作业周期","交作业截止时间","课时数"]]
+            infoArr = [["",classInfo.class_name],[classInfo.delivery_cycle,classInfo.work_times,"次"]]
+        }
         
         mainTableView = UITableView.init(frame: CGRect(x: 0, y: 0, width: kSCREEN_WIDTH, height: kSCREEN_HEIGHT - 64 ), style: .grouped)
         mainTableView.dataSource = self;
@@ -141,7 +189,6 @@ class TCreateClassViewController: BaseViewController {
         mainTableView.register(UINib(nibName: "CreateHeadCell", bundle: nil), forCellReuseIdentifier: identyfierTable3)
         
         self.view.addSubview(mainTableView)
-        
     }
     
     
@@ -180,29 +227,40 @@ class TCreateClassViewController: BaseViewController {
         
         if indexPath.section == 0 && indexPath.row == 1 {
             
-            cell2.CreateClassCell2ShowAll(title: dataArr[indexPath.section][indexPath.row], info: infoArr[indexPath.section][indexPath.row],placeholder:"字数限制16字以内...")
+            if classInfo.class_name == nil {
+                cell2.CreateClassCell2ShowAll(title: dataArr[indexPath.section][indexPath.row], info: infoArr[indexPath.section][indexPath.row],placeholder:"字数限制16字以内...")
+            }else{
+                cell2.CreateClassCellEdit(title: dataArr[indexPath.section][indexPath.row], info: classInfo.class_name, text:"",placeholder:"字数限制16字以内...")
+            }
             return cell2
             
         }else if indexPath.section == 1 &&  indexPath.row == 2 {
-            cell2.CreateClassCell2ShowAll(title: dataArr[indexPath.section][indexPath.row], info: infoArr[indexPath.section][indexPath.row],placeholder:"填写次数")
+            
+            if classInfo.class_name == nil {
+                cell2.CreateClassCell2ShowAll(title: dataArr[indexPath.section][indexPath.row], info: infoArr[indexPath.section][indexPath.row],placeholder:"填写次数")
+            }else{
+//                cell2.CreateClassCellEdit(title: dataArr[indexPath.section][indexPath.row], info: classInfo.Cperiods, text:"次",placeholder:"填写次数")
+                
+                
+                cell2.CreateClassCell2(title: dataArr[indexPath.section][indexPath.row],member:classInfo.Cperiods+" 次")
+            }
             return cell2
             
         }else if indexPath.section == 2  {
             
-                var str = "+"
-                if indexPath.row == 0 {
-                    
-                    if teachers1.count == 3 {
-                        str = teachers1.joined(separator: ",") + "  "
-                    }else{
-                        str = teachers1.joined(separator: ",") + "  +"
-                    }
+            var str = "+"
+            if indexPath.row == 0 {
+                
+                if teachers1.count == 3 {
+                    str = teachers1.joined(separator: ",") + "  "
                 }else{
-                    str = teachers2.joined(separator: ",") + "  +"
-                }                
-                cell2.CreateClassCell2(title: teachers[indexPath.row],member:str)
-                return cell2
-//            }
+                    str = teachers1.joined(separator: ",") + "  +"
+                }
+            }else{
+                str = teachers2.joined(separator: ",") + "  +"
+            }
+            cell2.CreateClassCell2(title: teachers[indexPath.row],member:str)
+            return cell2
             
         }else if indexPath.section == 3{
             
@@ -215,9 +273,12 @@ class TCreateClassViewController: BaseViewController {
                 cell.ShowFridensCellForCreateClass(model: addedStudents[indexPath.row-1])
                 return cell
             }
+            
         }else{
+            
             cell.CreateClassCellNormal(title: dataArr[indexPath.section][indexPath.row], name: infoArr[indexPath.section][indexPath.row])
             return cell
+            
         }
     }
     
@@ -459,6 +520,18 @@ class TCreateClassViewController: BaseViewController {
                 self?.headImage = image
                 
                 self?.mainTableView.reloadRows(at: [IndexPath.init(row: 0, section: 0)], with: .none)
+                
+                let params = [
+                    "SESSIONID":Defaults[userToken]!,
+                    "mobileCode":Defaults[mCode]!,
+                    ]
+
+                editorTeacherEditoClassesHelp(params: params, data: [image], name: [""], success: { (datas) in
+                    self?.headImageStr = JSON(datas)["data"]["img"].stringValue
+                }, failture: { (error) in
+                    
+                })
+                
                 
                 }, failedClouse: { () in
                     index = index - 1

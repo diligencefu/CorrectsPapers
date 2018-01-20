@@ -15,6 +15,8 @@ class UpLoadWorkCell: UITableViewCell {
     
     @IBOutlet weak var CountDown: UILabel!
     
+    var time = NSInteger()
+    
     
 //    @IBOutlet weak var image1: UIButton!
 //
@@ -52,21 +54,23 @@ class UpLoadWorkCell: UITableViewCell {
         let singleTap3 = UITapGestureRecognizer.init(target: self, action: #selector(viewTheBigImage(ges:)))
         singleTap3.numberOfTapsRequired = 1
         image3.addGestureRecognizer(singleTap3)
-
-
     }
+    
     
     @objc func viewTheBigImage(ges:UITapGestureRecognizer) {
         
-        if chooseImagesAction != nil {
-        
-            if ges.view?.tag == 230 {
-                chooseImagesAction!(String((ges.view?.tag)!-230))
-            }else{
-                chooseImagesAction!(String((ges.view?.tag)!-231))
+        if upLoad.titleLabel?.text == "完成更正" && time <= 0{
+            setToast(str: "你已超时，无法上传作业")
+        }else{
+            if chooseImagesAction != nil {
+                if ges.view?.tag == 230 {
+                    chooseImagesAction!(String((ges.view?.tag)!-230))
+                }else{
+                    chooseImagesAction!(String((ges.view?.tag)!-231))
+                }
             }
         }
-      }
+    }
     
     
     // 异步原图
@@ -126,6 +130,7 @@ class UpLoadWorkCell: UITableViewCell {
         }
     }
     
+    
     @objc func dealImage(imageArr:[UIImage],index:Int) {
         // 图片下载完成后再去掉我们的转转转控件，这里没有考虑assetArr中含有视频文件的情况
         if imageArr.count == index {
@@ -135,37 +140,92 @@ class UpLoadWorkCell: UITableViewCell {
     }
     
     
-    
     @IBAction func uploadAction(_ sender: UIButton) {
 //        setToast(str: "上传作业")
         
-        if CountDown.isHidden {
-            if workDescrip.text?.count == 0 && sender.titleLabel?.text != "完成更正"{
-                setToast(str: "请输入作业描述")
-                workDescrip.becomeFirstResponder()
-                return
+//        if CountDown.isHidden {
+//            if workDescrip.text?.count == 0 && sender.titleLabel?.text != "完成更正"{
+//                setToast(str: "请输入作业描述")
+//                workDescrip.becomeFirstResponder()
+//                return
+//            }
+//        }
+//
+//
+//
+//        if (workDescrip.text?.count)! > 16 && sender.titleLabel?.text != "完成更正"{
+//            setToast(str: "作业描述超出字数限制！")
+//            workDescrip.becomeFirstResponder()
+//            return
+//        }
+        
+        
+        if sender.titleLabel?.text == "完成更正" {
+            
+            if time>0{
+                if chooseImagesAction != nil {
+                    chooseImagesAction!("uploadAction")
+                }
             }
-        }        
-        
-    
-        
-        if (workDescrip.text?.count)! > 16 && sender.titleLabel?.text != "完成更正"{
-            setToast(str: "作业描述超出字数限制！")
-            workDescrip.becomeFirstResponder()
-            return
+        }else{
+            if chooseImagesAction != nil {
+                chooseImagesAction!("uploadAction")
+            }
         }
-        
-        if chooseImagesAction != nil {
-            chooseImagesAction!("uploadAction")
-//            sender.isEnabled = false
-        }
-
     }
     
-    func upLoadImagesForWorkBook(images:Array<UIImage>) {
+    
+    func upLoadImagesForWorkBookNonWork(images:Array<UIImage>,isFirst:Bool) {
+        
+        if isFirst {
+            workDescrip.isHidden = false
+        }else{
+            workDescrip.isHidden = true
+        }
+        upLoad.setTitle("上传作业", for: .normal)
 
         CountDown.isHidden = true
         
+        CountDown.snp.updateConstraints { (make) in
+            make.height.equalTo(0)
+        }
+        
+        if images.count == 1 {
+            
+            image2.image = images[0]
+            image1.isHidden = true
+            image2.isHidden = false
+            image3.isHidden = false
+            
+        }else if images.count == 2 {
+            image1.isHidden = true
+            
+            image2.image = images[0]
+            image3.image = images[1]
+            image2.isHidden = false
+            image3.isHidden = false
+            
+        }else{
+            image2.isHidden = true
+            image3.isHidden = true
+        }
+        
+        if images.count > 0 {
+            upLoad.backgroundColor = kMainColor()
+            upLoad.isEnabled = true
+        }else{
+            upLoad.backgroundColor = kGaryColor(num: 206)
+            upLoad.isEnabled = false
+        }
+        
+    }
+    
+    
+    func upLoadImagesForWorkBook(images:Array<UIImage>) {
+        
+        CountDown.isHidden = true
+        upLoad.setTitle("上传作业", for: .normal)
+
         CountDown.snp.updateConstraints { (make) in
             make.height.equalTo(0)
         }
@@ -200,7 +260,8 @@ class UpLoadWorkCell: UITableViewCell {
         
     }
     
-    func upLoadImagesForResubmit(images:Array<UIImage>) {
+    
+    func upLoadImagesForResubmit(images:Array<UIImage>,timeStr:String) {
 
         workDescrip.isHidden = true
         
@@ -237,29 +298,48 @@ class UpLoadWorkCell: UITableViewCell {
             upLoad.isEnabled = false
         }
         
+        let date = Date.init()
+        let formatter = DateFormatter()
+        //日期样式
+        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+
+        let dataLine = formatter.date(from: timeStr)
+        
+        let timeGap = dataLine?.timeIntervalSince(date)
+        time = NSInteger(timeGap!)
+        
+        if time <= 0 {
+            upLoad.isEnabled = false
+        }
+        
+        deBugPrint(item: timeGap!)
+        
         kTimer.invalidate()
         kTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(countDown(timer:)), userInfo: nil, repeats: true)
     }
     
+    
     @objc func countDown(timer:Timer) {
         
-        timeInterval = timeInterval - 1
+        time = time - 1
 
-        let minutes = String(timeInterval/60)+"分"
-        let seconds = String(timeInterval%60)+"秒"
+        let minutes = String(time/60)+"分"
+        let seconds = String(time%60)+"秒"
         
-        CountDown.text = "截止倒计时 " + minutes + seconds
         
-        if timeInterval == 0 {
+        if time == 0 || time < 0{
             
             upLoad.backgroundColor = kGaryColor(num: 206)
             upLoad.isEnabled = false
             kTimer.invalidate()
-            
             setToast(str: "对不起，你已超时")
+            CountDown.text = "你已超时! "
+            CountDown.textColor = kSetRGBColor(r: 255, g: 94, b: 0)
+        }else{
+            CountDown.text = "截止倒计时 " + minutes + seconds
         }
-        
     }
+    
     
     @IBAction func addImageAction(_ sender: UIButton) {
         deBugPrint(item: sender.tag)

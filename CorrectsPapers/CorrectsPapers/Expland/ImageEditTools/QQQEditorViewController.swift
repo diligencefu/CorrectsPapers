@@ -412,10 +412,11 @@ class QQQEditorViewController: UIViewController {
         
         markView.layer.cornerRadius = 24*kSCREEN_SCALE
         markView.selectBlock = {
+            self.view.endEditing(true)
             if $1 {
                 deBugPrint(item: $0)//评语
                 deBugPrint(item: $2)//分数
-//                doneImages
+                
  //    #MARK:  批改练习册
                 if self.whereCome == 1 {
                     

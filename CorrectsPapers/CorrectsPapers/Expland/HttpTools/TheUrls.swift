@@ -453,6 +453,14 @@ let kCheck_BuyClassBook = kBaseUrl +  "workBook/checkBuyClassBook"
 //MARK: 47接口说明 ： 撤销上传的练习册或者非练习册
 let kBack_WorkBook = kBaseUrl +  "workBook/backWorkBook"
 
+
+
+//MARK: 48接口说明 ： 微信支付生成订单号
+let kCreate_OderId = kBaseUrl +  "user/createOderId"
+
+//MARK: 49接口说明 ： 微信支付成功回调
+let kPay_ByWeChar = kBaseUrl +  "user/payByWeChar"
+
 class TheUrls: NSObject {
 
 }

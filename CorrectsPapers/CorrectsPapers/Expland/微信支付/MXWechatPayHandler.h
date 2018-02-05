@@ -11,6 +11,6 @@
 
 @interface MXWechatPayHandler : NSObject
 
-+ (void)jumpToWxPaywithPrice:(CGFloat)price andTypeName:(NSString *)typeName;
++ (void)jumpToWxPaywithPrice:(CGFloat)price andTypeName:(NSString *)typeName andOrderNo:(NSString *)orderNo;
 
 @end

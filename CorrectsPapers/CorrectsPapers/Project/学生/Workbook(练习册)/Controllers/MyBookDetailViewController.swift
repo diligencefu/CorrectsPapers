@@ -63,6 +63,7 @@ class MyBookDetailViewController: BaseViewController,HBAlertPasswordViewDelegate
     
     var bookTitle = ""
     
+    var isFrom3 = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -1387,30 +1388,62 @@ class MyBookDetailViewController: BaseViewController,HBAlertPasswordViewDelegate
     }
     
     func beginUploadWorl(text:String) {
-        let params =
-            [
-                "SESSIONID":Defaults[userToken]!,
-                "mobileCode":Defaults[mCode]!,
-                "result":text,
-                "userWorkBookId":self.model.userWorkBookId
-                ] as! [String : String]
         
-        var nameArr = [String]()
-        for index in 0..<self.images.count {
-            nameArr.append("image\(index)")
-        }
-        netWorkForUploadWorkBook(params: params , data: self.images as! [UIImage], name: nameArr, success: { (datas) in
-            let json = JSON(datas)
-            deBugPrint(item: json)
-            //
-            if json["code"].stringValue == "1" {
-                self.uploadSucceed(datas: json.arrayValue)
-            }else {
-                setToast(str: json["message"].stringValue)
+        if isFrom3 {
+            let params = [
+                "SESSIONID":Defaults[userToken]!,
+                "mobileCode":mobileCode,
+                "bookId":self.theModel.book_details_id,
+                "type":"2",
+                ] as [String : String]
+            deBugPrint(item: params)
+            var nameArr = [String]()
+            nameArr.append("pre_photos1")
+            nameArr.append("pre_photos2")
+            self.view.beginLoading()
+            
+            netWorkForUploadWorkBookSecondBulidBook(params: params , data: self.images as! [UIImage], name: nameArr, success: { (datas) in
+                let json = JSON(datas)
+                
+                if json["code"].stringValue == "1" {
+                    self.uploadSucceed(datas: json.arrayValue)
+                }else{
+                    setToast(str: json["message"].stringValue)
+                }
+                self.view.endLoading()
+            }, failture: { (error) in
+                self.view.endLoading()
+            })
+
+        }else{
+            let params =
+                [
+                    "SESSIONID":Defaults[userToken]!,
+                    "mobileCode":Defaults[mCode]!,
+                    "result":text,
+                    "userWorkBookId":self.model.userWorkBookId
+                    ] as! [String : String]
+            
+            var nameArr = [String]()
+            for index in 0..<self.images.count {
+                nameArr.append("image\(index)")
             }
-            deBugPrint(item: datas)
-        }, failture: { (error) in
-            deBugPrint(item: error)
-        })
+            netWorkForUploadWorkBook(params: params , data: self.images as! [UIImage], name: nameArr, success: { (datas) in
+                let json = JSON(datas)
+                deBugPrint(item: json)
+                //
+                if json["code"].stringValue == "1" {
+                    self.uploadSucceed(datas: json.arrayValue)
+                }else {
+                    setToast(str: json["message"].stringValue)
+                }
+                deBugPrint(item: datas)
+            }, failture: { (error) in
+                deBugPrint(item: error)
+            })
+
+        }
+        
+        
     }
 }

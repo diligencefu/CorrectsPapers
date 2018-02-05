@@ -12,22 +12,32 @@ import SwiftyUserDefaults
 let username = DefaultsKey<String?>("userName")
 let userToken = DefaultsKey<String?>("userToken")
 let mCode = DefaultsKey<String?>("mCode")
-let userPhone = DefaultsKey<String?>("userPhone")
-let userNum = DefaultsKey<String?>("userNum")
 
+//手机号
+let userPhone = DefaultsKey<String?>("userPhone")
+//用户编号
+let userNum = DefaultsKey<String?>("userNum")
+//消息数
 let messageCount = DefaultsKey<String?>("messageCount")
 
-
+//用户标识（老师/学生）
 let userIdentity = DefaultsKey<String?>("userIdentity")
 
+//用户年级
 let userGrade = DefaultsKey<String?>("userGrade")
+//用户地区
 let userArea = DefaultsKey<String?>("userArea")
+//用户id
 let userId = DefaultsKey<String?>("userId")
+//用户头像
 let userIcon = DefaultsKey<String?>("userIcon")
+//用户账户余额
 let userAccount = DefaultsKey<String?>("userAccount")
+//好友数
 let userFriendCount = DefaultsKey<String?>("userFriendCount")
-let messageNum = DefaultsKey<String?>("messageNum")
 
+let correct_subject = DefaultsKey<String?>("correct_subject")
+//有无密码
 let HavePayPassword = DefaultsKey<String?>("HavePayPassword")
 
 
@@ -365,6 +375,10 @@ let kWXAppSecret = "a475e492d8f21801df64a8ed9c006a5c"
 
 let kQQAppKey = "1106558738"
 let kQQAppSecret = "ixhK8uo7xLQ3NBcE"
+
+//微信支付成功通知
+let WXPaySuccessNotification = "WXPaySuccessNotification"
+
 
 class TheGlobalVariable: NSObject {
 

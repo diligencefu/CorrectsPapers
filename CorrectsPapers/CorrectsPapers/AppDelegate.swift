@@ -13,7 +13,7 @@ import IQKeyboardManagerSwift
 
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDelegate,WXApiDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDelegate,WXApiDelegate{
 
     var window: UIWindow?
 
@@ -32,7 +32,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
         }
         
         self.window!.makeKeyAndVisible()
-        
         
         if #available(iOS 10.0, *) {
             let notifiCenter = UNUserNotificationCenter.current()
@@ -119,6 +118,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
 //    如果第三方程序向微信发送了sendReq的请求，那么onResp会被回调。sendReq请求调用后，会切到微信终端程序界面。
     func onResp(_ resp: BaseResp!) {
 //        PayResp
+        
         let strTitle = "支付结果"
         var strMsg = "\(resp.errCode)"
         if resp.isKind(of: PayResp.self) {
@@ -127,7 +127,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
                 strMsg = "支付成功!"
                 print("retcode = \(resp.errCode), retstr = \(resp.errStr)")
 
-                NotificationCenter.default.post(Notification.init(name: Notification.Name(rawValue: "WXPaySuccessNotification")))
+                NotificationCenter.default.post(Notification.init(name: Notification.Name(rawValue: WXPaySuccessNotification)))
               break
             case -1 :
                 strMsg = "支付失败，请您重新支付!"
@@ -164,6 +164,31 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
     }
     
 
+    func application(_ application: UIApplication, didReceive notification: UILocalNotification) {
+        // 获取通知上绑定的信息
+        guard let dict = notification.userInfo else {
+//            deBugPrint(item: dict)
+            let vc = MessgaeCenterViewController()
+            self.window?.rootViewController?.didMove(toParentViewController: vc)
+            
+            return
+        }
+
+    }
+    
+    
+    func applicationProtectedDataDidBecomeAvailable(_ application: UIApplication) {
+        UIApplication.shared.applicationIconBadgeNumber = 0
+
+    }
+    func applicationWillEnterForeground(application: UIApplication) {
+        UIApplication.shared.applicationIconBadgeNumber = 0
+    }
+    
+    func applicationDidBecomeActive(application: UIApplication) {
+        UIApplication.shared.applicationIconBadgeNumber = 0
+    }
+    
     func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
         return WXApi.handleOpen(url, delegate: self)
     }

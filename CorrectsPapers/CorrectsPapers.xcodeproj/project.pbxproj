@@ -1527,11 +1527,11 @@
 			isa = PBXGroup;
 			children = (
 				186A48D720102D0C00824405 /* PersonnalViewController.swift */,
+				186A48CF20102D0C00824405 /* EditInfoViewController.swift */,
 				186A48CB20102D0C00824405 /* AboutUsViewController.swift */,
 				186A48CC20102D0C00824405 /* AddFriendViewController.swift */,
 				186A48CD20102D0C00824405 /* ApplyListViewController.swift */,
 				186A48CE20102D0C00824405 /* CreditRankViewController.swift */,
-				186A48CF20102D0C00824405 /* EditInfoViewController.swift */,
 				186A48D020102D0C00824405 /* IncomeViewController.swift */,
 				186A48D120102D0C00824405 /* LNChangePassWordVC.swift */,
 				186A48D220102D0C00824405 /* LNChangWayViewController.swift */,

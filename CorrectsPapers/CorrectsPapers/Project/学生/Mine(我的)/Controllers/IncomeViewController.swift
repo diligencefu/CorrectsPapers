@@ -7,17 +7,54 @@
 //
 
 import UIKit
+import SwiftyUserDefaults
+import SwiftyJSON
+import Alamofire
 
 class IncomeViewController: BaseViewController {
 
     var model = PersonalModel()
     var headView = IncomeHeadView()
-    
+    var orderNo = ""
+    var XBCount = CGFloat()
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
         addRechargeView()
         // Do any additional setup after loading the view.
+        
+        
+        //微信支付成功通知
+        NotificationCenter.default.addObserver(self, selector: #selector(receiveNitification(nitofication:)), name: NSNotification.Name(rawValue: WXPaySuccessNotification), object: nil)
+    }
+    
+    @objc func receiveNitification(nitofication:Notification) {
+        
+//        let params = ["SESSIONID":Defaults[userToken]!,
+//                      "mobileCode":mobileCode,
+//                      "orderNo":orderNo
+//            ] as [String : Any]
+//        self.view.beginLoading()
+//        deBugPrint(item: params)
+//        NetWorkStudentRechargeSuccess(params: params, callBack: { (flag,orderNo) in
+//            if flag {
+//                setToast(str: "充值成功")
+//
+//                let params =
+//                    [
+//                        "money":self.XBCount,
+//                        "SESSIONID":Defaults[userToken]!,
+//                        "mobileCode":Defaults[mCode]!
+//                        ] as [String:Any]
+//                NetWorkStudentUpdownAnswrs(params: params) { (flag) in
+//                    if flag {
+//                        self.refreshHeaderAction()
+//                    }
+//                    self.view.endLoading()
+//                }
+//            }
+//        })
     }
 
     override func requestData() {
@@ -56,19 +93,6 @@ class IncomeViewController: BaseViewController {
         headView.frame =  CGRect(x: 0, y: 0, width: kSCREEN_WIDTH, height: 685)
         headView.chooseImagesAction = {
             self.showRechargeView()
-            
-            
-//            let params =
-//                [
-//                    "money":"1000",
-//                    "SESSIONID":SESSIONID,
-//                    "mobileCode":mobileCode
-//                    ] as [String:Any]
-//            NetWorkStudentUpdownAnswrs(params: params) { (flag) in
-//                if flag {
-//                    self.refreshHeaderAction()
-//                }
-//            }
         }
         
         mainTableView = UITableView.init(frame: CGRect(x: 0,
@@ -183,7 +207,8 @@ class IncomeViewController: BaseViewController {
         rechargeView.rechargeAction = {
             
             if $0 {
-                MXWechatPayHandler.jump(toWxPaywithPrice: CGFloat(Float($1)!), andTypeName: "思而慧充值学币")
+                
+                self.requestForOrderNo(price: CGFloat(Float($1)!))
             }
             self.hiddenViews()
         }
@@ -199,6 +224,73 @@ class IncomeViewController: BaseViewController {
             self.rechargeView.transform = .init(translationX: 0, y: -y)
             self.BGView.alpha = 1
         }
+    }
+    
+    
+    func requestForOrderNo(price:CGFloat) {
+        
+        let params = ["SESSIONID":Defaults[userToken]!,
+                      "mobileCode":mobileCode,
+                      "totalFee":price
+            ] as [String : Any]
+        self.view.beginLoading()
+        
+        Alamofire.request(kPay_ByWeChar,
+                          method: .post, parameters: params,
+                          encoding: URLEncoding.default, headers: nil).responseJSON{ (response) in
+                            deBugPrint(item: response.result)
+                            switch response.result {
+                            case .success:
+                                if let j = response.result.value {
+                                    
+                                    //SwiftyJSON解析数据
+                                    let JSOnDictory = JSON(j)
+                                    let code =  JSOnDictory["code"].stringValue
+                                    let prepayid =  JSOnDictory["data"]["prepayid"].stringValue
+                                    let sign =  JSOnDictory["data"]["sign"].stringValue
+                                    let appid =  JSOnDictory["data"]["appid"].stringValue
+                                    let partnerid =  JSOnDictory["data"]["partnerid"].stringValue
+                                    let noncestr =  JSOnDictory["data"]["noncestr"].stringValue
+                                    let package =  JSOnDictory["data"]["package"].stringValue
+                                    let timestamp =  JSOnDictory["data"]["timestamp"].stringValue
+
+                                    if code == "1" {
+                                        let request = PayReq.init()
+                                        request.openID = appid
+                                        request.partnerId = partnerid
+                                        request.prepayId = prepayid
+                                        request.package = package
+                                        request.nonceStr = noncestr
+                                        request.sign = sign
+                                        request.timeStamp = UInt32(Int32(timestamp)!)
+                                        WXApi.send(request)
+                                    }else{
+                                        
+                                    }
+                                    
+                                }
+                                break
+                            case .failure(let error):
+                                deBugPrint(item: error)
+                            }
+        }
+        
+        
+        
+        
+        
+//        NetWorkStudentRechargeSuccess(params: params, callBack: { (flag,orderNo) in
+//            if flag {
+//                self.orderNo = orderNo
+//                self.XBCount = price
+//
+//                let request = PayReq.init()
+//
+//
+//                MXWechatPayHandler.jump(toWxPaywithPrice: 0.01, andTypeName: "思而慧充值学币", andOrderNo: orderNo)
+//            }
+//            self.view.endLoading()
+//        })
     }
     
 }

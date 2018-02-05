@@ -38,7 +38,76 @@ class UploadVideoViewController: BaseViewController ,UIAlertViewDelegate{
     
     //    MARK:提交
     @objc func submitAnswer(sender:UIBarButtonItem) {
-        addAlertTip()
+        
+        
+        if isAnswer {
+            addAlertTip()
+        }else{
+            let textfield1 = self.view.viewWithTag(100) as! UITextField
+            let textfield2 = self.view.viewWithTag(101) as! UITextField
+            let textfield3 = self.view.viewWithTag(102) as! UITextField
+            
+            let flag = UIApplication.shared.canOpenURL(StringToUTF_8InUrl(str: textfield3.text!))
+            
+            if !flag {
+                setToast(str: "网址无效")
+                return
+            }
+            
+            if textfield1.text?.count == 0 {
+                setToast(str: "请填写练习册章节")
+                return
+            }
+            
+            if textfield2.text?.count == 0 {
+                setToast(str: "请填写知识点简介")
+                return
+            }
+            
+            if priceTextfield.text?.count == 0 {
+                setToast(str: "请设置学币")
+                return
+            }
+            
+            self.view.beginLoading()
+            var params1 = [String : Any]()
+            
+            if currentType == 1 {
+                params1 =
+                    ["SESSIONID":Defaults[userToken]!,
+                     "mobileCode":mobileCode,
+                     "bookId":bookId,
+                     "counts":textfield1.text!,
+                     "title":textfield2.text!,
+                     "money":"1",
+                     "date":bookDate,
+                     "address":StringToUTF_8InUrl(str: textfield3.text!)
+                    ] as [String : Any]
+            }else{
+                params1 =
+                    ["SESSIONID":Defaults[userToken]!,
+                     "mobileCode":mobileCode,
+                     "bookId":bookId,
+                     "counts":textfield1.text!,
+                     "title":textfield2.text!,
+                     "money":"1",
+                     "address":StringToUTF_8InUrl(str: textfield3.text!)
+                    ] as [String : Any]
+            }
+            NetWorkTeacherAddTWorkUploadUploadPoints(params: params1, callBack: { (flag) in
+                if flag {
+                    
+                    setToast(str: "已提交")
+                    if self.addUrlBlock != nil {
+                        self.addUrlBlock!()
+                    }
+                    self.navigationController?.popViewController(animated: true)
+                }
+                self.view.endLoading()
+            })
+
+        }
+        
     }
     
     

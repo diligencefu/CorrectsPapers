@@ -75,7 +75,7 @@ class PersonnalViewController: BaseViewController {
                     Defaults[userArea] = self.model.user_area
                     Defaults[userId] = self.model.user_num
                     Defaults[userAccount] = OCTools.init().positiveFormat(self.model.coin_count!)
-                    Defaults[messageNum] = self.model.num
+                    Defaults[messageCount] = self.model.num
                     Defaults[userAccount] = self.model.coin_count
                     Defaults[userFriendCount] = self.model.friendCount
                     Defaults[userGrade] = self.model.user_fit_class
@@ -116,7 +116,7 @@ class PersonnalViewController: BaseViewController {
                     Defaults[userArea] = self.model.user_area
                     Defaults[userId] = self.model.user_num
                     Defaults[userAccount] = OCTools.init().positiveFormat(self.model.coin_count!)
-                    Defaults[messageNum] = self.model.num
+                    Defaults[messageCount] = self.model.num
                     Defaults[userAccount] = self.model.coin_count
                     Defaults[userFriendCount] = self.model.friendCount
                     Defaults[userGrade] = self.model.user_fit_class
@@ -171,8 +171,8 @@ class PersonnalViewController: BaseViewController {
             model.user_fit_class = "一年级"
         }
         
-        if Defaults[messageNum] != nil {
-            model.num = Defaults[messageNum]
+        if Defaults[messageCount] != nil {
+            model.num = Defaults[messageCount]
         }else{
             model.num = "1"
         }
@@ -475,7 +475,7 @@ class PersonnalViewController: BaseViewController {
                     Defaults[userArea] = self.model.user_area
                     Defaults[userId] = self.model.user_num
                     Defaults[userAccount] = OCTools.init().positiveFormat(self.model.coin_count!)
-                    Defaults[messageNum] = self.model.num
+                    Defaults[messageCount] = self.model.num
                     Defaults[userAccount] = self.model.coin_count
                     Defaults[userFriendCount] = self.model.friendCount
                     Defaults[userGrade] = self.model.user_fit_class

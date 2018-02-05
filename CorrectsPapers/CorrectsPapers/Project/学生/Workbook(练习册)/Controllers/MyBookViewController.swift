@@ -72,22 +72,23 @@ class MyBookViewController: BaseViewController{
     //    当数据为空的时候，显示提示
     func addImageWhenEmpty() {
         
-            emptyView = UIView.init(frame: CGRect(x: 0, y: 0, width: kSCREEN_WIDTH, height: kSCREEN_HEIGHT - 46))
-            emptyView.backgroundColor = kBGColor()
-            let imageView = UIImageView.init(frame: CGRect(x: 0, y: 0, width: 200 * kSCREEN_SCALE, height: 200 * kSCREEN_SCALE))
-            imageView.image = #imageLiteral(resourceName: "404_icon_default")
-            imageView.center = CGPoint(x: emptyView.centerX, y: emptyView.centerY - 200 * kSCREEN_SCALE)
-            emptyView.addSubview(imageView)
-            
-            let label = UILabel.init(frame: CGRect(x: 0, y: 0, width: kSCREEN_WIDTH, height: 18))
-            label.textAlignment = .center
-            label.textColor = kGaryColor(num: 163)
-            label.center = CGPoint(x: emptyView.centerX, y: emptyView.centerY-40)
-            label.font = kFont34
-            label.numberOfLines = 2
-            label.text = "暂时没有练习册"
-            emptyView.addSubview(label)
-        }
+        emptyView = UIView.init(frame: CGRect(x: 0, y: 0, width: kSCREEN_WIDTH, height: kSCREEN_HEIGHT - 46))
+        emptyView.backgroundColor = kBGColor()
+        let imageView = UIImageView.init(frame: CGRect(x: 0, y: 0, width: 200 * kSCREEN_SCALE, height: 200 * kSCREEN_SCALE))
+        imageView.image = #imageLiteral(resourceName: "404_icon_default")
+        imageView.center = CGPoint(x: emptyView.centerX, y: emptyView.centerY - 200 * kSCREEN_SCALE)
+        emptyView.addSubview(imageView)
+        
+        
+        let label = UILabel.init(frame: CGRect(x: 0, y: 0, width: kSCREEN_WIDTH, height: 18))
+        label.textAlignment = .center
+        label.textColor = kGaryColor(num: 163)
+        label.center = CGPoint(x: emptyView.centerX, y: emptyView.centerY-40)
+        label.font = kFont34
+        label.numberOfLines = 2
+        label.text = "暂时没有练习册"
+        emptyView.addSubview(label)
+    }
     
     
     //MARK:  ******代理 ：UITableViewDataSource,UITableViewDelegate
@@ -172,5 +173,9 @@ class MyBookViewController: BaseViewController{
         
         return "删除此作业"
     }
-}
+    
+    deinit {
+        deBugPrint(item: "控制器销毁")
+    }
 
+}

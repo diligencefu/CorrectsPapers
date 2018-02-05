@@ -12,7 +12,6 @@ import SwiftyUserDefaults
 class TClassViewController: BaseViewController {
     var emptyView = UIView()
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         rightBarButton()
@@ -100,12 +99,10 @@ class TClassViewController: BaseViewController {
             
             let createClass = TCreateClassViewController()
             self.navigationController?.pushViewController(createClass, animated: true)
-            
         }else{
             
             let searchClass = TSearchClassViewController()
             self.navigationController?.pushViewController(searchClass, animated: true)
-            
         }
         
     }

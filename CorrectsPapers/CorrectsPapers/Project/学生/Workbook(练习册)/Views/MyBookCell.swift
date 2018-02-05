@@ -71,9 +71,15 @@ class MyBookCell: UITableViewCell {
             correctTeacher.text = "未分配老师"
         }
         
-        bookState.text = kGetStateFromString(str:model.correcting_states!)
+        if model.correcting_states == "3" || model.correcting_states == "6"{
+            bookState.text = "退回"+"-"+model.reason
+        }else{
+            bookState.text = kGetStateFromString(str:model.correcting_states!)
+        }
+        
         bookState.textColor = kGetColorFromString(str: bookState.text!)
     }
+    
     
     
     override func setSelected(_ selected: Bool, animated: Bool) {

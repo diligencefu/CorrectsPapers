@@ -40,6 +40,8 @@ class BookDetailModel: BaseModel {
     var book_details_id : String!
     ///id
     var times : String!
+    ///退回原因
+    var reason : String!
 
 
     class func setValueForBookDetailModel(json: JSON) -> BookDetailModel {
@@ -60,6 +62,7 @@ class BookDetailModel: BaseModel {
         model.create_date = json["create_date"].stringValue
         model.book_details_id = json["book_details_id"].stringValue
         model.times = json["times"].stringValue
+        model.reason = json["reason"].stringValue
         return model
     }
     

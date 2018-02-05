@@ -29,7 +29,7 @@
 
 #pragma mark - Public Methods
 
-+ (void)jumpToWxPaywithPrice:(CGFloat)price andTypeName:(NSString *)typeName
++(void)jumpToWxPaywithPrice:(CGFloat)price andTypeName:(NSString *)typeName andOrderNo:(NSString *)orderNo
 {
     //============================================================
     // 支付流程实现
@@ -44,7 +44,7 @@
     NSString *str=[NSString stringWithFormat:@"%ld+%d",time(0),value];
     NSString *md5Str=[self md5:str];
     [[NSUserDefaults standardUserDefaults] setObject:md5Str forKey:WXOUTTRADENO];
-    NSString *orderNo   = md5Str;   //随机产生订单号用于测试，正式使用请换成你从自己服务器获取的订单号
+//    NSString *orderNo   = md5Str;   //随机产生订单号用于测试，正式使用请换成你从自己服务器获取的订单号
 //    NSString *orderNo   = [NSString stringWithFormat:@"%ld",time(0)];   //随机产生订单号用于测试，正式使用请换成你从自己服务器获取的订单号
     NSString *notifyUrl = @"http://wxpay.weixin.qq.com";// 交易结果通知网站此处用于测试，随意填写，正式使用时填写正确网站
     
@@ -101,7 +101,7 @@
              UInt32 timeStamp =[timeSp intValue];
              request.timeStamp= timeStamp;
              
-             // 签名加密
+             // 签名加密                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
              MXWechatSignAdaptor *md5 = [[MXWechatSignAdaptor alloc] init];
              
              request.sign=[md5 createMD5SingForPay:request.openID
@@ -109,14 +109,13 @@
                                           prepayid:request.prepayId
                                            package:request.package
                                           noncestr:request.nonceStr
-                                         timestamp:request.timeStamp];
-             
-             
+                                         timestamp:request.timeStamp];             
              // 调用微信
              [WXApi sendReq:request];
          }else
          {
 //             [MBProgressHUD showError:@"支付失败"];
+             
          }
          
      } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {

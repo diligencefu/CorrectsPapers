@@ -48,7 +48,6 @@ class CreateNotWorkViewController: BaseViewController,UIPickerViewDelegate,UIPic
     
     override func configSubViews() {
         
-        
         if non_exercise_Id.count==0 {
             self.navigationItem.title = "创建非练习册"
         }else{
@@ -462,7 +461,8 @@ class CreateNotWorkViewController: BaseViewController,UIPickerViewDelegate,UIPic
             let params = [
                 "SESSIONID":Defaults[userToken]!,
                 "mobileCode":mobileCode,
-                "non_exercise_Id":non_exercise_Id,
+                "bookId":non_exercise_Id,
+                "type":"2",
             ]
             deBugPrint(item: params)
             var nameArr = [String]()
@@ -470,7 +470,7 @@ class CreateNotWorkViewController: BaseViewController,UIPickerViewDelegate,UIPic
             nameArr.append("pre_photos2")
             self.view.beginLoading()
 
-            netWorkForAddNonExerciseNext(params: params, data: images, name: nameArr, success: { (datas) in
+            netWorkForUploadWorkBookSecondBulidBook(params: params, data: images, name: nameArr, success: { (datas) in
                 let json = JSON(datas)
                 
                 if json["code"].stringValue == "1" {

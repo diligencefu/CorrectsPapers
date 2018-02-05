@@ -87,6 +87,9 @@ class TShowBookCell: UITableViewCell {
         
         termDate.text = model.semester
         
+//        bookImage.image = UIImage.init(data: Data.init(contentsOf: NSURL.init(string: "你的图片地址") as! URL))
+        
+        
         bookImage.kf.setImage(with:  URL(string:model.cover_photo)!, placeholder: #imageLiteral(resourceName: "class_default"), options: nil, progressBlock: nil, completionHandler: nil)
         
         if model.subject_name == "生物" {

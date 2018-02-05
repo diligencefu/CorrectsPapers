@@ -119,6 +119,13 @@ class TEditInfoViewController: BaseViewController {
         
         self.navigationItem.title = "个人信息"
         
+        model.user_name = Defaults[username]
+        model.user_area = Defaults[userArea]
+        model.user_num = Defaults[userId]
+        model.user_fit_class = Defaults[userGrade]!
+        model.user_correct_subject = Defaults[correct_subject]
+        model.user_phone = Defaults[userPhone]
+        
         if model.haveIdentity == "no" && model.haveCeltyl == "no"{
             
             dataArr = [["我的头像"],["我的名称","联系方式","所在地区"],["批改科目","我的年级","工作时间"],["我的工号"],["身份证号码:",""],["教师资格证号:",""]]

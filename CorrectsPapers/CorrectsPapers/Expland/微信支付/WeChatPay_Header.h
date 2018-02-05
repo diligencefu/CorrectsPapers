@@ -18,9 +18,6 @@
 #define WX_APPSecret @"a475e492d8f21801df64a8ed9c006a5c"
 // 微信支付商户号
 #define MCH_ID  @"1493756792"
-// 安全校验码（MD5）密钥，商户平台登录账户和密码登录http://pay.weixin.qq.com
-// 平台设置的“API密钥”，为了安全，请设置为以数字和字母组成的32字符串。
-#define WX_PartnerKey @"LPJCdQIBADANBgkqhkiG9w8BAQEFAASC"
 
 
 #pragma mark -

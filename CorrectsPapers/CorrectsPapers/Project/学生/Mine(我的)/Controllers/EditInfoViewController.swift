@@ -29,6 +29,11 @@ class EditInfoViewController: BaseViewController {
         addTagsView()
     }
     
+    override func addHeaderRefresh() {
+        
+    }
+    
+    
     @objc func edittingInfoDone(sender:UIBarButtonItem) {
         
         self.navigationItem.rightBarButtonItem?.isEnabled = false

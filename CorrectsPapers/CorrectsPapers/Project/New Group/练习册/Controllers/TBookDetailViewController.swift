@@ -525,7 +525,6 @@ class TBookDetailViewController: BaseViewController,UITextFieldDelegate,UIAlertV
                 if searchArr.count == 0 {
                     let cell : UITableViewCell = tableView.dequeueReusableCell(withIdentifier: identyfierTable11, for: indexPath)
                     cell.textLabel?.text = "未找到关于“"+searchTextfield.text!+"”的作业"
-                    cell.detailTextLabel?.text = ""
                     cell.selectionStyle = .none
                     return cell
                 }else{

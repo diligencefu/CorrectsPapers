@@ -1,4 +1,4 @@
-  //
+   //
 //  NetWorkTools.swift
 //  Swift Test
 //
@@ -4826,6 +4826,72 @@ public func NetWorkStudentGetAllnon_exercise(params:[String:Any],callBack:((Arra
                         }
     }
   }
+
+  
+  
+  //MARK:充值学币
+  public func NetWorkStudentRecharge(params:[String:Any],callBack:@escaping (Bool,String)->()) ->  Void {
+    
+    Alamofire.request(kCreate_OderId,
+                      method: .post, parameters: params,
+                      encoding: URLEncoding.default, headers: nil).responseJSON{ (response) in
+                        deBugPrint(item: response.result)
+                        switch response.result {
+                        case .success:
+                            if let j = response.result.value {
+                                
+                                //SwiftyJSON解析数据
+                                let JSOnDictory = JSON(j)
+                                let code =  JSOnDictory["code"].stringValue
+                                if code == "0" {
+                                    callBack(false,"")
+                                    setToast(str: "获取订单失败")
+                                }else{
+                                    callBack(true,JSOnDictory["data"]["orderNo"].stringValue)
+                                }
+                                
+                            }
+                            break
+                        case .failure(let error):
+                            deBugPrint(item: error)
+                            setToast(str: "获取订单失败")
+                            callBack(false,"")
+                        }
+    }
+  }
+  
+  //MARK:充值学币
+  public func NetWorkStudentRechargeSuccess(params:[String:Any],callBack:@escaping (Bool,String)->()) ->  Void {
+    
+    Alamofire.request(kPay_ByWeChar,
+                      method: .post, parameters: params,
+                      encoding: URLEncoding.default, headers: nil).responseJSON{ (response) in
+                        deBugPrint(item: response.result)
+                        switch response.result {
+                        case .success:
+                            if let j = response.result.value {
+                                
+                                //SwiftyJSON解析数据
+                                let JSOnDictory = JSON(j)
+                                let code =  JSOnDictory["code"].stringValue
+                                let prepayid =  JSOnDictory["data"]["prepayid"].stringValue
+                                let sign =  JSOnDictory["data"]["sign"].stringValue
+                                if code == "0" {
+                                    callBack(false,"")
+                                }else{
+                                    callBack(true,prepayid)
+                                }
+                                
+                            }
+                            break
+                        case .failure(let error):
+                            deBugPrint(item: error)
+                            callBack(false,"")
+                        }
+    }
+  }
+  
+
 
 
 public func requestData(params:Any,callBack:((String)->())?) ->  Void {

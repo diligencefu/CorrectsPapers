@@ -43,6 +43,8 @@ class TShowStuWorksModel: NSObject {
     var book_details_id : String!
     //学生id
     var student_id : String!
+    //shijian
+    var create_date : String!
 
     
     class func setValueForTShowStuWorksModel(json: JSON) -> TShowStuWorksModel {
@@ -52,7 +54,7 @@ class TShowStuWorksModel: NSObject {
         model.user_num = json["user_num"].stringValue
         model.user_photo = json["user_photo"].stringValue
         model.scores = json["scores"].stringValue
-        model.correcting_time = json["correcting_time"].stringValue
+        model.correcting_time = json["create_date"].stringValue
         model.comment = json["comment"].stringValue
         model.photo = TNotWorkDetailModel.setValueForTeacherImages(json: json["photo"])
         
@@ -66,6 +68,7 @@ class TShowStuWorksModel: NSObject {
         model.book_details_id = json["book_details_id"].stringValue
         model.student_id = json["student_id"].stringValue
         model.state = json["correcting_states"].stringValue
+        model.create_date = json["create_date"].stringValue
         return model
     }
 

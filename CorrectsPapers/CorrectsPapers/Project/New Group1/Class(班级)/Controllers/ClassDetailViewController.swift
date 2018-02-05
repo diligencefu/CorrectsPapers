@@ -139,7 +139,6 @@ class ClassDetailViewController: BaseViewController,UITextFieldDelegate {
             
             let kWidth = getLabWidth(labelStr: typeArr[index], font: kFont32, height: kHeight) + 10
             totalWidth += kWidth
-            
         }
         
         let kSpace = CGFloat(kSCREEN_WIDTH - totalWidth)/CGFloat(typeArr.count+1)
@@ -156,7 +155,7 @@ class ClassDetailViewController: BaseViewController,UITextFieldDelegate {
             contentWidth += kWidth
             markBtn.tag = 131 + index
             buttonView.addSubview(markBtn)
-        }
+            }
         
         let line = UIView.init(frame: CGRect(x: 0, y: 88 * kSCREEN_SCALE+1 , width: kSCREEN_WIDTH, height: 1))
         line.backgroundColor = kGaryColor(num: 223)

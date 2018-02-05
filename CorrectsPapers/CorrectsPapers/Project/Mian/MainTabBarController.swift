@@ -8,6 +8,7 @@
 
 import UIKit
 import SwiftyUserDefaults
+import UserNotifications
 
 
 
@@ -112,7 +113,7 @@ class MainTabBarController: UITabBarController {
             self.viewControllers = [Nav0,Nav1,Nav2,Nav3]
         }
         
-        _ = Timer.scheduledTimer(timeInterval: 2000, target: self, selector: #selector(countDown(timer:)), userInfo: nil, repeats: true)
+        _ = Timer.scheduledTimer(timeInterval: 20, target: self, selector: #selector(countDown(timer:)), userInfo: nil, repeats: true)
 
         let params = [
             "SESSIONID":Defaults[userToken]!,
@@ -188,13 +189,61 @@ class MainTabBarController: UITabBarController {
                     
                     if Int(self.model.num)! > Int(Defaults[messageCount]!)! {
                         setToast(str: "你有"+String(Int(self.model.num)!-Int(Defaults[messageCount]!)!)+"条新的通知消息")
+//                        self.addNotification(message: "你有"+String(Int(self.model.num)!-Int(Defaults[messageCount]!)!)+"条新的通知消息")
                     }
                     Defaults[messageCount] = self.model.num
-                    
                 }
             }
         }
     }
+    
+    
+    func addNotification(message:String) {
+        
+//        // 初始化一个通知
+//        let localNoti = UILocalNotification()
+//        // 通知的触发时间，例如即刻起15分钟后
+//        let fireDate = NSDate().addingTimeInterval(0)
+//        localNoti.fireDate = fireDate as Date
+//        // 设置时区
+//        localNoti.timeZone = NSTimeZone.default
+//        // 通知上显示的主题内容
+//        localNoti.alertBody = "通知消息"
+//        // 收到通知时播放的声音，默认消息声音
+//        localNoti.soundName = UILocalNotificationDefaultSoundName
+//        //待机界面的滑动动作提示
+//        localNoti.alertAction = message
+//        // 应用程序图标右上角显示的消息数
+//        localNoti.applicationIconBadgeNumber = 0
+//        // 通知上绑定的其他信息，为键值对
+//        localNoti.userInfo = ["id": "1",  "name": "xxxx"]
+//        // 添加通知到系统队列中，系统会在指定的时间触发
+//        UIApplication.shared.scheduleLocalNotification(localNoti)
+        
+        //MARK:  加一个本地通知
+        if #available(iOS 10.0, *) {
+            let content = UNMutableNotificationContent.init()
+            content.badge = 1
+            content.sound = UNNotificationSound.default()
+            content.title = "通知"
+            content.subtitle = "通知消息"
+            content.body = message
+            content.userInfo = ["url":"1"]
+            
+            let trigger = UNTimeIntervalNotificationTrigger.init(timeInterval: 5, repeats: false)
+            let nofi = UNNotificationRequest.init(identifier: "notification", content: content, trigger: trigger)
+            
+            UNUserNotificationCenter.current().add(nofi) { (error) in
+                print(nofi.content.userInfo)
+            }
+            
+
+        } else {
+            // Fallback on earlier versions
+        }
+        
+    }
+    
 
     func unSelectedTapTabBarItems(tabBarItem:UITabBarItem) {
         tabBarItem.setTitleTextAttributes([NSAttributedStringKey.font: UIFont.systemFont(ofSize: 12),NSAttributedStringKey.foregroundColor:UIColor.lightGray], for: .normal);

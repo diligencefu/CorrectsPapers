@@ -81,11 +81,12 @@ class TPersonalViewController: BaseViewController {
                     Defaults[userArea] = self.model.user_area
                     Defaults[userId] = self.model.user_num
                     Defaults[userAccount] = OCTools.init().positiveFormat(self.model.coin_count!)
-                    Defaults[messageNum] = self.model.num
-                    Defaults[userAccount] = self.model.coin_count
+                    Defaults[messageCount] = self.model.num
+                    Defaults[userPhone] = self.model.user_phone
                     Defaults[userFriendCount] = self.model.friendCount
                     Defaults[userGrade] = self.model.user_fit_class
-                    
+                    Defaults[correct_subject] = self.model.user_correct_subject
+
                     if Int(self.model.num)! > 0{
                         if Int(self.model.num)!>99{
                             self.tabBarItem.badgeValue = "99+"
@@ -124,10 +125,11 @@ class TPersonalViewController: BaseViewController {
                     Defaults[userArea] = self.model.user_area
                     Defaults[userId] = self.model.user_num
                     Defaults[userAccount] = OCTools.init().positiveFormat(self.model.coin_count!)
-                    Defaults[messageNum] = self.model.num
+                    Defaults[messageCount] = self.model.num
                     Defaults[userAccount] = self.model.coin_count
                     Defaults[userFriendCount] = self.model.friendCount
                     Defaults[userGrade] = self.model.user_fit_class
+                    Defaults[correct_subject] = self.model.user_correct_subject
 
                     if Int(self.model.num)! > 0{
                         if Int(self.model.num)!>99{
@@ -178,8 +180,8 @@ class TPersonalViewController: BaseViewController {
             model.user_fit_class = "一年级"
         }
 
-        if Defaults[messageNum] != nil {
-            model.num = Defaults[messageNum]
+        if Defaults[messageCount] != nil {
+            model.num = Defaults[messageCount]
         }else{
             model.num = "1"
         }
@@ -469,11 +471,12 @@ class TPersonalViewController: BaseViewController {
                     Defaults[userArea] = self.model.user_area
                     Defaults[userId] = self.model.user_num
                     Defaults[userAccount] = OCTools.init().positiveFormat(self.model.coin_count!)
-                    Defaults[messageNum] = self.model.num
+                    Defaults[messageCount] = self.model.num
                     Defaults[userAccount] = self.model.coin_count
                     Defaults[userFriendCount] = self.model.friendCount
                     Defaults[userGrade] = self.model.user_fit_class
-                    
+                    Defaults[correct_subject] = self.model.user_correct_subject
+
                     if Int(self.model.num)! > 0{
                         if Int(self.model.num)!>99{
                             self.tabBarItem.badgeValue = "99+"

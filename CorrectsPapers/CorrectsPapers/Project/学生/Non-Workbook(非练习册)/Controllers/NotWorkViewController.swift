@@ -20,7 +20,6 @@ class NotWorkViewController: BaseViewController ,QLPreviewControllerDelegate,QLP
         addFooterRefresh()
         rightBarButton()
         
-        
 //        接收 学生撤回非练习册作业的通知
         NotificationCenter.default.addObserver(self, selector: #selector(receiveNitification(nitofication:)), name: NSNotification.Name(rawValue: SuccesscallBackNonWorkNotiS), object: nil)
     }
@@ -35,8 +34,8 @@ class NotWorkViewController: BaseViewController ,QLPreviewControllerDelegate,QLP
             [
                 "SESSIONID":Defaults[userToken]!,
                 "mobileCode":mobileCode,
-                "pageNo":"1",
-                ]
+                "pageNo":pageNum,
+                ] as [String : Any]
         self.view.beginLoading()
         NetWorkTeacherGetExerciseList(params: param) { (datas,flag) in
             if flag {
@@ -55,8 +54,8 @@ class NotWorkViewController: BaseViewController ,QLPreviewControllerDelegate,QLP
             [
                 "SESSIONID":Defaults[userToken]!,
                 "mobileCode":mobileCode,
-                "pageNo":"1",
-                ]
+                "pageNo":pageNum,
+                ] as [String : Any]
         self.view.beginLoading()
         NetWorkTeacherGetExerciseList(params: param) { (datas,flag) in
             if flag {

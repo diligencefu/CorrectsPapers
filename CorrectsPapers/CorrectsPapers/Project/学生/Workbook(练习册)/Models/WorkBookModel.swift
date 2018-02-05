@@ -68,6 +68,9 @@ class WorkBookModel: BaseModel {
     ///批改状态:1、未上传；2、未批改；3、退回；4已批改 5:错题 未批改 6错题退回 7错题已批改
     var correcting_states : String?
     
+    ///退回原因
+    var reason : String!
+
     class func setValueForWorkBookModel(json: JSON) -> WorkBookModel {
         
         let model = WorkBookModel()
@@ -91,6 +94,7 @@ class WorkBookModel: BaseModel {
         model.teacher_id = json["teacher_id"].stringValue
         model.edition_id = json["edition_id"].stringValue
         model.money = json["money"].stringValue
+        model.reason = json["reason"].stringValue
         return model
     }
 

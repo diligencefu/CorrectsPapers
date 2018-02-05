@@ -22,7 +22,7 @@ class GiveMarkView: UIView,UITextFieldDelegate,UITextViewDelegate {
     @IBOutlet weak var image5: UIButton!
     
     @IBOutlet weak var remark: UITextView!
-    var score = ""
+    var score = "1"
     
     
     
@@ -92,6 +92,11 @@ class GiveMarkView: UIView,UITextFieldDelegate,UITextViewDelegate {
     
 //    确定
     @IBAction func certainActionClick(_ sender: UIButton) {
+        
+        if remark.text.count == 0 {
+            setToast(str: "请输入评论内容")
+            return
+        }
         
         if selectBlock != nil {
             selectBlock!(remark.text,true,score)

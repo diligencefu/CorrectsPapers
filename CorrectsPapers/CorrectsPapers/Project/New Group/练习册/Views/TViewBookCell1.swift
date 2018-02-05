@@ -142,7 +142,8 @@ class TViewBookCell1: UITableViewCell {
         whereCome = 1
 
         bookTitle.text = model.result
-        
+//        timeLabel.text = model.create_date
+
         if model.correcting_states.count>0 {
             workState.text = kGetStateFromString(str: model.correcting_states)
         }else{

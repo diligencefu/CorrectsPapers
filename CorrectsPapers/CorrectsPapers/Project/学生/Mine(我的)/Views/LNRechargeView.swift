@@ -47,11 +47,11 @@ class LNRechargeView: UIView{
     
     @objc func textDidChanged(textField:UITextField) {
         
-        if Int(textField.text!) == nil {
+        if Float(textField.text!) == nil {
             return
         }
         
-        if Int(textField.text!)! > 1000 {
+        if Float(textField.text!)! > 1000 {
             setToast(str: "单次最高可充值1,000学币")
             textField.text = "1000"
             payCount.text = "需支付 ¥ "+OCTools.init().positiveFormat("1000")+"元"
@@ -63,6 +63,16 @@ class LNRechargeView: UIView{
     
     
     @IBAction func certainAction(_ sender: Any) {
+        
+        if coinCount.text == nil {
+            setToast(str: "请输入数字")
+            return
+        }
+        
+        if Float(coinCount.text!)! < 1 {
+            setToast(str: "最低充值1元")
+            return
+        }
         
         if rechargeAction != nil {
             rechargeAction!(true,coinCount.text!)

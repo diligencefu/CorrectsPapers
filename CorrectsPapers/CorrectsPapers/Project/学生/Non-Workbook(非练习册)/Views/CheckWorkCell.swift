@@ -88,7 +88,8 @@ class CheckWorkCell: UITableViewCell {
         doneMark.isHidden = true
         score.isHidden = true
         scoreImage.isHidden = true
-        
+        no_check.isHidden = false
+
         if model.result == nil || model.result.count == 0 {
             workDescrip.snp.updateConstraints { (make) in
                 make.height.equalTo(0)
@@ -113,7 +114,8 @@ class CheckWorkCell: UITableViewCell {
                     workImage2.kf.setImage(with:  URL(string:model.photo[1])!, placeholder: #imageLiteral(resourceName: "class_default"), options: nil, progressBlock: nil, completionHandler: nil)
                 }
             }
-            
+            no_check.text = "未批改"
+
             resubmit.isHidden = false
             resubmit.setTitle("撤回作业", for: .normal)
 
@@ -125,7 +127,7 @@ class CheckWorkCell: UITableViewCell {
                 }
             }
             resubmit.isHidden = true
-
+            no_check.text = "错题未批改"
         }
         complain.isHidden = true
     }
@@ -151,9 +153,11 @@ class CheckWorkCell: UITableViewCell {
                 make.height.equalTo(21)
             }
         }
-        correctTime.text = model.create_date
+        correctTime.text = model.correcting_time
 
-        no_check.text = "退回-照片模糊"
+        if model.reason != nil {
+            no_check.text = "退回-"+model.reason
+        }
         no_check.textColor = kSetRGBColor(r: 255, g: 78, b: 78)
         if model.correcting_states == "3" {
             if model.photo != nil {
@@ -199,7 +203,7 @@ class CheckWorkCell: UITableViewCell {
                 make.height.equalTo(21)
             }
         }
-        correctTime.text = model.create_date
+        correctTime.text = model.correcting_time
 
         teachermark.text = model.teacher_name
         
@@ -227,10 +231,17 @@ class CheckWorkCell: UITableViewCell {
                 workImage2.kf.setImage(with:  URL(string:model.photo[1])!, placeholder: #imageLiteral(resourceName: "class_default"), options: nil, progressBlock: nil, completionHandler: nil)
             }
         }
+        correctTime.text = model.correcting_time
 
         no_check.isHidden = true
         resubmit.isHidden = true
         doneMark.isHidden = true
+        label1.isHidden = false
+        teachermark.isHidden = false
+        remark.isHidden = false
+        score.isHidden = false
+        scoreImage.isHidden = false
+
     }
 
 //    都完成
@@ -242,6 +253,14 @@ class CheckWorkCell: UITableViewCell {
         no_check.isHidden = true
         resubmit.isHidden = true
         doneMark.isHidden = true
+        
+        label1.isHidden = false
+        teachermark.isHidden = false
+        remark.isHidden = false
+        score.isHidden = false
+        scoreImage.isHidden = false
+
+        
         no_check.snp.updateConstraints { (make) in
             make.width.equalTo(0)
         }
@@ -281,6 +300,8 @@ class CheckWorkCell: UITableViewCell {
         score.isHidden = true
         scoreImage.isHidden = true
         
+        no_check.isHidden = false
+
         if model.non_exercise_name == nil || model.non_exercise_name.count == 0 {
             workDescrip.snp.updateConstraints { (make) in
                 make.height.equalTo(0)
